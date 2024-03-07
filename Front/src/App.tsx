@@ -1,17 +1,16 @@
-import tw, { styled } from 'twin.macro';
-
-// const TestNavbar = styled.div`
-//   ${tw`
-//   flex
-//   p-4
-//   bg-blue-900
-//   justify-end
-//   `}
-//   color : white;
-// `;
+import KakaoMap from "./components/recommend/KakaoMap";
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 
 function App() {
-  return <></>;
+  return (
+  <>
+  <KakaoMap/>
+  </>
+  );
 }
 
 export default App;

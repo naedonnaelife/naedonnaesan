@@ -11,7 +11,8 @@ export default {
         black : '#000000',
         kakaoBlue : '#1A234E',
         kakaoYello : '#FFEB00'
-      }
+      },
+      
     },
   },
   plugins: [],

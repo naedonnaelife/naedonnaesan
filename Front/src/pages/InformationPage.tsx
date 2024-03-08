@@ -1,13 +1,23 @@
+import React from 'react';
+import tw, { styled } from 'twin.macro';
 import NavBar from '../utils/NavBar';
+import SideNews from '../components/information/SideNews.tsx';
+import Report from '../components/information/Report.tsx';
 
+const PageContainer = styled.main`
+  ${tw`flex w-screen h-screen`}
+`;
 
-function InformationPage() {
-    return (
+const InformationPage: React.FC = () => {
+  return (
     <>
-      <NavBar/>
+      <NavBar />
+      <PageContainer>
+        <SideNews />
+        <Report />
+      </PageContainer>
     </>
-    );
-  }
-  
-  export default InformationPage;
-  
+  );
+};
+
+export default InformationPage;

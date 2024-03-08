@@ -1,4 +1,5 @@
-import KakaoMap from "./components/recommend/KakaoMap";
+
+import AppRoutes from './AppRoutes.tsx';
 declare global {
   interface Window {
     kakao: any;
@@ -8,7 +9,7 @@ declare global {
 function App() {
   return (
   <>
-  <KakaoMap/>
+  <AppRoutes/>
   </>
   );
 }

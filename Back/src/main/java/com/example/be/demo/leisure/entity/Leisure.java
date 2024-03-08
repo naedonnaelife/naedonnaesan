@@ -17,7 +17,7 @@ public class Leisure {
     private Long leisureId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="dong_id")
+    @JoinColumn(name="dongId")
     private Dong dong;
 
     private int fitness;

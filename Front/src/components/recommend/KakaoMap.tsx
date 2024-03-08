@@ -1,105 +1,127 @@
 import { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 
-// Importing json files, make sure these paths are correct
-import dong from '../../datas/dong.json';
-import gu from '../../datas/gu.json';
+import newDong from '../../datas/newDong.json';
+import newGu from '../../datas/newGu.json'
+
+const Container = styled.div`
+  ${tw`flex relative h-screen w-screen`}
+`;
 
 const Map = styled.div`
-  ${tw`h-[1200px] w-[1200px]`}
+  ${tw`absolute bottom-0 right-0 h-[90%] w-[75%] border-4 border-black m-2 `}
 `;
 
 const { kakao } = window;
 
-// type polygon = {
-//     customOverlay : any,
-//     infoWindow : any,
-//     map : any
-// }
 
 const KakaoMap: React.FC = () => {
   useEffect(() => {
-    let customOverlay: any, infoWindow: any;
+    let customOverlay: any;
     let map: any;
 
-    const jsonProcessing = async (json: any) => {
+    const jsonProcessing = async (json: any, sig_cd:string|boolean) => {
+      let geoJson = json.features
+      if (sig_cd){
+        console.log('구 코드 : ', sig_cd)
+          geoJson = json.features.filter((e:any)=> e.properties.sgg === sig_cd)
+      }
+
       try {
-        console.log('테스트용 : ', json);
-        const newJson = json.features.map((unit: any) => {
+        const newJson = geoJson.map((unit: any) => {
           const name = unit.properties.SIG_KOR_NM ? unit.properties.SIG_KOR_NM : unit.properties.temp;
           const coordinates = unit.geometry.coordinates[0].map(
             (coordinate: any) => new kakao.maps.LatLng(coordinate[1], coordinate[0])
           );
-          return { name, coordinates };
+          const centerCoordinate = [unit.properties.x, unit.properties.y]
+          const sig_cd = unit.properties.SIG_CD
+          return { name, coordinates, centerCoordinate, sig_cd };
         });
-        createPolygon(map, newJson, customOverlay, infoWindow);
+        createPolygon(map, newJson, customOverlay);
       } catch (error) {
         console.error('json 가공 오류 : ', error);
       }
     };
 
-    const createPolygon = (map: any, newJson: any, customOverlay: any, infoWindow: any) => {
+    const createPolygon = (map: any, newJson: any, customOverlay: any) => {
+      // 테스트
+      const backgroundSW = new kakao.maps.LatLng(37, 126.5)
+      const backgroundNE = new kakao.maps.LatLng(38, 127.5)
+      const rectangleBounds  = new kakao.maps.LatLngBounds(backgroundSW, backgroundNE);
+  
+      const background = new kakao.maps.Rectangle({
+        bounds: rectangleBounds,
+        strokeWeight: 0,
+        strokeColor: '#ffffff', 
+        strokeOpacity: 1, 
+        strokeStyle: 'shortdashdot', 
+        fillColor: '#ffffff', 
+        fillOpacity: 1,
+
+    });
+
+    background.setMap(map)
+      //  테스트 끝
+
       newJson.forEach((unit: any) => {
         const polygon = new kakao.maps.Polygon({
           map: map,
           path: unit.coordinates,
-          strokeWeight: 2,
+          strokeWeight: 3,
           strokeColor: '#004c80',
           strokeOpacity: 0.8,
-          fillColor: '#fff',
+          fillColor: '#9A9A9A',
           fillOpacity: 0.7,
         });
         kakao.maps.event.addListener(polygon, 'mouseover', function (mouseEvent: any) {
-          polygon.setOptions({ fillColor: '#09f' });
+          polygon.setOptions({ fillColor: '#ED5565' });
           customOverlay.setContent('<div class="area">' + unit.name + '</div>');
           customOverlay.setPosition(mouseEvent.latLng);
           customOverlay.setMap(map);
         });
 
-        kakao.maps.event.addListener(polygon, 'mousemove', function (mouseEvent: any) {
-          customOverlay.setPosition(mouseEvent.latLng);
-        });
+        // kakao.maps.event.addListener(polygon, 'mousemove', function (mouseEvent: any) {
+        //   customOverlay.setPosition(mouseEvent.latLng);
+        // });
 
         kakao.maps.event.addListener(polygon, 'mouseout', function () {
-          polygon.setOptions({ fillColor: '#fff' });
+          polygon.setOptions({ fillColor: '#9A9A9A' });
           customOverlay.setMap(null);
         });
 
-        kakao.maps.event.addListener(polygon, 'click', function (mouseEvent: any) {
-          const content =
-            '<div class="info">' +
-            '   <div class="title">' +
-            unit.name +
-            '</div>' +
-            '   <div class="size">총 면적 : 약 ' +
-            Math.floor(polygon.getArea()) +
-            ' m<sup>2</sup></div>' +
-            '</div>';
+        kakao.maps.event.addListener(polygon, 'click', function () {
+
+          const level = map.getLevel() - 3
+          map.setCenter(new kakao.maps.LatLng(unit.centerCoordinate[1], unit.centerCoordinate[0]))
+          map.setLevel(level, {animate : {duration:500}})
+          jsonProcessing(newDong, unit.sig_cd)
           console.log('area : ', unit);
 
-          infoWindow.setContent(content);
-          infoWindow.setPosition(mouseEvent.latLng);
-          infoWindow.setMap(map);
         });
       });
     };
 
     const container = document.getElementById('map');
     const options = {
-      center: new kakao.maps.LatLng(37.5, 127.0), //지도의 중심좌표.
+      center: new kakao.maps.LatLng(37.56, 127.0),
       level: 9,
+      // draggable : false,
+      scrollwheel : false,
+      disableDoubleClickZoom  : false,
+
     };
 
     map = new kakao.maps.Map(container, options);
     customOverlay = new kakao.maps.CustomOverlay({});
-    infoWindow = new kakao.maps.InfoWindow({ removable: true });
 
-    jsonProcessing(gu);
+    jsonProcessing(newGu, false);
   }, []);
 
   return (
     <>
+    <Container>
       <Map id="map"></Map>
+    </Container>
     </>
   );
 };

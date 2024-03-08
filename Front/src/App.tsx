@@ -7,15 +7,15 @@ declare global {
   }
 }
 
-const AppContainer = styled.root`
+const AppContainer = styled.div`
   ${tw` font-jamsil`}
-`
+`;
 
 function App() {
   return (
-  <AppContainer>
-    <AppRoutes/>
-  </AppContainer>
+    <AppContainer>
+      <AppRoutes />
+    </AppContainer>
   );
 }
 

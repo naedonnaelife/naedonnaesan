@@ -4,15 +4,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        jamsil : ['TheJamsil5Bold', 'sans-serif']
+        jamsil: ['TheJamsil5Bold', 'sans-serif'],
       },
       colors: {
-        white : '#FFFFFF',
-        black : '#000000',
-        kakaoBlue : '#1A234E',
-        kakaoYello : '#FFEB00'
+        white: '#FFFFFF',
+        black: '#000000',
+        kakaoBlue: '#1A234E',
+        kakaoYellow: '#FFEB00',
       },
-      
     },
   },
   plugins: [],

@@ -4,7 +4,7 @@ import NavBar from '../utils/NavBar';
 import SideNews from '../components/information/SideNews.tsx';
 import Report from '../components/information/Report.tsx';
 
-const PageContainer = styled.main`
+const Main = styled.main`
   ${tw`flex w-screen h-screen`}
 `;
 
@@ -12,10 +12,10 @@ const InformationPage: React.FC = () => {
   return (
     <>
       <NavBar />
-      <PageContainer>
+      <Main>
         <SideNews />
         <Report />
-      </PageContainer>
+      </Main>
     </>
   );
 };

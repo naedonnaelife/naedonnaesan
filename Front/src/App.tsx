@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-const AppContainer = styled.root`
+const AppContainer = styled.div`
   ${tw` font-jamsil`}
 `
 

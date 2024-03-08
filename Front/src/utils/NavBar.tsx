@@ -6,7 +6,7 @@ const Navbar = styled.header`
 `
 
 const NavbarLink = styled(Link)`
-  ${tw` m-2 p-2 text-white font-bold hover:scale-105 hover:text-kakaoYello hover:border-b-2 hover:border-kakaoYello `}
+  ${tw` m-2 p-2 text-white font-bold hover:scale-105 hover:text-kakaoYellow hover:border-b-2 hover:border-kakaoYellow `}
 `
 
 function NavBar() {

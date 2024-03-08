@@ -4,12 +4,8 @@ import tw, { styled } from 'twin.macro';
 import newDong from '../../datas/newDong.json';
 import newGu from '../../datas/newGu.json'
 
-const Container = styled.div`
-  ${tw`flex relative h-screen w-screen`}
-`;
-
 const Map = styled.div`
-  ${tw`absolute bottom-0 right-0 h-[90%] w-[75%] border-4 border-black m-2 `}
+  ${tw`h-[100%] w-[75%] border-4 border-black m-2 `}
 `;
 
 const { kakao } = window;
@@ -119,9 +115,7 @@ const KakaoMap: React.FC = () => {
 
   return (
     <>
-    <Container>
       <Map id="map"></Map>
-    </Container>
     </>
   );
 };

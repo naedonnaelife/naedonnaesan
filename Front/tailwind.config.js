@@ -10,9 +10,9 @@ export default {
         white : '#FFFFFF',
         black : '#000000',
         kakaoBlue : '#1A234E',
-        kakaoYello : '#FFEB00'
+        kakaoYellow : '#FFEB00'
       },
-      
+
     },
   },
   plugins: [],

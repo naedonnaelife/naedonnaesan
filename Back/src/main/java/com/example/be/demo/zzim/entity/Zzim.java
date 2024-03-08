@@ -1,4 +1,4 @@
-package com.example.be.demo.like.entity;
+package com.example.be.demo.zzim.entity;
 
 import com.example.be.demo.dong.entity.Dong;
 import com.example.be.demo.user.entity.User;
@@ -18,7 +18,7 @@ public class Zzim {
     @Column(name = "zzim_id")
     private Long zzimId;
 
-    // 여러 like : 하나의 dong
+    // 여러 zzim : 하나의 dong
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="dongId")
     private Dong dong;

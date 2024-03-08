@@ -1,6 +1,6 @@
 package com.example.be.demo.user.entity;
 
-import com.example.be.demo.like.entity.Zzim;
+import com.example.be.demo.zzim.entity.Zzim;
 import com.example.be.demo.report.entity.Report;
 import lombok.AccessLevel;
 import lombok.Getter;

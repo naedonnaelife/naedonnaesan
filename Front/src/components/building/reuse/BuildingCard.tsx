@@ -1,4 +1,3 @@
-import React from 'react';
 import tw, { styled } from 'twin.macro';
 import garma from '../../../assets/garma.jpg';
 
@@ -14,25 +13,25 @@ const ContentWrapper = styled.article`
 const CardImage = styled.img`
   ${tw`w-full h-full object-cover`}
 `;
-const NewsTitle = styled.h1`
+const Price = styled.h1`
   ${tw`text-lg font-bold`}
 `;
-const NewsContent = styled.p`
+const Content = styled.p`
   ${tw`text-sm`}
 `;
 
-const NewsCard: React.FC = () => {
+const BuildingCard: React.FC = () => {
   return (
     <CardWrapper>
       <ImageWrapper>
         <CardImage src={garma} alt="garma" />
       </ImageWrapper>
       <ContentWrapper>
-        <NewsTitle>뉴스 제목</NewsTitle>
-        <NewsContent>and 내용내용내용</NewsContent>
+        <Price>월세 3000/55</Price>
+        <Content>종로구 사직동</Content>
       </ContentWrapper>
     </CardWrapper>
   );
 };
 
-export default NewsCard;
+export default BuildingCard;

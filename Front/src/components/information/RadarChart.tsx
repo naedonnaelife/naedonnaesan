@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import tw, { styled } from 'twin.macro';
 import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 
-const ChartContainer = styled.figure`
-  ${tw`flex h-[70%] justify-center`}
+const ChartWrapper = styled.figure`
+  ${tw`flex h-[60%] justify-center m-1`}
 `;
 
 const RadarChart: React.FC = () => {
@@ -37,9 +37,9 @@ const RadarChart: React.FC = () => {
     ],
   };
   return (
-    <ChartContainer>
+    <ChartWrapper>
       <Radar data={chartData} />
-    </ChartContainer>
+    </ChartWrapper>
   );
 };
 

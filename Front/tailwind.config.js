@@ -10,12 +10,14 @@ export default {
         white: '#FFFFFF',
         black: '#000000',
         gray: '#D5D5D5',
-        red:'#FF0505',
+        red: '#FF0505',
         kakaoBlue: '#1A234E',
         kakaoYellow: '#FFEB00',
       },
+      height: {
+        'full-nav': 'calc(100% - 75px)',
+      },
     },
-    
   },
   plugins: [],
 };

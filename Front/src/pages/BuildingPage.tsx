@@ -1,11 +1,10 @@
 import tw, { styled } from 'twin.macro';
 import SideBuilding from '../components/building/SideBuilding.tsx';
-import KakaoMap from '../components/building/KakaoMap.tsx'
+import KakaoMap from '../components/building/KakaoMap.tsx';
 import NavBar from '../utils/NavBar';
 
-
 const Main = styled.main`
-  ${tw`flex w-screen h-screen`}
+  ${tw`flex w-screen h-full-nav`}
 `;
 
 function BuildingPage() {

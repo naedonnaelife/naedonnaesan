@@ -2,7 +2,7 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import news from '../../assets/news.jpg';
 
-const NewsContainer = styled.article`
+const NewsWrapper = styled.article`
   ${tw`h-[90%] border border-black`}
 `;
 const NewsTitle = styled.h1`
@@ -27,11 +27,11 @@ const content: string = `스타벅스 코리아(대표 손정현)가 카카오 �
 
 const ReportNews: React.FC = () => {
   return (
-    <NewsContainer>
+    <NewsWrapper>
       <NewsTitle>뉴스 내용의 타이틀 !</NewsTitle>
       <NewsImage src={news} alt="news" />
       <NewsContent>{content}</NewsContent>
-    </NewsContainer>
+    </NewsWrapper>
   );
 };
 

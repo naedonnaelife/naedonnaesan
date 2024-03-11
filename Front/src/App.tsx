@@ -8,7 +8,7 @@ declare global {
 }
 
 const AppContainer = styled.div`
-  ${tw` font-jamsil`}
+  ${tw` font-jamsil h-screen`}
 `;
 
 function App() {

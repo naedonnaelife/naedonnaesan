@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
+import newDong from '../../datas/newDong.json';
 
 const Map = styled.div`
   ${tw`h-[100%] w-[75%] border-4 border-black my-2`}
@@ -7,29 +8,40 @@ const Map = styled.div`
 
 const { kakao } = window;
 
+// 연결 후 props로  temp, x, y 좌표 넘어옴 !
+const temp = '종로구 사직동';
+const x = 126.9701436944;
+const y = 37.574108046;
 
 const KakaoMap: React.FC = () => {
-  useEffect(()=> {
+  useEffect(() => {
+    const container = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(y, x),
+      level: 4,
+      draggable: true,
+      scrollwheel: true,
+      disableDoubleClickZoom: true,
+    };
+    const map = new kakao.maps.Map(container, options);
+    const selectedDong: any = newDong.features.find((dong: any) => dong.properties.temp === temp);
 
+    const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
+      return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
+    });
 
-  const container = document.getElementById('map');
-  const options = {
-    center: new kakao.maps.LatLng(37.56, 127.0),
-    level: 3,
-    draggable : false,
-    scrollwheel : false,
-    disableDoubleClickZoom  : false,
-
-  };
-  const map = new kakao.maps.Map(container, options);
-
+    const polygon = new kakao.maps.Polygon({
+      path: polygonPath,
+      strokeWeight: 4,
+      strokeColor: '#000000',
+      strokeOpacity: 0.7,
+      fillColor: '#ffffff',
+      fillOpacity: 0.3,
+    });
+    polygon.setMap(map);
   }, []);
 
-  return (
-    <>
-      <Map id="map"></Map>
-    </>
-  );
+  return <Map id="map"></Map>;
 };
 
 export default KakaoMap;

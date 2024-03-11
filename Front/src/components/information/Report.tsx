@@ -6,7 +6,7 @@ import TableChart from './TableChart.tsx';
 import TextBox from './TextBox.tsx';
 
 const ReportWrapper = styled.section`
-  ${tw`w-[70%] border-2 m-2 p-1`}
+  ${tw`w-[75%] border-2 h-[100%] p-2`}
 `;
 
 const Report: React.FC = () => {

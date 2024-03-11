@@ -2,7 +2,7 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 const TableContainer = styled.figure`
-  ${tw`border-2`}
+  ${tw`border-2 m-1`}
 `;
 const Table = styled.table`
   ${tw`min-w-full text-center text-sm`}

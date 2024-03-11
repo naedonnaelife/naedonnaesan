@@ -13,6 +13,8 @@ export default {
         red: '#FF0505',
         kakaoBlue: '#1A234E',
         kakaoYellow: '#FFEB00',
+        dongButton: '#C9A48C',
+        dongButtonHover: '#967967',
       },
       height: {
         'full-nav': 'calc(100% - 75px)',

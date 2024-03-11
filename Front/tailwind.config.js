@@ -7,13 +7,15 @@ export default {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
       },
       colors: {
-        white : '#FFFFFF',
-        black : '#000000',
-        kakaoBlue : '#1A234E',
-        kakaoYellow : '#FFEB00'
+        white: '#FFFFFF',
+        black: '#000000',
+        gray: '#D5D5D5',
+        red:'#FF0505',
+        kakaoBlue: '#1A234E',
+        kakaoYellow: '#FFEB00',
       },
-
     },
+    
   },
   plugins: [],
 };

@@ -3,13 +3,8 @@ import NavBar from '../utils/NavBar';
 import SideRecommend from '../components/recommend/SideRecommend';
 import KakaoMap from '../components/recommend/KakaoMap'
 
-
-// const Container = styled.div`
-//   ${tw`flex flex-col h-screen w-screen`}
-// `;
-
 const Main = styled.main`
-  ${tw`flex relative h-screen w-screen`}
+  ${tw`flex relative h-screen w-screen `}
 `
 
 function RecommendPage() {

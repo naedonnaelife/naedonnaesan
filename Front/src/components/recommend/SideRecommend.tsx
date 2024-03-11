@@ -3,7 +3,7 @@ import RecommendList from '../../utils/RecommendList';
 import SelectInfra from './SelectInfra'
 
 const Aside = styled.aside`
-  ${tw`h-[100%] w-[25%] border-4 border-black m-2 `}
+  ${tw`h-[100%] w-[25%] border-4 border-black p-2 mx-2`}
 `;
 
 function SideRecommend() {

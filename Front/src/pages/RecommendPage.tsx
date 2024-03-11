@@ -4,7 +4,7 @@ import SideRecommend from '../components/recommend/SideRecommend';
 import KakaoMap from '../components/recommend/KakaoMap'
 
 const Main = styled.main`
-  ${tw`flex relative h-screen w-screen `}
+  ${tw`flex relative h-full-nav w-screen p-2 `}
 `
 
 function RecommendPage() {

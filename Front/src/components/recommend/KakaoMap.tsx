@@ -5,7 +5,7 @@ import newDong from '../../datas/newDong.json';
 import newGu from '../../datas/newGu.json'
 
 const Map = styled.div`
-  ${tw`h-[100%] w-[75%] border-4 border-black m-2 `}
+  ${tw`h-[100%] w-[75%] border-4 border-black p-2 mx-2 `}
 `;
 
 const { kakao } = window;

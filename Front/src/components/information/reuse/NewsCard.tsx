@@ -2,13 +2,13 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import garma from '../../../assets/garma.jpg';
 
-const CardContainer = styled.div`
+const CardWrapper = styled.div`
   ${tw`flex w-[100%] h-[15%] border-2 p-1 mt-2 border-black`}
 `;
-const ImageContainer = styled.div`
+const ImageWrapper = styled.div`
   ${tw`w-[40%] h-full p-1`}
 `;
-const ContentContainer = styled.article`
+const ContentWrapper = styled.article`
   ${tw`w-[60%]`}
 `;
 const CardImage = styled.img`
@@ -23,15 +23,15 @@ const NewsContent = styled.p`
 
 const NewsCard: React.FC = () => {
   return (
-    <CardContainer>
-      <ImageContainer>
+    <CardWrapper>
+      <ImageWrapper>
         <CardImage src={garma} alt="garma" />
-      </ImageContainer>
-      <ContentContainer>
+      </ImageWrapper>
+      <ContentWrapper>
         <NewsTitle>뉴스 제목</NewsTitle>
         <NewsContent>and 내용내용내용</NewsContent>
-      </ContentContainer>
-    </CardContainer>
+      </ContentWrapper>
+    </CardWrapper>
   );
 };
 

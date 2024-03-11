@@ -3,27 +3,27 @@ import NavBar from '../utils/NavBar';
 import Card from '../components/entry/reuse/Card'
 
 const Main = styled.main`
-  ${tw`flex flex-col h-full w-screen `}
+  ${tw`flex flex-col h-full-nav w-full`}
 `
 
 const EntryWrapper = styled.div`
-  ${tw`flex flex-col justify-center items-center h-full w-full`}
+  ${tw`flex flex-col justify-center items-center h-[50%] mb-20`}
   `
   
 const Login = styled.button`
-    ${tw`bg-gray rounded-lg p-2 my-2 ml-auto `}
+    ${tw` h-[20%] bg-gray rounded-lg text-2xl p-2 my-2 ml-auto `}
   `
 
 const Title = styled.h1`
-  ${tw`text-lg my-2`}
+  ${tw` h-[60%] text-3xl my-2`}
 `
 
 const Start = styled.button`
-  ${tw`bg-kakaoYellow rounded-lg p-2 my-2`}
+  ${tw` h-[20%] bg-kakaoYellow rounded-lg text-2xl p-2 my-2`}
 ` 
 
 const ServiceWrapper = styled.section`
-  ${tw`flex flex-col justify-center items-center relative h-full w-full`}
+  ${tw`flex flex-col justify-center items-center relative h-[50%]`}
 `
 
 function EntryPage() {

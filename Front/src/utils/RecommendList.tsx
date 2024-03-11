@@ -18,7 +18,7 @@ ${tw`flex justify-between border-2 border-gray rounded-sm mx-2 my-1 p-2`}
 `
 
 const Index = styled.h3`
-${tw` flex-c w-[10%] bg-gray rounded-lg text-center`}
+${tw` flex justify-center items-center w-[10%] bg-gray rounded-lg text-center`}
 `
 
 
@@ -28,7 +28,7 @@ ${tw``}
 `
 
 const Like = styled.button`
-${tw`flex-c w-[30px] h-[30px] border-2 border-red rounded-full`}
+${tw`flex justify-center items-center w-[30px] h-[30px] border-2 border-red rounded-full`}
 `
 
 const RecommendList: React.FC = () => {

@@ -8,9 +8,13 @@ export default {
       },
       colors: {
         white : '#FFFFFF',
-        black : '#000000',
+        black: '#000000',
+        gray: '#D5D5D5',
+        red:'#FF0505',
         kakaoBlue : '#1A234E',
-        kakaoYellow : '#FFEB00'
+        kakaoYellow: '#FFEB00',
+        dongButton: '#C9A48C',
+        dongButtonHover: '#967967',
       },
 
     },

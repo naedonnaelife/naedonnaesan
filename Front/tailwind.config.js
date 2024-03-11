@@ -10,6 +10,7 @@ export default {
         white: '#FFFFFF',
         black: '#000000',
         gray: '#D5D5D5',
+        grayHover: '#464555',
         red: '#FF0505',
         kakaoBlue: '#1A234E',
         kakaoYellow: '#FFEB00',

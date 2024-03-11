@@ -5,9 +5,9 @@ const Search = styled.div`
 `;
 
 const InputText = styled.input`
-  ${tw`border-2 border-gray-300 h-10 px-5 pr-16 rounded-full focus:outline-gray-400`}
+  ${tw`border-2 border-gray h-10 px-5 pr-16 rounded-full focus:outline-grayHover`}
   ::placeholder {
-    ${tw`text-gray-600`}
+    ${tw`text-grayHover`}
   }
 `;
 

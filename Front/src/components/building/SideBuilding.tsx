@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro';
 import BuildingCard from './reuse/BuildingCard.tsx';
 
 const Aside = styled.aside`
-  ${tw`h-[100%] w-[25%] border-2 m-2 p-2`}
+  ${tw`h-[100%] w-[25%] border-2 p-2`}
 `;
 
 const testList = [1, 2, 3, 4];

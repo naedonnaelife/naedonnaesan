@@ -19,5 +19,22 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.flex-c': {
+          display: 'flex',
+          'justify-content': 'center',
+          'align-items': 'center',
+        },
+        '.flex-cc': {
+          display: 'flex',
+          'flex-direction': 'column',
+          'justify-content': 'center',
+          'align-items': 'center',
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 };

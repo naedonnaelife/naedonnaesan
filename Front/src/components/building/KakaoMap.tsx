@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro';
 import newDong from '../../datas/newDong.json';
 
 const Map = styled.div`
-  ${tw`h-[100%] w-[75%] border-4 border-black my-2`}
+  ${tw`h-[100%] w-[75%] border-4 border-black`}
 `;
 
 const { kakao } = window;

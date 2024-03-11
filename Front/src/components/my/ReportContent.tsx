@@ -6,16 +6,8 @@ const Backgroud = styled.div`
   ${tw`bg-white w-4/5 flex justify-around`}
 `;
 
-const DongList = styled.div`
-  ${tw`col-span-3`}
-`;
-
-const Dong = styled.div`
-  ${tw`text-xl col-span-1 `}
-`;
-
 const PreferenceList = styled.div`
-  ${tw`col-span-3 `}
+  ${tw``}
 `;
 
 const Preference = styled.div`
@@ -23,7 +15,7 @@ const Preference = styled.div`
 `;
 
 const Divider = styled.div`
-  ${tw`w-0.5 h-40 bg-gray my-4`}
+  ${tw`w-0.5 h-40 bg-gray`}
 `;
 
 const ReportContent: React.FC = () => {
@@ -31,12 +23,10 @@ const ReportContent: React.FC = () => {
     <>
       <Backgroud>
         <RecommendList />
-        <DongList>
-        </DongList>
         <Divider />
         <PreferenceList>
-          <Preference>선호 중요</Preference>
-          <Preference>선호 중요</Preference>
+          <Preference>보건 중요</Preference>
+          <Preference>치안 안중요</Preference>
           <Preference>선호 중요</Preference>
           <Preference>선호 중요</Preference>
           <Preference>선호 중요</Preference>

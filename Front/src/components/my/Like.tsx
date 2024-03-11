@@ -3,7 +3,6 @@ import tw, { styled } from "twin.macro";
 import SearchBar from "../../utils/SearchBar";
 import LikeList from "./LikeList";
 
-
 const LikeTop = styled.h1`
   ${tw`flex`}
 `;
@@ -17,9 +16,8 @@ const Like: React.FC = () => {
     <>
       <LikeTop>
         <LikeTitle>OOO님이 찜한 동네</LikeTitle>
-        <SearchBar/>
+        <SearchBar />
       </LikeTop>
-
       <LikeList />
     </>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 const TextWrapper = styled.div`
-  ${tw`border-2 flex-cc m-1`}
+  ${tw`flex-cc border-2 m-1`}
 `;
 const TestBox: React.FC = () => {
   return (

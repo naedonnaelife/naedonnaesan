@@ -2,19 +2,19 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 const TableContainer = styled.figure`
-  ${tw`border-2 m-1`}
+  ${tw`m-1`}
 `;
 const Table = styled.table`
-  ${tw`min-w-full text-center text-sm`}
+  ${tw`w-[100%] text-center text-sm`}
 `;
 const Thead = styled.thead`
-  ${tw`border-b border-neutral-200 bg-neutral-50 font-medium`}
+  ${tw`border-b-2 bg-gray`}
 `;
 const Tbody = styled.tbody`
   ${tw``}
 `;
 const TbodyTr = styled.tr`
-  ${tw`border-b-2 border-neutral-200 dark:border-white/10`}
+  ${tw`border-b-2`}
 `;
 
 const infraList = [

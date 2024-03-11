@@ -6,13 +6,13 @@ const CardWrapper = styled.div`
   ${tw`flex w-[100%] h-[15%] border-2 p-1 mt-2 border-black`}
 `;
 const ImageWrapper = styled.div`
-  ${tw`w-[40%] h-full p-1`}
+  ${tw`w-[40%] h-[100%] p-1`}
 `;
 const ContentWrapper = styled.article`
   ${tw`w-[60%]`}
 `;
 const CardImage = styled.img`
-  ${tw`w-full h-full object-cover`}
+  ${tw`w-[100%] h-[100%] object-cover`}
 `;
 const NewsTitle = styled.h1`
   ${tw`text-lg font-bold`}

@@ -4,7 +4,7 @@ import BuildingCard from './reuse/BuildingCard.tsx';
 import SearchBar from '../../utils/SearchBar.tsx';
 
 const Aside = styled.aside`
-  ${tw`flex-cc h-[100%] w-[25%] border-2 p-2`}
+  ${tw`flex-cc w-[25%] h-[100%] border-2 p-2`}
 `;
 
 const testList = [1, 2, 3, 4, 5, 6];

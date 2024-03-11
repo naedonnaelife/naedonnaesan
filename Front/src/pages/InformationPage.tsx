@@ -5,7 +5,7 @@ import SideNews from '../components/information/SideNews.tsx';
 import Report from '../components/information/Report.tsx';
 
 const Main = styled.main`
-  ${tw`flex w-screen h-screen`}
+  ${tw`flex w-screen h-full-nav`}
 `;
 
 const InformationPage: React.FC = () => {

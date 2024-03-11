@@ -4,7 +4,7 @@ import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler,
 import { Radar } from 'react-chartjs-2';
 
 const ChartWrapper = styled.figure`
-  ${tw`flex h-[60%] justify-center m-1`}
+  ${tw`flex h-[50%] justify-center m-1 border-2`}
 `;
 
 const RadarChart: React.FC = () => {

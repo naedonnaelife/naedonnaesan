@@ -39,5 +39,6 @@ export default {
       };
       addUtilities(newUtilities);
     },
+    
   ],
 };

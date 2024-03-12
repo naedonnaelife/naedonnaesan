@@ -14,19 +14,21 @@ const Title = styled.h1`
 `;
 
 const Dong = styled.button`
-    ${tw`bg-dongButton hover:bg-dongButtonHover px-4 mr-2 rounded-full h-8`}
+    ${tw`h-8 rounded-full bg-dongButton px-4 mr-2 hover:bg-dongButtonHover`}
 `;
 
-const dongs = ["OO동", "ㅁㅁ동", "ㅂㅂ동"];
+const likeDongs = ["역삼1동", "도곡2동", "성수1가1동"];
 
 const DongAdd: React.FC = () => {
+
+
     return (
         <div>
             <Wrapper>
                 <LikeDongWrapper>
                     <Title>찜한동네</Title>
-                    {dongs.map((dong, i) => (
-                        <Dong key={i}>{dong}</Dong>
+                    {likeDongs.map((dong, i) => (
+                        <Dong key={i} >{dong}</Dong>
                     ))}
                 </LikeDongWrapper>
                 <SearchBar />

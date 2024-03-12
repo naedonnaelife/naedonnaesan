@@ -11,14 +11,20 @@ const Wrapper = styled.main`
   ${tw`col-span-10 col-start-2 bg-amber-50`}
 `;
 
+const Content = styled.main`
+  ${tw`mx-20 `}
+`;
+
 function MyPage() {
   return (
     <>
       <NavBar />
       <Main>
         <Wrapper>
-          <Report />
-          <Like/>
+          <Content>
+            <Report />
+            <Like />
+          </Content>
         </Wrapper>
       </Main>
     </>

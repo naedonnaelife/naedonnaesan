@@ -3,34 +3,40 @@ import tw, { styled } from "twin.macro";
 import RecommendList from "../../utils/RecommendList";
 
 const Backgroud = styled.div`
-  ${tw`bg-white w-4/5 flex justify-around`}
+  ${tw`flex justify-around bg-white`}
 `;
 
-const PreferenceList = styled.div`
-  ${tw``}
+const RecommendWrapper = styled.div`
+  ${tw`w-[45%] h-full text-center`}
+`;
+
+const PreferenceWrapper = styled.div`
+  ${tw`flex flex-col justify-center w-[45%]`}
 `;
 
 const Preference = styled.div`
-  ${tw`text-xl`}
+  ${tw`text-2xl`}
 `;
 
 const Divider = styled.div`
-  ${tw`w-0.5 h-40 bg-gray`}
+  ${tw`w-0.5 bg-gray`}
 `;
 
 const ReportContent: React.FC = () => {
   return (
     <>
       <Backgroud>
-        <RecommendList />
+        <RecommendWrapper>
+          <RecommendList />
+        </RecommendWrapper>
         <Divider />
-        <PreferenceList>
-          <Preference>보건 중요</Preference>
-          <Preference>치안 안중요</Preference>
-          <Preference>선호 중요</Preference>
-          <Preference>선호 중요</Preference>
-          <Preference>선호 중요</Preference>
-        </PreferenceList>
+        <PreferenceWrapper>
+          <Preference>🥰 치안이 중요해요</Preference>
+          <Preference>🥰 식당이 중요해요</Preference>
+          <Preference>😀 보건시설은 적당히 필요해요</Preference>
+          <Preference>😐 문화시설은 없어도 괜찮아요</Preference>
+          <Preference>😐 편의시설은 없어도 괜찮아요</Preference>
+        </PreferenceWrapper>
       </Backgroud>
     </>
   );

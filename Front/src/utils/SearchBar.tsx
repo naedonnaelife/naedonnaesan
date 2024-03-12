@@ -5,14 +5,14 @@ const Search = styled.div`
 `;
 
 const InputText = styled.input`
-  ${tw`border-2 border-gray h-10 px-5 pr-16 rounded-full focus:outline-grayHover`}
+  ${tw`h-10 border-2 border-gray rounded-full px-5 pr-16 focus:outline-grayHover`}
   ::placeholder {
     ${tw`text-grayHover`}
   }
 `;
 
 const AddButton = styled.button`
-  ${tw`absolute inset-y-0 right-0 flex items-center h-full px-2`}
+  ${tw`flex items-center absolute h-full inset-y-0 right-0 px-2`}
 `;
 
 function SearchBar() {

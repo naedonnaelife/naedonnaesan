@@ -3,7 +3,7 @@ import tw, { styled } from "twin.macro";
 import ReportContent from "./ReportContent";
 
 const ReportTitle = styled.h1`
-  ${tw`text-3xl font-bold`}
+  ${tw`text-3xl font-bold mx-5`}
 `;
 
 const Report: React.FC = () => {

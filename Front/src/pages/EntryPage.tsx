@@ -11,7 +11,7 @@ const EntryWrapper = styled.div`
 `;
 
 const LoginButton = styled.button`
-  ${tw` bg-gray rounded-lg text-2xl p-2 my-2 ml-auto `}
+  ${tw` bg-gray rounded-lg text-2xl my-2 ml-auto `}
 `;
 
 const EntryTitle = styled.h1`
@@ -19,7 +19,7 @@ const EntryTitle = styled.h1`
 `;
 
 const StartButton = styled.button`
-  ${tw`bg-kakaoYellow rounded-lg text-2xl p-2 my-2`}
+  ${tw`bg-kakaoYellow rounded-lg text-2xl my-2`}
 `;
 
 function EntryPage() {

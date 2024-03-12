@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 import SideBuilding from '../components/building/SideBuilding.tsx';
 import KakaoMap from '../components/building/KakaoMap.tsx';
@@ -8,12 +9,14 @@ const Main = styled.main`
 `;
 
 function BuildingPage() {
+  const location = useLocation()
+  console.log('props데이터 :', location)
   return (
     <>
       <NavBar />
       <Main>
         <SideBuilding />
-        <KakaoMap />
+        <KakaoMap areaName={location.state? location.state.areaName : '강남구 역삼2동'}/>
       </Main>
     </>
   );

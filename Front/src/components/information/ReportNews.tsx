@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro';
 import news from '../../assets/news.jpg';
 
 const NewsWrapper = styled.article`
-  ${tw`h-[90%] border border-black`}
+  ${tw`h-[90%] border border-black relative`}
 `;
 const NewsTitle = styled.h1`
   ${tw`text-2xl text-center font-bold`}
@@ -14,7 +14,9 @@ const NewsImage = styled.img`
 const NewsContent = styled.div`
   ${tw`text-left text-sm p-4`}
 `;
-
+const Button = styled.button`
+  ${tw`absolute right-2 top-1`}
+`;
 const content = `스타벅스 코리아(대표 손정현)가 카카오 프렌즈와 함께 협업 상품을 선보이며 봄 새 학기 시즌 스타벅스를 방문하는 고객들에게 새로운 경험을 제공한다.
 
 스타벅스는 이달 7일부터 다음 달 10일까지 전국 스타벅스 매장과 스타벅스 앱 온라인 스토어에서 카카오 프렌즈와 협업한 '마이 버디' 시리즈 MD 상품 총 12종을 판매한다.
@@ -25,9 +27,14 @@ const content = `스타벅스 코리아(대표 손정현)가 카카오 프렌즈
 스타벅스 김범수 마케팅 담당은 "이번 카카오 프렌즈와의 협업 상품인 춘식이와 라이언 시리즈를 통해 스타벅스를 방문하는 고객들이 색다른 재미를 경험하길 희망한다"며 "앞으로도 다양한 협업 상품 출시를 통해 폭넓은 즐거움을 선사할 예정"이라고 밝혔다.
 `;
 
-const ReportNews: React.FC = () => {
+interface NewsProps {
+  setIsNewsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
   return (
     <NewsWrapper>
+      <Button onClick={() => setIsNewsOpen(false)}>✖</Button>
       <NewsTitle>뉴스 내용의 타이틀 !</NewsTitle>
       <NewsImage src={news} alt="news" />
       <NewsContent>{content}</NewsContent>

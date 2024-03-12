@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import NavBar from '../utils/NavBar';
 import SideNews from '../components/information/SideNews.tsx';
@@ -9,12 +9,13 @@ const Main = styled.main`
 `;
 
 const InformationPage: React.FC = () => {
+  const [isNewsOpen, setIsNewsOpen] = useState<boolean>(false);
   return (
     <>
       <NavBar />
       <Main>
-        <SideNews />
-        <Report />
+        <SideNews setIsNewsOpen={setIsNewsOpen} />
+        <Report isNewsOpen={isNewsOpen} setIsNewsOpen={setIsNewsOpen} />
       </Main>
     </>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import SearchBar from '../../utils/SearchBar';
 import LikedDong from './reuse/LikedDong';
+import UserStore from '../../stores/UserStore';
 
 const LikeWrapper = styled.div`
   ${tw`w-[100%] border`}
@@ -23,10 +24,13 @@ const LikedDongList = {
 };
 
 const Like: React.FC = () => {
+
+  const { name } = UserStore();
+
   return (
     <LikeWrapper>
       <LikeTop>
-        <LikeTitle>OOO님이 찜한 동네</LikeTitle>
+        <LikeTitle>{ name }님이 찜한 동네</LikeTitle>
         <SearchBar />
       </LikeTop>
       <LikeContent>

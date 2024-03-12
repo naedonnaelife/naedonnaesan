@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
-
+import useSearchStore from '../../stores/SearchStore';
 import newDong from '../../datas/newDong.json';
 import newGu from '../../datas/newGu.json'
 
@@ -10,8 +11,10 @@ const Map = styled.div`
 
 const { kakao } = window;
 
-
 const KakaoMap: React.FC = () => {
+  const navigate = useNavigate()
+  const areaName = useSearchStore((state:any) => state.areaName)
+
   useEffect(() => {
     let customOverlay: any;
     let map: any;
@@ -41,8 +44,8 @@ const KakaoMap: React.FC = () => {
 
     const createPolygon = (map: any, newJson: any, customOverlay: any) => {
       // 테스트
-      const backgroundSW = new kakao.maps.LatLng(37, 126.5)
-      const backgroundNE = new kakao.maps.LatLng(38, 127.5)
+      const backgroundSW = new kakao.maps.LatLng(36, 126)
+      const backgroundNE = new kakao.maps.LatLng(39, 128)
       const rectangleBounds  = new kakao.maps.LatLngBounds(backgroundSW, backgroundNE);
   
       const background = new kakao.maps.Rectangle({
@@ -88,11 +91,14 @@ const KakaoMap: React.FC = () => {
         kakao.maps.event.addListener(polygon, 'click', function () {
 
           const level = map.getLevel() - 3
+          if(level === 3){
+            navigate('/building', {state : {areaName : unit.name}})
+          } else {
           map.setCenter(new kakao.maps.LatLng(unit.centerCoordinate[1], unit.centerCoordinate[0]))
           map.setLevel(level, {animate : {duration:500}})
           jsonProcessing(newDong, unit.sig_cd)
           console.log('area : ', unit);
-
+          }
         });
       });
     };
@@ -112,6 +118,13 @@ const KakaoMap: React.FC = () => {
 
     jsonProcessing(newGu, false);
   }, []);
+
+  useEffect(()=>{
+    const filterArea: any = newDong.features.find((dong: any) => dong.properties.temp === areaName);
+    console.log('필터 : ', filterArea, areaName)
+    kakao.map
+
+  }, [areaName])
 
   return (
     <>

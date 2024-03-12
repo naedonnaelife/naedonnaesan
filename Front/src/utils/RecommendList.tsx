@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import tw, { styled } from 'twin.macro';
+import useSearchStore from '../stores/SearchStore';
 
 const dummyData = {
-  response: ['서울특별시 성동구 성수 1동', '서울특별시 성동구 성수 2동', '서울특별시 성동구 성수 3동'],
+  response: ['성동구 성수1가1동', '성동구 성수1가2동', '중구 을지로동'],
 };
 
 const RecommendWrapper = styled.ul`
@@ -22,7 +23,7 @@ const Index = styled.h3`
 `;
 
 const TownName = styled.p`
-  ${tw``}
+  ${tw`cursor-pointer hover:scale-105 hover:text-red`}
 `;
 
 const Like = styled.button`
@@ -31,6 +32,7 @@ const Like = styled.button`
 
 const RecommendList: React.FC = () => {
   const [likeList, setLikeList] = useState([1, 2]);
+  const selectArea = useSearchStore((state:any) => state.selectedArea)
 
   const addLike = (index: number) => {
     setLikeList((prev) => [...prev, index]);
@@ -45,7 +47,7 @@ const RecommendList: React.FC = () => {
         {dummyData.response.map((element: string, index: number) => (
           <RecommendResult key={index}>
             <Index>{index + 1}</Index>
-            <TownName>{element}</TownName>
+            <TownName onClick={() => selectArea(element)}>서울특별시 {element}</TownName>
             {likeList.includes(index + 1) ? (
               <Like onClick={() => removeLike(index + 1)}>💗</Like>
             ) : (

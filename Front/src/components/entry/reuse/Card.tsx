@@ -1,41 +1,31 @@
 import tw, { styled } from 'twin.macro';
-import { keyframes } from 'styled-components';
 import cute from '../../../assets/test.png';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { keyframes } from 'styled-components';
 
 interface CardProps {
   index: number;
 }
 
-type heightProps = {
+type testProps = {
   height: string;
+  width: string;
 };
-
-const ani = () => keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 
 const CardWrapper = styled.figure`
   ${tw`flex relative w-[100%] border-2 border-green-500`}
-  ${({ height }: heightProps) => `height: ${height}px;`}
+  ${({ height }: testProps) => `height: ${height}px;`}
 `;
 
-const CardImage = styled.img<CardProps>`
+const CardImage = styled.img<testProps>`
   ${tw` absolute w-[50%] h-full border-2 border-black object-fill`}
-  ${({ width }) => `left: ${width}px;`}
+  ${({ width }: testProps) => `left: ${width}px;`}
 `;
-// ${({ width }) => `animation : ${ani(width)} 1s ease-in-out;`}
 
 const CaptionWrapper = styled.figcaption`
   ${tw`flex-cc absolute w-[50%] h-full  border-2 border-red `}
-  ${({ width }) => `left: ${width}px;`}
+  ${({ width }: testProps) => `left: ${width}px;`}
 `;
-// animation : ${ani('1000px')} 2s linear;
 
 const CardTitle = styled.h2`
   ${tw``}
@@ -50,17 +40,27 @@ const ServiceLink = styled.button`
 `;
 
 const Card: React.FC<CardProps> = ({ index }) => {
-  const [animate, setAnimate] = useState(false);
   const height = `${window.innerHeight}`;
   const width = `${window.innerWidth / 2}`;
+  const captionRef = useRef<any>(null);
+
+  const fadeIn = keyframes`
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+`
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
     console.log('스크롤 높이 : ', scrollY, '화면 전체 높이 : ', window.innerHeight, '인덱스 : ', index);
-    if (scrollY < 200 * window.innerHeight) {
-      setAnimate(true);
+    if (scrollY < window.innerHeight) {
+      console.log('스타일 : ', captionRef.current)
+      captionRef.current!.style.animation = `${fadeIn} 1s ease`;
     } else {
-      setAnimate(false);
+      console.log('hi')
     }
   };
 
@@ -75,9 +75,10 @@ const Card: React.FC<CardProps> = ({ index }) => {
   return (
     <>
       {index % 2 === 0 ? (
-        <CardWrapper height={height} animate={animate}>
-          <CardImage width={width} src={cute} alt="image" />
-          <CaptionWrapper>
+        <CardWrapper height={height}>
+          <div ref={captionRef}> ㅎㅇㅎㅇㅎㅇ </div>
+          <CardImage height={height} width={width} src={cute} alt="image" />
+          <CaptionWrapper >
             <CardTitle>동네 매물 보기</CardTitle>
             <CardContent> 동네 매물 보기 정보입니다 </CardContent>
             <ServiceLink>A서비스 바로가기</ServiceLink>
@@ -85,7 +86,7 @@ const Card: React.FC<CardProps> = ({ index }) => {
         </CardWrapper>
       ) : (
         <CardWrapper height={height}>
-          <CaptionWrapper width={width}>
+          <CaptionWrapper width={width} >
             <CardTitle>동네 매물 보기</CardTitle>
             <CardContent> 동네 매물 보기 정보입니다</CardContent>
             <ServiceLink>A서비스 바로가기</ServiceLink>

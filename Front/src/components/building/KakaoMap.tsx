@@ -2,17 +2,23 @@ import React, { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import newDong from '../../datas/newDong.json';
 
+interface KakaoMapProps {
+  areaName : string
+}
 const Map = styled.div`
   ${tw`w-[75%] h-[100%] border-2 border-black`}
 `;
 
 const { kakao } = window;
 
-const temp = '강남구 역삼2동';
-const selectedDong: any = newDong.features.find((dong: any) => dong.properties.temp === temp);
-const x = selectedDong.properties.x;
-const y = selectedDong.properties.y;
-const KakaoMap: React.FC = () => {
+
+
+const KakaoMap: React.FC<KakaoMapProps> = ({areaName}) => {
+
+  const selectedDong: any = newDong.features.find((dong: any) => dong.properties.temp === areaName);
+  const x = selectedDong.properties.x;
+  const y = selectedDong.properties.y;
+
   // 카카오톡 지도 생성
   useEffect(() => {
     const container = document.getElementById('map');

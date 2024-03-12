@@ -28,25 +28,13 @@ interface Props {
 
 const Like: React.FC<Props> = ({ likedDong }) => {
   const navigate = useNavigate();
-  // const [likeList, setLikeList] = useState([1, 2]);
 
-  // const addLike = (index: number) => {
-  //   setLikeList((prev) => [...prev, index]);
-  // };
-  // const removeLike = (index: number) => {
-  //   setLikeList((prev) => prev.filter((element) => element !== index));
-  // };
   return (
     <DongWrapper>
       <NameWrapper>{likedDong}</NameWrapper>
       <ButtonWrapper>
         <Button onClick={() => navigate('/building')}>매물</Button>
         <Button onClick={() => navigate('/information')}>정보</Button>
-        {/* {likeList.includes(index + 1) ? (
-            <LikeButton onClick={() => removeLike(index + 1)}>💗</LikeButton>
-          ) : (
-            <LikeButton onClick={() => addLike(index + 1)}>🤍</LikeButton>
-          )} */}
         <LikeButton>💗</LikeButton>
       </ButtonWrapper>
     </DongWrapper>

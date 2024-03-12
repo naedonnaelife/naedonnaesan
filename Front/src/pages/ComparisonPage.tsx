@@ -16,16 +16,18 @@ const Comparison = styled.section`
 
 function ComparisonPage() {
   const [category, setCategory] = useState<string | null>(null);
+  const [selected1, setSelected1] = useState<string | null>(null);
+  const [selected2, setSelected2] = useState<string | null>(null);
 
   return (
     <>
       <NavBar />
       <Main>
-        <DongAdd />
+        <DongAdd setSelected={setSelected1}/>
         <Comparison>
-          <Card />
+          <Card selected={selected1} />
           <Column setCategory={setCategory} />
-          <Card />
+          <Card selected={selected1}/>
         </Comparison>
         {category && <DetailGraph category={category} />}
       </Main>

@@ -1,5 +1,5 @@
-import tw, { styled } from 'twin.macro';
-import SearchBar from '../../utils/SearchBar';
+import tw, { styled } from "twin.macro";
+import SearchBar from "../../utils/SearchBar";
 
 const Wrapper = styled.h1`
   ${tw`flex justify-end w-[80%] relative`}
@@ -17,15 +17,20 @@ const Dong = styled.button`
   ${tw`h-8 rounded-full bg-dongButton px-4 mr-2 hover:bg-dongButtonHover`}
 `;
 
-const likeDongs = ['역삼1동', '도곡2동', '성수1가1동'];
+const likeDongs = ["역삼1동", "도곡2동", "성수1가1동"];
 
-const DongAdd: React.FC = () => {
+interface DongAddProps {
+  setSelected: (value: string | null) => void;
+}
+
+
+const DongAdd: React.FC<DongAddProps> = ({ setSelected }) => {
   return (
     <Wrapper>
       <LikeDongWrapper>
         <Title>찜한동네</Title>
         {likeDongs.map((dong, i) => (
-          <Dong key={i}>{dong}</Dong>
+          <Dong key={i} onClick={() => setSelected(dong)}>{dong}</Dong>
         ))}
       </LikeDongWrapper>
       <SearchBar />

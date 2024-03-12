@@ -1,7 +1,7 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-const TableContainer = styled.figure`
+const TableWrapper = styled.figure`
   ${tw`m-1`}
 `;
 const Table = styled.table`
@@ -13,7 +13,7 @@ const Thead = styled.thead`
 const Tbody = styled.tbody`
   ${tw``}
 `;
-const TbodyTr = styled.tr`
+const BodyTr = styled.tr`
   ${tw`border-b-2`}
 `;
 
@@ -31,7 +31,7 @@ const seoul: Record<string, number> = { safety: 3, leisure: 5, welfare: 1, trans
 
 const TableChart: React.FC = () => {
   return (
-    <TableContainer>
+    <TableWrapper>
       <Table>
         <Thead>
           <tr>
@@ -42,15 +42,15 @@ const TableChart: React.FC = () => {
         </Thead>
         <Tbody>
           {infraList.map((infra, index) => (
-            <TbodyTr key={index}>
+            <BodyTr key={index}>
               <td>{infra.name}</td>
               <td>{seoul[infra.category]}</td>
               <td>{selectedDong[infra.category]}</td>
-            </TbodyTr>
+            </BodyTr>
           ))}
         </Tbody>
       </Table>
-    </TableContainer>
+    </TableWrapper>
   );
 };
 

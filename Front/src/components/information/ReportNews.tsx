@@ -11,10 +11,10 @@ const NewsTitle = styled.h1`
 const NewsImage = styled.img`
   ${tw`w-[100%] h-[40%] object-cover`}
 `;
-const NewsContent = styled.div`
+const NewsContent = styled.p`
   ${tw`text-left text-sm p-4`}
 `;
-const Button = styled.button`
+const CloseButton = styled.button`
   ${tw`absolute right-2 top-1`}
 `;
 const content = `스타벅스 코리아(대표 손정현)가 카카오 프렌즈와 함께 협업 상품을 선보이며 봄 새 학기 시즌 스타벅스를 방문하는 고객들에게 새로운 경험을 제공한다.
@@ -34,7 +34,7 @@ interface NewsProps {
 const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
   return (
     <NewsWrapper>
-      <Button onClick={() => setIsNewsOpen(false)}>✖</Button>
+      <CloseButton onClick={() => setIsNewsOpen(false)}>✖</CloseButton>
       <NewsTitle>뉴스 내용의 타이틀 !</NewsTitle>
       <NewsImage src={news} alt="news" />
       <NewsContent>{content}</NewsContent>

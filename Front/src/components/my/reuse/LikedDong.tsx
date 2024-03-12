@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import tw, { styled } from "twin.macro";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import tw, { styled } from 'twin.macro';
+import { useNavigate } from 'react-router-dom';
 
-const DongWrapper = styled.div`
+const DongWrapper = styled.li`
   ${tw`flex bg-white text-xl`}
 `;
 
@@ -40,8 +40,8 @@ const Like: React.FC<Props> = ({ likedDong }) => {
     <DongWrapper>
       <NameWrapper>{likedDong}</NameWrapper>
       <ButtonWrapper>
-        <Button onClick={() => navigate("/building")}>매물</Button>
-        <Button onClick={() => navigate("/information")}>정보</Button>
+        <Button onClick={() => navigate('/building')}>매물</Button>
+        <Button onClick={() => navigate('/information')}>정보</Button>
         {/* {likeList.includes(index + 1) ? (
             <LikeButton onClick={() => removeLike(index + 1)}>💗</LikeButton>
           ) : (

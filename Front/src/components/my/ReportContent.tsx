@@ -1,25 +1,21 @@
-import React from "react";
-import tw, { styled } from "twin.macro";
-import RecommendList from "../../utils/RecommendList";
+import React from 'react';
+import tw, { styled } from 'twin.macro';
+import RecommendList from '../../utils/RecommendList';
 
 const Backgroud = styled.div`
   ${tw`flex justify-around bg-white`}
 `;
 
 const RecommendWrapper = styled.div`
-  ${tw`w-[45%] h-full text-center`}
+  ${tw`w-[50%] h-full text-center border-r-2 px-2 my-2`}
 `;
 
-const PreferenceWrapper = styled.div`
-  ${tw`flex flex-col justify-center w-[45%]`}
+const PreferenceWrapper = styled.ul`
+  ${tw`flex flex-col justify-center w-[50%] px-2 my-2`}
 `;
 
-const Preference = styled.div`
+const Preference = styled.li`
   ${tw`text-2xl`}
-`;
-
-const Divider = styled.div`
-  ${tw`w-0.5 bg-gray`}
 `;
 
 const ReportContent: React.FC = () => {
@@ -29,7 +25,6 @@ const ReportContent: React.FC = () => {
         <RecommendWrapper>
           <RecommendList />
         </RecommendWrapper>
-        <Divider />
         <PreferenceWrapper>
           <Preference>🥰 치안이 중요해요</Preference>
           <Preference>🥰 식당이 중요해요</Preference>

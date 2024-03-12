@@ -1,43 +1,45 @@
 import tw, { styled } from 'twin.macro';
 import NavBar from '../utils/NavBar';
-import Card from '../components/entry/reuse/Card'
+import Card from '../components/entry/reuse/Card';
 
 const Main = styled.main`
-${tw`flex-cc w-full`}`
+  ${tw`flex-cc w-full`}
+`;
 
 const EntryWrapper = styled.div`
-${tw`flex-cc w-full`}`
-  
-const Login = styled.button`
-    ${tw` bg-gray rounded-lg text-2xl p-2 my-2 ml-auto `}
-  `
+  ${tw`flex-cc w-full`}
+`;
 
-const Title = styled.h1`
+const LoginButton = styled.button`
+  ${tw` bg-gray rounded-lg text-2xl p-2 my-2 ml-auto `}
+`;
+
+const EntryTitle = styled.h1`
   ${tw`text-3xl my-2`}
-`
+`;
 
-const Start = styled.button`
+const StartButton = styled.button`
   ${tw`bg-kakaoYellow rounded-lg text-2xl p-2 my-2`}
-` 
+`;
 
 function EntryPage() {
-
-  const arr = [1, 2, 3, 4, 5]
-    return (
-      <>
-      <NavBar/>
+  const arr = [1, 2, 3, 4, 5];
+  return (
+    <>
+      <NavBar />
       <Main>
         <EntryWrapper>
-          <Login>로그인</Login>
-          <Title>내돈내산의 인프라 기반 동네 추천 서비스</Title>
-          <Start>시작하기</Start>
+          <LoginButton>로그인</LoginButton>
+          <EntryTitle>내돈내산의 인프라 기반 동네 추천 서비스</EntryTitle>
+          <StartButton>시작하기</StartButton>
         </EntryWrapper>
 
-        {arr.map((element, index) => <Card index={index}/>)}
+        {arr.map((element, index) => (
+          <Card index={index} />
+        ))}
       </Main>
-      </>
-    );
-  }
-  
-  export default EntryPage;
-  
+    </>
+  );
+}
+
+export default EntryPage;

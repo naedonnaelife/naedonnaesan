@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import ComparisonGraph from '../ComparisonGraph';
 
-const Backgrond = styled.div`
-  ${tw`bg-amber-50 h-96 w-96`}
+const CardWrapper = styled.figure`
+  ${tw`w-[40%] h-96 bg-amber-50 relative`}
 `;
 const CardTop = styled.div`
-  ${tw`flex justify-around grid grid-cols-4 gap-4`}
+  ${tw`flex-c`}
 `;
 const CardTitle = styled.h1`
-  ${tw`col-span-2 font-bold text-3xl text-center`}
+  ${tw`font-bold text-3xl`}
 `;
 
 const ButtonWrapper = styled.div`
-  ${tw``}
+  ${tw`absolute right-0 top-0`}
 `;
 
 const Button = styled.button`
@@ -21,21 +21,19 @@ const Button = styled.button`
 `;
 
 const Card: React.FC = () => {
-  const [ selected, setSelected ] = useState<string|null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
   return (
-    <Backgrond>
+    <CardWrapper>
       <CardTop>
-        {/* 임시 div입니다. */}
-        <div />
-        <CardTitle setSelected={setSelected}/>
+        <CardTitle setSelected={setSelected} />
         <ButtonWrapper>
           <Button>찜하기</Button>
           <Button>삭제</Button>
         </ButtonWrapper>
       </CardTop>
       <ComparisonGraph />
-    </Backgrond>
+    </CardWrapper>
   );
 };
 

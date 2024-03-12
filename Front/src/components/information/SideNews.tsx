@@ -6,7 +6,7 @@ const NewsWrapper = styled.aside`
   ${tw`w-[25%] h-[100%] border-2 p-2`}
 `;
 
-const Card = styled.section`
+const Card = styled.article`
   ${tw`flex w-[100%] h-[15%] p-1`}
 `;
 

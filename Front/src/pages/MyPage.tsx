@@ -1,18 +1,10 @@
-import tw, { styled } from "twin.macro";
-import NavBar from "../utils/NavBar";
-import Report from "../components/my/Report";
-import Like from "../components/my/Like";
+import tw, { styled } from 'twin.macro';
+import NavBar from '../utils/NavBar';
+import Report from '../components/my/Report';
+import Like from '../components/my/Like';
 
 const Main = styled.main`
-  ${tw`grid grid-cols-12 `}
-`;
-
-const Wrapper = styled.main`
-  ${tw`col-span-10 col-start-2 bg-amber-50`}
-`;
-
-const Content = styled.main`
-  ${tw`mx-20 `}
+  ${tw`flex-cc w-[80%] h-full-nav bg-amber-50 p-4 mx-auto`}
 `;
 
 function MyPage() {
@@ -20,12 +12,8 @@ function MyPage() {
     <>
       <NavBar />
       <Main>
-        <Wrapper>
-          <Content>
-            <Report />
-            <Like />
-          </Content>
-        </Wrapper>
+        <Report />
+        <Like />
       </Main>
     </>
   );

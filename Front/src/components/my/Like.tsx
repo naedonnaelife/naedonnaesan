@@ -1,9 +1,12 @@
-import React from "react";
-import tw, { styled } from "twin.macro";
-import SearchBar from "../../utils/SearchBar";
-import LikedDong from "./reuse/LikedDong";
+import React from 'react';
+import tw, { styled } from 'twin.macro';
+import SearchBar from '../../utils/SearchBar';
+import LikedDong from './reuse/LikedDong';
 
-const LikeTop = styled.h1`
+const LikeWrapper = styled.div`
+  ${tw`w-[100%] border`}
+`;
+const LikeTop = styled.div`
   ${tw`flex justify-between mx-5`}
 `;
 
@@ -11,29 +14,27 @@ const LikeTitle = styled.h1`
   ${tw`text-3xl font-bold`}
 `;
 
-const LikeContent = styled.h1`
+const LikeContent = styled.ul`
   ${tw``}
 `;
 
 const LikedDongList = {
-  response: ["성동구 성수1가1동", "강남구 도곡1동", "강남구 역삼2동"],
+  response: ['성동구 성수1가1동', '강남구 도곡1동', '강남구 역삼2동'],
 };
 
 const Like: React.FC = () => {
   return (
-    <>
+    <LikeWrapper>
       <LikeTop>
         <LikeTitle>OOO님이 찜한 동네</LikeTitle>
         <SearchBar />
       </LikeTop>
       <LikeContent>
-      {LikedDongList.response.map((likedDong: string, index:number) => (
-        <div key={index}>
-          <LikedDong likedDong={likedDong} />
-        </div>
-      ))}
+        {LikedDongList.response.map((likedDong: string, index: number) => (
+          <LikedDong key={index} likedDong={likedDong} />
+        ))}
       </LikeContent>
-    </>
+    </LikeWrapper>
   );
 };
 

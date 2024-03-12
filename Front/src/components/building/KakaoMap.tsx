@@ -8,10 +8,8 @@ const Map = styled.div`
 
 const { kakao } = window;
 
-// 연결 후 props로  temp (구/동이름) 넘어옴 !
 const temp = '강남구 역삼2동';
 const selectedDong: any = newDong.features.find((dong: any) => dong.properties.temp === temp);
-console.log(selectedDong);
 const x = selectedDong.properties.x;
 const y = selectedDong.properties.y;
 const KakaoMap: React.FC = () => {

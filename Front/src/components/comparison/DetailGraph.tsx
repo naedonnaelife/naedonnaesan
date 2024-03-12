@@ -1,34 +1,19 @@
-import React from "react";
-import tw, { styled } from "twin.macro";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
+import React from 'react';
+import tw, { styled } from 'twin.macro';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
-const GraphBox = styled.div`
-  ${tw`w-4/5 mx-auto`}
+const GraphWrapper = styled.figure`
+  ${tw`w-[80%]`}
 `;
 const Graph: React.FC<{ category: string | null }> = ({ category }) => {
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-  );
+  ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: 'top' as const,
       },
       title: {
         display: true,
@@ -42,38 +27,29 @@ const Graph: React.FC<{ category: string | null }> = ({ category }) => {
     },
   };
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
   const data = {
     labels,
     datasets: [
       {
-        label: "OO구 OO동",
+        label: 'OO구 OO동',
         data: labels.map(() => [0, 122]),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
-        label: "OO구 OO동",
+        label: 'OO구 OO동',
         data: labels.map(() => [0, 232]),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],
   };
 
   return (
-    <GraphBox>
+    <GraphWrapper>
       <Bar options={options} data={data} />
-    </GraphBox>
+    </GraphWrapper>
   );
-
 };
 
 export default Graph;

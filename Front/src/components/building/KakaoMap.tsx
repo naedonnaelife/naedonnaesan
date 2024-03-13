@@ -4,7 +4,7 @@ import newDong from '../../datas/newDong.json';
 import test from '../../datas/test.json';
 
 interface KakaoMapProps {
-  areaName : string
+  areaName: string;
 }
 const Map = styled.div`
   ${tw`w-[75%] h-[100%] border-2 border-black`}
@@ -12,10 +12,7 @@ const Map = styled.div`
 
 const { kakao } = window;
 
-
-
-const KakaoMap: React.FC<KakaoMapProps> = ({areaName}) => {
-
+const KakaoMap: React.FC<KakaoMapProps> = ({ areaName }) => {
   const selectedDong: any = newDong.features.find((dong: any) => dong.properties.temp === areaName);
   const x = selectedDong.properties.x;
   const y = selectedDong.properties.y;
@@ -48,8 +45,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({areaName}) => {
     polygon.setMap(map);
 
     // 클러스터러 , 마커
-    const imageSrc =
-      'https://e7.pngegg.com/pngimages/557/689/png-clipart-computer-icons-house-icon-design-house-blue-angle.png';
+    const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021.png?raw=true';
     const imageSize = new kakao.maps.Size(25, 25);
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -66,6 +62,9 @@ const KakaoMap: React.FC<KakaoMapProps> = ({areaName}) => {
           height: '40px',
           background: `url("${imageSrc}") round`,
           color: '#000', // 글자색
+          // opacity: '0.7',
+          border: 'black',
+          // borderRadius: '100px',
           textAlign: 'center',
           fontWeight: 'bold',
           lineHeight: '41px',
@@ -75,6 +74,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({areaName}) => {
           height: '50px',
           background: `url("${imageSrc}") round`,
           color: '#000',
+          border: 'black',
           textAlign: 'center',
           fontWeight: 'bold',
           lineHeight: '51px',

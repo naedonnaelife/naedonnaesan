@@ -10,7 +10,7 @@ const useSearchStore = create<BearState>()(
   devtools(
     persist(
       (set) => ({
-        areaName : 'happy',
+        areaName : null,
         selectedArea : (area) => set(() => ({areaName : area}))
       }),
       { name: 'SearchStore' },

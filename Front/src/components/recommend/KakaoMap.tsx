@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 import useSearchStore from '../../stores/SearchStore';
@@ -11,9 +11,12 @@ const Map = styled.div`
 
 const { kakao } = window;
 
+
 const KakaoMap: React.FC = () => {
   const [newMap, setNewMap] = useState(null)
   const [newCustomOverlay, setNewCustomOverlay] = useState(null)
+  const [rectangle, setRectangle] = useState(null)
+  const polygons = useRef([new kakao.maps.Polygon()])
   const navigate = useNavigate()
   const areaName = useSearchStore((state:any) => state.areaName)
 
@@ -44,47 +47,58 @@ const KakaoMap: React.FC = () => {
   // 폴리곤 생성 함수
   const createPolygon = (map: any, newJson: any, customOverlay: any) => {
 
-    // 1. 사각형 폴리곤
-    const backgroundSW = new kakao.maps.LatLng(36, 126)
-    const backgroundNE = new kakao.maps.LatLng(39, 128)
-    const rectangleBounds  = new kakao.maps.LatLngBounds(backgroundSW, backgroundNE);
-
-    const background = new kakao.maps.Rectangle({
-      bounds: rectangleBounds,
-      strokeWeight: 0,
-      strokeColor: '#ffffff', 
-      strokeOpacity: 1, 
-      strokeStyle: 'shortdashdot', 
-      fillColor: '#ffffff', 
-      fillOpacity: 1,
-    });
-
+    if(!rectangle){
+      
+      // 1. 사각형 폴리곤
+      const backgroundSW = new kakao.maps.LatLng(36, 126)
+      const backgroundNE = new kakao.maps.LatLng(39, 128)
+      const rectangleBounds  = new kakao.maps.LatLngBounds(backgroundSW, backgroundNE);
+      
+      const background = new kakao.maps.Rectangle({
+        bounds: rectangleBounds,
+        strokeWeight: 0,
+        strokeColor: '#ffffff', 
+        strokeOpacity: 1, 
+        strokeStyle: 'shortdashdot', 
+        fillColor: '#ffffff', 
+        fillOpacity: 1,
+      });
+    setRectangle(background)
     background.setMap(map)
-
+    }
+    
     // 2. 구 & 동 폴리곤
+    
+    polygons.current.map((polygon:any) => polygon.setMap(null))
+
     newJson.forEach((unit: any) => {
+      const isSelected = (unit.name === areaName)
       const polygon = new kakao.maps.Polygon({
-        map: map,
+        map : map,
         path: unit.coordinates,
         strokeWeight: 3,
         strokeColor: '#004c80',
         strokeOpacity: 0.8,
-        fillColor: '#9A9A9A',
+        fillColor: (isSelected)? '#12B9DA' :'#9A9A9A',
         fillOpacity: 0.7,
+        zIndex : 10
       });
+
+      polygons.current = [...polygons.current, polygon]
+      
       kakao.maps.event.addListener(polygon, 'mouseover', function (mouseEvent: any) {
-        polygon.setOptions({ fillColor: '#ED5565' });
-        customOverlay.setContent('<div class="area">' + unit.name + '</div>');
+        polygon.setOptions(isSelected? {fillOpacity : 1.0} : {fillColor: '#ED5565'});
+        customOverlay.setContent('<div class="area" style="position : absolute; top: 10px; left: -50px;" >' + unit.name + '</div>');
         customOverlay.setPosition(mouseEvent.latLng);
         customOverlay.setMap(map);
       });
 
-      // kakao.maps.event.addListener(polygon, 'mousemove', function (mouseEvent: any) {
-      //   customOverlay.setPosition(mouseEvent.latLng);
-      // });
+      kakao.maps.event.addListener(polygon, 'mousemove', function (mouseEvent: any) {
+        customOverlay.setPosition(mouseEvent.latLng);
+      });
 
       kakao.maps.event.addListener(polygon, 'mouseout', function () {
-        polygon.setOptions({ fillColor: '#9A9A9A' });
+        polygon.setOptions(isSelected? {fillOpacity : 0.7} : { fillColor: '#9A9A9A' });
         customOverlay.setMap(null);
       });
 
@@ -100,9 +114,12 @@ const KakaoMap: React.FC = () => {
         console.log('area : ', unit);
         }
       });
-    });
-  };
+    }
+    
+    );
 
+  
+  };
   useEffect(()=>{
     if(newMap){
     jsonProcessing(newGu, false)
@@ -125,11 +142,10 @@ const KakaoMap: React.FC = () => {
     const findDong: any = newDong.features.find((dong: any) => dong.properties.temp === areaName);
     const sggCode = findDong.properties.sgg
     const findGu: any = newGu.features.find((gu:any) => gu.properties.SIG_CD === sggCode)
-    console.log('필터 : ', findDong, findGu.properties.y, findGu.properties.x)
 
     newMap.setCenter(new kakao.maps.LatLng(findGu.properties.y, findGu.properties.x))
-    // newMap.setLevel(6, {animate : {duration:500}})
-    jsonProcessing(newGu, sggCode)
+    newMap.setLevel(6, {animate : {duration:500}})
+    jsonProcessing(newDong, sggCode)
     }
 
   }, [areaName])

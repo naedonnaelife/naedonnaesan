@@ -3,15 +3,16 @@ import NavBar from '../utils/NavBar';
 import Card from '../components/entry/reuse/Card';
 
 const Main = styled.main`
-  ${tw`flex-cc w-full`}
+  ${tw`flex-cc w-full `}
 `;
 
 const EntryWrapper = styled.div`
   ${tw`flex-cc w-full`}
+  height : calc(100vh - 75px);
 `;
 
 const LoginButton = styled.button`
-  ${tw` bg-gray rounded-lg text-2xl my-2 ml-auto`}
+  ${tw` bg-gray rounded-lg text-2xl my-2 ml-auto mr-10 p-2`}
 `;
 
 const EntryTitle = styled.h1`
@@ -19,7 +20,7 @@ const EntryTitle = styled.h1`
 `;
 
 const StartButton = styled.button`
-  ${tw`bg-kakaoYellow rounded-lg text-2xl my-2`}
+  ${tw`bg-kakaoYellow rounded-lg text-2xl my-2 p-2`}
 `;
 
 

@@ -1,67 +1,78 @@
 import tw, { styled } from 'twin.macro';
-import cute from '../../../assets/test.png';
 import { useEffect, useState } from 'react';
 import { keyframes } from '@emotion/react';
+import sample from '../../../assets/sample.png';
 
 interface CardProps {
   index: number;
 }
 
-type testProps = {
-  height: string;
+type StateProps = {
+  color : string;
   width: string;
   isAnimate : boolean;
+  isLeft : boolean;
 };
 
-const animation1 = (width:string) => keyframes`
-  from{
-    left: ${width}px;
-    opacity:0;
+const animation1 = (animate: boolean) => {
+  if (animate) {
+    return keyframes`
+      from {
+        top: 50vh;
+        opacity: 0;
+      }
+      to {
+        top: 25vh;
+        opacity: 1;
+      }
+    `;
+  } else {
+    return
   }
-  to{
-    left: 0px;
-    opacity:1;
-  }
-`
+};
 
 const CardWrapper = styled.figure`
-  ${tw`flex relative w-[100%]`}
-  ${({ height }: testProps) => `height: ${height}px;`}
+  ${tw`flex items-center relative w-[100%] h-[100vh]`}
+  ${({ color }: StateProps) => `background-color : ${color};`}
 `;
 
-const CardImage = styled.img<testProps>`
-  ${tw` absolute w-[50%] h-full object-fill`}
-  left: ${({ width } : testProps) => `${width}px`};
-  ${({ width, isAnimate }: testProps) => isAnimate? `animation : ${animation1(width)} 3s ease-in-out;` : ''};
+const CardImage = styled.img`
+  ${tw` absolute w-[50%] h-[50vh] object-fill `}
+  left: ${({ width } : StateProps) => `${width}px`};
+  ${({ isLeft }: StateProps) => isLeft? 'margin-left : 50px;' : 'margin-left : -50px;'}
+  animation: ${({ isAnimate }: StateProps) => animation1(isAnimate)} 1.5s ease-in-out;
 `;
-// animation: ${({ width }: testProps) => animation1(width)} 1s ease-in-out;
 
 const CaptionWrapper = styled.figcaption`
-  ${tw`flex-cc absolute w-[50%] h-full `}
-  ${({ width }: testProps) => `left: ${width}px;`}
+  ${tw`flex-cc absolute w-[50%] h-[50vh] `}
+  ${({ width }: StateProps) => `left: ${width}px;`}
+  animation: ${({ isAnimate }: StateProps) => animation1(isAnimate)} 1s ease-in-out;
 `;
 
 const CardTitle = styled.h2`
-  ${tw``}
+  ${tw` w-[50%] h-[20%] text-2xl text-orange-400 `}
 `;
 
 const CardContent = styled.p`
-  ${tw``}
+  ${tw` w-[50%] h-[30%] text-3xl whitespace-pre-wrap`}
 `;
 
+const CardSubContent = styled(CardContent)`
+  ${tw`text-xl`}
+`
+
 const ServiceLink = styled.button`
-  ${tw`bg-kakaoBlue rounded-lg text-white`}
+  ${tw` w-[40%] h-[20%]  bg-gradient-to-r from-orange-300 to-pink-400 rounded-lg text-xl text-white p-2 `}
 `;
 
 const Card: React.FC<CardProps> = ({ index }) => {
   const [isAnimate, setIsAnimate] = useState(false)
-  const height = window.innerHeight
-  const width = `${window.innerWidth / 2}`;
+  const height = (window.innerHeight * index - 50)
+  const width = window.innerWidth / 2;
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
-    console.log('스크롤 높이 : ', scrollY, '화면 전체 높이 : ', window.innerHeight, '인덱스 : ', index);
-    if (scrollY > height * index){
+    if (scrollY > height){
       console.log('true', index)
       setIsAnimate(true)
     } else {
@@ -69,9 +80,9 @@ const Card: React.FC<CardProps> = ({ index }) => {
     }
   };
 
-  window.addEventListener('scroll', handleScroll);
-
+  
   useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -80,22 +91,24 @@ const Card: React.FC<CardProps> = ({ index }) => {
   return (
     <>
       {index % 2 === 0 ? (
-        <CardWrapper height={height}>
-          <CardImage height={height} width={width} isAnimate={isAnimate} src={cute} alt="image" />
-          <CaptionWrapper >
-            <CardTitle>동네 매물 보기</CardTitle>
-            <CardContent> 동네 매물 보기 정보입니다 </CardContent>
-            <ServiceLink>A서비스 바로가기</ServiceLink>
+        <CardWrapper color='#FAFBFD'>
+          <CardImage  width={width} isLeft={false} isAnimate={isAnimate} src={sample} alt="image" />
+          <CaptionWrapper isAnimate={isAnimate}>
+            <CardTitle>🏡내돈내산 동네추천</CardTitle>
+            <CardContent> 인프라를 선택하면<br/>동네를 추천해드려요!  </CardContent>
+            <CardSubContent>관심있는 동네가 있나요?<br/>추천AI를 통해 나에게 딱 맞는 동네를<br/>찾아보세요. </CardSubContent>
+            <ServiceLink>동네추천 바로가기</ServiceLink>
           </CaptionWrapper>
         </CardWrapper>
       ) : (
-        <CardWrapper height={height}>
-          <CaptionWrapper width={width} >
-            <CardTitle>동네 매물 보기</CardTitle>
-            <CardContent> 동네 매물 보기 정보입니다</CardContent>
-            <ServiceLink>A서비스 바로가기</ServiceLink>
+        <CardWrapper >
+          <CaptionWrapper width={width} isAnimate={isAnimate} >
+          <CardTitle>🏡내돈내산 동네추천</CardTitle>
+            <CardContent> 인프라를 선택하면<br/>동네를 추천해드려요!  </CardContent>
+            <CardSubContent>관심있는 동네가 있나요?<br/>추천AI를 통해 나에게 딱 맞는 동네를<br/>찾아보세요. </CardSubContent>
+            <ServiceLink>동네추천 바로가기</ServiceLink>
           </CaptionWrapper>
-          <CardImage src={cute} alt="image" />
+          <CardImage isAnimate={isAnimate} isLeft={true} src={sample} alt="image" />
         </CardWrapper>
       )}
     </>

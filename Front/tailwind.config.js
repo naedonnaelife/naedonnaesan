@@ -8,6 +8,7 @@ export default {
       },
       colors: {
         white: '#FFFFFF',
+        semiWhite: '#FAFBFD',
         black: '#000000',
         gray: '#D5D5D5',
         grayHover: '#464555',

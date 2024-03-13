@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro';
 import NewsCard from './reuse/NewsCard.tsx';
 
 const NewsWrapper = styled.aside`
-  ${tw`w-[25%] h-[100%] border-2 p-2`}
+  ${tw`w-[25%] h-[100%] border-r border-kakaoBlue p-2 bg-amber-50`}
 `;
 
 const Card = styled.article`

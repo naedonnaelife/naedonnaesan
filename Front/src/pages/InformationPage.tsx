@@ -8,7 +8,7 @@ const Main = styled.main`
   ${tw`flex w-screen h-full-nav`}
 `;
 
-const InformationPage: React.FC = () => {
+function InformationPage() {
   const [isNewsOpen, setIsNewsOpen] = useState<boolean>(false);
   return (
     <>
@@ -19,6 +19,6 @@ const InformationPage: React.FC = () => {
       </Main>
     </>
   );
-};
+}
 
 export default InformationPage;

@@ -2,19 +2,25 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 const TableWrapper = styled.figure`
-  ${tw`m-1`}
+  ${tw`border-2 border-kakaoBlue m-1 p-4`}
 `;
 const Table = styled.table`
-  ${tw`w-[100%] text-center text-sm`}
+  ${tw`w-[100%] text-center text-sm bg-white`}
 `;
 const Thead = styled.thead`
-  ${tw`border-b-2 bg-gray`}
+  ${tw`bg-kakaoBlue text-white`}
 `;
 const Tbody = styled.tbody`
   ${tw``}
 `;
 const BodyTr = styled.tr`
-  ${tw`border-b-2`}
+  ${tw`border-b-2 border-kakaoBlue`}
+`;
+const Th = styled.th`
+  ${tw`py-1`}
+`;
+const Td = styled.td`
+  ${tw`py-1`}
 `;
 
 const infraList = [
@@ -35,17 +41,17 @@ const TableChart: React.FC = () => {
       <Table>
         <Thead>
           <tr>
-            <th>지표</th>
-            <th>내가 선택한 지역</th>
-            <th>서울시 전체 평균</th>
+            <Th>지표</Th>
+            <Th>내가 선택한 지역</Th>
+            <Th>서울시 전체 평균</Th>
           </tr>
         </Thead>
         <Tbody>
           {infraList.map((infra, index) => (
             <BodyTr key={index}>
-              <td>{infra.name}</td>
-              <td>{seoul[infra.category]}</td>
-              <td>{selectedDong[infra.category]}</td>
+              <Td>{infra.name}</Td>
+              <Td>{seoul[infra.category]}</Td>
+              <Td>{selectedDong[infra.category]}</Td>
             </BodyTr>
           ))}
         </Tbody>

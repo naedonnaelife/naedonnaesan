@@ -2,7 +2,7 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import garma from '../../../assets/garma.jpg';
 const CardWrapper = styled.div`
-  ${tw`flex w-[100%] h-[100%] border-2 p-1`}
+  ${tw`flex w-[100%] h-[100%] border-2 p-1 bg-white`}
 `;
 const ImageWrapper = styled.figure`
   ${tw`w-[40%] h-[100%] p-1`}

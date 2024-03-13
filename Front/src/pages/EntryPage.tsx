@@ -11,7 +11,7 @@ const EntryWrapper = styled.div`
 `;
 
 const LoginButton = styled.button`
-  ${tw` bg-gray rounded-lg text-2xl my-2 ml-auto `}
+  ${tw` bg-gray rounded-lg text-2xl my-2 ml-auto`}
 `;
 
 const EntryTitle = styled.h1`
@@ -22,8 +22,10 @@ const StartButton = styled.button`
   ${tw`bg-kakaoYellow rounded-lg text-2xl my-2`}
 `;
 
+
 function EntryPage() {
   const arr = [1, 2, 3, 4, 5];
+
   return (
     <>
       <NavBar />

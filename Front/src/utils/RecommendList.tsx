@@ -7,7 +7,7 @@ const dummyData = {
 };
 
 const RecommendWrapper = styled.ul`
-  ${tw`flex flex-col h-[30%] border-2 border-kakaoBlue rounded-lg m-2`}
+  ${tw`flex flex-col h-[35%] border-2 border-kakaoBlue rounded-lg m-2`}
 `;
 
 const Title = styled.h2`

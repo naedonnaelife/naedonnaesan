@@ -1,7 +1,7 @@
 import tw, { styled } from 'twin.macro';
 import cute from '../../../assets/test.png';
-import { useEffect, useRef } from 'react';
-import { keyframes } from 'styled-components';
+import { useEffect, useState } from 'react';
+import { keyframes } from '@emotion/react';
 
 interface CardProps {
   index: number;
@@ -10,20 +10,34 @@ interface CardProps {
 type testProps = {
   height: string;
   width: string;
+  isAnimate : boolean;
 };
 
+const animation1 = (width:string) => keyframes`
+  from{
+    left: ${width}px;
+    opacity:0;
+  }
+  to{
+    left: 0px;
+    opacity:1;
+  }
+`
+
 const CardWrapper = styled.figure`
-  ${tw`flex relative w-[100%] border-2 border-green-500`}
+  ${tw`flex relative w-[100%]`}
   ${({ height }: testProps) => `height: ${height}px;`}
 `;
 
 const CardImage = styled.img<testProps>`
-  ${tw` absolute w-[50%] h-full border-2 border-black object-fill`}
-  ${({ width }: testProps) => `left: ${width}px;`}
+  ${tw` absolute w-[50%] h-full object-fill`}
+  left: ${({ width } : testProps) => `${width}px`};
+  ${({ width, isAnimate }: testProps) => isAnimate? `animation : ${animation1(width)} 3s ease-in-out;` : ''};
 `;
+// animation: ${({ width }: testProps) => animation1(width)} 1s ease-in-out;
 
 const CaptionWrapper = styled.figcaption`
-  ${tw`flex-cc absolute w-[50%] h-full  border-2 border-red `}
+  ${tw`flex-cc absolute w-[50%] h-full `}
   ${({ width }: testProps) => `left: ${width}px;`}
 `;
 
@@ -40,27 +54,18 @@ const ServiceLink = styled.button`
 `;
 
 const Card: React.FC<CardProps> = ({ index }) => {
-  const height = `${window.innerHeight}`;
+  const [isAnimate, setIsAnimate] = useState(false)
+  const height = window.innerHeight
   const width = `${window.innerWidth / 2}`;
-  const captionRef = useRef<any>(null);
-
-  const fadeIn = keyframes`
-  from {
-    opacity: 0
-  }
-  to {
-    opacity: 1
-  }
-`
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
     console.log('스크롤 높이 : ', scrollY, '화면 전체 높이 : ', window.innerHeight, '인덱스 : ', index);
-    if (scrollY < window.innerHeight) {
-      console.log('스타일 : ', captionRef.current)
-      captionRef.current!.style.animation = `${fadeIn} 1s ease`;
+    if (scrollY > height * index){
+      console.log('true', index)
+      setIsAnimate(true)
     } else {
-      console.log('hi')
+      setIsAnimate(false)
     }
   };
 
@@ -76,8 +81,7 @@ const Card: React.FC<CardProps> = ({ index }) => {
     <>
       {index % 2 === 0 ? (
         <CardWrapper height={height}>
-          <div ref={captionRef}> ㅎㅇㅎㅇㅎㅇ </div>
-          <CardImage height={height} width={width} src={cute} alt="image" />
+          <CardImage height={height} width={width} isAnimate={isAnimate} src={cute} alt="image" />
           <CaptionWrapper >
             <CardTitle>동네 매물 보기</CardTitle>
             <CardContent> 동네 매물 보기 정보입니다 </CardContent>

@@ -27,4 +27,10 @@ public class Zzim {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userId")
     private User user;
+
+
+    public Zzim(Dong dong, User user){
+        this.dong = dong;
+        this.user = user;
+    }
 }

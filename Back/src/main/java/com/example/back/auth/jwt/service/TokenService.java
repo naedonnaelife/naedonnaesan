@@ -34,6 +34,7 @@ public class TokenService {
 
         String accessToken = generateToken(id,role, ACCESS);
         String refreshToken = generateToken(id,role, REFRESH);
+        // 리프레쉬 토큰을 레디스에 저장하기
         redisService.setValuesWithTimeout(JwtProperties.REDIS_REFRESH_PREFIX + role + "_" + id, refreshToken,
                 JwtProperties.ACCESS_EXPIRATION_TIME);
 
@@ -60,15 +61,13 @@ public class TokenService {
     // refresh 토큰이 redis의 refresh 토큰과 같은지 검증
     public JwtToken verifyRefreshToken(String refreshToken) {
         try {
-            //System.out.println("여기당");
             // JWT 서명 검증
             DecodedJWT jwt = verifyToken(refreshToken);
 
             // 토큰에서 role과 id 추출
             String role = jwt.getClaim("role").asString();
             String id = jwt.getClaim("id").toString();
-            //System.out.println(role);
-            //System.out.println(id);
+
             // id가 null일때 -> 유효하지 않은 refreshToken
             if(id == null)
                 throw new RefreshTokenIncorrectException("유효하지 않은 refreshToken입니다.");

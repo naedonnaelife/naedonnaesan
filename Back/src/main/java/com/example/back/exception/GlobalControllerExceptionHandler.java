@@ -40,6 +40,14 @@ public class GlobalControllerExceptionHandler {
     }
 
 
-
+    // 동 id로 동을 못찾는 핸들러
+    @ExceptionHandler(value = DongNotFoundException.class)
+    public ResponseEntity<Message> dongNotfoundExceptionHandler(DongNotFoundException e){
+        log.info(" *** DongNotFound 핸들러 *** ");
+        Object dongInfo = e.getDongInfo();// DongNotFoundException에서 동 ID를 가져옴
+        Message message = new Message(HttpStatusEnum.NOT_FOUND, "해당하는 동을 찾을수 없습니다. : ", dongInfo);
+        // 재로그인 해달라는 요청임 -> 프론트에서 받아줘요
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
 
 }

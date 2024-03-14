@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mango?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: root
+    url: jdbc:mysql://mango-mysql.c7ao0agkygy0.ap-northeast-2.rds.amazonaws.com:3306/mango?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: mango
+    password: mango123
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect

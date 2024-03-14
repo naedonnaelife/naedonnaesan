@@ -3,10 +3,10 @@ import tw, { styled } from 'twin.macro';
 import news from '../../assets/news.jpg';
 
 const NewsWrapper = styled.article`
-  ${tw`h-[90%] border border-black relative`}
+  ${tw`h-[90%] border-basic relative p-2`}
 `;
 const NewsTitle = styled.h1`
-  ${tw`text-2xl text-center font-bold`}
+  ${tw`text-2xl text-center font-bold m-2`}
 `;
 const NewsImage = styled.img`
   ${tw`w-[100%] h-[40%] object-cover`}

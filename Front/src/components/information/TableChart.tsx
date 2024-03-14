@@ -2,13 +2,13 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 const TableWrapper = styled.figure`
-  ${tw`border-2 border-lightGray m-1 p-4`}
+  ${tw`border-basic m-1 p-4`}
 `;
 const Table = styled.table`
   ${tw`w-[100%] text-center text-sm bg-white`}
 `;
 const Thead = styled.thead`
-  ${tw`bg-lightGray text-white`}
+  ${tw`bg-choco text-white`}
 `;
 const Tbody = styled.tbody`
   ${tw``}

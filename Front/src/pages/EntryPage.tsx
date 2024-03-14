@@ -20,7 +20,7 @@ const EntryTitle = styled.h1`
 `;
 
 const StartButton = styled.button`
-  ${tw`bg-kakaoYellow rounded-lg text-2xl my-2 p-2`}
+  ${tw`bg-mango rounded-lg text-2xl my-2 p-2`}
 `;
 
 
@@ -38,7 +38,7 @@ function EntryPage() {
         </EntryWrapper>
 
         {arr.map((element, index) => (
-          <Card index={index} />
+          <Card key={index} index={index} />
         ))}
       </Main>
     </>

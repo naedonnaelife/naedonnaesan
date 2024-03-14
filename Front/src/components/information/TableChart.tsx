@@ -2,19 +2,19 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 const TableWrapper = styled.figure`
-  ${tw`border-2 border-kakaoBlue m-1 p-4`}
+  ${tw`border-2 border-lightGray m-1 p-4`}
 `;
 const Table = styled.table`
   ${tw`w-[100%] text-center text-sm bg-white`}
 `;
 const Thead = styled.thead`
-  ${tw`bg-kakaoBlue text-white`}
+  ${tw`bg-lightGray text-white`}
 `;
 const Tbody = styled.tbody`
   ${tw``}
 `;
 const BodyTr = styled.tr`
-  ${tw`border-b-2 border-kakaoBlue`}
+  ${tw`border-b-2 border-lightGray`}
 `;
 const Th = styled.th`
   ${tw`py-1`}

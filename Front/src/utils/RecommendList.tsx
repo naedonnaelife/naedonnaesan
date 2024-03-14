@@ -7,7 +7,7 @@ const dummyData = {
 };
 
 const RecommendWrapper = styled.ul`
-  ${tw`flex flex-col h-[35%] border-2 border-kakaoBlue rounded-lg m-2`}
+  ${tw`flex flex-col h-[35%] border-2 border-lightGray rounded-lg m-2`}
 `;
 
 const Title = styled.h2`
@@ -15,7 +15,7 @@ const Title = styled.h2`
 `;
 
 const RecommendResult = styled.li`
-  ${tw`flex justify-between border-2 border-gray rounded-sm mx-2 my-1 p-2`}
+  ${tw`flex justify-between border-2 border-lightGray rounded-lg mx-2 my-1 p-2`}
 `;
 
 const Index = styled.h3`

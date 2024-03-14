@@ -6,7 +6,8 @@ import newDong from '../../datas/newDong.json';
 import newGu from '../../datas/newGu.json'
 
 const Map = styled.div`
-  ${tw`h-[100%] w-[75%] border-4 border-black p-2 mx-2 `}
+  /* ${tw`h-[100%] w-[75%] border-4 border-black p-2 mx-2 `} */
+  ${tw`h-[100%] w-[75%] p-2 `}
 `;
 
 const { kakao } = window;
@@ -79,7 +80,7 @@ const KakaoMap: React.FC = () => {
         strokeWeight: 3,
         strokeColor: '#004c80',
         strokeOpacity: 0.8,
-        fillColor: (isSelected)? '#12B9DA' :'#9A9A9A',
+        fillColor: (isSelected)? '#12B9DA' :'#DDDDDD',
         fillOpacity: 0.7,
         zIndex : 10
       });
@@ -98,7 +99,7 @@ const KakaoMap: React.FC = () => {
       });
 
       kakao.maps.event.addListener(polygon, 'mouseout', function () {
-        polygon.setOptions(isSelected? {fillOpacity : 0.7} : { fillColor: '#9A9A9A' });
+        polygon.setOptions(isSelected? {fillOpacity : 0.7} : { fillColor: '#DDDDDD' });
         customOverlay.setMap(null);
       });
 

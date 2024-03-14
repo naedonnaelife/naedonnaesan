@@ -2,11 +2,11 @@ import tw, { styled } from 'twin.macro';
 import { Link } from 'react-router-dom';
 
 const Navbar = styled.header`
-  ${tw`flex justify-end items-center h-[75px] bg-kakaoBlue`}
+  ${tw`flex justify-end items-center h-[75px] bg-mango border-b-2 border-lightGray drop-shadow-lg`}
 `;
 
 const NavbarLink = styled(Link)`
-  ${tw` m-2 p-2 text-white font-bold hover:scale-105 hover:text-kakaoYellow hover:border-b-2 hover:border-kakaoYellow `}
+  ${tw` m-2 p-2 text-choco font-bold hover:scale-105 hover:text-black hover:border-b-2 hover:border-choco `}
 `;
 
 function NavBar() {

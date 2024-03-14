@@ -6,7 +6,7 @@ import TableChart from './TableChart.tsx';
 import TextBox from './TextBox.tsx';
 
 const ReportWrapper = styled.section`
-  ${tw`w-[75%] h-[100%] border-l border-kakaoBlue p-2`}
+  ${tw`w-[75%] h-[100%] border-l border-lightGray p-2`}
 `;
 
 interface ReportProps {

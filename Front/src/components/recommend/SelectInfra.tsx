@@ -3,7 +3,7 @@ import Item from './reuse/InfraSlider'
 
 
 const SelectWrapper = styled.section`
-${tw`flex flex-col h-[60%] border-2 border-kakaoBlue rounded-lg m-2 mt-4`}
+${tw`flex flex-col h-[60%] border-2 border-lightGray rounded-lg m-2 mt-4`}
 `
 const Title = styled.h2`
 ${tw`m-2 mb-4`}

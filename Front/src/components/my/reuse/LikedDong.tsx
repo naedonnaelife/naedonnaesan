@@ -15,7 +15,7 @@ const ButtonWrapper = styled.span`
 `;
 
 const Button = styled.button`
-  ${tw`w-16 h-8 rounded-lg bg-kakaoYellow`}
+  ${tw`w-16 h-8 rounded-lg bg-mango`}
 `;
 
 const LikeButton = styled.button`

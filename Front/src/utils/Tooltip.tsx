@@ -10,7 +10,7 @@ const TooltipWrapper = styled.div`
 `
 
 const TooltipButton = styled.button`
-    ${tw` h-[20px] w-[20px] border-2 border-black rounded-full hover:bg-kakaoYellow hover:scale-105`}
+    ${tw` h-[20px] w-[20px] border-2 border-black rounded-full hover:bg-mango hover:scale-105`}
 `
 
 const TooltopDetail = styled.p`

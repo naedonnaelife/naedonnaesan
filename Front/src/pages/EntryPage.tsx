@@ -1,6 +1,7 @@
 import tw, { styled } from 'twin.macro';
 import NavBar from '../utils/NavBar';
 import Card from '../components/entry/reuse/Card';
+import Carousel from '../components/entry/reuse/Carousel';
 
 const Main = styled.main`
   ${tw`flex-cc w-full `}
@@ -35,6 +36,7 @@ function EntryPage() {
           <LoginButton>로그인</LoginButton>
           <EntryTitle>내돈내산의 인프라 기반 동네 추천 서비스</EntryTitle>
           <StartButton>시작하기</StartButton>
+          <Carousel/>
         </EntryWrapper>
 
         {arr.map((element, index) => (

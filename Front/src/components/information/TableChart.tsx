@@ -24,12 +24,12 @@ const Td = styled.td`
 `;
 
 const infraList = [
-  { name: '안전', category: 'safety' },
-  { name: '여가', category: 'leisure' },
-  { name: '보건', category: 'welfare' },
-  { name: '교통', category: 'transp' },
-  { name: '음식점', category: 'food' },
-  { name: '편의시설', category: 'convenience' },
+  { name: '🚨 안전', category: 'safety' },
+  { name: '🎨 여가', category: 'leisure' },
+  { name: '🏥 보건', category: 'welfare' },
+  { name: '🚌 교통', category: 'transp' },
+  { name: '🍔 음식점', category: 'food' },
+  { name: '🛒 편의시설', category: 'convenience' },
 ];
 
 const selectedDong: Record<string, number> = { safety: 3, leisure: 5, welfare: 1, transp: 2, food: 3, convenience: 3 };

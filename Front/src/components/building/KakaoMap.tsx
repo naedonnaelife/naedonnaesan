@@ -45,7 +45,7 @@ const KakaoMap: React.FC<KakaoMapProps> = ({ areaName }) => {
     polygon.setMap(map);
 
     // 클러스터러 , 마커
-    const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021.png?raw=true';
+    const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021%20(1).png?raw=true';
     const imageSize = new kakao.maps.Size(25, 25);
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -61,31 +61,23 @@ const KakaoMap: React.FC<KakaoMapProps> = ({ areaName }) => {
           width: '40px',
           height: '40px',
           background: `url("${imageSrc}") round`,
-          color: '#000', // 글자색
+          color: '#fff', // 글자색
           // opacity: '0.7',
           border: 'black',
           // borderRadius: '100px',
           textAlign: 'center',
           fontWeight: 'bold',
           lineHeight: '41px',
+          paddingTop: '8px',
         },
         {
           width: '50px',
           height: '50px',
-          background: `url("${imageSrc}") round`,
-          color: '#000',
-          border: 'black',
-          textAlign: 'center',
-          fontWeight: 'bold',
           lineHeight: '51px',
         },
         {
           width: '60px',
           height: '60px',
-          background: `url("${imageSrc}") round`,
-          color: '#000',
-          textAlign: 'center',
-          fontWeight: 'bold',
           lineHeight: '61px',
         },
       ],

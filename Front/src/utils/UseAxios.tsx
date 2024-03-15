@@ -1,11 +1,15 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
 const API_URL = 'http://localhost:8080'
 
-export const useAxios = () => {
-  const [tokens, setTokens] = useState({ accessToken: null, refreshToken: null });
+type test = {
+  accessToken : null | string,
+  refreshToken : null | string
+}
+const UseAxios = ():AxiosInstance  => {
+  const [tokens, setTokens] = useState<test>({ accessToken: null, refreshToken: '' });
 
   useEffect(() => {
     const accessToken = localStorage?.getItem('accessToken');
@@ -32,8 +36,8 @@ export const useAxios = () => {
             refreshToken: tokens.refreshToken,
           });
 
-          const newAccessToken = response.data.accessToken;
-          const newRefreshToken = response.data.refreshToken;
+          const newAccessToken = response.headers['authorization'];
+          const newRefreshToken = response.headers['authorization-refresh'];
           
           localStorage.setItem('accessToken', newAccessToken);
           localStorage.setItem('refreshToken', newRefreshToken)
@@ -52,3 +56,5 @@ export const useAxios = () => {
 
   return axiosInstance;
 };
+
+export default UseAxios

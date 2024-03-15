@@ -8,7 +8,7 @@ const CarouselWrapper = styled.article`
 
 const CarouselTitle = styled.h2`
     ${tw`h-[400px] rounded-lg bg-gradient-to-r from-green-300 to-blue-100 text-white text-center mx-2 `}
-    width : calc(100vw / 6)
+    width : calc(100vw / 6);
 `
 
 const Carousel:React.FC = () => {
@@ -17,7 +17,7 @@ const Carousel:React.FC = () => {
     <>
     <CarouselWrapper>
     {arr.map(e=> 
-        <CarouselTitle>{e} 동네 비교</CarouselTitle>
+        <CarouselTitle key={e}>{e} 동네 비교</CarouselTitle>
     )}
     </CarouselWrapper>
 

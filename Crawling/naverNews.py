@@ -185,7 +185,11 @@ print('news_dates: ',len(news_dates))
 import pandas as pd
 
 #데이터 프레임 만들기
-news_df = pd.DataFrame({'date':news_dates,'title':news_titles,'link':final_urls,'images' : news_images_src, 'content':news_contents})
+news_df = pd.DataFrame({'date':news_dates,'title':news_titles,'link':final_urls, 'images': news_images_src, 'content':news_contents})
+
+
+# 리스트를 문자열로 변환
+news_df['images'] = news_df['images'].apply(lambda x: ', '.join(x))
 
 #중복 행 지우기
 news_df = news_df.drop_duplicates(keep='first',ignore_index=True)

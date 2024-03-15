@@ -25,11 +25,11 @@ function ComparisonPage() {
       <Main>
         <DongAdd setSelected1={setSelected1} setSelected2={setSelected2} selected1={selected1} selected2={selected2}/>
         <Comparison>
-          <Card selected={selected1} setSelected={setSelected1} />
+          <Card selected={selected1} setSelected={setSelected1} cardIndex={1} />
           <Column selected1={selected1} selected2={selected2} setCategory={setCategory} />
-          <Card selected={selected2} setSelected={setSelected2}/>
+          <Card selected={selected2} setSelected={setSelected2} cardIndex={2}/>
         </Comparison>
-        {selected1 && selected2 && category ? (<DetailGraph category={category} />) : (null)}
+        {selected1 && selected2 && category ? (<DetailGraph category={category} selected1={selected1} selected2={selected2}/>) : (null)}
       </Main>
     </>
   );

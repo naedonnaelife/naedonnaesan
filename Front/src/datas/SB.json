@@ -1,0 +1,23 @@
+{
+  "cardDongScore": {
+    "status": "OK",
+    "message": "동의 인프라 정보 가져오기 완료",
+    "object": {
+      "safetyCnt": 5,
+      "healthCnt": 4,
+      "convCnt": 3, 
+      "foodCnt": 2, 
+      "transpCnt": 1,
+      "leisureCnt": 1
+    }
+  },
+  "reportUserInfo": {
+    "status": "OK",
+    "message": "추천 결과 보고서 안내 텍스트 성공",
+    "object": {
+      "nickname": "우미경",
+      "posterImageUrl": "image_url",
+      "bAddress": "성동구 왕십리동"
+    }
+  }
+}

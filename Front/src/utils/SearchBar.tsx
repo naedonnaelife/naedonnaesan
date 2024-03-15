@@ -15,6 +15,17 @@ const AddButton = styled.button`
   ${tw`flex items-center absolute h-full inset-y-0 right-0 px-2`}
 `;
 
+// function SearchBar({onAddButtonClick}) {
+//   return (
+//     <>
+//       <Search>
+//         <InputText placeholder="동네 검색" />
+//         <AddButton onClick={onAddButtonClick}>추가</AddButton>
+//       </Search>
+//     </>
+//   );
+// }
+
 function SearchBar() {
   return (
     <>

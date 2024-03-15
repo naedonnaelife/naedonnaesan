@@ -54,7 +54,8 @@ const DongAdd: React.FC<
           </Dong>
         ))}
       </LikeDongWrapper>
-      <SearchBar />
+      {/* <SearchBar onAddButtonClick={handleClick} /> */}
+      <SearchBar/>
     </Wrapper>
   );
 };

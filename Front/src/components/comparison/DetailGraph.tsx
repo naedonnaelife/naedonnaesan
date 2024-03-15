@@ -6,7 +6,14 @@ import { Bar } from 'react-chartjs-2';
 const GraphWrapper = styled.figure`
   ${tw`w-[80%] h-[400px]`}
 `;
-const Graph: React.FC<{ category: string | null }> = ({ category }) => {
+
+interface DetailGraphProps {
+  category: string | null;
+  selected1: string | null;
+  selected2: string | null;
+}
+
+const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) => {
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
   // 상태를 사용하여 창 크기 변화 감지
@@ -34,7 +41,7 @@ const Graph: React.FC<{ category: string | null }> = ({ category }) => {
       },
       title: {
         display: true,
-        text: `OO동 OO동 ${category} 수 비교`,
+        text: `${selected1} ${selected2} ${category} 수 비교`,
       },
     },
     scales: {

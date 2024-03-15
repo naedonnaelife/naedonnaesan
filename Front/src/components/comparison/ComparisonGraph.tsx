@@ -2,12 +2,19 @@ import React from "react";
 import tw, { styled } from "twin.macro";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import data from "../../datas/SB.json";
+
+// 이 페이지에서 동네 정보 get 요청 보내기
+
+interface CardIndexProps {
+  cardIndex: number;
+}
 
 const GraphWrapper = styled.figure`
   ${tw`w-full h-[80%]`}
 `;
 
-const ComparisonGraph: React.FC = () => {
+const ComparisonGraph: React.FC<CardIndexProps> = ({cardIndex}) => {
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
   const options = {
@@ -34,12 +41,31 @@ const ComparisonGraph: React.FC = () => {
     },
   };
 
-  const labels = ["치안", "교통", "보건", "식당", "문화"];
+  const labels = ['치안', '보건', '편의시설', '음식점', '교통', '여가'];
 
-  // 만약 두번째라면 - 붙이기 (음수로 설정)
-  const dataArray = [123, 86, 212, 124, 232];
 
-  const data = {
+  const dongData = (data: any, cardIndex:number): number[] => {
+    const counts = [
+      data.cardDongScore.object.safetyCnt,
+      data.cardDongScore.object.healthCnt,
+      data.cardDongScore.object.convCnt,
+      data.cardDongScore.object.foodCnt,
+      data.cardDongScore.object.transpCnt,
+      data.cardDongScore.object.leisureCnt
+    ];
+
+    // 첫번째 카드면 데이터 음수로
+    if (cardIndex === 1) {
+      return counts.map(count => -Math.abs(count));
+    } else {
+      return counts;
+    }
+  };
+  
+  const dataArray = dongData(data, cardIndex);
+    
+
+  const graphData = {
     labels,
     datasets: [
       {
@@ -53,7 +79,7 @@ const ComparisonGraph: React.FC = () => {
 
   return (
     <GraphWrapper>
-      <Bar options={options} data={data} />
+      <Bar options={options} data={graphData} />
     </GraphWrapper>
   )
 };

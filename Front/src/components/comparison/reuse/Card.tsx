@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import tw, { styled } from "twin.macro";
 import ComparisonGraph from "../ComparisonGraph";
 
+
 const CardWrapper = styled.figure`
   ${tw`flex-cc w-[40%] h-96 bg-amber-50 relative`}
 `;
@@ -27,9 +28,10 @@ const CardText = styled.h1`
 interface SelectedProps {
   selected: string | null;
   setSelected: (value: string | null) => void;
+  cardIndex: number;
 }
 
-const Card: React.FC<SelectedProps> = ({ selected, setSelected }) => {
+const Card: React.FC<SelectedProps> = ({ selected, setSelected, cardIndex }) => {
   return (
     <CardWrapper>
       {selected ? (
@@ -41,7 +43,7 @@ const Card: React.FC<SelectedProps> = ({ selected, setSelected }) => {
               <Button onClick={() => setSelected(null)}>삭제</Button>
             </ButtonWrapper>
           </CardTop>
-          <ComparisonGraph />
+          <ComparisonGraph cardIndex={cardIndex} />
         </>
       ) : (
         <CardText>선택된 항목이 없습니다. 동네를 선택해주세요.</CardText>

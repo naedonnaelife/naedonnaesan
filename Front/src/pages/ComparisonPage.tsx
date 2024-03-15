@@ -23,13 +23,13 @@ function ComparisonPage() {
     <>
       <NavBar />
       <Main>
-        <DongAdd setSelected={setSelected1}/>
+        <DongAdd setSelected1={setSelected1} setSelected2={setSelected2} selected1={selected1} selected2={selected2}/>
         <Comparison>
-          <Card selected={selected1} />
-          <Column setCategory={setCategory} />
-          <Card selected={selected1}/>
+          <Card selected={selected1} setSelected={setSelected1} />
+          <Column selected1={selected1} selected2={selected2} setCategory={setCategory} />
+          <Card selected={selected2} setSelected={setSelected2}/>
         </Comparison>
-        {category && <DetailGraph category={category} />}
+        {selected1 && selected2 && category ? (<DetailGraph category={category} />) : (null)}
       </Main>
     </>
   );

@@ -9,7 +9,7 @@ const NewsTitle = styled.h1`
   ${tw`text-2xl text-center font-bold m-2`}
 `;
 const NewsImage = styled.img`
-  ${tw`w-[100%] h-[40%] object-cover`}
+  ${tw`w-[100%] h-[80%] object-contain`}
 `;
 const NewsContent = styled.p`
   ${tw`text-left text-sm p-4`}

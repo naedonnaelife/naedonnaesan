@@ -15,6 +15,9 @@ const SubmitButton = styled.button`
 const Input = styled.input`
   ${tw`w-[80%] border-2 rounded-md`}
 `;
+const Select = styled.select`
+  ${tw`w-[80%] border-2 rounded-md`}
+`;
 function UserForm() {
   return (
     <FormWrapper>
@@ -22,11 +25,14 @@ function UserForm() {
       <Form>
         <Label htmlFor="">
           <span>성별</span>
-          <Input type="text" />
+          <Select>
+            <option value="">여자</option>
+            <option value="">남자</option>
+          </Select>
         </Label>
         <Label htmlFor="">
           <span>나이</span>
-          <Input type="text" />
+          <Input type="number" />
         </Label>
         <Label htmlFor="">
           <span>이름</span>

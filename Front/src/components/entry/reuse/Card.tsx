@@ -7,12 +7,12 @@ interface CardProps {
   index: number;
 }
 
-type StateProps = {
+type StateProps  = {
   color : string;
   width: string;
   isAnimate : boolean;
   isLeft : boolean;
-};
+}
 
 const animation1 = (animate: boolean) => {
   if (animate) {

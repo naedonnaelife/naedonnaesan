@@ -13,6 +13,7 @@ public class KakaoProfile {
     public String connected_at;
     public Properties properties;
     public KakaoAccount kakao_account;
+    public Boolean is_default_nickname; // 이 필드를 추가
 
     @Getter @Setter
     @ToString

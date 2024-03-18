@@ -2,7 +2,6 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-import datetime
 from tqdm import tqdm
 import sys
 
@@ -18,20 +17,24 @@ def makePgNum(num):
 
 # 크롤링할 url 생성하는 함수 만들기(검색어, 크롤링 시작 페이지, 크롤링 종료 페이지)
 
+from datetime import datetime, timedelta
+
+
+# 어제 날짜를 'YYYY.MM.DD' 형식으로 반환하는 함수
+def get_yesterday_date():
+    yesterday = datetime.now() - timedelta(days=1)
+    return yesterday.strftime('%Y.%m.%d')
+
+# 크롤링할 url 생성하는 함수 수정
 def makeUrl(search, start_pg, end_pg):
-    if start_pg == end_pg:
-        start_page = makePgNum(start_pg)
-        url = "https://search.naver.com/search.naver?where=news&sm=tab_pge&query=" + search + "&start=" + str(start_page)
-        print("생성url: ", url)
-        return url
-    else:
-        urls = []
-        for i in range(start_pg, end_pg + 1):
-            page = makePgNum(i)
-            url = "https://search.naver.com/search.naver?where=news&sm=tab_pge&query=" + search + "&start=" + str(page)
-            urls.append(url)
-        print("생성urls: ", urls)
-        return urls    
+    urls = []
+    yesterday_date = get_yesterday_date()  # 어제 날짜 계산
+    for i in range(start_pg, end_pg + 1):
+        page = makePgNum(i)
+        # 어제 날짜를 기준으로 URL 생성
+        url = f"https://search.naver.com/search.naver?where=news&query={search}&sm=tab_opt&sort=1&reporter_article=&pd=3&ds={yesterday_date}&de={yesterday_date}&docid=&mynews=0&start={page}"
+        urls.append(url)
+    return urls
 
 # html에서 원하는 속성 추출하는 함수 만들기 (기사, 추출하려는 속성값)
 def news_attrs_crawler(articles,attrs):
@@ -45,15 +48,17 @@ headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/98.0.
 
 #html생성해서 기사크롤링하는 함수 만들기(url): 링크를 반환
 def articles_crawler(urls):
-    all_urls = []  # 최종적으로 수집할 모든 URL들을 담을 리스트
-    for url in urls:  # 'urls' 리스트 내의 각 URL에 대해 반복 처리
-        # html 불러오기
+    all_urls = []
+    for url in urls:
         original_html = requests.get(url, headers=headers)
         html = BeautifulSoup(original_html.text, "html.parser")
-
+        
         url_naver = html.select("div.group_news > ul.list_news > li div.news_area > div.news_info > div.info_group > a.info")
+        if not url_naver:  # 기사가 더 이상 없는 경우
+            break  # 크롤링 종료
+        
         single_urls = news_attrs_crawler(url_naver, 'href')
-        all_urls.extend(single_urls)  # 단일 URL 리스트를 전체 URL 리스트에 추가
+        all_urls.extend(single_urls)
     return all_urls
 
 
@@ -127,9 +132,11 @@ for i in tqdm(final_urls):
     if content == []:
         content = news_html.select("#articeBody")
     
+    #articeBody > span:nth-child(2)
     # 뉴스 썸네일 이미지 가져오기
-        #img_a1
+    #dic_area > span:nth-child(4)
     picture = news_html.select("#ct > #contents > #newsct_article > #dic_area > span > div > div > #img1")
+    # picture = news_html.select("span#end_photo_org > #img1")
     # 기사 텍스트만 가져오기
     # list합치기
     content = ''.join(str(content))
@@ -196,5 +203,5 @@ news_df = news_df.drop_duplicates(keep='first',ignore_index=True)
 print("중복 제거 후 행 개수: ",len(news_df))
 
 #데이터 프레임 저장
-now = datetime.datetime.now() 
+now = datetime.now() 
 news_df.to_csv('{}_{}.csv'.format(search,now.strftime('%Y%m%d_%H시%M분%S초')),encoding='utf-8-sig',index=False)

@@ -7,7 +7,8 @@ interface KakaoMapProps {
   areaName: string;
 }
 const Map = styled.div`
-  ${tw`w-[75%] h-[100%]`}
+  ${tw`w-[75%] h-[100%]
+  max-sm:w-[100%]`}
 `;
 
 const { kakao } = window;

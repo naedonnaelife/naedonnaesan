@@ -4,7 +4,8 @@ import BuildingCard from './reuse/BuildingCard.tsx';
 import SearchBar from '../../utils/SearchBar.tsx';
 
 const Aside = styled.aside`
-  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg p-2`}
+  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg p-2
+  max-sm:w-[100%]`}
 `;
 const Card = styled.article`
   ${tw`flex w-[100%] h-[15%] p-1`}

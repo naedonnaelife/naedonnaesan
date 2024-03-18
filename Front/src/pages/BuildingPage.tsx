@@ -6,7 +6,7 @@ import NavBar from '../utils/NavBar';
 
 const Main = styled.main`
   ${tw`flex w-screen h-full-nav
-  max-sm:flex-col-reverse`}
+    max-sm:flex-col-reverse max-sm:relative max-sm:overflow-hidden`}
 `;
 
 function BuildingPage() {

@@ -6,9 +6,12 @@ import test from '../../datas/test.json';
 interface KakaoMapProps {
   areaName: string;
 }
+const MapWrapper = styled.div`
+${tw`w-[75%] h-[100%]
+max-sm:w-[100%] max-sm:border`}
+`
 const Map = styled.div`
-  ${tw`w-[75%] h-[100%]
-  max-sm:w-[100%]`}
+  ${tw`w-[100] h-[100%]`}
 `;
 
 const { kakao } = window;
@@ -98,7 +101,11 @@ const KakaoMap: React.FC<KakaoMapProps> = ({ areaName }) => {
     console.log(clusterer.getStyles());
   }, []);
 
-  return <Map id="map"></Map>;
+  return (
+  <MapWrapper>
+  <Map id="map" />
+  </MapWrapper>
+  );
 };
 
 export default KakaoMap;

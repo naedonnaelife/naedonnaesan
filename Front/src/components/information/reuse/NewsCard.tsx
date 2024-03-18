@@ -1,6 +1,7 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 import garma from '../../../assets/garma.jpg';
+
 const CardWrapper = styled.div`
   ${tw`flex w-[100%] h-[100%] border-basic p-1 m-1 hover:cursor-pointer`}
 `;

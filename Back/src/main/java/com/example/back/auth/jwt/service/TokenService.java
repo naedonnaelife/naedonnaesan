@@ -33,11 +33,11 @@ public class TokenService {
         // HMAC 방식으로 암호화 된 토큰
 
         String accessToken = generateToken(id,role, ACCESS);
+
         String refreshToken = generateToken(id,role, REFRESH);
         // 리프레쉬 토큰을 레디스에 저장하기
         redisService.setValuesWithTimeout(JwtProperties.REDIS_REFRESH_PREFIX + role + "_" + id, refreshToken,
-                JwtProperties.ACCESS_EXPIRATION_TIME);
-
+                JwtProperties.REFRESH_EXPIRATION_TIME);
         return new JwtToken(accessToken, refreshToken, id);
 
     }

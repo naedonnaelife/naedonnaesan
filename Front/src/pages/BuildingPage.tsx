@@ -5,18 +5,19 @@ import KakaoMap from '../components/building/KakaoMap.tsx';
 import NavBar from '../utils/NavBar';
 
 const Main = styled.main`
-  ${tw`flex w-screen h-full-nav`}
+  ${tw`flex w-screen h-full-nav
+  max-sm:flex-col-reverse`}
 `;
 
 function BuildingPage() {
-  const location = useLocation()
-  console.log('props데이터 :', location)
+  const location = useLocation();
+  console.log('props데이터 :', location);
   return (
     <>
       <NavBar />
       <Main>
         <SideBuilding />
-        <KakaoMap areaName={location.state? location.state.areaName : '강남구 역삼2동'}/>
+        <KakaoMap areaName={location.state ? location.state.areaName : '강남구 역삼2동'} />
       </Main>
     </>
   );

@@ -7,7 +7,8 @@ import TextBox from './TextBox.tsx';
 import data from '../../datas/jm.json';
 
 const ReportWrapper = styled.section`
-  ${tw`w-[75%] h-[100%] border-l border-lightGray p-2`}
+  ${tw`w-[75%] h-[100%] border-l border-lightGray p-2
+  max-sm:w-[100%]`}
 `;
 
 interface ReportProps {

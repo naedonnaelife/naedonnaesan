@@ -5,7 +5,8 @@ import SideNews from '../components/information/SideNews.tsx';
 import Report from '../components/information/Report.tsx';
 
 const Main = styled.main`
-  ${tw`flex w-screen h-full-nav`}
+  ${tw`flex w-screen h-full-nav 
+    max-sm:flex-col`}
 `;
 
 function InformationPage() {

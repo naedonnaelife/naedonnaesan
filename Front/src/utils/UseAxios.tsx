@@ -1,26 +1,24 @@
 import axios, { AxiosInstance } from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
-const API_URL = 'http://localhost:8080'
+const API_URL = 'http://localhost:8080/api'
 
-type test = {
-  accessToken : null | string,
-  refreshToken : null | string
-}
+
 const UseAxios = ():AxiosInstance  => {
-  const [tokens, setTokens] = useState<test>({ accessToken: null, refreshToken: '' });
-
-  useEffect(() => {
-    const accessToken = localStorage?.getItem('accessToken');
-    const refreshToken = localStorage?.getItem('refreshToken');
-    setTokens({ accessToken, refreshToken });
-  }, [])
 
   const axiosInstance = axios.create({
     baseURL: API_URL,
-    headers: { Authorization: `Bearer ${tokens?.accessToken}` },
   });
+
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      config.headers["authorization"] = localStorage.getItem("accessToken")
+      return config
+    },
+    async (error) => {
+      console.log(error)
+    }
+  )
+
   axiosInstance.interceptors.response.use(
     (response) => {
       return response;
@@ -32,8 +30,8 @@ const UseAxios = ():AxiosInstance  => {
         originalRequest._retry = true;
 
         try {
-          const response = await axios.post(`${API_URL}/auth/refresh-token`, {
-            refreshToken: tokens.refreshToken,
+          const response = await axios.get(`${API_URL}/token`, {
+            headers: {'authorization' : localStorage.getItem("refreshToken")}
           });
 
           const newAccessToken = response.headers['authorization'];
@@ -42,7 +40,6 @@ const UseAxios = ():AxiosInstance  => {
           localStorage.setItem('accessToken', newAccessToken);
           localStorage.setItem('refreshToken', newRefreshToken)
 
-          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return axiosInstance(originalRequest);
         } catch (error) {
           console.error('Error refreshing token:', error);

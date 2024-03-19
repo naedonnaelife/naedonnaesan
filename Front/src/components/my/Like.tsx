@@ -2,22 +2,24 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import SearchBar from '../../utils/SearchBar';
 import LikedDong from './reuse/LikedDong';
-import UserStore from '../../stores/UserStore';
 import SB from "../../datas/SB.json";
 
 const LikeWrapper = styled.div`
-  ${tw`w-[100%] border`}
+  ${tw`w-[90%]
+  max-sm:flex-col max-sm:w-full max-sm:pt-5`}
 `;
 const LikeTop = styled.div`
-  ${tw`flex justify-between mx-5`}
+  ${tw`flex justify-between mx-5 my-3
+  max-sm:flex-col max-sm:mx-1`}
 `;
 
 const LikeTitle = styled.h1`
-  ${tw`text-3xl font-bold`}
+  ${tw`text-3xl font-bold w-[90%]
+  max-sm:text-2xl max-sm:mb-2 max-sm:mx-1`}
 `;
 
 const LikeContent = styled.ul`
-  ${tw``}
+  ${tw`flex-cc`}
 `;
 
 const LikedDongList = {
@@ -25,8 +27,6 @@ const LikedDongList = {
 };
 
 const Like: React.FC = () => {
-
-  const { name } = UserStore();
 
   return (
     <LikeWrapper>

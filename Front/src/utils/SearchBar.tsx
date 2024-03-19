@@ -1,18 +1,18 @@
 import tw, { styled } from "twin.macro";
 
 const Search = styled.div`
-  ${tw`relative w-[18rem]`}
+  ${tw`relative w-full h-10`}
 `;
 
 const InputText = styled.input`
-  ${tw`h-10 border-2 border-gray rounded-full px-5 pr-16 focus:outline-grayHover`}
+  ${tw`w-full h-10 border-2 border-gray rounded-full px-5 focus:outline-grayHover`}
   ::placeholder {
     ${tw`text-grayHover`}
   }
 `;
 
 const AddButton = styled.button`
-  ${tw`flex items-center absolute h-full inset-y-0 right-0 px-2`}
+  ${tw`flex items-center absolute inset-y-0 right-3 px-2`}
 `;
 
 // function SearchBar({onAddButtonClick}) {

@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
+        jamsilLight: ['TheJamsil3Regular']
       },
       colors: {
         white: '#FFFFFF',

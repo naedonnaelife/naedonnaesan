@@ -1,22 +1,29 @@
 import React from "react";
 import tw, { styled } from "twin.macro";
 import ReportContent from "./ReportContent";
-import UserStore from "../../stores/UserStore";
 import SB from "../../datas/SB.json";
 
 const ReportWrapper = styled.section`
-  ${tw`w-[100%] border`}
+  ${tw`w-[90%] border-b-2 border-grayHover pb-5
+  max-sm:w-full`}
 `;
 
 const ReportTitle = styled.h1`
-  ${tw`text-3xl mx-5`}
+  ${tw`text-3xl mx-5 my-3
+  max-sm:text-2xl max-sm:mx-2`}
+  span {
+    ${tw`max-sm:block`}
+  }
 `;
 
 const Report: React.FC = () => {
-
   return (
     <ReportWrapper>
-      <ReportTitle>{SB.reportUserInfo.object.nickname}님의 {SB.reportUserInfo.object.bAddress} 추천 결과 보고서입니다</ReportTitle>
+      <ReportTitle>
+        <span>{SB.reportUserInfo.object.nickname}님의 </span>
+        <span>{SB.reportUserInfo.object.bAddress} 기준</span>
+        추천 결과 보고서입니다
+      </ReportTitle>
       <ReportContent />
     </ReportWrapper>
   );

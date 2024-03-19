@@ -1,23 +1,34 @@
 import tw, { styled } from "twin.macro";
 import SearchBar from "../../utils/SearchBar";
 
-const Wrapper = styled.h1`
-  ${tw`flex justify-end w-[80%] relative`}
+const Wrapper = styled.div`
+  ${tw`flex justify-end w-full
+  max-sm:flex-col`}
 `;
 
-const LikeDongWrapper = styled.h1`
-  ${tw`flex items-center absolute left-0`}
+const LikeDongWrapper = styled.div`
+  ${tw`flex items-center`}
 `;
 
 const Title = styled.h1`
-  ${tw`text-2xl font-bold`}
+  ${tw`text-2xl font-bold
+  max-sm:w-[40%] max-sm:text-xl max-sm:text-left`}
+`;
+
+const LikeDongList = styled.div`
+  ${tw`max-sm:whitespace-nowrap max-sm:overflow-x-auto`}
 `;
 
 const Dong = styled.button`
-  ${tw`h-8 rounded-full bg-dongButton px-4 mr-2 hover:bg-dongButtonHover`}
+  ${tw`h-8 rounded-full bg-dongButton px-4 mr-2 hover:bg-dongButtonHover
+  max-sm:text-base`}
 `;
 
-const likeDongs = ["역삼1동", "도곡2동", "성수1가1동"];
+const SearchWrapper = styled.div`
+  ${tw``}
+`
+
+const likeDongs = ["역삼1동", "도곡2동", "성수1가1동", "명지동"];
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -48,14 +59,18 @@ const DongAdd: React.FC<
     <Wrapper>
       <LikeDongWrapper>
         <Title>찜한동네</Title>
-        {likeDongs.map((dong, i) => (
-          <Dong key={i} onClick={() => handleClick(dong)}>
-            {dong}
-          </Dong>
-        ))}
+        <LikeDongList>
+          {likeDongs.map((dong, i) => (
+            <Dong key={i} onClick={() => handleClick(dong)}>
+              {dong}
+            </Dong>
+          ))}
+        </LikeDongList>
       </LikeDongWrapper>
       {/* <SearchBar onAddButtonClick={handleClick} /> */}
-      <SearchBar/>
+      <SearchWrapper>
+        <SearchBar />
+      </SearchWrapper>
     </Wrapper>
   );
 };

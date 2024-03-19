@@ -24,6 +24,6 @@ public class Convenience extends BaseEntity {
 
     private int mart;
     private int convStore;
-    private int bank;
+    private int conv_cnt;
 
 }

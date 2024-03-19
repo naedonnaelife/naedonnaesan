@@ -23,5 +23,5 @@ public class Health {
 
         private int hospital;
         private int pharmacy;
-        private int totalCnt;
+        private int healthCnt;
 }

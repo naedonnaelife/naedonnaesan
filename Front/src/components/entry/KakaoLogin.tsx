@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import UseAxios from '../../utils/UseAxios';
+import UserStore from '../../stores/UserStore';
 
 
 const LoginButton = styled.button`
-  ${tw` bg-gray rounded-lg text-2xl my-2 ml-auto mr-10 p-2`}
+  ${tw` h-[15%] w-[10vw] bg-gray rounded-lg text-2xl ml-auto mr-[5vw] p-2`}
 `;
 
 const KakaoLogin:React.FC = () => {
+    const useStore = UserStore((state:any) => state)
     const axios = UseAxios()
     const redirect_uri = 'http://localhost:5173';
     const REST_API_KEY = '218aa28a9e8fa4d947c106cb95b2ec1b';
@@ -37,6 +39,7 @@ const KakaoLogin:React.FC = () => {
         localStorage.setItem("accessToken", response.headers['authorization']);
         localStorage.setItem("refreshToken", response.headers['authorization-refresh']);
         localStorage.setItem("kakaoToken", response.headers['kakao-authorization']);
+        useStore.setIsLogin(true)
       } catch (error) {
         console.error('백엔드 전송 실패', error);
       }
@@ -55,8 +58,8 @@ const KakaoLogin:React.FC = () => {
     
     return( 
     <>
-      <LoginButton onClick={kakaoLogin}>로그인</LoginButton>
-      <LoginButton onClick={kakaoLogout}>로그아웃</LoginButton>
+      {!useStore.isLogin &&<LoginButton onClick={kakaoLogin}>로그인</LoginButton>}
+      {useStore.isLogin &&<LoginButton onClick={kakaoLogout}>로그아웃</LoginButton>}
 
     </>
     )

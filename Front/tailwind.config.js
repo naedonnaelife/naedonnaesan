@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
       },
+      fontSize :{
+        10: ['10px']
+      },
       colors: {
         white: '#FFFFFF',
         black: '#000000',
@@ -23,7 +26,7 @@ export default {
         // 테스트
       },
       height: {
-        'full-nav': 'calc(100% - 75px)',
+        'full-nav': 'calc(100vh - 75px)',
       },
     },
   },

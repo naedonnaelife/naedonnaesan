@@ -21,15 +21,22 @@ const NewsContent = styled.p`
   ${tw`text-sm`}
 `;
 
-const NewsCard: React.FC = () => {
+interface newsCardProps {
+  news: {
+    title: string;
+    content: string;
+  };
+}
+
+const NewsCard: React.FC<newsCardProps> = ({ news }) => {
   return (
     <CardWrapper>
       <ImageWrapper>
         <CardImage src={garma} alt="garma" />
       </ImageWrapper>
       <ContentWrapper>
-        <NewsTitle>뉴스 제목</NewsTitle>
-        <NewsContent>and 내용내용내용</NewsContent>
+        <NewsTitle>{news.title}</NewsTitle>
+        <NewsContent>{news.content}</NewsContent>
       </ContentWrapper>
     </CardWrapper>
   );

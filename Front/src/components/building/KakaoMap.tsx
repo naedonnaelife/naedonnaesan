@@ -7,9 +7,9 @@ interface KakaoMapProps {
   areaName: string;
 }
 const MapWrapper = styled.div`
-${tw`w-[75%] h-[100%]
-max-sm:w-[100%] max-sm:border`}
-`
+  ${tw`w-[75%] h-[100%]
+max-sm:w-[100%]`}
+`;
 const Map = styled.div`
   ${tw`w-[100] h-[100%]`}
 `;
@@ -102,9 +102,9 @@ const KakaoMap: React.FC<KakaoMapProps> = ({ areaName }) => {
   }, []);
 
   return (
-  <MapWrapper>
-  <Map id="map" />
-  </MapWrapper>
+    <MapWrapper>
+      <Map id="map" />
+    </MapWrapper>
   );
 };
 

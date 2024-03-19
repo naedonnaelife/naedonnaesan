@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import tw, { styled } from "twin.macro";
-import ComparisonGraph from "../ComparisonGraph";
-
+import React from 'react';
+import tw, { styled } from 'twin.macro';
+import ComparisonGraph from '../ComparisonGraph';
 
 const CardWrapper = styled.figure`
   ${tw`flex-cc w-[40%] h-96 bg-amber-50 relative`}

@@ -12,17 +12,29 @@ const Card = styled.article`
   max-sm:h-[20%]`}
 `;
 
-const newsList: number[] = [1, 2, 3, 4, 5];
+type News = {
+  title: string;
+  content: string;
+};
+
 interface SideProps {
   setIsNewsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const newsList: News[] = [
+  { title: 'NEWS 1', content: 'CONTENT 1' },
+  { title: 'NEWS 2', content: 'CONTENT 2' },
+  { title: 'NEWS 3', content: 'CONTENT 3' },
+  { title: 'NEWS 4', content: 'CONTENT 4' },
+  { title: 'NEWS 5', content: 'CONTENT 5' },
+];
 
 const SideNews: React.FC<SideProps> = ({ setIsNewsOpen }) => {
   return (
     <NewsWrapper>
       {newsList.map((news, index) => (
         <Card onClick={() => setIsNewsOpen(true)}>
-          <NewsCard key={index} />
+          <NewsCard key={index} news={news} />
         </Card>
       ))}
     </NewsWrapper>

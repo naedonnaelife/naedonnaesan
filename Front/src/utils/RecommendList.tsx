@@ -47,7 +47,7 @@ const RecommendList: React.FC = () => {
         {dummyData.response.map((element: string, index: number) => (
           <RecommendResult key={index}>
             <Index>{index + 1}</Index>
-            <TownName onClick={() => selectArea(element)}>서울특별시 {element}</TownName>
+            <TownName onClick={() => selectArea(element)}>{element}</TownName>
             {likeList.includes(index + 1) ? (
               <Like onClick={() => removeLike(index + 1)}>💗</Like>
             ) : (

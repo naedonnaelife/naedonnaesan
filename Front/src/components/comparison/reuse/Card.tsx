@@ -3,17 +3,19 @@ import tw, { styled } from 'twin.macro';
 import ComparisonGraph from '../ComparisonGraph';
 
 const CardWrapper = styled.figure`
-  ${tw`flex-cc w-[40%] h-96 bg-amber-50 relative`}
+  ${tw`flex-cc w-[40%] h-96 bg-amber-50`}
 `;
 const CardTop = styled.div`
-  ${tw`flex-c my-3`}
+  ${tw`flex my-3
+  max-sm:flex-col`}
 `;
 const CardTitle = styled.h1`
-  ${tw`font-bold text-3xl`}
+  ${tw`font-bold text-3xl
+  max-sm:text-xl`}
 `;
 
 const ButtonWrapper = styled.div`
-  ${tw`absolute right-0 top-4`}
+  ${tw`flex`}
 `;
 
 const Button = styled.button`

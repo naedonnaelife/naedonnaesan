@@ -3,19 +3,22 @@ import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
 
 const DongWrapper = styled.li`
-  ${tw`flex bg-white text-xl`}
+  ${tw`flex w-full bg-white text-xl rounded-lg  my-1
+  max-sm:h-12`}
 `;
 
 const NameWrapper = styled.span`
-  ${tw`w-[70%] text-center`}
+  ${tw`flex-c w-[60%] text-center font-jamsilLight text-2xl py-2
+  max-sm:font-jamsilLight max-sm:text-lg`}
 `;
 
 const ButtonWrapper = styled.span`
-  ${tw`w-[30%] flex-c`}
+  ${tw`w-[40%] flex-c`}
 `;
 
 const Button = styled.button`
-  ${tw`w-16 h-8 rounded-lg bg-mango`}
+  ${tw`w-16 h-10 rounded-lg bg-mango
+  max-sm:text-xs max-sm:h-7`}
 `;
 
 const LikeButton = styled.button`

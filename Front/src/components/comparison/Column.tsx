@@ -1,7 +1,8 @@
 import tw, { styled } from 'twin.macro';
 
 const Category = styled.li`
-  ${tw`text-3xl px-2`}
+  ${tw`text-3xl px-2
+  max-sm:text-sm`}
 `;
 
 const categories = ['치안', '보건', '편의시설', '음식점', '교통', '여가'];

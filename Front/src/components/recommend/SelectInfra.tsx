@@ -10,7 +10,7 @@ ${tw`m-2 mb-4`}
 `
 
 const SubmitButton = styled.button`
-    ${tw``}
+    ${tw` bg-purple-200 rounded-lg  ml-auto mr-[1vw] mb-2 p-1`}
 `
 
 function SelectInfra() {
@@ -20,7 +20,7 @@ function SelectInfra() {
     <SelectWrapper>
         <Title>인프라 선택하기</Title>
         {dummyData.map((element:string[]) => <Item data={element}/>)}
-        <SubmitButton>선택</SubmitButton>
+        <SubmitButton>검색</SubmitButton>
     </SelectWrapper>
     </>
     );

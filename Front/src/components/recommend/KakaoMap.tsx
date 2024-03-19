@@ -6,19 +6,27 @@ import newDong from '../../datas/newDong.json';
 import newGu from '../../datas/newGu.json';
 
 const Map = styled.div`
-  /* ${tw`h-[100%] w-[75%] border-4 border-black p-2 mx-2 `} */
   ${tw`h-[100%] w-[75%] p-2 `}
 `;
 
 const { kakao } = window;
 
 const KakaoMap: React.FC = () => {
+<<<<<<< HEAD
   const [newMap, setNewMap] = useState<any>(null);
   const [newCustomOverlay, setNewCustomOverlay] = useState(null);
   const [rectangle, setRectangle] = useState(null);
   const polygons = useRef([new kakao.maps.Polygon()]);
   const navigate = useNavigate();
   const areaName = useSearchStore((state: any) => state.areaName);
+=======
+  const [newMap, setNewMap] = useState<any>(null)
+  const [newCustomOverlay, setNewCustomOverlay] = useState(null)
+  const [rectangle, setRectangle] = useState(null)
+  const polygons = useRef([new kakao.maps.Polygon()])
+  const navigate = useNavigate()
+  const areaName = useSearchStore(state => state.areaName)
+>>>>>>> feat/app
 
   // 구&동 지도 생성 함수
   const jsonProcessing = async (json: any, sig_cd: string | boolean) => {
@@ -32,7 +40,7 @@ const KakaoMap: React.FC = () => {
       const newJson = geoJson.map((unit: any) => {
         const name = unit.properties.SIG_KOR_NM ? unit.properties.SIG_KOR_NM : unit.properties.temp;
         const coordinates = unit.geometry.coordinates[0].map(
-          (coordinate: any) => new kakao.maps.LatLng(coordinate[1], coordinate[0])
+          (coordinate: number[]) => new kakao.maps.LatLng(coordinate[1], coordinate[0])
         );
         const centerCoordinate = [unit.properties.x, unit.properties.y];
         const sig_cd = unit.properties.SIG_CD;

@@ -1,9 +1,7 @@
-import React from 'react';
 import tw, { styled } from 'twin.macro';
 import SearchBar from '../../utils/SearchBar';
 import LikedDong from './reuse/LikedDong';
-import UserStore from '../../stores/UserStore';
-import SB from "../../datas/SB.json";
+import SB from '../../datas/SB.json';
 
 const LikeWrapper = styled.div`
   ${tw`w-[100%] border`}
@@ -25,13 +23,10 @@ const LikedDongList = {
 };
 
 const Like: React.FC = () => {
-
-  const { name } = UserStore();
-
   return (
     <LikeWrapper>
       <LikeTop>
-        <LikeTitle>{ SB.reportUserInfo.object.nickname }님이 찜한 동네</LikeTitle>
+        <LikeTitle>{SB.reportUserInfo.object.nickname}님이 찜한 동네</LikeTitle>
         <SearchBar />
       </LikeTop>
       <LikeContent>

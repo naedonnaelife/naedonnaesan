@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import NavBar from '../utils/NavBar';
 import SideNews from '../components/information/SideNews.tsx';

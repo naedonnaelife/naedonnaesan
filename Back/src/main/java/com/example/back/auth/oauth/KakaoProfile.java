@@ -13,6 +13,7 @@ public class KakaoProfile {
     public String connected_at;
     public Properties properties;
     public KakaoAccount kakao_account;
+    public Boolean is_default_nickname; // 이 필드를 추가
 
     @Getter @Setter
     @ToString
@@ -45,6 +46,7 @@ public class KakaoProfile {
             public String thumbnail_image_url;
             public String profile_image_url; // 이미지 경로 필드2
             public Boolean is_default_image;
+            public Boolean is_default_nickname;
         }
     }
 

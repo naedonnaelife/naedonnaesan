@@ -22,5 +22,5 @@ public class Transp {
 
     private int bus;
     private int subway;
-    private int totalCnt;
+    private int transpCnt;
 }

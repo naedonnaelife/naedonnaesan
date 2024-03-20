@@ -30,5 +30,7 @@ public class Dong {
     private int foodCnt;
     private int transpCnt;
     private int leisureCnt;
+    private int cafeCnt;
+    private int pubCnt;
 
 }

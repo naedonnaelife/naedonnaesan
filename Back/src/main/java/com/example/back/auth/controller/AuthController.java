@@ -41,6 +41,7 @@ public class AuthController {
         // response 할 headers 설정
         HttpHeaders headers = new HttpHeaders();
 
+
         headers.add("Access-Control-Expose-Headers", "Authorization, Authorization-Refresh, isFirst, Kakao-Authorization"); // CORS 정책 때문에 이걸 넣어줘야 프론트에서 header를 꺼내쓸수있음
         headers.add(JwtProperties.KAKAO_ACCESS_HEADER_STRING, JwtProperties.TOKEN_PREFIX + oauthToken.getAccess_token());
         headers.add(JwtProperties.ACCESS_HEADER_STRING, JwtProperties.TOKEN_PREFIX + oAuthDto.getTokenInfo().getAccessToken());

@@ -23,7 +23,8 @@ public class Safety {
     private Dong dong;
 
     private int police;
+    private int emergency;
     private int cctv;
-    private int bar;
-    private int totalCnt;
+    private int safetyCenter;
+    private int safetyCnt;
 }

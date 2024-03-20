@@ -89,7 +89,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String role = decodedJWT.getClaim("role").asString();
         String id = decodedJWT.getClaim("id").toString();
         // username이 있다는 말은 사용자가 정상적으로 인증이 됐다는 뜻!
-        if ("User".equals(role)) {
+        if ("USER".equals(role)) {
             return getAuthenticationForFan(id);
         }
 

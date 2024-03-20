@@ -23,4 +23,5 @@ public class Food {
 
     private int cafe;
     private int restaurant;
+    private int pub;
 }

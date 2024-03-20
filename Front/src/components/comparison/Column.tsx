@@ -1,17 +1,17 @@
 import tw, { styled } from 'twin.macro';
 
+interface ColumnProps {
+  selected1: string | null;
+  selected2: string | null;
+  setCategory: (category: string | null) => void;
+}
+
 const Category = styled.li`
   ${tw`text-3xl px-2
   max-sm:text-sm`}
 `;
 
 const categories = ['치안', '보건', '편의시설', '음식점', '교통', '여가'];
-
-interface ColumnProps {
-  selected1: string | null;
-  selected2: string | null;
-  setCategory: (category: string | null) => void;
-}
 
 const Column: React.FC<ColumnProps> = ({ selected1, selected2, setCategory }) => {
   return (

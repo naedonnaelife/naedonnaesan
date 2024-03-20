@@ -3,6 +3,12 @@ import tw, { styled } from 'twin.macro';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
+interface DetailGraphProps {
+  category: string | null;
+  selected1: string | null;
+  selected2: string | null;
+}
+
 const GraphWrapper = styled.figure`
   ${tw`w-[80%] h-[400px] border-t-2 border-gray m-7 pt-5`}
 `;
@@ -11,12 +17,6 @@ const GraphTitle = styled.h1`
   ${tw`flex-c`}
 `;
 
-interface DetailGraphProps {
-  category: string | null;
-  selected1: string | null;
-  selected2: string | null;
-}
-
 const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) => {
   ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -24,7 +24,7 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) =
   const [, setWindowSize] = useState({
     width: window.innerWidth,
   });
-  
+
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -71,7 +71,9 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) =
 
   return (
     <GraphWrapper>
-      <GraphTitle>{selected1} {selected2} {category} 수 비교</GraphTitle>
+      <GraphTitle>
+        {selected1} {selected2} {category} 수 비교
+      </GraphTitle>
       <Bar options={options} data={data} />
     </GraphWrapper>
   );

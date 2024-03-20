@@ -2,23 +2,24 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import NewsCard from './reuse/NewsCard.tsx';
 
+interface SideProps {
+  setIsNewsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isNewsListOpen: boolean;
+}
+
 type News = {
   title: string;
   content: string;
 };
 
-interface SideProps {
-  setIsNewsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isNewsListOpen: boolean;
-}
-type isNewsListOpenProps = {
+type NewsWrapperProps = {
   isNewsListOpen: boolean;
 };
 
 const NewsWrapper = styled.aside`
   ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white p-2
     max-sm:absolute max-sm:top-0 max-sm:w-[100%]`}
-  ${({ isNewsListOpen }: isNewsListOpenProps) => (isNewsListOpen ? '' : tw`max-sm:hidden`)}
+  ${({ isNewsListOpen }: NewsWrapperProps) => (isNewsListOpen ? '' : tw`max-sm:hidden`)}
 `;
 
 const Card = styled.article`

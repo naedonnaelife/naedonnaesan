@@ -7,7 +7,6 @@ const TextWrapper = styled.div`
 `;
 
 const TextBox: React.FC = () => {
-  // const [dongInformation, setDongInformation] = useState(data.dongInformation.object);
   const [dongInformation, setDongInformation] = useState({
     metro: [''],
     age: 0,

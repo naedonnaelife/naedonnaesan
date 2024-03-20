@@ -2,6 +2,10 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
 
+interface Props {
+  likedDong: string;
+}
+
 const DongWrapper = styled.li`
   ${tw`flex w-full bg-white text-xl rounded-lg  my-1
   max-sm:h-12`}
@@ -24,10 +28,6 @@ const Button = styled.button`
 const LikeButton = styled.button`
   ${tw`w-[30px] h-[30px] border-2 border-red rounded-full`}
 `;
-
-interface Props {
-  likedDong: string;
-}
 
 const Like: React.FC<Props> = ({ likedDong }) => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import tw, { styled } from "twin.macro";
+import tw, { styled } from 'twin.macro';
 
 const Search = styled.div`
   ${tw`relative w-full h-10`}
@@ -31,7 +31,7 @@ function SearchBar() {
     <>
       <Search>
         <InputText placeholder="동네 검색" />
-        <AddButton>추가</AddButton>
+        <AddButton>검색</AddButton>
       </Search>
     </>
   );

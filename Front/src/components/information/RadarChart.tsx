@@ -3,14 +3,16 @@ import tw, { styled } from 'twin.macro';
 import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 
-const ChartWrapper = styled.figure`
-  ${tw`flex justify-center h-[50%] border-basic m-1`}
-`;
 interface RadarProps {
   dongScore: number[];
   seoulScore: number[];
   labels: string[];
 }
+
+const ChartWrapper = styled.figure`
+  ${tw`flex justify-center h-[50%] border-basic m-1`}
+`;
+
 const RadarChart: React.FC<RadarProps> = ({ dongScore, seoulScore, labels }) => {
   ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
   const chartData = {

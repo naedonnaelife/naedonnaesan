@@ -13,7 +13,7 @@ const Main = styled.main`
     `}
 `;
 
-const Wrapper = styled.div`
+const ActiveWrapper = styled.div`
   ${tw`flex h-[100%]
     max-sm:flex-col max-sm:relative max-sm:border-basic max-sm:p-1 max-sm:mx-2`}
 `;
@@ -54,10 +54,10 @@ function InformationPage() {
             </Button>
           </li>
         </ButtonWrapper>
-        <Wrapper>
+        <ActiveWrapper>
           <SideNews setIsNewsOpen={setIsNewsOpen} isNewsListOpen={isNewsListOpen} />
           <Report isNewsOpen={isNewsOpen} setIsNewsOpen={setIsNewsOpen} />
-        </Wrapper>
+        </ActiveWrapper>
       </Main>
     </>
   );

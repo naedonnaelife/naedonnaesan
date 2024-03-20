@@ -2,6 +2,12 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import ComparisonGraph from '../ComparisonGraph';
 
+interface SelectedProps {
+  selected: string | null;
+  setSelected: (value: string | null) => void;
+  cardIndex: number;
+}
+
 const CardWrapper = styled.figure`
   ${tw`flex-cc w-[40%] h-96 bg-amber-50`}
 `;
@@ -25,12 +31,6 @@ const Button = styled.button`
 const CardText = styled.h1`
   ${tw``}
 `;
-
-interface SelectedProps {
-  selected: string | null;
-  setSelected: (value: string | null) => void;
-  cardIndex: number;
-}
 
 const Card: React.FC<SelectedProps> = ({ selected, setSelected, cardIndex }) => {
   return (

@@ -22,7 +22,7 @@ public class Leisure {
 
     private int fitness;
     private int cinema;
-    private int safetyCnt;
+    private int leisureCnt;
 
 
 }

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import tw, { styled } from "twin.macro";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import tw, { styled } from 'twin.macro';
+import { Link } from 'react-router-dom';
 
 type NavOpenProps = {
   isOpen: boolean;
@@ -16,8 +16,7 @@ const NavbarLink = styled(Link)`
 `;
 
 const NavbarWrapper = styled.section`
-  ${({ isOpen }: NavOpenProps) =>
-    isOpen ? tw`max-sm:flex-cc max-sm:bg-gray max-sm:mt-10` : tw` max-sm:hidden`}
+  ${({ isOpen }: NavOpenProps) => (isOpen ? tw`max-sm:flex-cc max-sm:bg-gray max-sm:mt-10` : tw` max-sm:hidden`)}
 `;
 
 const HamburgerButton = styled.button`

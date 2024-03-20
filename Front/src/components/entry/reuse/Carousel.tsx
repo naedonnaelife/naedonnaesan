@@ -8,6 +8,18 @@ type runningProps = {
     isRunning : boolean
 }
 
+const fadeIn = keyframes`
+  0%{
+    opacity : 0;
+  }
+  99.9%{
+    opacity :0;
+  }
+  100%{
+    opacity : 1;
+}
+`
+
 const origin = keyframes`
     0% { transform: translateX(0);}
     50% { transform: translateX(-100%);}
@@ -22,6 +34,7 @@ const clone = keyframes`
 
 const SlideWrapper = styled.figure`
     ${tw`flex w-full h-[60vh] overflow-hidden`}
+    animation : ${fadeIn} 0.8s;
 `
 
 const OriginSlides = styled.ul`
@@ -35,13 +48,18 @@ const CloneSlides = styled.ul`
 `
 
 const Slide = styled.li`
-    ${tw`flex-cc h-[100%] rounded-lg bg-gradient-to-r from-green-300 to-blue-100 shadow-lg text-center text-white mr-[5vw] mb-[5vw] hover:scale-105 hover:text-red `}
-    display : inline-block; list-style: none;
-    width : calc(100vw / 6);
+    ${tw`flex flex-col justify-between h-[100%] w-calc-6 rounded-lg bg-gradient-to-r from-green-300 to-blue-100 shadow-lg text-center text-white mr-[5vw] mb-[5vw] hover:scale-105 transition-transform duration-300
+    max-sm:w-calc-4`}
+`
+
+const ContentName = styled.p`
+    ${tw`mt-[5vh] text-2xl
+    max-sm:text-lg`}
 `
 
 const MoveContent = styled.button`
-    ${tw``}
+    ${tw`ml-auto mr-[1vw] hover:text-blue-500 hover:text-lg
+    max-sm:text-xs max-sm:hover:text-xs`}
 `
 
 
@@ -72,16 +90,16 @@ const Carousel:React.FC = () => {
             <OriginSlides isRunning={isRunning}>
                 {contents.map((content, index) =>
                     <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={index}>
-                        <p>{content}</p>
-                        <MoveContent onClick={()=> handleScroll(index)}> ㅎㅇ </MoveContent>
+                        <ContentName>{content}</ContentName>
+                        <MoveContent onClick={()=> handleScroll(index)}> 더 알아보기 ▼ </MoveContent>
                     </Slide>)}
             </OriginSlides>
 
             <CloneSlides isRunning={isRunning}>
                 {contents.map((content, index) =>
                 <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={index}>
-                    <p>{content}</p>
-                    <MoveContent onClick={()=> handleScroll(index)}> ㅎㅇ </MoveContent>
+                    <ContentName>{content}</ContentName>
+                    <MoveContent onClick={()=> handleScroll(index)}> 더 알아보기 ↓ </MoveContent>
                 </Slide>)}
             </CloneSlides>
         </SlideWrapper>

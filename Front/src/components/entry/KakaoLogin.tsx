@@ -5,7 +5,8 @@ import UserStore from '../../stores/UserStore';
 
 
 const LoginButton = styled.button`
-  ${tw` h-[15%] w-[10vw] bg-gray rounded-lg text-2xl ml-auto mr-[5vw] p-2`}
+  ${tw`flex-c h-[15%] w-[10vw] bg-gray rounded-lg text-2xl ml-auto mr-[5vw] p-2
+  max-sm:w-[15vw] max-sm:text-lg`}
 `;
 
 const KakaoLogin:React.FC = () => {

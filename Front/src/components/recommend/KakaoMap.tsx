@@ -12,21 +12,12 @@ const Map = styled.div`
 const { kakao } = window;
 
 const KakaoMap: React.FC = () => {
-<<<<<<< HEAD
-  const [newMap, setNewMap] = useState<any>(null);
-  const [newCustomOverlay, setNewCustomOverlay] = useState(null);
-  const [rectangle, setRectangle] = useState(null);
-  const polygons = useRef([new kakao.maps.Polygon()]);
-  const navigate = useNavigate();
-  const areaName = useSearchStore((state: any) => state.areaName);
-=======
   const [newMap, setNewMap] = useState<any>(null)
   const [newCustomOverlay, setNewCustomOverlay] = useState(null)
   const [rectangle, setRectangle] = useState(null)
   const polygons = useRef([new kakao.maps.Polygon()])
   const navigate = useNavigate()
   const areaName = useSearchStore(state => state.areaName)
->>>>>>> feat/app
 
   // 구&동 지도 생성 함수
   const jsonProcessing = async (json: any, sig_cd: string | boolean) => {

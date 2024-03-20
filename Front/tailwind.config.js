@@ -12,6 +12,7 @@ export default {
       },
       colors: {
         white: '#FFFFFF',
+        semiWhite : '#FAFBFD',
         black: '#000000',
         lightGray: '#E8E8E8',
         gray: '#D5D5D5',
@@ -28,6 +29,13 @@ export default {
       },
       height: {
         'full-nav': 'calc(100vh - 75px)',
+      },
+      width : {
+        'calc-7' : 'calc(100vw / 7)', 
+        'calc-6' : 'calc(100vw / 6)', 
+        'calc-5' : 'calc(100vw / 5)', 
+        'calc-4' : 'calc(100vw / 4)', 
+        'calc-3' : 'calc(100vw / 3)', 
       },
     },
   },

@@ -1,5 +1,7 @@
 package com.example.back.article.entity;
 
+import com.example.back.dong.entity.Dong;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

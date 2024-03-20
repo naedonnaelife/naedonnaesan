@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import tw, { styled } from "twin.macro";
 import NavBar from "../utils/NavBar";
 import Card from "../components/comparison/reuse/Card.tsx";
@@ -7,19 +7,24 @@ import Column from "../components/comparison/Column.tsx";
 import DongAdd from "../components/comparison/DongAdd.tsx";
 
 const Main = styled.main`
-  ${tw`flex flex-col justify-center items-center w-[80%]
-  max-sm:w-[90%]`}
+  ${tw`flex-cc w-full`}
 `;
 
 const Comparison = styled.section`
-  ${tw`flex justify-between w-full
-  max-sm:justify-center`}
+  ${tw`flex justify-between w-[80%]
+  max-sm:justify-center max-sm:w-[90%]`} 
 `;
 
 function ComparisonPage() {
   const [category, setCategory] = useState<string | null>(null);
   const [selected1, setSelected1] = useState<string | null>(null);
   const [selected2, setSelected2] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (selected1 === null || selected2 === null) {
+      setCategory(null);
+    }
+  }, [selected1, selected2]);
 
   return (
     <>

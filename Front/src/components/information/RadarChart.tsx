@@ -32,7 +32,7 @@ const RadarChart: React.FC<RadarProps> = ({ dongScore, seoulScore, labels }) => 
       },
     ],
   };
-  console.log(dongScore, seoulScore, labels);
+
   return (
     <ChartWrapper>
       <Radar data={chartData} />

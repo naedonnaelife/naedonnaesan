@@ -8,7 +8,7 @@ interface KakaoMapProps {
 }
 const MapWrapper = styled.div`
   ${tw`w-[75%] h-[100%]
-max-sm:w-[100%]`}
+  max-sm:w-[100%]`}
 `;
 const Map = styled.div`
   ${tw`w-[100] h-[100%]`}

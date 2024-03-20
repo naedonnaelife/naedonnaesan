@@ -4,19 +4,60 @@ import NavBar from '../utils/NavBar';
 import SideNews from '../components/information/SideNews.tsx';
 import Report from '../components/information/Report.tsx';
 
+type isButtonProps = {
+  isActive: boolean;
+};
+
 const Main = styled.main`
-  ${tw`flex w-screen h-full-nav 
-    max-sm:flex-col`}
+  ${tw`w-[100vw] h-full-nav 
+    `}
+`;
+
+const Wrapper = styled.div`
+  ${tw`flex h-[100%]
+    max-sm:flex-col max-sm:relative max-sm:border-basic max-sm:p-1 max-sm:mx-2`}
+`;
+
+const ButtonWrapper = styled.ul`
+  ${tw`hidden pt-1 mx-5
+    max-sm:flex`}
+`;
+const Button = styled.button`
+  ${tw`relative border border-gray rounded-t-lg bg-gray px-2`}
+  ${({ isActive }: isButtonProps) => (isActive ? tw`z-1 border-b-0 bg-white scale-125` : '')}
 `;
 
 function InformationPage() {
   const [isNewsOpen, setIsNewsOpen] = useState<boolean>(false);
+  const [isNewsListOpen, setIsNewsListOpen] = useState<boolean>(false);
+
+  const handleNewsClick = () => {
+    setIsNewsListOpen(true);
+  };
+  const handleReportClick = () => {
+    setIsNewsListOpen(false);
+    setIsNewsOpen(false);
+  };
   return (
     <>
       <NavBar />
       <Main>
-        <SideNews setIsNewsOpen={setIsNewsOpen} />
-        <Report isNewsOpen={isNewsOpen} setIsNewsOpen={setIsNewsOpen} />
+        <ButtonWrapper>
+          <li>
+            <Button onClick={handleReportClick} isActive={isNewsListOpen ? false : true}>
+              동네 정보
+            </Button>
+          </li>
+          <li>
+            <Button onClick={handleNewsClick} isActive={isNewsListOpen ? true : false}>
+              뉴스
+            </Button>
+          </li>
+        </ButtonWrapper>
+        <Wrapper>
+          <SideNews setIsNewsOpen={setIsNewsOpen} isNewsListOpen={isNewsListOpen} />
+          <Report isNewsOpen={isNewsOpen} setIsNewsOpen={setIsNewsOpen} />
+        </Wrapper>
       </Main>
     </>
   );

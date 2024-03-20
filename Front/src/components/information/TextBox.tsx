@@ -6,7 +6,7 @@ const TextWrapper = styled.div`
   ${tw`flex-cc border-basic m-1`}
 `;
 
-const TestBox: React.FC = () => {
+const TextBox: React.FC = () => {
   // const [dongInformation, setDongInformation] = useState(data.dongInformation.object);
   const [dongInformation, setDongInformation] = useState({
     metro: [''],
@@ -24,7 +24,7 @@ const TestBox: React.FC = () => {
       <p>
         ㅇㅇ동에는{' '}
         {dongInformation.metro.map((station) => (
-          <>'{station}' </>
+          <span key={station}>'{station}' </span>
         ))}{' '}
         이 있습니다.
       </p>
@@ -35,4 +35,4 @@ const TestBox: React.FC = () => {
   );
 };
 
-export default TestBox;
+export default TextBox;

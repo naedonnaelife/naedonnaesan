@@ -30,7 +30,7 @@ public class ArticleController {
 		List<Article> articles = articleService.getArticleList(keyword);
 		Message message =
 			articles.isEmpty() ?
-				new Message(HttpStatusEnum.NOT_FOUND, "키워드에 해당되는 기사 없음", articles) :
+				new Message(HttpStatusEnum.NOT_FOUND, "키워드에 해당되는 기사 없음", null) :
 				new Message(HttpStatusEnum.OK, "키워드에 해당되는 기사 조회 완료", articles);
 		return new ResponseEntity<>(message, articles.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}

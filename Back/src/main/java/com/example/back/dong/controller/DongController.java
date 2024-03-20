@@ -27,7 +27,7 @@ public class DongController {
 
         DongInfraDto dongInfra = dongService.getDongInfra(dongName);
 
-        Message message = new Message(HttpStatusEnum.OK, dongName + "동의 인프라 정보 가져오기 완료", dongInfra);
+        Message message = new Message(HttpStatusEnum.OK, dongName + "의 인프라 정보 가져오기 완료", dongInfra);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

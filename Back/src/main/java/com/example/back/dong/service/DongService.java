@@ -1,7 +1,5 @@
 package com.example.back.dong.service;
 
-import com.example.back.building.dto.BuildingDto;
-import com.example.back.building.entity.Building;
 import com.example.back.dong.dto.DongInfraDto;
 import com.example.back.dong.entity.Dong;
 import com.example.back.dong.repository.DongRepository;
@@ -9,8 +7,6 @@ import com.example.back.exception.DongNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +21,7 @@ public class DongService {
         Dong dong = dongRepository.findByDongName(dongName)
                 .orElseThrow(() -> new DongNotFoundException(dongName));
 
+        System.out.println(dong);
         // 엔티티 to dto
         DongInfraDto dto = new DongInfraDto();
         dto.setConvCnt(dong.getConvCnt());

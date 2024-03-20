@@ -1,7 +1,5 @@
 package com.example.back.article.entity;
 
-import com.example.back.building.BuildingType;
-import com.example.back.building.PayType;
 import com.example.back.dong.entity.Dong;
 
 import lombok.AccessLevel;

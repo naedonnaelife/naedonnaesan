@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
 const GraphWrapper = styled.figure`
-  ${tw`w-[80%] h-[400px]`}
+  ${tw`w-[80%] h-[400px] border-t-2 border-gray m-7 pt-5`}
+`;
+
+const GraphTitle = styled.h1`
+  ${tw`flex-c`}
 `;
 
 interface DetailGraphProps {
@@ -14,7 +18,7 @@ interface DetailGraphProps {
 }
 
 const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) => {
-  ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+  ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
   // 상태를 사용하여 창 크기 변화 감지
   const [, setWindowSize] = useState({
@@ -39,10 +43,6 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) =
       legend: {
         position: 'top' as const,
       },
-      title: {
-        display: true,
-        text: `${selected1} ${selected2} ${category} 수 비교`,
-      },
     },
     scales: {
       // 구분선 보이게
@@ -57,12 +57,12 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) =
     labels,
     datasets: [
       {
-        label: 'OO구 OO동',
+        label: `${selected1}`,
         data: labels.map(() => [0, 122]),
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
-        label: 'OO구 OO동',
+        label: `${selected2}`,
         data: labels.map(() => [0, 232]),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
@@ -71,6 +71,7 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) =
 
   return (
     <GraphWrapper>
+      <GraphTitle>{selected1} {selected2} {category} 수 비교</GraphTitle>
       <Bar options={options} data={data} />
     </GraphWrapper>
   );

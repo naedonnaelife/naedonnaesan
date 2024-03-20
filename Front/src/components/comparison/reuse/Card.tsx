@@ -7,7 +7,7 @@ const CardWrapper = styled.figure`
 `;
 const CardTop = styled.div`
   ${tw`flex my-3
-  max-sm:flex-col`}
+  max-sm:flex-col max-sm:items-center`}
 `;
 const CardTitle = styled.h1`
   ${tw`font-bold text-3xl

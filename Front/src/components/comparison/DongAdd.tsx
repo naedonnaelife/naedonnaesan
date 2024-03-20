@@ -2,12 +2,12 @@ import tw, { styled } from "twin.macro";
 import SearchBar from "../../utils/SearchBar";
 
 const Wrapper = styled.div`
-  ${tw`flex justify-end w-full
-  max-sm:flex-col`}
+  ${tw`flex justify-between w-[80%]
+  max-sm:flex-col max-sm:w-[90%]`}
 `;
 
 const LikeDongWrapper = styled.div`
-  ${tw`flex items-center`}
+  ${tw`flex items-center m-2`}
 `;
 
 const Title = styled.h1`
@@ -25,7 +25,8 @@ const Dong = styled.button`
 `;
 
 const SearchWrapper = styled.div`
-  ${tw``}
+  ${tw`m-2
+  max-sm:m-0 max-sm:mb-2`}
 `
 
 const likeDongs = ["역삼1동", "도곡2동", "성수1가1동", "명지동"];

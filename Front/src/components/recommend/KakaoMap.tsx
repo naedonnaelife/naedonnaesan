@@ -6,18 +6,62 @@ import newDong from '../../datas/newDong.json';
 import newGu from '../../datas/newGu.json';
 
 const Map = styled.div`
-  ${tw`h-[100%] w-[75%] p-2 `}
+  ${tw`h-[100%] w-[75%] p-2
+  max-sm:h-[50%]`}
 `;
 
 const { kakao } = window;
 
 const KakaoMap: React.FC = () => {
   const [newMap, setNewMap] = useState<any>(null)
+  const mapRef = useRef<any>(null)
+  const isSmallRef = useRef<any>(null)
+  const mapLevelRef= useRef<any>(null)
+  const coordinateRef = useRef<any>(null)
   const [newCustomOverlay, setNewCustomOverlay] = useState(null)
   const [rectangle, setRectangle] = useState(null)
   const polygons = useRef([new kakao.maps.Polygon()])
   const navigate = useNavigate()
   const areaName = useSearchStore(state => state.areaName)
+
+  // 반응형 감지
+
+  const levelUp = () => {
+    if(mapLevelRef.current){
+      console.log('up', mapLevelRef.current)
+      mapLevelRef.current += 1
+      console.log('up', mapLevelRef.current)
+    mapRef.current.setLevel(mapLevelRef.current, { animate: { duration: 500 } });
+  }}
+  const levelDown = () => {
+    if(mapLevelRef.current){
+    mapLevelRef.current -= 1
+    console.log('down', mapLevelRef.current)
+    mapRef.current.setLevel(mapLevelRef.current, { animate: { duration: 500 } });
+  }}
+
+  const handleWidthSize = () => {
+    const isSmall = window.innerWidth <= 480 
+    console.log('width test : ', window.innerWidth, isSmall, isSmallRef.current)
+    if (isSmall && !isSmallRef.current){
+      levelUp()
+    } else if (!isSmall && isSmallRef.current){
+      levelDown()
+    }
+    isSmallRef.current = isSmall
+    console.log('좌표 : ', coordinateRef.current)
+    mapRef.current.setCenter(new kakao.maps.LatLng(coordinateRef.current[0], coordinateRef.current[1]))
+  }
+
+
+  useEffect(()=>{
+    window.addEventListener('resize', () => handleWidthSize())
+    return () => {
+      window.removeEventListener('resize', handleWidthSize);
+    };
+  }, [])  
+
+
 
   // 구&동 지도 생성 함수
   const jsonProcessing = async (json: any, sig_cd: string | boolean) => {
@@ -103,12 +147,14 @@ const KakaoMap: React.FC = () => {
 
       kakao.maps.event.addListener(polygon, 'click', function () {
         const level = map.getLevel() - 3;
-        if (level === 3) {
+        if (level < 5) {
           navigate('/building', { state: { areaName: unit.name } });
         } else {
           map.setCenter(new kakao.maps.LatLng(unit.centerCoordinate[1], unit.centerCoordinate[0]));
           map.setLevel(level, { animate: { duration: 500 } });
           jsonProcessing(newDong, unit.sig_cd);
+          mapLevelRef.current = level
+          coordinateRef.current = [unit.centerCoordinate[1], unit.centerCoordinate[0]]
           console.log('area : ', unit);
         }
       });
@@ -118,15 +164,21 @@ const KakaoMap: React.FC = () => {
     if (newMap) {
       jsonProcessing(newGu, false);
     } else {
+      const initialLevel = window.innerWidth <= 480? 10 : 9
+      console.log(initialLevel)
       const container = document.getElementById('map');
       const options = {
         center: new kakao.maps.LatLng(37.56, 127.0),
-        level: 9,
+        level: initialLevel,
         // draggable : false,
         scrollwheel: false,
         disableDoubleClickZoom: false,
       };
-      setNewMap(new kakao.maps.Map(container, options));
+      const newMap = new kakao.maps.Map(container, options)
+      mapRef.current = newMap
+      mapLevelRef.current = initialLevel
+      coordinateRef.current = [37.56, 127.0]
+      setNewMap(newMap);
       setNewCustomOverlay(new kakao.maps.CustomOverlay({}));
     }
   }, [newMap]);
@@ -136,10 +188,12 @@ const KakaoMap: React.FC = () => {
       const findDong: any = newDong.features.find((dong: any) => dong.properties.temp === areaName);
       const sggCode = findDong.properties.sgg;
       const findGu: any = newGu.features.find((gu: any) => gu.properties.SIG_CD === sggCode);
-
+      const newLevel = isSmallRef.current? 7 : 6
       newMap.setCenter(new kakao.maps.LatLng(findGu.properties.y, findGu.properties.x));
-      newMap.setLevel(6, { animate: { duration: 500 } });
+      newMap.setLevel(newLevel, { animate: { duration: 500 } });
       jsonProcessing(newDong, sggCode);
+      mapLevelRef.current = newLevel
+
     }
   }, [areaName]);
 

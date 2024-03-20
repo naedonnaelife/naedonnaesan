@@ -26,6 +26,6 @@ public class BuildingDto {
 
     private float area;
 
-    private float x;
-    private float y;
+    private String x;
+    private String y;
 }

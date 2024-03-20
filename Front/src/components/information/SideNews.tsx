@@ -2,16 +2,6 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import NewsCard from './reuse/NewsCard.tsx';
 
-const NewsWrapper = styled.aside`
-  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg p-2
-  max-sm:w-[100%]`}
-`;
-
-const Card = styled.article`
-  ${tw`flex w-[100%] h-[15%] p-1
-  max-sm:h-[20%]`}
-`;
-
 type News = {
   title: string;
   content: string;
@@ -19,7 +9,22 @@ type News = {
 
 interface SideProps {
   setIsNewsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isNewsListOpen: boolean;
 }
+type isNewsListOpenProps = {
+  isNewsListOpen: boolean;
+};
+
+const NewsWrapper = styled.aside`
+  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white p-2
+    max-sm:absolute max-sm:top-0 max-sm:w-[100%]`}
+  ${({ isNewsListOpen }: isNewsListOpenProps) => (isNewsListOpen ? '' : tw`max-sm:hidden`)}
+`;
+
+const Card = styled.article`
+  ${tw`flex w-[100%] h-[15%] p-1
+    max-sm:h-[20%] `}
+`;
 
 const newsList: News[] = [
   { title: 'NEWS 1', content: 'CONTENT 1' },
@@ -29,12 +34,12 @@ const newsList: News[] = [
   { title: 'NEWS 5', content: 'CONTENT 5' },
 ];
 
-const SideNews: React.FC<SideProps> = ({ setIsNewsOpen }) => {
+const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
   return (
-    <NewsWrapper>
+    <NewsWrapper isNewsListOpen={isNewsListOpen}>
       {newsList.map((news, index) => (
-        <Card onClick={() => setIsNewsOpen(true)}>
-          <NewsCard key={index} news={news} />
+        <Card onClick={() => setIsNewsOpen(true)} key={index}>
+          <NewsCard news={news} />
         </Card>
       ))}
     </NewsWrapper>

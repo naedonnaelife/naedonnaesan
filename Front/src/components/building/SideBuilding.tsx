@@ -9,7 +9,7 @@ type buildingOpenProps = {
 
 const Aside = styled.aside`
   ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg p-2 bg-white
-  max-sm:w-[100%] max-sm:absolute z-10`}
+    max-sm:absolute max-sm:z-10 max-sm:w-[100%] `}
   ${({ isBuildingOpen }: buildingOpenProps) => (isBuildingOpen ? tw`max-sm:-bottom-[0%]` : tw`max-sm:-bottom-[90%]`)}
 `;
 const Card = styled.article`

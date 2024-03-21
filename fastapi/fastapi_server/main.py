@@ -5,8 +5,11 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+# 모델 파일이 있는 절대 경로 설정
+model_path = '/code/app/model.joblib'  # 예시 경로, 실제 경로로 수정해야 함
+
 # 모델 로드
-model = joblib.load('model.joblib')
+model = joblib.load(model_path)
 
 
 class PredictRequest(BaseModel):

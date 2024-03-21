@@ -25,7 +25,7 @@ async def predict(request: PredictRequest):
     print("np data: ", data)
     # 입력 데이터에 PCA 적용
     pca = PCA(n_components=2, random_state=512)
-    reduced_data = pca.fit_transform(data)
+    reduced_data = pca.transform(data)
     print("pca data: ", reduced_data)
     # 모델 예측
     prediction = model.predict(reduced_data)

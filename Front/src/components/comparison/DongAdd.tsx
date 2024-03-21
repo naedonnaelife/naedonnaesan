@@ -22,11 +22,11 @@ const Title = styled.h1`
   max-sm:w-[40%] max-sm:text-xl max-sm:text-left`}
 `;
 
-const LikeDongList = styled.div`
+const LikeDongList = styled.ul`
   ${tw`max-sm:whitespace-nowrap max-sm:overflow-x-auto`}
 `;
 
-const Dong = styled.button`
+const Dong = styled.li`
   ${tw`h-8 rounded-full bg-dongButton px-4 mr-2 hover:bg-dongButtonHover
   max-sm:text-base`}
 `;
@@ -36,7 +36,20 @@ const SearchWrapper = styled.div`
   max-sm:m-0 max-sm:mb-2`}
 `;
 
-const likeDongs = ['역삼1동', '도곡2동', '성수1가1동', '명지동'];
+const likeDongs = [
+  '역삼1동',
+  '도곡2동',
+  '성수1가1동',
+  '명지동',
+  '역삼1동',
+  '도곡2동',
+  '성수1가1동',
+  '명지동',
+  '역삼1동',
+  '도곡2동',
+  '성수1가1동',
+  '명지동',
+];
 
 const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1, selected2 }) => {
   const handleClick = (dong: string) => {

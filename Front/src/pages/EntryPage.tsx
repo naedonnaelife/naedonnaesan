@@ -7,7 +7,6 @@ import Carousel from '../components/entry/reuse/Carousel';
 import KakaoLogin from '../components/entry/KakaoLogin';
 import { introduce } from '../datas/ms';
 
-
 const fadeIn = keyframes`
   from{
     transform: translateY(25%);
@@ -17,13 +16,13 @@ const fadeIn = keyframes`
     transform: translateY(0%);
     opacity : 1;
   }
-`
+`;
 
 const Main = styled.main`
   ${tw`flex-cc w-full bg-semiWhite`}
 `;
 
-const EntryWrapper = styled.div`
+const EntryWrapper = styled.section`
   ${tw`flex-cc w-full h-[50vh]
   max-sm:h-[40vh]`}
 `;
@@ -37,28 +36,28 @@ const EntryTitle = styled.h1`
 const StartButton = styled.button`
   ${tw`flex-c h-[15%] w-[10vw] bg-mango rounded-lg text-2xl p-2
   max-sm:w-[25vw] max-sm:text-lg `}
-  animation : ${fadeIn} 1s ease-in-out; 
+  animation : ${fadeIn} 1s ease-in-out;
 `;
 
 const TopScrollButton = styled.button`
-${tw`fixed h-[4vh] w-[2vw] border-2 rounded-full bottom-4 right-4 hover:bg-yellow-200 hover:scale-105
+  ${tw`fixed h-[4vh] w-[2vw] border-2 rounded-full bottom-4 right-4 hover:bg-yellow-200 hover:scale-105
 max-sm:w-[5vw]`}
-`
+`;
 
 function EntryPage() {
-  const isLogin = UserStore(state => state.isLogin)
-  const navigate = useNavigate()
+  const isLogin = UserStore((state) => state.isLogin);
+  const navigate = useNavigate();
 
   const moveRecommend = () => {
-    navigate('/recommend')
-  }
+    navigate('/recommend');
+  };
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -69,7 +68,7 @@ function EntryPage() {
           {isLogin && <StartButton onClick={moveRecommend}>시작하기</StartButton>}
           {!isLogin && <StartButton onClick={moveRecommend}>시작하기</StartButton>}
         </EntryWrapper>
-          <Carousel/>
+        <Carousel />
 
         {introduce.map((element, index) => (
           <Card key={index} index={index} data={element} />

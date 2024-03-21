@@ -1,9 +1,9 @@
-import tw, { styled } from "twin.macro";
-import SearchBar from "../../utils/SearchBar";
-import LikedDong from "./reuse/LikedDong";
-import SB from "../../datas/SB.json";
+import tw, { styled } from 'twin.macro';
+import SearchBar from '../../utils/SearchBar';
+import LikedDong from './reuse/LikedDong';
+import SB from '../../datas/SB.json';
 
-const LikeWrapper = styled.div`
+const LikeWrapper = styled.section`
   ${tw`w-[90%]
   max-sm:flex-col max-sm:w-full max-sm:pt-5`}
 `;
@@ -22,7 +22,7 @@ const LikeContent = styled.ul`
 `;
 
 const LikedDongList = {
-  response: ["성동구 성수1가1동", "강남구 도곡1동", "강남구 역삼2동"],
+  response: ['성동구 성수1가1동', '강남구 도곡1동', '강남구 역삼2동'],
 };
 
 const Like: React.FC = () => {

@@ -3,26 +3,23 @@ import { useEffect, useState } from 'react';
 import { keyframes } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 
-
-interface IntroduceItem {
-  title: string;
-  content: string;
-  subContent: string;
-  link: {name :string, url : string};
-  image : string;
-}
-
 interface CardProps {
   index: number;
-  data: IntroduceItem;
+  data: {
+    title: string;
+    content: string;
+    subContent: string;
+    link: { name: string; url: string };
+    image: string;
+  };
 }
 
-type StateProps  = {
-  color : string;
+type StyleProps = {
+  color: string;
   width: string;
-  isAnimate : boolean;
-  isLeft : boolean;
-}
+  isAnimate: boolean;
+  isLeft: boolean;
+};
 
 const upAnimation = (animate: boolean) => {
   if (animate) {
@@ -37,14 +34,14 @@ const upAnimation = (animate: boolean) => {
       }
     `;
   } else {
-    return
+    return;
   }
 };
 
 const CardWrapper = styled.figure`
   ${tw`flex items-center relative w-[100%] h-[100vh]
   max-sm:flex-cc`}
-  ${({ color }: StateProps) => `background-color : ${color};`}
+  ${({ color }: StyleProps) => `background-color : ${color};`}
 `;
 
 const CardImage = styled.img`
@@ -52,20 +49,19 @@ const CardImage = styled.img`
   max-sm:relative max-sm:w-[80%] max-sm:h-[40vh]`}
   @media (min-width: 640px) {
     /* max-sm 크기에서는 아래 스타일들을 적용하지 않음 */
-    left: ${({ width }: StateProps) => `${width}px`};
-    ${({ isLeft }: StateProps) =>
-      isLeft ? 'margin-left : 50px;' : 'margin-left : -50px;'}
+    left: ${({ width }: StyleProps) => `${width}px`};
+    ${({ isLeft }: StyleProps) => (isLeft ? 'margin-left : 50px;' : 'margin-left : -50px;')}
   }
-  animation: ${({ isAnimate }: StateProps) => upAnimation(isAnimate)} 1.5s ease-in-out;
+  animation: ${({ isAnimate }: StyleProps) => upAnimation(isAnimate)} 1.5s ease-in-out;
 `;
 
 const CaptionWrapper = styled.figcaption`
   ${tw`flex-cc absolute w-[50%] h-[50vh]
   max-sm:relative max-sm:w-[80%] max-sm:h-[35vh]`}
-    @media (min-width: 640px) {
-  ${({ width }: StateProps) => `left: ${width}px;`}
-    }
-  animation: ${({ isAnimate }: StateProps) => upAnimation(isAnimate)} 1s ease-in-out;
+  @media (min-width: 640px) {
+    ${({ width }: StyleProps) => `left: ${width}px;`}
+  }
+  animation: ${({ isAnimate }: StyleProps) => upAnimation(isAnimate)} 1s ease-in-out;
 `;
 
 const CardTitle = styled.h2`
@@ -81,7 +77,7 @@ const CardContent = styled.p`
 const CardSubContent = styled(CardContent)`
   ${tw`w-[100%] text-xl ml-[10vw] mb-[2vh]
   max-sm:text-lg max-sm:text-left`}
-`
+`;
 
 const ServiceLink = styled.button`
   ${tw` w-[40%] h-[20%]  bg-gradient-to-r from-orange-300 to-pink-400 rounded-lg text-xl text-white p-2
@@ -89,25 +85,25 @@ const ServiceLink = styled.button`
 `;
 
 const Card: React.FC<CardProps> = ({ index, data }) => {
-  const [isAnimate, setIsAnimate] = useState(false)
-  const navigate = useNavigate()
-  const height = (window.innerHeight * index + 150)
+  const [isAnimate, setIsAnimate] = useState(false);
+  const navigate = useNavigate();
+  const height = window.innerHeight * index + 150;
   const width = window.innerWidth / 2;
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
-    console.log('스크롤 :  ',scrollY, window.innerHeight)
-    if (scrollY > height){
-      setIsAnimate(true)
+    console.log('스크롤 :  ', scrollY, window.innerHeight);
+    if (scrollY > height) {
+      setIsAnimate(true);
     } else {
-      setIsAnimate(false)
+      setIsAnimate(false);
     }
   };
 
-  const movePage = (url:string) => {
-    navigate(`./${url}`)
-  }
-  
+  const movePage = (url: string) => {
+    navigate(`./${url}`);
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -118,22 +114,22 @@ const Card: React.FC<CardProps> = ({ index, data }) => {
   return (
     <>
       {index % 2 === 0 ? (
-        <CardWrapper color='#ffffff'>
+        <CardWrapper color="#ffffff">
           <CaptionWrapper isAnimate={isAnimate}>
             <CardTitle>{data.title}</CardTitle>
-            <CardContent> {data.content}  </CardContent>
+            <CardContent> {data.content} </CardContent>
             <CardSubContent> {data.subContent} </CardSubContent>
-            <ServiceLink onClick={()=> movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
+            <ServiceLink onClick={() => movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
           </CaptionWrapper>
-          <CardImage  width={width} isLeft={false} isAnimate={isAnimate} src={data.image} alt="image" />
+          <CardImage width={width} isLeft={false} isAnimate={isAnimate} src={data.image} alt="image" />
         </CardWrapper>
       ) : (
-        <CardWrapper >
-          <CaptionWrapper width={width} isAnimate={isAnimate} >
+        <CardWrapper>
+          <CaptionWrapper width={width} isAnimate={isAnimate}>
             <CardTitle CardTitle>{data.title}</CardTitle>
-            <CardContent> {data.content}  </CardContent>
+            <CardContent> {data.content} </CardContent>
             <CardSubContent> {data.subContent} </CardSubContent>
-            <ServiceLink onClick={()=> movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
+            <ServiceLink onClick={() => movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
           </CaptionWrapper>
           <CardImage isAnimate={isAnimate} isLeft={true} src={data.image} alt="image" />
         </CardWrapper>

@@ -24,14 +24,6 @@ const ButtonWrapper = styled.div`
   ${tw`flex`}
 `;
 
-const Button = styled.button`
-  ${tw``}
-`;
-
-const CardText = styled.h1`
-  ${tw``}
-`;
-
 const Card: React.FC<SelectedProps> = ({ selected, setSelected, cardIndex }) => {
   return (
     <CardWrapper>
@@ -40,14 +32,14 @@ const Card: React.FC<SelectedProps> = ({ selected, setSelected, cardIndex }) => 
           <CardTop>
             <CardTitle>{selected}</CardTitle>
             <ButtonWrapper>
-              <Button>❤</Button>
-              <Button onClick={() => setSelected(null)}>삭제</Button>
+              <button>❤</button>
+              <button onClick={() => setSelected(null)}>삭제</button>
             </ButtonWrapper>
           </CardTop>
           <ComparisonGraph cardIndex={cardIndex} />
         </>
       ) : (
-        <CardText>선택된 항목이 없습니다. 동네를 선택해주세요.</CardText>
+        <p>선택된 항목이 없습니다. 동네를 선택해주세요.</p>
       )}
     </CardWrapper>
   );

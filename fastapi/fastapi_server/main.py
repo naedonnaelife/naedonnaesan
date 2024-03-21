@@ -16,7 +16,7 @@ knn_model = joblib.load(model_path + "knn_model.joblib")
 
 
 class PredictRequest(BaseModel):
-    preference: list
+    features: list
 
 
 @app.post("/predict")

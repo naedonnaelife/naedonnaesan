@@ -175,6 +175,7 @@ const KakaoMap: React.FC = () => {
         disableDoubleClickZoom: false,
       };
       const newMap = new kakao.maps.Map(container, options)
+      console.log('맵 확인 : ', newMap)
       mapRef.current = newMap
       mapLevelRef.current = initialLevel
       coordinateRef.current = [37.56, 127.0]

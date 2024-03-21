@@ -44,9 +44,9 @@ async def predict(preference: PredictRequest):
     neigh.fit(filtered_data.drop(axis=1, columns=['target']))
     distances, indices = neigh.kneighbors(reduced_data)
 
-    closest_points = filtered_data.iloc[indices[0]]
-    print(df.iloc[closest_points.index])
-    return {"recommend": closest_points}
+    recommend = filtered_data.iloc[indices[0]]
+    print(df.iloc[recommend.index])
+    return recommend
 
 
 @app.get("/")

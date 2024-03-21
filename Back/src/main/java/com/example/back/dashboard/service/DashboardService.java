@@ -1,7 +1,6 @@
 package com.example.back.dashboard.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.example.back.dashboard.dto.ArticleDto;
 import com.example.back.dashboard.entity.Article;
 import com.example.back.dashboard.repository.ArticleRepository;
-import com.example.back.exception.ArticleNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,14 +31,16 @@ public class DashboardService {
 	}
 
 	public ArticleDto getArticle(long articleId) {
-		Article article = articleRepository.findByArticleId(articleId)
-			.orElseThrow(() -> new ArticleNotFoundException(articleId));
+		Article article = articleRepository.findByArticleId(articleId);
 		System.out.println(article);
-		ArticleDto dto = new ArticleDto();
-		dto.setArticleId(article.getArticleId());
-		dto.setContent(article.getContent());
-		dto.setImageUrl(article.getImageUrl());
-		dto.setTitle(article.getTitle());
+		ArticleDto dto = null;
+		if(article != null) {
+			dto = new ArticleDto();
+			dto.setArticleId(article.getArticleId());
+			dto.setContent(article.getContent());
+			dto.setImageUrl(article.getImageUrl());
+			dto.setTitle(article.getTitle());
+		}
 		return dto;
 	}
 }

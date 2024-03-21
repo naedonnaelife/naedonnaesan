@@ -26,7 +26,7 @@ public class DashboardController {
 
 	private final DashboardService dashboardService;
 
-	@GetMapping("/news/{keyword}")  // 제목 기준 검색
+	@GetMapping("/news/keyword/{keyword}")  // 제목 기준 검색
 	public ResponseEntity<Message> getArticleList(@PathVariable(value = "keyword") String keyword) {
 		List<ArticleDto> articles = dashboardService.getArticleList(keyword);
 
@@ -37,7 +37,7 @@ public class DashboardController {
 		return new ResponseEntity<>(message, articles.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
 
-	@GetMapping("/news/search/{articleid}")
+	@GetMapping("/news/articleid/{articleid}")
 	public ResponseEntity<Message> getArticle(@PathVariable(value = "articleid") long articleId) {
 		ArticleDto article = dashboardService.getArticle(articleId);
 		Message message =

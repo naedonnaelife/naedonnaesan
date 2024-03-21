@@ -10,5 +10,5 @@ import com.example.back.dashboard.entity.Article;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 	public List<Article> findByTitleContaining(String keyword);
-	public Optional<Article> findByArticleId(long articleId);
+	public Article findByArticleId(long articleId);
 }

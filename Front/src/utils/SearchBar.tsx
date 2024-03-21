@@ -7,7 +7,7 @@ const Search = styled.div`
 const InputText = styled.input`
   ${tw`w-full h-10 border-2 border-gray rounded-full px-5 focus:outline-grayHover`}
   ::placeholder {
-    ${tw`text-grayHover`}
+    ${tw`text-middleGray`}
   }
 `;
 

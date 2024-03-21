@@ -2,6 +2,7 @@ import joblib
 import numpy as np
 from fastapi import FastAPI
 from pydantic import BaseModel
+from sklearn.decomposition import PCA
 
 app = FastAPI()
 
@@ -18,8 +19,15 @@ class PredictRequest(BaseModel):
 
 @app.post("/predict")
 async def predict(request: PredictRequest):
-    features = np.array(request.features).reshape(1, -1)
-    prediction = model.predict(features)
+    # 입력 데이터를 numpy 배열로 변환
+    data = np.array(request.data)
+
+    # 입력 데이터에 PCA 적용
+    pca = PCA(n_components=2, random_state=512)
+    reduced_data = pca.fit_transform(data)
+
+    # 모델 예측
+    prediction = model.predict(reduced_data)
     return {"prediction": int(prediction[0])}
 
 

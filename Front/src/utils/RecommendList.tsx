@@ -7,7 +7,8 @@ const dummyData = {
 };
 
 const RecommendWrapper = styled.ul`
-  ${tw`flex flex-col h-[35%] border-2 border-lightGray rounded-lg m-2`}
+  ${tw`flex flex-col justify-between h-[35%] border-2 border-lightGray rounded-lg m-2
+  max-sm:w-[50%] max-sm:h-[100%] max-sm:bg-red max-sm:mt-0`}
 `;
 
 const Title = styled.h2`
@@ -15,7 +16,7 @@ const Title = styled.h2`
 `;
 
 const RecommendResult = styled.li`
-  ${tw`flex justify-between border-2 border-lightGray rounded-lg mx-2 my-1 p-2`}
+  ${tw`flex justify-between border-2 border-lightGray rounded-lg mx-2 my-1 p-2 bg-orange-100`}
 `;
 
 const Index = styled.h3`

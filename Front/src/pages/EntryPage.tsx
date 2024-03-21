@@ -20,7 +20,7 @@ const fadeIn = keyframes`
 `
 
 const Main = styled.main`
-  ${tw`flex-cc w-full bg-semiWhite`}
+  ${tw`flex-cc w-full bg-semiWhite overflow-x-hidden`}
 `;
 
 const EntryWrapper = styled.div`

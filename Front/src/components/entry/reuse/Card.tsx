@@ -96,7 +96,6 @@ const Card: React.FC<CardProps> = ({ index, data }) => {
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
-    console.log('스크롤 :  ',scrollY, window.innerHeight)
     if (scrollY > height){
       setIsAnimate(true)
     } else {

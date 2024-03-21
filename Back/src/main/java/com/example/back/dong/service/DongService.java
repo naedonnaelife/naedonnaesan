@@ -21,15 +21,18 @@ public class DongService {
         Dong dong = dongRepository.findByDongName(dongName)
                 .orElseThrow(() -> new DongNotFoundException(dongName));
 
-        System.out.println(dong);
         // 엔티티 to dto
         DongInfraDto dto = new DongInfraDto();
+        dto.setId(dong.getDongId());
+        dto.setDongName(dong.getDongName());
         dto.setConvCnt(dong.getConvCnt());
         dto.setHealthCnt(dong.getHealthCnt());
         dto.setFoodCnt(dong.getFoodCnt());
         dto.setTranspCnt(dong.getTranspCnt());
         dto.setLeisureCnt(dong.getLeisureCnt());
         dto.setSafetyCnt(dong.getSafetyCnt());
+        dto.setCafeCnt(dong.getCafeCnt());
+        dto.setPubCnt(dong.getPubCnt());
 
         return dto;
 

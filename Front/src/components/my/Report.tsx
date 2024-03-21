@@ -16,12 +16,18 @@ const ReportTitle = styled.h1`
   }
 `;
 
+const DongChangeButton = styled.button`
+  ${tw`underline`}
+`;
+
+
+
 const Report: React.FC = () => {
   return (
     <ReportWrapper>
       <ReportTitle>
         <span>{SB.reportUserInfo.object.nickname}님의 </span>
-        <span>{SB.reportUserInfo.object.bAddress} 기준</span>
+        <span><DongChangeButton>{SB.reportUserInfo.object.bAddress}</DongChangeButton> 기준</span>
         추천 결과 보고서입니다
       </ReportTitle>
       <ReportContent />

@@ -1,6 +1,6 @@
-import React from 'react';
-import tw, { styled } from 'twin.macro';
-import ComparisonGraph from '../ComparisonGraph';
+import React from "react";
+import tw, { styled } from "twin.macro";
+import ComparisonGraph from "../ComparisonGraph";
 
 interface SelectedProps {
   selected: string | null;
@@ -9,10 +9,11 @@ interface SelectedProps {
 }
 
 const CardWrapper = styled.figure`
-  ${tw`flex-cc w-[40%] h-96 bg-amber-50`}
+  ${tw`flex flex-col w-[43%] h-96 bg-amber-50 `}
 `;
+
 const CardTop = styled.div`
-  ${tw`flex my-3
+  ${tw`flex-c my-3 h-[10%]
   max-sm:flex-col max-sm:items-center`}
 `;
 const CardTitle = styled.h1`
@@ -20,11 +21,20 @@ const CardTitle = styled.h1`
   max-sm:text-xl`}
 `;
 
+const GraphWrapper = styled.figure<{ cardIndex: number }>`
+  ${tw`w-[90%] h-[80%]`}
+  ${({ cardIndex }) => (cardIndex === 1 ? tw`ml-auto` : tw``)}
+`
+
 const ButtonWrapper = styled.div`
   ${tw`flex`}
 `;
 
-const Card: React.FC<SelectedProps> = ({ selected, setSelected, cardIndex }) => {
+const Card: React.FC<SelectedProps> = ({
+  selected,
+  setSelected,
+  cardIndex,
+}) => {
   return (
     <CardWrapper>
       {selected ? (
@@ -36,7 +46,9 @@ const Card: React.FC<SelectedProps> = ({ selected, setSelected, cardIndex }) => 
               <button onClick={() => setSelected(null)}>삭제</button>
             </ButtonWrapper>
           </CardTop>
-          <ComparisonGraph cardIndex={cardIndex} />
+          <GraphWrapper cardIndex={cardIndex}>
+            <ComparisonGraph cardIndex={cardIndex} selected={selected} />
+          </GraphWrapper>
         </>
       ) : (
         <p>선택된 항목이 없습니다. 동네를 선택해주세요.</p>

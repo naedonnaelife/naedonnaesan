@@ -15,6 +15,7 @@ export default {
         semiWhite : '#FAFBFD',
         black: '#000000',
         lightGray: '#E8E8E8',
+        middleGray: `#9ca3af`,
         gray: '#D5D5D5',
         grayHover: '#464555',
         red: '#FF0505',
@@ -63,5 +64,6 @@ export default {
       };
       addUtilities(newUtilities);
     },
+    require('tailwind-scrollbar-hide'),
   ],
 };

@@ -1,12 +1,9 @@
 package com.example.back.dong.entity;
 
-import com.example.back.convenience.entity.Convenience;
-import com.example.back.food.entity.Food;
 import com.example.back.gu.entity.Gu;
-import com.example.back.health.entity.Health;
-import com.example.back.leisure.entity.Leisure;
-import com.example.back.safety.entity.Safety;
-import com.example.back.transp.entity.Transp;
+import com.example.back.infrascore.entity.InfraScore;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,29 +29,10 @@ public class Dong {
     private String dongName;
     private String dongX;
     private String dongY;
-    @OneToOne
-    @JoinColumn(name = "food_id")
-    private Food food;
 
-    @OneToOne
-    @JoinColumn(name = "health_id")
-    private Health health;
 
-    @OneToOne
-    @JoinColumn(name = "leisure_id")
-    private Leisure leisure;
-
-    @OneToOne
-    @JoinColumn(name = "safety_id")
-    private Safety safety;
-
-    @OneToOne
-    @JoinColumn(name = "transp_id")
-    private Transp transp;
-
-    @OneToOne
-    @JoinColumn(name = "conv_id")
-    private Convenience convenience;
-
+    // 법정동별 인프라 점수는 자주 필요할것같으므로 만들어주자
+    @OneToMany(mappedBy = "dong")
+    List<InfraScore> scoreList = new ArrayList<>();
 
 }

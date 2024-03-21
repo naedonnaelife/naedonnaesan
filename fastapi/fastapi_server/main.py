@@ -22,7 +22,7 @@ class PredictRequest(BaseModel):
 @app.post("/predict")
 async def predict(preference: PredictRequest):
     # 클러스터 생성
-    df = pd.read_csv(model_path + "cluster.csv", index_col=0, encodings='cp949')
+    df = pd.read_csv(model_path + "cluster.csv", index_col=0, encoding='cp949')
     df_train = df.drop(axis=1, columns=['법정동', '군집'])
     pc = pca_model.fit_transform(df_train)
     cluster = pd.DataFrame(pc)

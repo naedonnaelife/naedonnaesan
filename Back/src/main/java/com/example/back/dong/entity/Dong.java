@@ -1,6 +1,12 @@
 package com.example.back.dong.entity;
 
+import com.example.back.convenience.entity.Convenience;
+import com.example.back.food.entity.Food;
 import com.example.back.gu.entity.Gu;
+import com.example.back.health.entity.Health;
+import com.example.back.leisure.entity.Leisure;
+import com.example.back.safety.entity.Safety;
+import com.example.back.transp.entity.Transp;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,13 +32,29 @@ public class Dong {
     private String dongName;
     private String dongX;
     private String dongY;
-    private int convCnt;
-    private int safetyCnt;
-    private int healthCnt;
-    private int foodCnt;
-    private int transpCnt;
-    private int leisureCnt;
-    private int cafeCnt;
-    private int pubCnt;
+    @OneToOne
+    @JoinColumn(name = "food_id")
+    private Food food;
+
+    @OneToOne
+    @JoinColumn(name = "health_id")
+    private Health health;
+
+    @OneToOne
+    @JoinColumn(name = "leisure_id")
+    private Leisure leisure;
+
+    @OneToOne
+    @JoinColumn(name = "safety_id")
+    private Safety safety;
+
+    @OneToOne
+    @JoinColumn(name = "transp_id")
+    private Transp transp;
+
+    @OneToOne
+    @JoinColumn(name = "conv_id")
+    private Convenience convenience;
+
 
 }

@@ -18,13 +18,11 @@ public class Safety {
     @Column(name = "safety_id")
     private Long safetyId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="dongId")
-    private Dong dong;
 
     private int police;
     private int emergency;
     private int cctv;
     private int safetyCenter;
     private int safetyCnt;
+    private int rating;
 }

@@ -18,12 +18,10 @@ public class Convenience extends BaseEntity {
     @Column(name = "conv_id")
     private Long convId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="dongId")
-    private Dong dong;
 
     private int mart;
     private int convStore;
     private int conv_cnt;
+    private int rating;
 
 }

@@ -17,11 +17,9 @@ public class Health {
         @Column(name = "health_id")
         private Long healthId;
 
-        @OneToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name="dongId")
-        private Dong dong;
 
         private int hospital;
         private int pharmacy;
         private int healthCnt;
+        private int rating;
 }

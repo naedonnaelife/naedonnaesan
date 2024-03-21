@@ -17,11 +17,10 @@ public class Food {
     @Column(name = "food_id")
     private Long foodId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="dongId")
-    private Dong dong;
-
     private int cafe;
     private int restaurant;
     private int pub;
+    private int cafeRating;
+    private int resRating;
+    private int pubRating;
 }

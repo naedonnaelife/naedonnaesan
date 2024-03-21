@@ -16,13 +16,10 @@ public class Leisure {
     @Column(name = "leisure_id")
     private Long leisureId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="dongId")
-    private Dong dong;
 
     private int fitness;
     private int cinema;
     private int leisureCnt;
-
+    private int rating;
 
 }

@@ -16,11 +16,9 @@ public class Transp {
     @Column(name = "transp_id")
     private Long transpId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="dongId")
-    private Dong dong;
 
     private int bus;
     private int subway;
     private int transpCnt;
+    private int rating;
 }

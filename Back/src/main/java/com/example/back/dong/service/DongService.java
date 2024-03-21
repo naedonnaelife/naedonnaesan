@@ -25,14 +25,12 @@ public class DongService {
         DongInfraDto dto = new DongInfraDto();
         dto.setId(dong.getDongId());
         dto.setDongName(dong.getDongName());
-        dto.setConvCnt(dong.getConvCnt());
-        dto.setHealthCnt(dong.getHealthCnt());
-        dto.setFoodCnt(dong.getFoodCnt());
-        dto.setTranspCnt(dong.getTranspCnt());
-        dto.setLeisureCnt(dong.getLeisureCnt());
-        dto.setSafetyCnt(dong.getSafetyCnt());
-        dto.setCafeCnt(dong.getCafeCnt());
-        dto.setPubCnt(dong.getPubCnt());
+        dto.setConvenience(dong.getConvenience());
+        dto.setFood(dong.getFood());
+        dto.setHealth(dong.getHealth());
+        dto.setLeisure(dong.getLeisure());
+        dto.setSafety(dong.getSafety());
+        dto.setTransp(dong.getTransp());
 
         return dto;
 

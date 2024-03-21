@@ -20,13 +20,13 @@ class PredictRequest(BaseModel):
 @app.post("/predict")
 async def predict(request: PredictRequest):
     # 입력 데이터를 numpy 배열로 변환
-    print(request.features)
+    print("input: ", request.features)
     data = np.array(request.features)
-
+    print("np data: ", data)
     # 입력 데이터에 PCA 적용
     pca = PCA(n_components=2, random_state=512)
     reduced_data = pca.fit_transform(data)
-
+    print("pca data: ", reduced_data)
     # 모델 예측
     prediction = model.predict(reduced_data)
     return {"prediction": int(prediction[0])}

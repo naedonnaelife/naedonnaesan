@@ -1,6 +1,13 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
-import garma from '../../../assets/garma.jpg';
+
+interface newsCardProps {
+  news: {
+    title: string;
+    content: string;
+    imageUrl : string;
+  };
+}
 
 const CardWrapper = styled.div`
   ${tw`flex w-[100%] h-[100%] border-basic p-1 m-1 hover:cursor-pointer`}
@@ -21,18 +28,12 @@ const NewsContent = styled.p`
   ${tw`text-sm`}
 `;
 
-interface newsCardProps {
-  news: {
-    title: string;
-    content: string;
-  };
-}
 
 const NewsCard: React.FC<newsCardProps> = ({ news }) => {
   return (
     <CardWrapper>
       <ImageWrapper>
-        <CardImage src={garma} alt="garma" />
+        <CardImage src={news.imageUrl} alt="image" />
       </ImageWrapper>
       <ContentWrapper>
         <NewsTitle>{news.title}</NewsTitle>

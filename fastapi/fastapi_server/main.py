@@ -46,7 +46,7 @@ async def predict(preference: PredictRequest):
 
     recommend = filtered_data.iloc[indices[0]]
     print(df.iloc[recommend.index])
-    return recommend
+    return True
 
 
 @app.get("/")

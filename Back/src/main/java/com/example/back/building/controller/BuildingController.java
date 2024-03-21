@@ -55,6 +55,13 @@ public class BuildingController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("/detail/{buildingid}")
+    public ResponseEntity<Message> getBuildingDetail(@PathVariable("buildingid") String buildingId ){
 
+        BuildingDto building = buildingService.getBuilding(buildingId);
+
+        Message message = new Message(HttpStatusEnum.OK, "빌딩 상세 조회 완료", building);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 
 }

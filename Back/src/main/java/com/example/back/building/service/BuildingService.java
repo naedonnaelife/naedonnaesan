@@ -7,6 +7,7 @@ import com.example.back.building.entity.Building;
 import com.example.back.building.repository.BuildingRepository;
 import com.example.back.dong.repository.DongRepository;
 import com.example.back.dong.entity.Dong;
+import com.example.back.exception.BuildingNotFoundException;
 import com.example.back.exception.DongNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,5 +104,25 @@ public class BuildingService {
 
         return buildingDtoList;
 
+    }
+
+    public BuildingDto getBuilding(String id){
+
+        Building building = buildingRepository.findById(Long.parseLong(id)).orElseThrow(() -> new BuildingNotFoundException(id));
+
+        BuildingDto dto = new BuildingDto();
+        dto.setBuildingId(building.getBuildingId());
+        dto.setName(building.getName());
+        dto.setPayType(building.getPayType());
+        dto.setDeposit(building.getDeposit());
+        dto.setMonthlyPay(building.getMonthlyPay());
+        dto.setBuildingType(building.getBuildingType());
+        dto.setFloor(building.getFloor());
+        dto.setArea(building.getArea());
+        dto.setX(building.getX());
+        dto.setY(building.getY());
+        dto.setAddress(building.getAddress());
+
+        return dto;
     }
 }

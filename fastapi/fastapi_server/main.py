@@ -19,7 +19,7 @@ class PredictRequest(BaseModel):
     features: list
 
 
-@app.post("/predict")
+@app.post("/ai/recommend")
 async def predict(preference: PredictRequest):
     # 클러스터 생성
     df = pd.read_csv(model_path + "cluster.csv", index_col=0, encoding='cp949')

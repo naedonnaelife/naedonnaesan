@@ -6,7 +6,7 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # 모델 로드
-model = joblib.load('model.joblib')
+model = joblib.load('ml/Clustering/model.joblib')
 
 
 class PredictRequest(BaseModel):

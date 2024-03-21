@@ -42,11 +42,14 @@ async def predict(preference: PredictRequest):
 
     neigh = NearestNeighbors(n_neighbors=3)
     neigh.fit(filtered_data.drop(axis=1, columns=['target']))
-    distances, indices = neigh.kneighbors(reduced_data)
+    distances, indices = neigh.kneighbors(reduced_data)  # 임시 값
 
-    recommend = filtered_data.iloc[indices[0]]
-    print(df.iloc[recommend.index])
-    return True
+    # 결과 처리
+    result = filtered_data.iloc[indices[0]]
+    recommend = df.iloc[result.index].transpose()
+    print(recommend)
+    
+    return recommend.to_json(force_ascii=False)
 
 
 @app.get("/")

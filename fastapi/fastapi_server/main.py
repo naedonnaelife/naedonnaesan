@@ -47,9 +47,9 @@ async def predict(preference: PredictRequest):
     # 결과 처리
     result = filtered_data.iloc[indices[0]]
     recommend = df.iloc[result.index].transpose()
-    print(recommend)
+    print(recommend)  # 결과 확인용
     
-    return recommend.to_json(force_ascii=False)
+    return recommend.to_dict()
 
 
 @app.get("/")

@@ -15,9 +15,9 @@ const { kakao } = window;
 const KakaoMap: React.FC = () => {
   const [newMap, setNewMap] = useState<any>(null)
   const mapRef = useRef<any>(null)
-  const isSmallRef = useRef<any>(null)
-  const mapLevelRef= useRef<any>(null)
-  const coordinateRef = useRef<any>(null)
+  const isSmallRef = useRef<boolean | null>(null)
+  const mapLevelRef= useRef<number | null>(null)
+  const coordinateRef = useRef<number[] | null>(null)
   const [newCustomOverlay, setNewCustomOverlay] = useState(null)
   const [rectangle, setRectangle] = useState(null)
   const polygons = useRef([new kakao.maps.Polygon()])
@@ -41,7 +41,7 @@ const KakaoMap: React.FC = () => {
   }}
 
   const handleWidthSize = () => {
-    const isSmall = window.innerWidth <= 480 
+    const isSmall = window.innerWidth <= 640 
     console.log('width test : ', window.innerWidth, isSmall, isSmallRef.current)
     if (isSmall && !isSmallRef.current){
       levelUp()
@@ -50,7 +50,7 @@ const KakaoMap: React.FC = () => {
     }
     isSmallRef.current = isSmall
     console.log('좌표 : ', coordinateRef.current)
-    mapRef.current.setCenter(new kakao.maps.LatLng(coordinateRef.current[0], coordinateRef.current[1]))
+    mapRef.current.setCenter(new kakao.maps.LatLng(coordinateRef.current![0], coordinateRef.current![1]))
   }
 
 
@@ -164,7 +164,7 @@ const KakaoMap: React.FC = () => {
     if (newMap) {
       jsonProcessing(newGu, false);
     } else {
-      const initialLevel = window.innerWidth <= 480? 10 : 9
+      const initialLevel = window.innerWidth <= 640? 10 : 9
       console.log(initialLevel)
       const container = document.getElementById('map');
       const options = {

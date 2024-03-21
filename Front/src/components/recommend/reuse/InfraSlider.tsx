@@ -15,9 +15,9 @@ type InnerDotProps = {
 }
 
 
-
 const SelectWrapper = styled.div`
-${tw`flex flex-col h-[20%]`}
+${tw`flex flex-col h-[20%]
+max-sm:w-[100%] max-sm:h-[100%] `}
 `
 const NameWrapper = styled.div`
 ${tw`flex items-center h-[50%] mx-2`}
@@ -49,7 +49,6 @@ const InfraSlider: React.FC<ItemProps> = ({data}) => {
     }
 
   return (
-    <>
     <SelectWrapper>
         <NameWrapper>
             {data[0]} <Tooltip data={data[1]}/>
@@ -63,7 +62,6 @@ const InfraSlider: React.FC<ItemProps> = ({data}) => {
             ))}
         </SliderWrapper>
     </SelectWrapper>
-    </>
   );
 };
 

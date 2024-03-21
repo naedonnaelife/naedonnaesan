@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import UseAxios from '../../utils/UseAxios';
 import UserStore from '../../stores/UserStore';
-
+import { useNavigate } from 'react-router-dom';
 
 const LoginButton = styled.button`
   ${tw`flex-c h-[15%] w-[10vw] bg-gray rounded-lg text-2xl ml-auto mr-[5vw] p-2
@@ -11,8 +11,9 @@ const LoginButton = styled.button`
 
 const KakaoLogin:React.FC = () => {
     const useStore = UserStore((state:any) => state)
+    const navigate = useNavigate()
     const axios = UseAxios()
-    const redirect_uri = 'http://localhost:5173';
+    const redirect_uri = 'https://j10e204.p.ssafy.io';
     const REST_API_KEY = '218aa28a9e8fa4d947c106cb95b2ec1b';
     // const REST_API_KEY = process.env.REACT_APP_REST_API_KEY
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${redirect_uri}&prompt=login`;
@@ -24,7 +25,9 @@ const KakaoLogin:React.FC = () => {
       
       const kakaoLogout = () => {
         const kakaoToken = localStorage?.getItem('kakaoToken');
-        axios.post(`/logout`, {}, {headers : {"kakao-authorization" : kakaoToken}})
+        axios.post(`/logout`, {}, 
+        {headers : {"kakao-authorization" : kakaoToken}}
+        )
       }
     
     const getToken = async (code:any) => {
@@ -41,6 +44,10 @@ const KakaoLogin:React.FC = () => {
         localStorage.setItem("refreshToken", response.headers['authorization-refresh']);
         localStorage.setItem("kakaoToken", response.headers['kakao-authorization']);
         useStore.setIsLogin(true)
+        console.log('응답 : ', response)
+        if(response.headers['isfirst']){
+          navigate('./initial')
+        }
       } catch (error) {
         console.error('백엔드 전송 실패', error);
       }

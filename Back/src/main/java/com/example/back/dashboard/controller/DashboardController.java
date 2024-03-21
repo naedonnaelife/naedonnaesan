@@ -1,4 +1,4 @@
-package com.example.back.article.controller;
+package com.example.back.dashboard.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.back.article.entity.Article;
-import com.example.back.article.service.ArticleService;
+import com.example.back.dashboard.dto.ArticleDto;
+import com.example.back.dashboard.entity.Article;
+import com.example.back.dashboard.service.DashboardService;
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
 
@@ -19,15 +20,16 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/dashboard/news")
+@RequestMapping("/api/dashboard")
 
-public class ArticleController {
+public class DashboardController {
 
-	private final ArticleService articleService;
+	private final DashboardService dashboardService;
 
-	@GetMapping("/{keyword}")  // 제목 기준 검색
+	@GetMapping("/news/{keyword}")  // 제목 기준 검색
 	public ResponseEntity<Message> getArticleList(@PathVariable(value = "keyword") String keyword) {
-		List<Article> articles = articleService.getArticleList(keyword);
+		List<ArticleDto> articles = dashboardService.getArticleList(keyword);
+
 		Message message =
 			articles.isEmpty() ?
 				new Message(HttpStatusEnum.NOT_FOUND, "키워드에 해당되는 기사 없음", null) :
@@ -35,13 +37,13 @@ public class ArticleController {
 		return new ResponseEntity<>(message, articles.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
 
-	@GetMapping("/search/{articleid}")
+	@GetMapping("/news/search/{articleid}")
 	public ResponseEntity<Message> getArticle(@PathVariable(value = "articleid") long articleId) {
-		Optional<Article> article = articleService.getArticle(articleId);
+		ArticleDto article = dashboardService.getArticle(articleId);
 		Message message =
-			article.isPresent() ?
+			article != null ?
 				new Message(HttpStatusEnum.OK, "기사 조회 완료", article) :
 				new Message(HttpStatusEnum.NOT_FOUND, "기사 조회 실패", null);
-		return new ResponseEntity<>(message, article.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(message, article != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 }

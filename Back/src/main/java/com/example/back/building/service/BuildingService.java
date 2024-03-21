@@ -39,6 +39,7 @@ public class BuildingService {
             dto.setArea(building.getArea());
             dto.setX(building.getX());
             dto.setY(building.getY());
+            dto.setAddress(building.getAddress());
             return dto;
         }).collect(Collectors.toList());
 
@@ -66,6 +67,7 @@ public class BuildingService {
             dto.setArea(building.getArea());
             dto.setX(building.getX());
             dto.setY(building.getY());
+            dto.setAddress(building.getAddress());
             return dto;
         }).collect(Collectors.toList());
 

@@ -2,6 +2,7 @@ package com.example.back.building.service;
 
 import com.example.back.building.dto.BuildingDto;
 import com.example.back.building.dto.BuildingPageDto;
+import com.example.back.building.dto.BuildingXYDto;
 import com.example.back.building.entity.Building;
 import com.example.back.building.repository.BuildingRepository;
 import com.example.back.dong.repository.DongRepository;
@@ -81,6 +82,25 @@ public class BuildingService {
         dto.setBuildingDtoList(buildingDtoList);
         dto.setLast(buildingPage.isLast());
         return dto;
+
+    }
+
+    public List<BuildingXYDto> getDongBuildings(String dongName){
+
+        Dong dong = dongRepository.findByDongName(dongName)
+                .orElseThrow(() -> new DongNotFoundException(dongName));
+
+        List<Building> buildingList = buildingRepository.findByDong(dong);
+        // 엔티티 to Dto
+        List<BuildingXYDto> buildingDtoList = buildingList.stream().map(building -> {
+            BuildingXYDto dto = new BuildingXYDto();
+            dto.setBuildingId(building.getBuildingId());
+            dto.setX(building.getX());
+            dto.setY(building.getY());
+            return dto;
+        }).collect(Collectors.toList());
+
+        return buildingDtoList;
 
     }
 }

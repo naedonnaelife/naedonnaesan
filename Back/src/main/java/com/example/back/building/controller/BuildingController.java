@@ -2,6 +2,7 @@ package com.example.back.building.controller;
 
 import com.example.back.building.dto.BuildingDto;
 import com.example.back.building.dto.BuildingPageDto;
+import com.example.back.building.dto.BuildingXYDto;
 import com.example.back.building.service.BuildingService;
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
@@ -21,6 +22,7 @@ public class BuildingController {
 
     private final BuildingService buildingService;
 
+    // 무한 스크롤 부분
     // 해당하는 동id로 빌딩들 가져오기
     @GetMapping("/{dongid}")
     public ResponseEntity<Message> getDongBuilding(@PathVariable(value = "dongid") Long dongId, @PageableDefault(size = 10) Pageable pageable ){
@@ -31,13 +33,25 @@ public class BuildingController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    // 무한 스크롤 부분
     // 해당하는 동이름으로 빌딩들 가져오기
-    @GetMapping
+    @GetMapping("/name")
     public ResponseEntity<Message> getDongBuilding(@RequestParam(value = "dongname") String dongName, @PageableDefault(size = 10) Pageable pageable ){
 
         BuildingPageDto buildingPageDto = buildingService.getDongBuildings(dongName, pageable);
 
         Message message = new Message(HttpStatusEnum.OK, "해당 동의 빌딩들 조회 완료", buildingPageDto);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    // 오른쪽 지도에 매물 띄우는 용도 x,y,pk만 전달해주기
+    @GetMapping
+    public ResponseEntity<Message> getDongBuilding(@RequestParam(value = "dongname") String dongName ){
+
+        List<BuildingXYDto> buildingList = buildingService.getDongBuildings(dongName);
+        System.out.println(buildingList.size());
+
+        Message message = new Message(HttpStatusEnum.OK, "해당 동의 빌딩 좌표 조회 완료", buildingList);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

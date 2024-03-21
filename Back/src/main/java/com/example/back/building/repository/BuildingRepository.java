@@ -12,4 +12,6 @@ import java.util.List;
 public interface BuildingRepository extends JpaRepository<Building, Long> {
 
     Page<Building> findByDong(Dong dong, Pageable pageable);
+
+    List<Building> findByDong(Dong dong);
 }

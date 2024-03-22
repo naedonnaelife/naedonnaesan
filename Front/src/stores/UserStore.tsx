@@ -15,7 +15,6 @@ interface User {
 }
 
 const UserStore = create<User>()(
-
     persist(
       (set) => ({
       isLogin : false,

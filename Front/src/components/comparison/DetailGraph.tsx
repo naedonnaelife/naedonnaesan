@@ -7,6 +7,8 @@ interface DetailGraphProps {
   category: string | null;
   selected1: string | null;
   selected2: string | null;
+  detail1: any | null;
+  detail2: any | null;
 }
 
 const GraphWrapper = styled.figure`
@@ -14,12 +16,13 @@ const GraphWrapper = styled.figure`
 `;
 
 const GraphTitle = styled.h1`
-  ${tw`flex-c`}
+  ${tw`flex-c text-2xl`}
 `;
 
-const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) => {
+const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2, detail1, detail2 }) => {
   ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
+  console.log(detail1, detail2)
   // 상태를 사용하여 창 크기 변화 감지
   const [, setWindowSize] = useState({
     width: window.innerWidth,
@@ -51,19 +54,31 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2 }) =
     },
   };
 
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const labels = detail1.reduce((labelArray:string[], detail:any) => {
+    if (detail.infraTypeName === category) {
+      labelArray.push(detail.infraName);
+    }
+    return labelArray;
+  }, [])
 
   const data = {
     labels,
     datasets: [
       {
         label: `${selected1}`,
-        data: labels.map(() => [0, 122]),
+        data: detail1.map((detail: any) => {
+          console.log(`${selected1} ${category}`,detail.totalCount);
+          return [0, detail.totalCount]
+        }),
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: `${selected2}`,
-        data: labels.map(() => [0, 232]),
+        data: detail2.map((detail: any) => {
+          console.log(`${selected2} ${category}`,detail.totalCount);
+          return [0, detail.totalCount]
+        }),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],

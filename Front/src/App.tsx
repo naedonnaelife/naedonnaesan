@@ -16,24 +16,24 @@ const AppContainer = styled.div`
   ${tw` font-jamsil text-choco h-screen`}
 `;
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
-  useEffect(() => {
-    const handleUnload = (event: BeforeUnloadEvent) => {
-      if (event.currentTarget?.performance.navigation.type === 1) {
-          return
-      }
-      localStorage.clear();
-      return;
-    };
+  // useEffect(() => {
+  //   const handleUnload = (event: BeforeUnloadEvent) => {
+  //     if (event.currentTarget?.performance.navigation.type === 1) {
+  //         return
+  //     }
+  //     localStorage.clear();
+  //     return;
+  //   };
 
-    window.addEventListener('beforeunload', handleUnload);
+  //   window.addEventListener('beforeunload', handleUnload);
 
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleUnload);
+  //   };
+  // }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

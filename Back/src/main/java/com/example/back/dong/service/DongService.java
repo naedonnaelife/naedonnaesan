@@ -1,11 +1,16 @@
 package com.example.back.dong.service;
 
-import com.example.back.dong.dto.DongInfraDto;
+import com.example.back.dong.dto.DongInfraResponseDto;
 import com.example.back.dong.entity.Dong;
 import com.example.back.dong.repository.DongRepository;
 import com.example.back.exception.DongNotFoundException;
+import com.example.back.infrascore.dto.InfraScoreDto;
+import com.example.back.infrascore.entity.InfraScore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -15,25 +20,29 @@ public class DongService {
     private final DongRepository dongRepository;
 
 
-//    // 동의 인프라 갯수들을 가져와야해
-//    public DongInfraDto getDongInfra(String dongName){
-//
-//        Dong dong = dongRepository.findByDongName(dongName)
-//                .orElseThrow(() -> new DongNotFoundException(dongName));
-//
-//        // 엔티티 to dto
-//        DongInfraDto dto = new DongInfraDto();
-//        dto.setId(dong.getDongId());
-//        dto.setDongName(dong.getDongName());
-//        dto.setConvenience(dong.getConvenience());
-//        dto.setFood(dong.getFood());
-//        dto.setHealth(dong.getHealth());
-//        dto.setLeisure(dong.getLeisure());
-//        dto.setSafety(dong.getSafety());
-//        dto.setTransp(dong.getTransp());
-//
-//        return dto;
-//
-//    }
+    // 법정동의 인프라 점수들을 가져와야해
+    public DongInfraResponseDto getDongInfraScore(String dongName){
+
+        Dong dong = dongRepository.findByDongName(dongName)
+                .orElseThrow(() -> new DongNotFoundException(dongName));
+
+        DongInfraResponseDto dongInfraResponseDto = new DongInfraResponseDto();
+
+        List<InfraScore> scoreList = dong.getScoreList();
+        // 엔티티 to dto
+        List<InfraScoreDto> infraScoreList = scoreList.stream().map(infraScore -> {
+            InfraScoreDto dto = new InfraScoreDto();
+            dto.setInfraType(infraScore.getInfraType());
+            dto.setScore(infraScore.getScore());
+            return dto;
+        }).collect(Collectors.toList());
+
+        dongInfraResponseDto.setDongName(dongName);
+        dongInfraResponseDto.setId(dong.getDongId());
+        dongInfraResponseDto.setInfraScoreList(infraScoreList);
+
+        return dongInfraResponseDto;
+
+    }
 
 }

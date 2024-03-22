@@ -47,8 +47,9 @@ async def predict(preference: PredictRequest):
     # 결과 처리
     result = filtered_data.iloc[indices[0]]
     recommend = df.iloc[result.index].transpose()
+    recommend.columns = recommend.columns + 1  # db에 맞춰 인덱스 보정
     print(recommend)  # 결과 확인용
-    
+
     return recommend.to_dict()
 
 

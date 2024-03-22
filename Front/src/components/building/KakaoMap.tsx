@@ -147,21 +147,12 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId }: KakaoMapProp
       .then((response) => {
         console.log(response.data);
         const markers = response.data.object.map((building: Building) => {
-          return new kakao.maps.Marker({
+          const marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(building.x, building.y),
             image: markerImage,
             title: building.buildingId,
           });
-        });
-        clusterer.addMarkers(markers);
-        // console.log(markers);
-        return markers;
-      })
-      .then((response) => {
-        console.log(response);
-        response.map((marker: any) => {
           kakao.maps.event.addListener(marker, 'click', function () {
-            console.log(selectedBuildingRef.current);
             if (selectedBuildingRef.current !== null) {
               selectedBuildingRef.current.setImage(markerImage);
             }
@@ -169,7 +160,9 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId }: KakaoMapProp
             selectedBuildingRef.current = marker;
             marker.setImage(selectedMarkerImage);
           });
+          return marker;
         });
+        clusterer.addMarkers(markers);
       })
       .catch((error) => {
         console.log(error);

@@ -63,7 +63,7 @@ const ScrollDiv = styled.div`
 function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId }: SideProps) {
   const [isBuildingOpen, setIsBuildingOpen] = useState(false);
   const [page, setPage] = useState(0);
-  const [buildingList, setBuildingList] = useState<Building[] | []>([]);
+  const [buildingList, setBuildingList] = useState<Building[]>([]);
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
   const [isLast, setIsLast] = useState(false);
   const [pageRef, inView] = useInView();
@@ -94,10 +94,6 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId }: SidePr
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    getBuildingList();
-  }, []);
 
   useEffect(() => {
     if (inView && !isLast) {

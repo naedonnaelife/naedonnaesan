@@ -165,7 +165,6 @@ const KakaoMap: React.FC = () => {
       jsonProcessing(newGu, false);
     } else {
       const initialLevel = window.innerWidth <= 640? 10 : 9
-      console.log(initialLevel)
       const container = document.getElementById('map');
       const options = {
         center: new kakao.maps.LatLng(37.56, 127.0),
@@ -175,7 +174,6 @@ const KakaoMap: React.FC = () => {
         disableDoubleClickZoom: false,
       };
       const newMap = new kakao.maps.Map(container, options)
-      console.log('맵 확인 : ', newMap)
       mapRef.current = newMap
       mapLevelRef.current = initialLevel
       coordinateRef.current = [37.56, 127.0]

@@ -2,8 +2,13 @@ import { useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import Tooltip from '../../../utils/Tooltip';
 
-interface ItemProps {
-    data : string[]
+interface SliderProps {
+    data : {
+      name : string,
+      detail : string,
+      pk : number
+    };
+    changeScore : (element:number, index:number) => void;
 }
 
 type DotProps = {
@@ -40,18 +45,19 @@ const InnerDot = styled.div`
 ${({isSelected}:InnerDotProps) => (isSelected ? tw`w-[100%] h-[100%] bg-blue-500 rounded-full` : tw``)}
 `
 
-const InfraSlider: React.FC<ItemProps> = ({data}) => {
+const InfraSlider: React.FC<SliderProps> = ({data, changeScore}) => {
     const [selectPoint, setSelectPoint] = useState(3)
     const dotPositions = Array.from({ length: 7 }, (_, index) => index + 1);
 
     const selected = (index:number) => {
         setSelectPoint(index)
+        changeScore(index, data.pk)
     }
 
   return (
     <SelectWrapper>
         <NameWrapper>
-            {data[0]} <Tooltip data={data[1]}/>
+            {data.name} <Tooltip data={data.detail}/>
         </NameWrapper>
         <SliderWrapper>
             <Line/>

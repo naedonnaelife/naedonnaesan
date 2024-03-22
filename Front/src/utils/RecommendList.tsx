@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import useSearchStore from '../stores/SearchStore';
+import UseAxios from './UseAxios';
 
-const dummyData = {
-  response: ['성동구 성수1가1동', '성동구 성수1가2동', '중구 을지로동'],
-};
+type Dong = {
+  dongName : string;
+  dongPk : number;
+  isDongLike : boolean;
+}[]
 
 const RecommendWrapper = styled.ul`
   ${tw`flex flex-col justify-between h-[35%] border-2 border-lightGray rounded-lg m-2
@@ -31,28 +34,54 @@ const Like = styled.button`
   ${tw`flex justify-center items-center w-[30px] h-[30px] border-2 border-red rounded-full`}
 `;
 
-const RecommendList: React.FC = () => {
-  const [likeList, setLikeList] = useState([1, 2]);
-  const selectArea = useSearchStore((state:any) => state.selectedArea)
 
-  const addLike = (index: number) => {
-    setLikeList((prev) => [...prev, index]);
+const RecommendList: React.FC = () => {
+  const [newRecommendList, setNewRecommendList] = useState<Dong>([])
+  const [likeDongList, setLikeDongList] = useState([true, true, false])
+  const axios = UseAxios()
+
+  const selectArea = useSearchStore(state => state.selectedArea)
+  const recommendList = useSearchStore(state => state.recommendList)
+
+  const addLike = async (id:number, index: number) => {
+    await axios.post(`/api/zzim/${id}`)
+    .then((response) => {
+      setLikeDongList(prev => prev.map((e, idx) => (idx === index ? true : e)))
+      console.log(' 좋아요 : ', response)
+    });
   };
-  const removeLike = (index: number) => {
-    setLikeList((prev) => prev.filter((element) => element !== index));
+
+  const removeLike = async (id:number, index: number) => {
+    await axios.delete(`/api/zzim/${id}`)
+    .then((response) => {
+      setLikeDongList(prev => prev.map((e, idx) => (idx === index ? false : e)))
+      console.log('싫어요 : ', response)
+    });
   };
+  
+
+  useEffect(()=>{
+    setNewRecommendList(recommendList)
+    console.log(recommendList)
+    const selectLikeDong = recommendList.map(e => e.isDongLike)
+    setLikeDongList(selectLikeDong)
+  }, [recommendList])
+
+
+
+
   return (
     <>
       <RecommendWrapper>
         <Title> 추천 동네 </Title>
-        {dummyData.response.map((element: string, index: number) => (
+        {newRecommendList.map((element, index) => (
           <RecommendResult key={index}>
             <Index>{index + 1}</Index>
-            <TownName onClick={() => selectArea(element)}>{element}</TownName>
-            {likeList.includes(index + 1) ? (
-              <Like onClick={() => removeLike(index + 1)}>💗</Like>
+            <TownName onClick={() => selectArea(element.dongName)}>{element.dongName}</TownName>
+            {likeDongList[index]? (
+              <Like onClick={() => removeLike(element.dongPk, index)}>💗</Like>
             ) : (
-              <Like onClick={() => addLike(index + 1)}>🤍</Like>
+              <Like onClick={() => addLike(element.dongPk, index)}>🤍</Like>
             )}
           </RecommendResult>
         ))}

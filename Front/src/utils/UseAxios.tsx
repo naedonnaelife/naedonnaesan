@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 // const API_URL = 'http://localhost:8080/api'
-const API_URL = 'https://j10e204.p.ssafy.io/api'
+const API_URL = 'https://j10e204.p.ssafy.io'
 
 const UseAxios = (): AxiosInstance => {
   const axiosInstance = axios.create({
@@ -11,8 +11,7 @@ const UseAxios = (): AxiosInstance => {
   axiosInstance.interceptors.request.use(
     (config) => {
       // config.headers["authorization"] = localStorage.getItem("accessToken")
-      config.headers["authorization"] =
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTEwOTIwMjMsInJvbGUiOiJVU0VSIiwiaWQiOjR9.kFpbz09iIvAzCew_qjdZiZ34brPj6F5__zRXzaFxg-0";
+      config.headers["authorization"] ="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTExNzI1OTUsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.ta3I9zCnB5HfJiswWoecQNmnPE5XG811g5i3Q-E1wFc" 
       return config;
     },
     async (error) => {

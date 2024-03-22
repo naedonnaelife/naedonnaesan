@@ -1,6 +1,4 @@
-package com.example.back.article.entity;
-
-import com.example.back.dong.entity.Dong;
+package com.example.back.dashboard.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +22,5 @@ public class Article {
     private String imageUrl;
 
     private String title; // 제목은 보통 길지 않으므로 VARCHAR로 충분함
-
-    public Article(String content, String imageUrl, String title) {
-        this.content = content;
-        this.imageUrl = imageUrl;
-        this.title = title;
-    }
 }
 

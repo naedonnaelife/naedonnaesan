@@ -15,10 +15,18 @@ public interface InfraCountRepository extends JpaRepository<InfraCount, Long> {
             "WHERE ic.dong.dongName = :dongName ")
     List<Tuple> findInfraCountsByDongName(@Param("dongName") String dongName);
 
+    // 동 별 인프라타입별 갯수들 집계해서 가져오기
     @Query("SELECT ic.dong.dongName as dongName, ic.infraType.name as infraTypeName, SUM(ic.count) AS totalCount " +
         "FROM InfraCount ic " +
         "WHERE ic.dong.dongId = :dongId " +
         "GROUP BY ic.dong.dongId, ic.infraType.typeId")
     List<Tuple> findInfraCountByDongId(@Param("dongId") Long dongId);
+
+
+    // 서울시 전체 인프라타입별 갯수 평균을 가져오기
+    @Query("SELECT ic.infraType.name as infraTypeName, SUM(ic.count) as totalInfraCount " +
+            "FROM InfraCount ic " +
+            "GROUP BY ic.infraType.name")
+    List<Object[]> findTotalInfraCountByType();
 
 }

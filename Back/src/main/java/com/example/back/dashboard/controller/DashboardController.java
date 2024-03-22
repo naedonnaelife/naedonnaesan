@@ -2,6 +2,7 @@ package com.example.back.dashboard.controller;
 
 import java.util.List;
 
+import com.example.back.dashboard.dto.AvgInfraDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,5 +55,13 @@ public class DashboardController {
 				new Message(HttpStatusEnum.NOT_FOUND, "동네에 따른 인프라 수치 조회 실패", null) :
 				new Message(HttpStatusEnum.OK, "동네에 따른 인프라 수치 조회 성공", infraTypeCount);
 		return new ResponseEntity<>(message, infraTypeCount.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+	}
+
+	@GetMapping("/infra/avg")
+	public ResponseEntity<Message> getInfraAvg() {
+
+		AvgInfraDto totalInfraTypeInfo = dashboardService.getTotalInfraTypeInfo();
+		Message message = new Message(HttpStatusEnum.OK, "서울시 평균 점수, 카운트 조회 완료", totalInfraTypeInfo);
+		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 }

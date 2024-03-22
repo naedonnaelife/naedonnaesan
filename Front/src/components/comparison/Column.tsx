@@ -15,9 +15,10 @@ const Category = styled.li`
   max-sm:text-sm`}
 `;
 
-const categories = ['치안', '보건', '편의시설', '음식점', '교통', '여가','카페','술집'];
+const categories = ['치안', '여가', '음식점', '보건', '편의시설', '대중교통','카페','술집'];
 
 const Column: React.FC<ColumnProps> = ({ selected1, selected2, setCategory }) => {
+
   return (
     <CategoryWrapper>
       {categories.map((category: string) => (

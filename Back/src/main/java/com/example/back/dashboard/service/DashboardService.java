@@ -3,14 +3,15 @@ package com.example.back.dashboard.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Tuple;
+
 import org.springframework.stereotype.Service;
 
 import com.example.back.dashboard.dto.ArticleDto;
-import com.example.back.dashboard.dto.InfraCountDto;
 import com.example.back.dashboard.entity.Article;
-import com.example.back.dashboard.entity.InfraCount;
 import com.example.back.dashboard.repository.ArticleRepository;
-import com.example.back.dashboard.repository.InfraCountRepository;
+import com.example.back.infracount.dto.InfraTypeCountDto;
+import com.example.back.infracount.repository.InfraCountRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +39,7 @@ public class DashboardService {
 		Article article = articleRepository.findByArticleId(articleId);
 		System.out.println(article);  // 디버깅 코드
 		ArticleDto dto = null;
-		if(article != null) {
+		if (article != null) {
 			dto = new ArticleDto();
 			dto.setArticleId(article.getArticleId());
 			dto.setContent(article.getContent());
@@ -47,18 +48,15 @@ public class DashboardService {
 		}
 		return dto;
 	}
-	
-	public InfraCountDto getInfraCount(long dongId) {
-		InfraCount infraCount = infraCountRepository.findByDongId(dongId);
-		InfraCountDto dto = null;
-		if(infraCount != null) {
-			dto = new InfraCountDto();
-			dto.setCountId(infraCount.getCountId());
-			dto.setCount(infraCount.getCount());
-			dto.setDongId(infraCount.getDongId());
-			dto.setInfraId(infraCount.getInfraId());
-			dto.setTypeId(infraCount.getTypeId());
-		}
-		return dto;
+
+	public List<InfraTypeCountDto> getInfraTypeCounts(Long dongId) {
+
+		List<Tuple> infraCountList = infraCountRepository.findInfraCountByDongId(dongId);
+
+		return infraCountList.stream().map(infraCount -> new InfraTypeCountDto(
+			infraCount.get("dongName", String.class),
+			infraCount.get("infraTypeName", String.class),
+			infraCount.get("totalCount", Long.class)))
+			.collect(Collectors.toList());
 	}
 }

@@ -63,6 +63,14 @@ public class GlobalControllerExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
+    // 유저를 못찾는 핸들러
+    @ExceptionHandler(value = UserNotFoundException.class)
+    public ResponseEntity<ErrorMessage> userNotfoundExceptionhandler(UserNotFoundException e){
+        log.info(" *** UserNotFoundException 핸들러 *** ");
+        ErrorMessage errorMessage= new ErrorMessage(HttpStatusEnum.NOT_FOUND, e.getMessage());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
     // 이미 찜한 동네 핸들러
     @ExceptionHandler(value = AlreadyZzimedException.class)
     public ResponseEntity<ErrorMessage> alreadyZzimedExceptionhandler(AlreadyZzimedException e){

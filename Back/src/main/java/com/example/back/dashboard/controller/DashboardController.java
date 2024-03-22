@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back.dashboard.dto.ArticleDto;
+import com.example.back.dashboard.dto.InfraCountDto;
 import com.example.back.dashboard.entity.Article;
 import com.example.back.dashboard.service.DashboardService;
 import com.example.back.common.HttpStatusEnum;
@@ -45,5 +46,15 @@ public class DashboardController {
 				new Message(HttpStatusEnum.OK, "기사 조회 완료", article) :
 				new Message(HttpStatusEnum.NOT_FOUND, "기사 조회 실패", null);
 		return new ResponseEntity<>(message, article != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+	}
+
+	@GetMapping("/infra/{dongid}")
+	public ResponseEntity<Message> getInfraCount(@PathVariable(value = "dongid") long dongId) {
+		InfraCountDto infraCount = dashboardService.getInfraCount(dongId);
+		Message message =
+			infraCount != null ?
+				new Message(HttpStatusEnum.OK, "동별 인프라 수치 조회 완료", infraCount) :
+				new Message(HttpStatusEnum.NOT_FOUND, "동별 인프라 수치 조회 실패", null);
+		return new ResponseEntity<>(message, infraCount != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 }

@@ -46,6 +46,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         String path = request.getRequestURI();
 
+        // /api/oauth 요청일 경우 필터의 나머지 로직을 건너뛰고 다음 필터로 진행
+        if ("/api/oauth".equals(path)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         // refreshToken으로 수행하는데 AccessToken 재발급하는 요청이면 해당필터 안타게하자.
         if ("/api/refreshToken".equals(path)) {
             chain.doFilter(request, response);
@@ -99,6 +105,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     // accessToken의 주인이 팬이면 아래 메소드 실행
     private Authentication getAuthenticationForFan(String id) {
+        System.out.println(id);
         User user = userRepository.findById(Long.parseLong(id)).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         PrincipalDetails principalDetails = new PrincipalDetails(user);
         // 사용자가 인증이 됐으니까 강제적으로 authentication 객체를 만들어줘도 되는거임 with fanPrincipalDetails, null, authorities

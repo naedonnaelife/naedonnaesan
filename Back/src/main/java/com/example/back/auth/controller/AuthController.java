@@ -45,7 +45,7 @@ public class AuthController {
         headers.add("Access-Control-Expose-Headers", "Authorization, Authorization-Refresh, isFirst, Kakao-Authorization"); // CORS 정책 때문에 이걸 넣어줘야 프론트에서 header를 꺼내쓸수있음
         headers.add(JwtProperties.KAKAO_ACCESS_HEADER_STRING, JwtProperties.TOKEN_PREFIX + oauthToken.getAccess_token());
         headers.add(JwtProperties.ACCESS_HEADER_STRING, JwtProperties.TOKEN_PREFIX + oAuthDto.getTokenInfo().getAccessToken());
-        headers.add(JwtProperties.REFRESH_HEADER_STRING, JwtProperties.TOKEN_PREFIX + oAuthDto.getTokenInfo().getRefreshToken());
+        headers.add(JwtProperties.REFRESH_HEADER_STRING, oAuthDto.getTokenInfo().getRefreshToken());
         headers.add("isFirst", oAuthDto.getIsFirst());
 
         Message message = new Message(HttpStatusEnum.OK, "로그인 완료 토큰들 발급완료", null);
@@ -71,7 +71,7 @@ public class AuthController {
         headers.add("Access-Control-Expose-Headers", "Authorization, Authorization-Refresh"); // CORS 정책 때문에 이걸 넣어줘야 프론트에서 header를 꺼내쓸수있음
         // accessToken과 refreshToken 둘다 재발급.
         headers.add(JwtProperties.ACCESS_HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken.getAccessToken());
-        headers.add(JwtProperties.REFRESH_HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken.getRefreshToken());
+        headers.add(JwtProperties.REFRESH_HEADER_STRING, jwtToken.getRefreshToken());
 
         return ResponseEntity.ok().headers(headers).body(message);
     }

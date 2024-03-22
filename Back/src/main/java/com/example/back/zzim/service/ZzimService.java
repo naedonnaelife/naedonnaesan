@@ -5,8 +5,11 @@ import com.example.back.dong.entity.Dong;
 import com.example.back.dong.repository.DongRepository;
 import com.example.back.exception.AlreadyZzimedException;
 import com.example.back.exception.DongNotFoundException;
+import com.example.back.exception.UserNotFoundException;
 import com.example.back.exception.ZzimNotFoundException;
+import com.example.back.user.dto.UserSimpleDto;
 import com.example.back.user.entity.User;
+import com.example.back.user.repository.UserRepository;
 import com.example.back.zzim.entity.Zzim;
 import com.example.back.zzim.repository.ZzimRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class ZzimService {
 
     private final ZzimRepository zzimRepository;
+    private final UserRepository userRepository;
     private final DongRepository dongRepository;
 
     public Long saveZzim(Long dongId) {
@@ -60,7 +64,12 @@ public class ZzimService {
     private User getUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        return principalDetails.getUser();
+        UserSimpleDto userDto = principalDetails.getUser();
+        Long userId = userDto.getUserId();
+
+        User user = userRepository.findById(userDto.getUserId()).orElseThrow(() -> new UserNotFoundException(userId));
+
+        return user;
     }
 
 }

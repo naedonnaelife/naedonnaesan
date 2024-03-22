@@ -1,5 +1,6 @@
 package com.example.back.auth.oauth;
 
+import com.example.back.user.dto.UserSimpleDto;
 import com.example.back.user.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,10 +11,10 @@ import java.util.Collection;
 @Getter
 public class PrincipalDetails implements UserDetails {
 
-    private User user;
+    private UserSimpleDto user;
 
-    public PrincipalDetails(com.example.back.user.entity.User fan){
-        this.user = fan;
+    public PrincipalDetails(UserSimpleDto user){
+        this.user = user;
     }
 
     @Override

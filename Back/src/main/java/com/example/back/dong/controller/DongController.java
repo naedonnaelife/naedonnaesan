@@ -2,7 +2,7 @@ package com.example.back.dong.controller;
 
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
-import com.example.back.dong.dto.DongInfraDto;
+import com.example.back.dong.dto.DongInfraResponseDto;
 import com.example.back.dong.service.DongService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +22,12 @@ public class DongController {
 
     private final DongService dongService;
 
-    @GetMapping("/infra/{dongname}")
-    public ResponseEntity<Message> getDongInfra(@PathVariable(value = "dongname") String dongName){
+    @GetMapping("/infrascore/{dongname}")
+    public ResponseEntity<Message> getDongInfraScore(@PathVariable(value = "dongname") String dongName){
 
-        DongInfraDto dongInfra = dongService.getDongInfra(dongName);
+        DongInfraResponseDto dongInfraScore = dongService.getDongInfraScore(dongName);
 
-        Message message = new Message(HttpStatusEnum.OK, dongName + "의 인프라 정보 가져오기 완료", dongInfra);
+        Message message = new Message(HttpStatusEnum.OK, dongName + "의 인프라 점수 가져오기 완료", dongInfraScore);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

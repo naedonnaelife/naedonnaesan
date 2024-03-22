@@ -1,6 +1,9 @@
 package com.example.back.dong.entity;
 
 import com.example.back.gu.entity.Gu;
+import com.example.back.infrascore.entity.InfraScore;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,13 +29,10 @@ public class Dong {
     private String dongName;
     private String dongX;
     private String dongY;
-    private int convCnt;
-    private int safetyCnt;
-    private int healthCnt;
-    private int foodCnt;
-    private int transpCnt;
-    private int leisureCnt;
-    private int cafeCnt;
-    private int pubCnt;
+
+
+    // 법정동별 인프라 점수는 자주 필요할것같으므로 만들어주자
+    @OneToMany(mappedBy = "dong")
+    List<InfraScore> scoreList = new ArrayList<>();
 
 }

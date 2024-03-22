@@ -6,6 +6,7 @@ interface SelectedProps {
   selected: string | null;
   setSelected: (value: string | null) => void;
   cardIndex: number;
+  setDetail: (value: any | null) => void;
 }
 
 const CardWrapper = styled.figure`
@@ -23,8 +24,8 @@ const CardTitle = styled.h1`
 
 const GraphWrapper = styled.figure<{ cardIndex: number }>`
   ${tw`w-[90%] h-[80%]`}
-  ${({ cardIndex }) => (cardIndex === 1 ? tw`ml-auto` : tw``)}
-`
+  ${({ cardIndex }: { cardIndex: number }) => (cardIndex === 1 ? tw`ml-auto` : tw``)}
+`;
 
 const ButtonWrapper = styled.div`
   ${tw`flex`}
@@ -34,6 +35,7 @@ const Card: React.FC<SelectedProps> = ({
   selected,
   setSelected,
   cardIndex,
+  setDetail,
 }) => {
   return (
     <CardWrapper>
@@ -47,7 +49,11 @@ const Card: React.FC<SelectedProps> = ({
             </ButtonWrapper>
           </CardTop>
           <GraphWrapper cardIndex={cardIndex}>
-            <ComparisonGraph cardIndex={cardIndex} selected={selected} />
+            <ComparisonGraph
+              cardIndex={cardIndex}
+              selected={selected}
+              setDetail={setDetail}
+            />
           </GraphWrapper>
         </>
       ) : (

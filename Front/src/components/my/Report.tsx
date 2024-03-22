@@ -20,8 +20,6 @@ const DongChangeButton = styled.button`
   ${tw`underline`}
 `;
 
-
-
 const Report: React.FC = () => {
   return (
     <ReportWrapper>

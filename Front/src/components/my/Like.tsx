@@ -2,6 +2,7 @@ import tw, { styled } from 'twin.macro';
 import SearchBar from '../../utils/SearchBar';
 import LikedDong from './reuse/LikedDong';
 import SB from '../../datas/SB.json';
+// import UseAxios from "../../utils/UseAxios";
 
 const LikeWrapper = styled.section`
   ${tw`w-[90%]
@@ -26,6 +27,8 @@ const LikedDongList = {
 };
 
 const Like: React.FC = () => {
+  // const axios = UseAxios();
+
   return (
     <LikeWrapper>
       <LikeTop>

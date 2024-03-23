@@ -1,7 +1,7 @@
 import tw, { styled } from 'twin.macro';
 interface CardProps {
   building: {
-    buildingId: string;
+    buildingId: number;
     payType: string;
     deposit: number;
     monthlyPay: number;

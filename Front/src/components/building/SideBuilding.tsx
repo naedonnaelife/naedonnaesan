@@ -9,10 +9,12 @@ interface SideProps {
   selectedBuildingRef: React.MutableRefObject<any>;
   buildingId: number;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
+  markerList: any;
+  buildingMap: any;
 }
 
 type Building = {
-  buildingId: string;
+  buildingId: number;
   payType: string;
   deposit: number;
   monthlyPay: number;
@@ -60,30 +62,51 @@ const ScrollDiv = styled.div`
   ${tw`bg-red h-[10px]`}
 `;
 
-function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId }: SideProps) {
+const { kakao } = window;
+
+function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerList, buildingMap }: SideProps) {
   const [isBuildingOpen, setIsBuildingOpen] = useState(false);
   const [page, setPage] = useState(0);
-  const [buildingList, setBuildingList] = useState<Building[] | []>([]);
+  const [buildingList, setBuildingList] = useState<Building[]>([]);
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
   const [isLast, setIsLast] = useState(false);
   const [pageRef, inView] = useInView();
   const axios = UseAxios();
 
+  const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021%20(1).png?raw=true';
+  const imageSize = new kakao.maps.Size(25, 25);
+  const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+  const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
+  const selectedImageSize = new kakao.maps.Size(30, 30);
+  const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize);
+
+
   const handleHamburgerButton = () => {
     setIsBuildingOpen((prev) => !prev);
   };
   const handleCloseButton = () => {
-    const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021%20(1).png?raw=true';
-    const imageSize = new kakao.maps.Size(25, 25);
-    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+    
     selectedBuildingRef.current.setImage(markerImage);
     selectedBuildingRef.current = null;
     setBuildingId(0);
   };
 
+  const handleBuildingCard = (building: Building) => {
+    
+    if (selectedBuildingRef.current !== null) {
+      selectedBuildingRef.current.setImage(markerImage);
+    }
+    const marker =  markerList[building.buildingId]
+    setBuildingId(building.buildingId);
+    selectedBuildingRef.current = marker;
+    marker.setImage(selectedMarkerImage);
+    buildingMap.setCenter(new kakao.maps.LatLng(building.x, building.y))
+    buildingMap.setLevel(1)
+  }
+
   const getBuildingList = () => {
     axios
-      .get('/api/buildings/name', { params: { dongname: '신사동', page: page } })
+      .get('/api/buildings/name', { params: { dongname: '역삼동', page: page } })
       .then((response) => {
         console.log(response.data);
         setPage((prev) => prev + 1);
@@ -94,10 +117,6 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId }: SidePr
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    getBuildingList();
-  }, []);
 
   useEffect(() => {
     if (inView && !isLast) {
@@ -138,7 +157,7 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId }: SidePr
         )}
       </SideFixWrapper>
       {buildingList.map((building) => (
-        <Card>
+        <Card onClick={() => handleBuildingCard(building)}>
           <BuildingCard key={building.buildingId} building={building}></BuildingCard>
         </Card>
       ))}

@@ -7,6 +7,8 @@ interface KakaoMapProps {
   areaName: string;
   selectedBuildingRef: React.MutableRefObject<any>;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
+  setMarkerList:  React.Dispatch<React.SetStateAction<any>>;
+  setBuildingMap:  React.Dispatch<React.SetStateAction<any>>;
 }
 
 type Building = {
@@ -25,7 +27,7 @@ const Map = styled.div`
 
 const { kakao } = window;
 
-function KakaoMap({ areaName, selectedBuildingRef, setBuildingId }: KakaoMapProps) {
+function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList, setBuildingMap }: KakaoMapProps) {
   const axios = UseAxios();
   const selectedDong: any = newDong.features.find((dong: any) => dong.properties.temp === areaName);
   const x = selectedDong.properties.x;
@@ -42,7 +44,7 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId }: KakaoMapProp
       disableDoubleClickZoom: true,
     };
     const map = new kakao.maps.Map(container, options);
-
+    setBuildingMap(map)
     // 폴리곤 생성
     const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
       return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
@@ -69,7 +71,7 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId }: KakaoMapProp
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
       averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-      minLevel: 1, // 클러스터 할 최소 지도 레벨
+      minLevel: 2, // 클러스터 할 최소 지도 레벨
       calculator: [3, 5, 10, 30, 50, 100, 500, 1000], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
       texts: ['2', '3+', '5+', '10+', '30+', '50+', '100+', '500+', '1000+'],
       styles: [
@@ -146,22 +148,14 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId }: KakaoMapProp
       .get('/api/buildings', { params: { dongname: '역삼동' } })
       .then((response) => {
         console.log(response.data);
+        const markermarker:any = {}
         const markers = response.data.object.map((building: Building) => {
-          return new kakao.maps.Marker({
+          const marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(building.x, building.y),
             image: markerImage,
             title: building.buildingId,
           });
-        });
-        clusterer.addMarkers(markers);
-        // console.log(markers);
-        return markers;
-      })
-      .then((response) => {
-        console.log(response);
-        response.map((marker: any) => {
           kakao.maps.event.addListener(marker, 'click', function () {
-            console.log(selectedBuildingRef.current);
             if (selectedBuildingRef.current !== null) {
               selectedBuildingRef.current.setImage(markerImage);
             }
@@ -169,7 +163,11 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId }: KakaoMapProp
             selectedBuildingRef.current = marker;
             marker.setImage(selectedMarkerImage);
           });
+          markermarker[building.buildingId] = marker;
+          return marker;
         });
+        clusterer.addMarkers(markers);
+        setMarkerList(markermarker)
       })
       .catch((error) => {
         console.log(error);

@@ -12,6 +12,8 @@ const Main = styled.main`
 
 function BuildingPage() {
   const [buildingId, setBuildingId] = useState(0);
+  const [markerList, setMarkerList] = useState<any>({})
+  const [buildingMap, setBuildingMap] = useState<any>(null);
   const selectedBuildingRef = useRef<any>(null);
   const location = useLocation();
   console.log('props데이터 :', location);
@@ -19,11 +21,13 @@ function BuildingPage() {
     <>
       <NavBar />
       <Main>
-        <SideBuilding selectedBuildingRef={selectedBuildingRef} buildingId={buildingId} setBuildingId={setBuildingId} />
+        <SideBuilding selectedBuildingRef={selectedBuildingRef} buildingId={buildingId} setBuildingId={setBuildingId} markerList={markerList} buildingMap={buildingMap}/>
         <KakaoMap
           areaName={location.state ? location.state.areaName : '강남구 역삼2동'}
           selectedBuildingRef={selectedBuildingRef}
           setBuildingId={setBuildingId}
+          setMarkerList={setMarkerList}
+          setBuildingMap={setBuildingMap}
         />
       </Main>
     </>

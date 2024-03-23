@@ -25,7 +25,7 @@ const KakaoLogin:React.FC = () => {
       
       const kakaoLogout = () => {
         const kakaoToken = localStorage?.getItem('kakaoToken');
-        axios.post(`/logout`, {}, 
+        axios.post(`/api/logout`, {}, 
         {headers : {"kakao-authorization" : kakaoToken}}
         )
       }
@@ -34,7 +34,7 @@ const KakaoLogin:React.FC = () => {
       try {
         // 백엔드로 인가 코드를 전송하여 데이터 요청
         console.log('code 확인 : ', code)
-        const response = await axios.get(`/oauth`, {
+        const response = await axios.get(`/api/oauth`, {
           params: {
             code: code,
           },

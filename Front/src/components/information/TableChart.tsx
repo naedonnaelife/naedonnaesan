@@ -1,6 +1,11 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
+interface DataProps {
+  seoulData : number[];
+  dongData : number[];
+}
+
 const TableWrapper = styled.figure`
   ${tw`border-basic m-1 p-4`}
 `;
@@ -23,19 +28,9 @@ const Td = styled.td`
   ${tw`py-1`}
 `;
 
-const infraList = [
-  { name: '🚨 안전', category: 'safety' },
-  { name: '🎨 여가', category: 'leisure' },
-  { name: '🏥 보건', category: 'welfare' },
-  { name: '🚌 교통', category: 'transp' },
-  { name: '🍔 음식점', category: 'food' },
-  { name: '🛒 편의시설', category: 'convenience' },
-];
+const infraList = [ '🚨 편의시설', '🚨 치안', '🎨 여가', '🏥 보건', '🍔 음식점', '🛒 카페', '🛒 술집', '🚌 대중교통']
 
-const selectedDong: Record<string, number> = { safety: 3, leisure: 5, welfare: 1, transp: 2, food: 3, convenience: 3 };
-const seoul: Record<string, number> = { safety: 3, leisure: 5, welfare: 1, transp: 2, food: 3, convenience: 3 };
-
-const TableChart: React.FC = () => {
+const TableChart: React.FC<DataProps> = ({seoulData, dongData}) => {
   return (
     <TableWrapper>
       <Table>
@@ -49,9 +44,9 @@ const TableChart: React.FC = () => {
         <Tbody>
           {infraList.map((infra, index) => (
             <BodyTr key={index}>
-              <Td>{infra.name}</Td>
-              <Td>{seoul[infra.category]}</Td>
-              <Td>{selectedDong[infra.category]}</Td>
+              <Td>{infra}</Td>
+              <Td>{dongData[index]}</Td>
+              <Td>{seoulData[index]}</Td>
             </BodyTr>
           ))}
         </Tbody>

@@ -4,7 +4,7 @@ import ReportNews from './ReportNews.tsx';
 import RadarChart from './RadarChart.tsx';
 import TableChart from './TableChart.tsx';
 import TextBox from './TextBox.tsx';
-import data from '../../datas/jm.json';
+import UseAxios from '../../utils/UseAxios.tsx';
 
 const ReportWrapper = styled.section`
   ${tw`w-[75%] h-[100%] border-l border-lightGray p-2
@@ -16,48 +16,35 @@ interface ReportProps {
   setIsNewsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const infraList = [
-  { name: '안전', category: 'safety' },
-  { name: '여가', category: 'leisure' },
-  { name: '보건', category: 'welfare' },
-  { name: '교통', category: 'transp' },
-  { name: '음식점', category: 'food' },
-  { name: '편의시설', category: 'convenience' },
-];
-
 const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen }) => {
-  const [dongScores, setDongScores] = useState<{ [key: string]: number }>({
-    safety: 0,
-    leisure: 0,
-    welfare: 0,
-    transp: 0,
-    food: 0,
-    convenience: 0,
-  });
-  const [seoulScores, setSeoulScores] = useState<{ [key: string]: number }>({
-    safety: 0,
-    leisure: 0,
-    welfare: 0,
-    transp: 0,
-    food: 0,
-    convenience: 0,
-  });
+  const [dongScores, setDongScores] = useState<number[]>([2,3,1,4,5,6,7,6])
+  const [dongCounts, setDongCounts] = useState<number[]>([])
+  const [seoulScores, setSeoulScores] = useState<number[]>([4,5,2,3,2,1,4,5])
+  const [seoulCounts, setSeoulCounts] = useState<number[]>([1,2,3,4,5,6,7,8])
+  const axios = UseAxios()
+  const dongId = 12
 
-  // // axios 요청 보내기 !
   useEffect(() => {
-    setDongScores(data.dongScores.object);
-    setSeoulScores(data.seoulScores);
-  });
+      // const getSeoulData = async () => {
+      //   const response = await axios.get('/api/dashboard/infra/avg')
+      //   const counts = response.data.object.map((e: any) => e.totalCount);
+      //   const scores = response.data.object.map((e: any) => e.score); 
+      //   setSeoulCounts(counts)
+      //   setSeoulScores(scores)
+      //   }
 
-  const labels: string[] = [];
-  const seoulScore: number[] = [];
-  const dongScore: number[] = [];
+      const getDongData = async () => {
+        const response = await axios.get(`/api/dashboard/infra/${dongId}`);
+        const counts = response.data.object.map((e: any) => e.totalCount);
+        // const scores = response.data.object.map((e: any) => e.score);  
+        setDongCounts(counts);
+        // setDongScores(scores);
+      };
 
-  infraList.map((infra: Record<string, string>) => {
-    labels.push(infra.name);
-    seoulScore.push(seoulScores[infra.category]);
-    dongScore.push(dongScores[infra.category]);
-  });
+      getDongData()
+      // getSeoulData()
+
+  }, []);
 
   return (
     <ReportWrapper>
@@ -65,8 +52,8 @@ const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen }) => {
         <ReportNews setIsNewsOpen={setIsNewsOpen} />
       ) : (
         <>
-          <RadarChart seoulScore={seoulScore} dongScore={dongScore} labels={labels} />
-          <TableChart />
+          <RadarChart seoulData={seoulScores} dongData={dongScores} />
+          <TableChart dongData={dongCounts} seoulData={seoulCounts}/>
           <TextBox />
         </>
       )}

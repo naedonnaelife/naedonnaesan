@@ -44,6 +44,7 @@ const RecommendList: React.FC = () => {
   const recommendList = useSearchStore(state => state.recommendList)
 
   const addLike = async (id:number, index: number) => {
+    console.log('좋아요 : ', id)
     await axios.post(`/api/zzim/${id}`)
     .then((response) => {
       setLikeDongList(prev => prev.map((e, idx) => (idx === index ? true : e)))
@@ -52,6 +53,7 @@ const RecommendList: React.FC = () => {
   };
 
   const removeLike = async (id:number, index: number) => {
+    console.log('싫어요 : ', id)
     await axios.delete(`/api/zzim/${id}`)
     .then((response) => {
       setLikeDongList(prev => prev.map((e, idx) => (idx === index ? false : e)))

@@ -27,7 +27,7 @@ const Button = styled.button`
   ${({ isActive }: isButtonProps) => (isActive ? tw`z-1 border-b-0 bg-white scale-125` : '')}
 `;
 
-function InformationPage() {
+const InformationPage:React.FC = ( ) => {
   const [isNewsOpen, setIsNewsOpen] = useState<boolean>(false);
   const [isNewsListOpen, setIsNewsListOpen] = useState<boolean>(false);
 
@@ -38,6 +38,7 @@ function InformationPage() {
     setIsNewsListOpen(false);
     setIsNewsOpen(false);
   };
+
   return (
     <>
       <NavBar />

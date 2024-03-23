@@ -69,7 +69,6 @@ const ComparisonGraph: React.FC<CardIndexProps> = ({
             .then((response) => {
               const data = response.data.object.infraScoreList;
               const detailDatas = response.data.object.infraDetails;
-
               setDetail(detailDatas);
               return data;
             })

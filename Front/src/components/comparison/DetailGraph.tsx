@@ -67,18 +67,22 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2, det
     datasets: [
       {
         label: `${selected1}`,
-        data: detail1.map((detail: any) => {
-          console.log(`${selected1} ${category}`,detail.totalCount);
-          return [0, detail.totalCount]
-        }),
+        data: detail1.reduce((detailCount: any, detail:any) => {
+          if (detail.infraTypeName === category) {
+            detailCount.push(detail.totalCount)
+          }
+          return detailCount
+        }, []),
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: `${selected2}`,
-        data: detail2.map((detail: any) => {
-          console.log(`${selected2} ${category}`,detail.totalCount);
-          return [0, detail.totalCount]
-        }),
+        data: detail2.reduce((detailCount: any, detail:any) => {
+          if (detail.infraTypeName === category) {
+            detailCount.push(detail.totalCount)
+          }
+          return detailCount
+        }, []),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],

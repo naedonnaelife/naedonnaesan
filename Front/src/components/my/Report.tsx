@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import tw, { styled } from "twin.macro";
 import ReportContent from "./ReportContent";
 import SB from "../../datas/SB.json";
@@ -21,11 +21,37 @@ const DongChangeButton = styled.button`
 `;
 
 const Report: React.FC = () => {
+  const [_, setAddress] = useState("");
+  const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+  const daum = window.daum;
+
+  const serachAddress = () => {
+    daum.postcode.load(() => {
+      const postcode = new daum.Postcode({
+        oncomplete: function (data: any) {
+          setAddress(data.address);
+        },
+      });
+      postcode.open();
+    });
+  };
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = src;
+    document.body.append(script);
+  }, []);
+
   return (
     <ReportWrapper>
       <ReportTitle>
         <span>{SB.reportUserInfo.object.nickname}님의 </span>
-        <span><DongChangeButton>{SB.reportUserInfo.object.bAddress}</DongChangeButton> 기준</span>
+        <span>
+          <DongChangeButton onClick={serachAddress}>
+            {SB.reportUserInfo.object.bAddress}
+          </DongChangeButton>{" "}
+          기준
+        </span>
         추천 결과 보고서입니다
       </ReportTitle>
       <ReportContent />

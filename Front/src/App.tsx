@@ -2,7 +2,7 @@ import tw, { styled } from 'twin.macro';
 import AppRoutes from './AppRoutes.tsx';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 // import { ReactQueryDevtools} from `@tanstack/react-query-devtools`
 
 declare global {

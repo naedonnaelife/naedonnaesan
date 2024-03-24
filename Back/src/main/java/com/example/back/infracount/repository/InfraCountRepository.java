@@ -19,9 +19,13 @@ public interface InfraCountRepository extends JpaRepository<InfraCount, Long> {
     //     "FROM InfraCount ic " +
     //     "WHERE ic.dong.dongId = :dongId " +
     //     "GROUP BY ic.dong.dongId, ic.infraType.typeId")
-    @Query("SELECT ic.dong.dongName as dongName, ic.infraType.name as infraTypeName, SUM(ic.count) AS totalCount, AVG(is.score) AS infraTypeScore " +
-        "FROM InfraCount ic " +
-        "JOIN InfraScore is ON ic.dong.dongId = is.dong.dongId AND ic.infraType.typeId = is.infraType.typeId " +
+    @Query("SELECT ic.dong.dongName as dongName, "
+        + "ic.infraType.name as infraTypeName, "
+        + "is_.score as infraTypeScore, "
+        + "SUM(ic.count) as totalCount " +
+        "FROM InfraCount as ic " +
+        "JOIN InfraScore as is_ " +
+        "ON ic.dong.dongId = is_.dong.dongId AND ic.infraType.typeId = is_.infraType.typeId " +
         "WHERE ic.dong.dongId = :dongId " +
         "GROUP BY ic.dong.dongId, ic.infraType.typeId")
     List<Tuple> findInfraCountByDongId(@Param("dongId") Long dongId);

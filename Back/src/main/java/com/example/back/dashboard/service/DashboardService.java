@@ -56,7 +56,7 @@ public class DashboardService {
 		return infraCountList.stream().map(infraCount -> new InfraTypeCountDto(
 			infraCount.get("dongName", String.class),
 			infraCount.get("infraTypeName", String.class),
-			infraCount.get("infraTypeScore", Double.class),
+			infraCount.get("infraTypeScore", Integer.class),
 			infraCount.get("totalCount", Long.class)))
 			.collect(Collectors.toList());
 	}

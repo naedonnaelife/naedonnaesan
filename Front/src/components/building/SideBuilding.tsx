@@ -29,12 +29,13 @@ type Building = {
 
 type StyleProps = {
   isBuildingOpen: boolean;
+  selectedBuilding: Building;
 };
 
 const Aside = styled.aside`
   ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg px-2 bg-white duration-200 overflow-y-auto
     max-sm:absolute max-sm:z-10 max-sm:w-[100%] `}
-  ${({ isBuildingOpen }: StyleProps) => (isBuildingOpen ? tw`max-sm:-bottom-[0%]` : tw`max-sm:-bottom-[90%]`)}
+  ${({ isBuildingOpen, selectedBuilding }: StyleProps) => (isBuildingOpen ? (selectedBuilding? tw`max-sm:-bottom-[0%]` : tw`max-sm:-bottom-[0%]`) : (selectedBuilding ? tw`max-sm:-bottom-[64%]` : tw`max-sm:-bottom-[95%]`))}
 `;
 const Card = styled.article`
   ${tw`flex w-[100%] h-[15%] p-1`}
@@ -46,7 +47,7 @@ const ButtonWrapper = styled.aside`
   ${tw`flex justify-between w-[100%]`}
 `;
 const HamburgerButton = styled.button`
-  ${tw`hidden w-[100%] h-[10%]
+  ${tw`hidden w-[100%] h-[5vh]
     max-sm:flex-c`}
 `;
 const SelectedCard = styled.article`
@@ -85,9 +86,9 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
     setIsBuildingOpen((prev) => !prev);
   };
   const handleCloseButton = () => {
-    
     selectedBuildingRef.current.setImage(markerImage);
     selectedBuildingRef.current = null;
+    setSelectedBuilding(null)
     setBuildingId(0);
   };
 
@@ -98,6 +99,7 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
     }
     const marker =  markerList[building.buildingId]
     setBuildingId(building.buildingId);
+    setIsBuildingOpen(false);
     selectedBuildingRef.current = marker;
     marker.setImage(selectedMarkerImage);
     buildingMap.setCenter(new kakao.maps.LatLng(building.x, building.y))
@@ -139,9 +141,9 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
   }, [buildingId]);
 
   return (
-    <Aside isBuildingOpen={isBuildingOpen}>
+    <Aside isBuildingOpen={isBuildingOpen} selectedBuilding={selectedBuilding}>
       <SideFixWrapper>
-        <HamburgerButton onClick={handleHamburgerButton}>버튼</HamburgerButton>
+        <HamburgerButton onClick={handleHamburgerButton}>🍔</HamburgerButton>
         <SearchBar />
         <ButtonWrapper>
           <Button>가격</Button>

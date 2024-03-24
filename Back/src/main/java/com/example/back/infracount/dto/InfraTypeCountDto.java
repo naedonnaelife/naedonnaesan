@@ -10,5 +10,6 @@ import lombok.Setter;
 public class InfraTypeCountDto  {
 	private String dongName;
 	private String infraTypeName;
+	private int infraTypeScore;
 	private long totalCount;
 }

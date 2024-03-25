@@ -44,7 +44,11 @@ const ComparisonGraph: React.FC<CardIndexProps> = ({
     },
     scales: {
       // 구분선 가리기
-      x: { display: false },
+      x: {
+        display: false,
+        min: cardIndex === 1 ? -3 : undefined,
+        max: cardIndex === 2 ? 3 : undefined,
+      },
       y: { display: false },
     },
   };
@@ -111,7 +115,8 @@ const ComparisonGraph: React.FC<CardIndexProps> = ({
         label: `${selected}`,
         borderRadius: Number.MAX_VALUE,
         data: labels.map((_, index) => dataArray[index]),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor:
+          cardIndex === 1 ? "#8EBE6D" : cardIndex === 2 ? "#FB8D75" : "#FB8D75",
       },
     ],
   };

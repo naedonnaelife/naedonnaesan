@@ -1,12 +1,12 @@
+from datetime import datetime, timedelta
+
 import joblib
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
-from sklearn.neighbors import NearestNeighbors
 from pymongo import MongoClient
-from datetime import datetime, timedelta
-from bson import ObjectId
+from sklearn.neighbors import NearestNeighbors
 
 # MongoDB 접속 정보
 user = "mango"
@@ -42,13 +42,14 @@ print(len(last_year_news))
 print(one_year_ago)
 
 with open('korean_stopwords.txt', 'r', encoding='utf-8') as f:
-  list_file = f.readlines() 
+    list_file = f.readlines()
 stopwords = list_file[0].split(",")
 print(list_file)
 app = FastAPI()
 
 # 모델 파일이 있는 절대 경로 설정
 model_path = '/code/app/'  # 컨테이너 내 경로
+# model_path = './'  # 로컬 테스트 경로
 
 # 모델 로드
 # pca_model = joblib.load(model_path + "pca_model.joblib")
@@ -63,6 +64,16 @@ class PredictRequest(BaseModel):
 
 @app.post("/ai/recommend")
 async def predict(preference: PredictRequest):
+    label = ['dongId',
+             'dongName',
+             'safetyReport',
+             'leisureReport',
+             'foodReport',
+             'healthReport',
+             'convReport',
+             'transpReport',
+             'cafeReport',
+             'pubReport']
     # 클러스터 생성
     df = pd.read_csv(model_path + "cluster.csv", index_col=0, encoding='cp949')
     df_train = df.drop(axis=1, columns=['법정동', '군집'])
@@ -88,15 +99,25 @@ async def predict(preference: PredictRequest):
 
     # 결과 처리
     result = filtered_data.iloc[indices[0]]
-    recommend = df.iloc[result.index].transpose()
-    recommend.columns = recommend.columns + 1  # db에 맞춰 인덱스 보정
-    print(recommend)  # 결과 확인용
+    recommend = df.iloc[result.index]
+    recommend = recommend.reset_index()
+    recommend['index'] += 1
+    recommend = recommend.drop(axis=1, columns=['군집'])
+    recommend.columns = label
+    recommend = recommend.transpose()
+    response = {
+        "object": {
+            "userInfo": [{i: score for i, score in zip(label[2:], preference.features)}],
+            "recommend": [{'dongId': i} for i in recommend.iloc[0, :]]
+        }
+    }
+    return response
 
-    return recommend.to_dict()
 
 @app.post("/")
 def test():
     return ""
+
 
 @app.get("/")
 def health_check():

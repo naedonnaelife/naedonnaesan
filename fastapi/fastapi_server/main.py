@@ -42,22 +42,15 @@ one_year_ago_str = one_year_ago.strftime("%Y-%m-%d")
 last_year_news = collection.find({"published": {"$regex": f"^{one_year_ago_str}"}})
 last_year_news = list(last_year_news)
 
-print(len(last_year_news))
-print(one_year_ago)
-
 with open(file_path + 'korean_stopwords.txt', 'r', encoding='utf-8') as f:
     list_file = f.readlines()
 stopwords = list_file[0].split(",")
-print(list_file)
+
 app = FastAPI()
 
 # 모델 로드
 pca_model = joblib.load(file_path + "pca_model.joblib")
 knn_model = joblib.load(file_path + "knn_model.joblib")
-
-
-# pca_model = joblib.load("pca_model.joblib")
-# knn_model = joblib.load("knn_model.joblib")
 
 
 class PredictRequest(BaseModel):
@@ -107,6 +100,9 @@ async def predict(preference: PredictRequest):
     recommend = recommend.drop(axis=1, columns=['군집'])
     recommend.columns = label
     recommend = recommend.transpose()
+    print(label)
+    print(recommend)
+    print(preference.features)
     response = {
         "object": {
             "userInfo": [{i: score for i, score in zip(label[2:], preference.features)}],
@@ -114,11 +110,6 @@ async def predict(preference: PredictRequest):
         }
     }
     return response
-
-
-@app.post("/")
-def test():
-    return ""
 
 
 @app.get("/")

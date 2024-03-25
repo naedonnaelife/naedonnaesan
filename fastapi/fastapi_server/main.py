@@ -50,7 +50,7 @@ async def predict(preference: PredictRequest):
     recommend.columns = recommend.columns + 1  # db에 맞춰 인덱스 보정
     print(recommend)  # 결과 확인용
 
-    return recommend.to_dict()
+    return recommend.to_json()
 
 
 @app.get("/")

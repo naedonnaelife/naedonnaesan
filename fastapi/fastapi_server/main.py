@@ -9,10 +9,22 @@ app = FastAPI()
 
 # 모델 파일이 있는 절대 경로 설정
 model_path = '/code/app/'  # 컨테이너 내 경로
+# model_path = './'  # 로컬 테스트 경로
 
 # 모델 로드
 pca_model = joblib.load(model_path + "pca_model.joblib")
 knn_model = joblib.load(model_path + "knn_model.joblib")
+
+label = ['dongId',
+         'dongName',
+         'safetyReport',
+         'leisureReport',
+         'foodReport',
+         'healthReport',
+         'convReport',
+         'transpReport',
+         'cafeReport',
+         'pubReport']
 
 
 class PredictRequest(BaseModel):
@@ -46,11 +58,14 @@ async def predict(preference: PredictRequest):
 
     # 결과 처리
     result = filtered_data.iloc[indices[0]]
-    recommend = df.iloc[result.index].transpose()
-    recommend.columns = recommend.columns + 1  # db에 맞춰 인덱스 보정
-    print(recommend)  # 결과 확인용
-
-    return recommend.to_json()
+    recommend = df.iloc[result.index]
+    recommend = recommend.reset_index()
+    recommend['index'] += 1
+    recommend = recommend.drop(axis=1, columns=['군집'])
+    recommend.columns = label
+    recommend = recommend.transpose()
+    response = {"object": [i for i in recommend.to_dict().values()]}
+    return response
 
 
 @app.get("/")

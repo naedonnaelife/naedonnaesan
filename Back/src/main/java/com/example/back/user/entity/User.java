@@ -54,4 +54,11 @@ public class User {
         }
         return new ArrayList<>();
     }
+
+    // 주소 bAddress 변경
+    public void updateAddress(String address){
+        this.bAddress = address;
+
+        System.out.println(this.userId+"의 주소를 "+this.getBAddress()+"로 변경");
+    }
 }

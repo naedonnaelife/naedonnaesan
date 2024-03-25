@@ -30,6 +30,8 @@ public class Report {
     private int foodReport;
     private int transpReport;
     private int leisureReport;
+    private int cafeReport;
+    private int pubReport;
 
     // 해당 결괏값이 연결된 3개의 동을 보여주기 위해서 양방향 매핑
     @OneToMany(mappedBy = "report")

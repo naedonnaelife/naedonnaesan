@@ -119,7 +119,6 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
     axios
       .get('/api/buildings/name', { params: { dongname: '역삼동', page: page } })
       .then((response) => {
-        console.log(response.data);
         setPage((prev) => prev + 1);
         setBuildingList([...buildingList, ...response.data.object.buildingDtoList]);
         setIsLast(response.data.object.last);

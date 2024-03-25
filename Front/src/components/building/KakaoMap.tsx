@@ -47,19 +47,14 @@ function KakaoMap({
   const x = selectedDong.properties.x;
   const y = selectedDong.properties.y;
 
-  const clickOverlay = (buildingId: number) => {
-    if (selectedBuildingRef.current !== null) {
-      selectedBuildingRef.current.setImage(markerImage);
-    }
-    setBuildingId(buildingId);
-    const marker = markerList.current[buildingId];
-    console.log(markerList.current);
-    selectedBuildingRef.current = marker;
-    marker.setImage(selectedMarkerImage);
-  };
-
-  // 카카오톡 지도 생성
+  const customOverlay = new kakao.maps.CustomOverlay({
+    clickable: true,
+    xAnchor: 0.5,
+    yAnchor: 1,
+    zIndex: 3,
+  });
   useEffect(() => {
+    // 카카오톡 지도 생성
     const container = document.getElementById('map');
     const options = {
       center: new kakao.maps.LatLng(y, x),
@@ -70,6 +65,20 @@ function KakaoMap({
     };
     const map = new kakao.maps.Map(container, options);
     setBuildingMap(map);
+
+    // 커스텀 오버레이 클릭 시 발생 이벤트
+    const clickOverlay = (buildingId: number, overlay: any) => {
+      overlay.setMap(null);
+      if (selectedBuildingRef.current !== null) {
+        selectedBuildingRef.current.setImage(markerImage);
+      }
+      setBuildingId(buildingId);
+      const marker = markerList.current[buildingId];
+      selectedBuildingRef.current = marker;
+      marker.setImage(selectedMarkerImage);
+      map.setZoomable(true);
+    };
+    
     // 폴리곤 생성
     const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
       return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
@@ -85,8 +94,8 @@ function KakaoMap({
     });
     polygon.setMap(map);
 
-    // 클러스터러 , 마커
 
+    // 클러스터러 , 마커 생성
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
       averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
@@ -162,6 +171,7 @@ function KakaoMap({
       ],
     });
 
+    // 클러스터러 클릭 이벤트 (줌 / 커스텀 오버레이 생성)
     kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster: any) {
       const level = map.getLevel();
       if (level >= 2) {
@@ -169,63 +179,57 @@ function KakaoMap({
         map.setCenter(cluster.getCenter());
         map.setLevel(newLevel ? newLevel : 1);
       } else {
+        // 커스텀 오버레이 생성하는 경우
+        console.log(cluster);
+        customOverlay.setMap(null);
+        map.setZoomable(false);
         const clusterMarkers = cluster.getMarkers();
         const buildingIdList = clusterMarkers.map((marker: any) => Number(marker.getTitle()));
-
+        // cluster 에 포함된 buliding 리스트 상세 정보 
         axios
           .post('/api/buildings/detail', {
             buildingIdList: buildingIdList,
           })
           .then((response) => {
-            console.log(response.data);
-            let content = `
-            <div class="contentStyle">
-              <p>매물 List</p>
-              <div id="closeButton">여기 닫는버튼임</div>
-              <ul>
-              `;
 
+            let content = '<div class="contentStyle"><p>매물 List</p><div id="closeButton">여기 닫는버튼임</div><ul>';
             response.data.object.forEach((building: any) => {
               content += `<li id=${building.buildingId}> [${building.buildingType}]${building.name} ${building.payType}${building.deposit}/${building.monthlyPay} </li>`;
             });
-
-            content += `</ul></div>`;
-            const customOverlay = new kakao.maps.CustomOverlay({
-              map: map,
-              clickable: true,
-              content: content,
-              position: cluster.getCenter(),
-              xAnchor: 0.5,
-              yAnchor: 1,
-              zIndex: 3,
-            });
+            content += '</ul></div>';
+            
+            customOverlay.setPosition(cluster.getCenter());
+            customOverlay.setContent(content);
             customOverlay.setMap(map);
+            map.setCenter(cluster.getCenter());
+
+            // 오버레이 닫기 이벤트
             const closeOverlay = () => {
               map.setZoomable(true);
               customOverlay.setMap(null);
             };
 
+            // 오버레이 클릭 / 닫기 이벤트 달기
             document.getElementById('closeButton')?.addEventListener('click', closeOverlay);
             response.data.object.forEach((building: any) => {
               document
                 .getElementById(`${building.buildingId}`)
-                ?.addEventListener('click', () => clickOverlay(building.buildingId));
+                ?.addEventListener('click', () => clickOverlay(building.buildingId, customOverlay));
             });
           })
           .catch((error) => {
             console.log(error);
           });
 
-        map.setZoomable(false);
+        
       }
     });
 
-    // 데이터에서 좌표 값을 가지고 마커를 표시합니다
-    // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
+    // 데이터에서 좌표 값을 가지고 마커 표시
+    // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않음
     axios
       .get('/api/buildings', { params: { dongname: '역삼동' } })
       .then((response) => {
-        console.log(response.data);
         const markermarker: any = {};
         const markers = response.data.object.map((building: Building) => {
           const marker = new kakao.maps.Marker({
@@ -245,7 +249,6 @@ function KakaoMap({
           return marker;
         });
         clusterer.addMarkers(markers);
-
         markerList.current = markermarker;
       })
       .catch((error) => {

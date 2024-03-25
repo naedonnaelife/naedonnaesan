@@ -1,7 +1,6 @@
 package com.example.back.auth.oauth;
 
-import com.example.back.user.dto.UserSimpleDto;
-import com.example.back.user.entity.User;
+import com.example.back.user.dto.UserSimple;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +10,9 @@ import java.util.Collection;
 @Getter
 public class PrincipalDetails implements UserDetails {
 
-    private UserSimpleDto user;
+    private UserSimple user;
 
-    public PrincipalDetails(UserSimpleDto user){
+    public PrincipalDetails(UserSimple user){
         this.user = user;
     }
 

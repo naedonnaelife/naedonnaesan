@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserSimpleDto {
+public class UserSimple {
 
     private Long userId;
     private Long kakaoId;

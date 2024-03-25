@@ -5,9 +5,8 @@ import com.example.back.dong.entity.Dong;
 import com.example.back.dong.repository.DongRepository;
 import com.example.back.exception.AlreadyZzimedException;
 import com.example.back.exception.DongNotFoundException;
-import com.example.back.exception.UserNotFoundException;
 import com.example.back.exception.ZzimNotFoundException;
-import com.example.back.user.dto.UserSimpleDto;
+import com.example.back.user.dto.UserSimple;
 import com.example.back.user.entity.User;
 import com.example.back.user.repository.UserRepository;
 import com.example.back.zzim.entity.Zzim;
@@ -15,6 +14,7 @@ import com.example.back.zzim.repository.ZzimRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -63,11 +63,12 @@ public class ZzimService {
 
     private User getUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // authentication에서 PrincipalDetails 꺼내기
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        UserSimpleDto userDto = principalDetails.getUser();
-        Long userId = userDto.getUserId();
-
-        User user = userRepository.findById(userDto.getUserId()).orElseThrow(() -> new UserNotFoundException(userId));
+        UserSimple userSimple = principalDetails.getUser();
+        Long userId = userSimple.getUserId();
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         return user;
     }

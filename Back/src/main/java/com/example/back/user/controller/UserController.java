@@ -21,7 +21,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("mypage/likelist")
+    @GetMapping("/mypage/likelist")
     public ResponseEntity<Message> getLikeList(){
 
         List<ZzimDto> zzimList = userService.getZzimListByUser();
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     // 주소 변경 API
-    @PutMapping("mypage/edit/address")
+    @PutMapping("/mypage/edit/address")
     public ResponseEntity<Message> editAddr(@RequestParam("address") String address){
         Long userId = userService.updateAddr(address);
 

@@ -7,7 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.back.auth.jwt.service.TokenService;
 import com.example.back.auth.oauth.PrincipalDetails;
 import com.example.back.common.HttpStatusEnum;
-import com.example.back.user.dto.UserSimpleDto;
+import com.example.back.user.dto.UserSimple;
 import com.example.back.user.entity.User;
 import com.example.back.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -107,9 +107,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private Authentication getAuthentication(String id) {
 
         User user = userRepository.findById(Long.parseLong(id)).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        UserSimpleDto userSimpleDto = new UserSimpleDto(user.getUserId(), user.getKakaoId(), user.getRoles());
-        PrincipalDetails principalDetails = new PrincipalDetails(userSimpleDto);
-        // 사용자가 인증이 됐으니까 강제적으로 authentication 객체를 만들어줘도 되는거임 with fanPrincipalDetails, null, authorities
+        UserSimple userSimple = new UserSimple(user.getUserId(), user.getKakaoId(), user.getRoles());
+        // 진짜 User를 넣어주는게 아닌 UserSimple을 넣어준다.
+        PrincipalDetails principalDetails = new PrincipalDetails(userSimple);
+        // authentication 객체 만들기 with principalDetails, null, authorities
         return new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
     }
 

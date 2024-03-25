@@ -63,7 +63,7 @@ public class UserService {
     }
 
 
-    private User getUser(){
+    public User getUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         UserSimpleDto userDto = principalDetails.getUser();

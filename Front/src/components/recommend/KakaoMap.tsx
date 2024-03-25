@@ -2,7 +2,8 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 import useSearchStore from '../../stores/SearchStore';
-import newDong from '../../datas/newDong.json';
+// import newDong from '../../datas/newDong.json';
+import newDong from '../../datas/dong.json';
 import newGu from '../../datas/newGu.json';
 
 const Map = styled.div`
@@ -68,12 +69,15 @@ const KakaoMap: React.FC = () => {
     let geoJson = json.features;
     if (sig_cd) {
       console.log('구 코드 : ', sig_cd);
-      geoJson = json.features.filter((e: any) => e.properties.sgg === sig_cd);
+      geoJson = json.features.filter((e: any) => {
+        const prefix = e.properties.EMD_CD.slice(0, 5)
+        return prefix === sig_cd})
     }
+    console.log('확인용 : ', geoJson)
 
     try {
       const newJson = geoJson.map((unit: any) => {
-        const name = unit.properties.SIG_KOR_NM ? unit.properties.SIG_KOR_NM : unit.properties.temp;
+        const name = unit.properties.SIG_KOR_NM ? unit.properties.SIG_KOR_NM : unit.properties.EMD_KOR_NM;
         const coordinates = unit.geometry.coordinates[0].map(
           (coordinate: number[]) => new kakao.maps.LatLng(coordinate[1], coordinate[0])
         );
@@ -184,7 +188,7 @@ const KakaoMap: React.FC = () => {
 
   useEffect(() => {
     if (areaName && newMap) {
-      const findDong: any = newDong.features.find((dong: any) => dong.properties.temp === areaName);
+      const findDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === areaName);
       const sggCode = findDong.properties.sgg;
       const findGu: any = newGu.features.find((gu: any) => gu.properties.SIG_CD === sggCode);
       const newLevel = isSmallRef.current? 7 : 6

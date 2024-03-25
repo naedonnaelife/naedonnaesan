@@ -64,7 +64,7 @@ const RecommendList: React.FC = () => {
 
   useEffect(()=>{
     setNewRecommendList(recommendList)
-    console.log(recommendList)
+    // console.log(recommendList)
     const selectLikeDong = recommendList.map(e => e.isDongLike)
     setLikeDongList(selectLikeDong)
   }, [recommendList])

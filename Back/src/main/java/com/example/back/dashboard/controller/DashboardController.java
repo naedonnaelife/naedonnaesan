@@ -3,6 +3,7 @@ package com.example.back.dashboard.controller;
 import java.util.List;
 
 import com.example.back.dashboard.dto.AvgInfraDto;
+import com.example.back.subway.dto.SubwayDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,6 +63,13 @@ public class DashboardController {
 
 		AvgInfraDto totalInfraTypeInfo = dashboardService.getTotalInfraTypeInfo();
 		Message message = new Message(HttpStatusEnum.OK, "서울시 평균 점수, 카운트 조회 완료", totalInfraTypeInfo);
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
+
+	@GetMapping("/subway/{dongname}")
+	public ResponseEntity<Message> getSubway(@PathVariable(name = "dongname") String dongName){
+		List<SubwayDto> subwayList = dashboardService.getSubway(dongName);
+		Message message = new Message(HttpStatusEnum.OK, dongName + "에 대한 지하철역 조회 완료", subwayList);
 		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 }

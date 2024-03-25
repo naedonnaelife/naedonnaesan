@@ -11,6 +11,9 @@ import com.example.back.infracount.dto.InfraTypeAvgCountDto;
 import com.example.back.infrascore.dto.InfraAvgScoreDto;
 import com.example.back.infrascore.dto.InfraScoreDto;
 import com.example.back.infrascore.repository.InfraScoreRepository;
+import com.example.back.subway.dto.SubwayDto;
+import com.example.back.subway.entity.Subway;
+import com.example.back.subway.repository.SubwayRepository;
 import org.springframework.stereotype.Service;
 
 import com.example.back.dashboard.dto.ArticleDto;
@@ -27,6 +30,7 @@ public class DashboardService {
 	private final ArticleRepository articleRepository;
 	private final InfraCountRepository infraCountRepository;
 	private final InfraScoreRepository infraScoreRepository;
+	private final SubwayRepository subwayRepository;
 
 	public List<ArticleDto> getArticleList(String keyword) {
 		List<Article> articleList = articleRepository.findByTitleContaining(keyword);
@@ -100,6 +104,15 @@ public class DashboardService {
 		AvgInfraDto avgInfraDto = new AvgInfraDto(infraScoreAvg, averageCounts);
 		return avgInfraDto;
 
+	}
+
+	public List<SubwayDto> getSubway(String name){
+		List<Subway> subwayList = subwayRepository.findByDongName(name);
+
+		List<SubwayDto> collect = subwayList.stream()
+				.map(subway -> new SubwayDto(subway.getLine(), subway.getSubwayName(), subway.getDongName(), subway.getAddress()))
+				.collect(Collectors.toList());
+		return collect;
 	}
 
 }

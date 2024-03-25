@@ -85,18 +85,15 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
   const [pageRef, inView] = useInView();
   const axios = UseAxios();
 
-  const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021%20(1).png?raw=true';
-  const imageSize = new kakao.maps.Size(25, 25);
-  const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
   const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
-  const selectedImageSize = new kakao.maps.Size(30, 30);
-  const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize);
+  const selectedImageSize = new kakao.maps.Size(52, 52);
+  const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize, { offset:  new kakao.maps.Point(26, 26)});
 
   const handleHamburgerButton = () => {
     setIsBuildingOpen((prev) => !prev);
   };
   const handleCloseButton = () => {
-    selectedBuildingRef.current.setImage(markerImage);
+    selectedBuildingRef.current.setMap(null);
     selectedBuildingRef.current = null;
     setSelectedBuilding(null);
     setBuildingId(0);
@@ -104,13 +101,20 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
 
   const handleBuildingCard = (building: Building) => {
     if (selectedBuildingRef.current !== null) {
-      selectedBuildingRef.current.setImage(markerImage);
+      selectedBuildingRef.current.setMap(null);
     }
-    const marker = markerList.current[building.buildingId];
+
     setBuildingId(building.buildingId);
     setIsBuildingOpen(false);
-    selectedBuildingRef.current = marker;
-    marker.setImage(selectedMarkerImage);
+    const selectedMarker = new kakao.maps.Marker({
+      map: buildingMap,
+      position: markerList.current[building.buildingId].getPosition(),
+      image: selectedMarkerImage,
+      zIndex: 2,
+    });
+
+    selectedBuildingRef.current = selectedMarker;
+    selectedMarker.setMap(buildingMap)
     buildingMap.setCenter(new kakao.maps.LatLng(building.x, building.y));
     buildingMap.setLevel(1);
   };

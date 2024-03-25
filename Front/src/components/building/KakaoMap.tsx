@@ -10,6 +10,8 @@ interface KakaoMapProps {
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
   setBuildingMap: React.Dispatch<React.SetStateAction<any>>;
   markerList: React.MutableRefObject<any>;
+  // selectedMarker: any;
+  // setSelectedMarker: React.Dispatch<React.SetStateAction<any>>;
 }
 
 type Building = {
@@ -29,11 +31,11 @@ const Map = styled.div`
 const { kakao } = window;
 
 const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021%20(1).png?raw=true';
-const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
 const imageSize = new kakao.maps.Size(25, 25);
-const selectedImageSize = new kakao.maps.Size(30, 30);
 const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize);
+const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
+const selectedImageSize = new kakao.maps.Size(52, 52);
+const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize, { offset:  new kakao.maps.Point(26, 26)});
 
 function KakaoMap({
   areaName,
@@ -53,12 +55,13 @@ function KakaoMap({
     yAnchor: 1,
     zIndex: 3,
   });
+  
   useEffect(() => {
     // 카카오톡 지도 생성
     const container = document.getElementById('map');
     const options = {
       center: new kakao.maps.LatLng(y, x),
-      level: 4,
+      level: 2,
       draggable: true,
       scrollwheel: true,
       disableDoubleClickZoom: true,
@@ -67,15 +70,22 @@ function KakaoMap({
     setBuildingMap(map);
 
     // 커스텀 오버레이 클릭 시 발생 이벤트
-    const clickOverlay = (buildingId: number, overlay: any) => {
+    const clickOverlay = (buildingId: number, overlay: any, position:any) => {
       overlay.setMap(null);
       if (selectedBuildingRef.current !== null) {
-        selectedBuildingRef.current.setImage(markerImage);
+        selectedBuildingRef.current.setMap(null);
       }
       setBuildingId(buildingId);
-      const marker = markerList.current[buildingId];
-      selectedBuildingRef.current = marker;
-      marker.setImage(selectedMarkerImage);
+
+      const selectedMarker = new kakao.maps.Marker({
+        map: map,
+        position: position,
+        image: selectedMarkerImage,
+        zIndex: 2,
+      });
+
+      selectedBuildingRef.current = selectedMarker;
+      selectedMarker.setMap(map)
       map.setZoomable(true);
     };
     
@@ -98,7 +108,7 @@ function KakaoMap({
     // 클러스터러 , 마커 생성
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
-      averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+      averageCenter: false, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
       disableClickZoom: true,
       minLevel: 1, // 클러스터 할 최소 지도 레벨
       calculator: [3, 5, 10, 30, 50, 100, 500, 1000], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
@@ -106,8 +116,8 @@ function KakaoMap({
       styles: [
         {
           // calculator 각 사이 값 마다 적용될 스타일을 지정한다
-          width: '30px',
-          height: '30px',
+          width: '27px',
+          height: '27px',
           background: `url("${imageSrc}") round`,
           color: '#fff', // 글자색
           // opacity: '0.7',
@@ -115,13 +125,28 @@ function KakaoMap({
           // borderRadius: '100px',
           textAlign: 'center',
           fontWeight: 'bold',
-          lineHeight: '31px',
+          lineHeight: '28px',
           paddingTop: '8px',
+        },
+        {
+          width: '30px',
+          height: '30px',
+          lineHeight: '31px',
+        },
+        {
+          width: '32px',
+          height: '32px',
+          lineHeight: '33px',
         },
         {
           width: '35px',
           height: '35px',
           lineHeight: '36px',
+        },
+        {
+          width: '37px',
+          height: '37px',
+          lineHeight: '38px',
         },
         {
           width: '40px',
@@ -147,26 +172,6 @@ function KakaoMap({
           width: '60px',
           height: '60px',
           lineHeight: '61px',
-        },
-        {
-          width: '65px',
-          height: '65px',
-          lineHeight: '66px',
-        },
-        {
-          width: '70px',
-          height: '70px',
-          lineHeight: '71px',
-        },
-        {
-          width: '70px',
-          height: '70px',
-          lineHeight: '71px',
-        },
-        {
-          width: '70px',
-          height: '70px',
-          lineHeight: '71px',
         },
       ],
     });
@@ -214,7 +219,7 @@ function KakaoMap({
             response.data.object.forEach((building: any) => {
               document
                 .getElementById(`${building.buildingId}`)
-                ?.addEventListener('click', () => clickOverlay(building.buildingId, customOverlay));
+                ?.addEventListener('click', () => clickOverlay(building.buildingId, customOverlay, cluster.getCenter()));
             });
           })
           .catch((error) => {
@@ -239,11 +244,19 @@ function KakaoMap({
           });
           kakao.maps.event.addListener(marker, 'click', function () {
             if (selectedBuildingRef.current !== null) {
-              selectedBuildingRef.current.setImage(markerImage);
+              selectedBuildingRef.current.setMap(null);
             }
             setBuildingId(marker.getTitle());
-            selectedBuildingRef.current = marker;
-            marker.setImage(selectedMarkerImage);
+
+      const selectedMarker = new kakao.maps.Marker({
+        map: map,
+        position: marker.getPosition(),
+        image: selectedMarkerImage,
+        zIndex: 10
+      });
+
+      selectedBuildingRef.current = selectedMarker;
+      selectedMarker.setMap(map)
           });
           markermarker[building.buildingId] = marker;
           return marker;

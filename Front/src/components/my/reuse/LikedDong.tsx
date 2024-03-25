@@ -1,9 +1,12 @@
-import React from 'react';
-import tw, { styled } from 'twin.macro';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import tw, { styled } from "twin.macro";
+import { useNavigate } from "react-router-dom";
+import UseAxios from "../../../utils/UseAxios";
 
 interface Props {
-  likedDong: string;
+  likedDongName: string;
+  likedDongId: number;
+  setLikedDongList: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const DongWrapper = styled.li`
@@ -29,16 +32,28 @@ const LikeButton = styled.button`
   ${tw`w-[30px] h-[30px] border-2 border-red rounded-full`}
 `;
 
-const Like: React.FC<Props> = ({ likedDong }) => {
+const Like: React.FC<Props> = ({
+  likedDongName,
+  likedDongId,
+  setLikedDongList,
+}) => {
   const navigate = useNavigate();
+  const axios = UseAxios();
+
+  const removeLike = async (id: number) => {
+    await axios.delete(`/api/zzim/${id}`);
+    setLikedDongList((prev: any) =>
+      prev.filter((zzim: any) => zzim.zzimId !== id)
+    );
+  };
 
   return (
     <DongWrapper>
-      <NameWrapper>{likedDong}</NameWrapper>
+      <NameWrapper>{likedDongName}</NameWrapper>
       <ButtonWrapper>
-        <Button onClick={() => navigate('/building')}>매물</Button>
-        <Button onClick={() => navigate('/information')}>정보</Button>
-        <LikeButton>💗</LikeButton>
+        <Button onClick={() => navigate("/building")}>매물</Button>
+        <Button onClick={() => navigate("/information")}>정보</Button>
+        <LikeButton onClick={() => removeLike(likedDongId)}>💗</LikeButton>
       </ButtonWrapper>
     </DongWrapper>
   );

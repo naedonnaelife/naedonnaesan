@@ -1,8 +1,9 @@
-import tw, { styled } from 'twin.macro';
-import SearchBar from '../../utils/SearchBar';
-import LikedDong from './reuse/LikedDong';
-import SB from '../../datas/SB.json';
-// import UseAxios from "../../utils/UseAxios";
+import tw, { styled } from "twin.macro";
+import { useEffect, useState } from "react";
+import SearchBar from "../../utils/SearchBar";
+import SB from "../../datas/SB.json";
+import UseAxios from "../../utils/UseAxios";
+import LikedDong from "./reuse/LikedDong";
 
 const LikeWrapper = styled.section`
   ${tw`w-[90%]
@@ -22,12 +23,30 @@ const LikeContent = styled.ul`
   ${tw`flex-cc`}
 `;
 
-const LikedDongList = {
-  response: ['성동구 성수1가1동', '강남구 도곡1동', '강남구 역삼2동'],
-};
-
 const Like: React.FC = () => {
-  // const axios = UseAxios();
+  const [likedDongList, setLikedDongList] = useState<any[]>([]);
+  // const likeList = zustand로 끌고옴
+
+  const axios = UseAxios();
+
+  // useEffect(() => {
+  // setLikeDongList(likeList);
+  // }, [likeList])
+  
+  useEffect(() => {
+    axios
+      .get("/api/mypage/likelist")
+      .then((response) => {
+        const newLikedDongList = response.data.object.map((dong: any) => dong);
+        console.log(newLikedDongList);
+        setLikedDongList(newLikedDongList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {}, [likedDongList]);
 
   return (
     <LikeWrapper>
@@ -36,8 +55,13 @@ const Like: React.FC = () => {
         <SearchBar />
       </LikeTop>
       <LikeContent>
-        {LikedDongList.response.map((likedDong: string, index: number) => (
-          <LikedDong key={index} likedDong={likedDong} />
+        {likedDongList.map((likedDong: any, index: number) => (
+          <LikedDong
+            key={index}
+            likedDongName={likedDong.dongName}
+            likedDongId={likedDong.zzimId}
+            setLikedDongList={setLikedDongList}
+          />
         ))}
       </LikeContent>
     </LikeWrapper>

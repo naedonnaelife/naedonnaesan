@@ -21,8 +21,6 @@ const GraphTitle = styled.h1`
 
 const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2, detail1, detail2 }) => {
   ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
-
-  console.log(detail1, detail2)
   // 상태를 사용하여 창 크기 변화 감지
   const [, setWindowSize] = useState({
     width: window.innerWidth,
@@ -54,7 +52,6 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2, det
     },
   };
 
-  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const labels = detail1.reduce((labelArray:string[], detail:any) => {
     if (detail.infraTypeName === category) {
       labelArray.push(detail.infraName);
@@ -73,7 +70,8 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2, det
           }
           return detailCount
         }, []),
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        // backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        backgroundColor: '#8EBE6D',
       },
       {
         label: `${selected2}`,
@@ -83,7 +81,8 @@ const Graph: React.FC<DetailGraphProps> = ({ category, selected1, selected2, det
           }
           return detailCount
         }, []),
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        // backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        backgroundColor: '#FB8D75',
       },
     ],
   };

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import tw, { styled } from "twin.macro";
 import ReportContent from "./ReportContent";
 import SB from "../../datas/SB.json";
+import UseAxios from "../../utils/UseAxios";
+
 
 const ReportWrapper = styled.section`
   ${tw`w-[90%] border-b-2 border-grayHover pb-5
@@ -24,11 +26,14 @@ const Report: React.FC = () => {
   const [_, setAddress] = useState("");
   const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
   const daum = window.daum;
+  const axios = UseAxios();
 
   const serachAddress = () => {
     daum.postcode.load(() => {
       const postcode = new daum.Postcode({
         oncomplete: function (data: any) {
+          // console.log(data.address)
+          // axios.put("/api/mypage/edit/address" ,{ params: { address: data.address } })
           setAddress(data.address);
         },
       });
@@ -51,7 +56,7 @@ const Report: React.FC = () => {
             {SB.reportUserInfo.object.bAddress}
           </DongChangeButton>{" "}
           기준
-        </span>
+        </span>{" "}
         추천 결과 보고서입니다
       </ReportTitle>
       <ReportContent />

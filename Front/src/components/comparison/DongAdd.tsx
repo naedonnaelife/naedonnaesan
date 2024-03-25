@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import tw, { styled } from "twin.macro";
 import SearchBar from "../../utils/SearchBar";
+import UseAxios from "../../utils/UseAxios";
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -9,50 +10,50 @@ interface DongAddProps {
   selected2: string | null;
 }
 
-const Wrapper = styled.div`
-  ${tw`flex justify-between w-[80%]
-  max-sm:flex-col max-sm:w-[90%]`}
-`;
-
-const LikeDongWrapper = styled.div`
-  ${tw`flex items-center w-[40%]
-  max-sm:w-[95%]`}
+const Aside = styled.aside`
+  ${tw`h-[100%] border-r-2 border-lightGray p-2
+  max-sm:flex max-sm:flex-col max-sm:w-[90%] max-sm:border-0`}
 `;
 
 const Title = styled.h1`
-  ${tw`w-[80%] text-2xl font-bold
-  max-sm:w-[70%] max-sm:text-xl max-sm:text-left`}
+  ${tw`text-3xl my-2
+  max-sm:hidden`}
+`
+
+const LikeDongWrapper = styled.div`
+  ${tw`items-center w-full pb-4`}
+`;
+
+const LikedDongTitle = styled.h2`
+  ${tw`text-2xl font-bold
+  max-sm:w-[30%] max-sm:text-xl max-sm:text-left`}
 `;
 
 const LikeDongList = styled.ul`
-  ${tw`flex whitespace-nowrap overflow-x-scroll`}
+  ${tw`h-[300px] overflow-y-scroll
+  max-sm:flex max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
+`;
+
+const SearchTitle = styled.h2`
+  ${tw`text-2xl font-bold
+  max-sm:hidden`}
 `;
 
 const Dong = styled.li`
-  ${tw`flex-c h-8 rounded-full bg-dongButton mr-2 px-3 cursor-pointer hover:bg-dongButtonHover
-  max-sm:text-base`}
+  ${tw`flex justify-between w-full border-2 border-lightGray rounded-lg my-1 p-1
+  max-sm:flex-c max-sm:h-8 max-sm:rounded-full max-sm:bg-dongButton max-sm:text-base max-sm:mr-2 max-sm:px-3 max-sm:cursor-pointer max-sm:hover:bg-dongButtonHover`}
 `;
 
 const SearchWrapper = styled.div`
-  ${tw`w-[40%] m-2
-  max-sm:w-full
-  max-sm:m-0 max-sm:mb-2`}
+  ${tw`w-full border-t-2 border-lightGray pt-4
+  max-sm:m-0 max-sm:mb-2 max-sm:border-0 max-sm:pt-0`}
 `;
 
-const likeDongs = [
-  "창동",
-  "청운동",
-  "역삼동",
-  "신사동",
-  "신촌동",
-  "도곡동",
-  "성수1가1동",
-  "명지동",
-  "역삼1동",
-  "도곡2동",
-  "성수1가1동",
-  "명지동",
-];
+const LikeButton = styled.button`
+  ${tw`w-[30px] h-[30px] border-2 border-red rounded-full
+  max-sm:hidden`}
+`;
+
 
 const DongAdd: React.FC<DongAddProps> = ({
   setSelected1,
@@ -60,7 +61,23 @@ const DongAdd: React.FC<DongAddProps> = ({
   selected1,
   selected2,
 }) => {
+  const [likedDongList, setLikedDongList] = useState<any[]>([]);
+  const axios = UseAxios();
+  useEffect(() => {
+    axios
+      .get("/api/mypage/likelist")
+      .then((response) => {
+        const newLikedDongList = response.data.object.map((dong: any) => dong);
+        setLikedDongList(newLikedDongList);
+        return newLikedDongList;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
   const handleClick = (dong: string) => {
+
     // 똑같은 동 또 추가
     if (dong === selected1 || dong === selected2) {
       alert("이미 선택된 동네입니다. 다른 동네를 선택해주세요.");
@@ -77,23 +94,32 @@ const DongAdd: React.FC<DongAddProps> = ({
     }
   };
 
+  const removeLike = async (id: number) => {
+    await axios.delete(`/api/zzim/${id}`);
+  };
+
   return (
-    <Wrapper>
+    <Aside>
+      <Title>비교할 동네 선택</Title>
       <LikeDongWrapper>
-        <Title>찜한동네</Title>
+        <LikedDongTitle>찜한동네</LikedDongTitle>
         <LikeDongList>
-          {likeDongs.map((dong, i) => (
-            <Dong key={i} onClick={() => handleClick(dong)}>
-              {dong}
+          {likedDongList.map((dong, i) => (
+            <Dong key={i} onClick={() => handleClick(dong.dongName)}>
+              {dong.dongName}
+              <LikeButton onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                e.stopPropagation()
+                removeLike(dong.zzinId)
+              }}>💗</LikeButton>
             </Dong>
           ))}
         </LikeDongList>
       </LikeDongWrapper>
-      {/* <SearchBar onAddButtonClick={handleClick} /> */}
       <SearchWrapper>
+        <SearchTitle>동네 검색</SearchTitle>
         <SearchBar />
       </SearchWrapper>
-    </Wrapper>
+    </Aside>
   );
 };
 

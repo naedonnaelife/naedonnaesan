@@ -8,9 +8,8 @@ interface KakaoMapProps {
   areaName: string;
   selectedBuildingRef: React.MutableRefObject<any>;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
-  setMarkerList: React.Dispatch<React.SetStateAction<any>>;
   setBuildingMap: React.Dispatch<React.SetStateAction<any>>;
-  markerList: any;
+  markerList: React.MutableRefObject<any>;
 }
 
 type Building = {
@@ -40,7 +39,6 @@ function KakaoMap({
   areaName,
   selectedBuildingRef,
   setBuildingId,
-  setMarkerList,
   setBuildingMap,
   markerList,
 }: KakaoMapProps) {
@@ -54,8 +52,8 @@ function KakaoMap({
       selectedBuildingRef.current.setImage(markerImage);
     }
     setBuildingId(buildingId);
-    const marker = markerList[buildingId];
-    console.log(markerList);
+    const marker = markerList.current[buildingId];
+    console.log(markerList.current);
     selectedBuildingRef.current = marker;
     marker.setImage(selectedMarkerImage);
   };
@@ -248,7 +246,7 @@ function KakaoMap({
         });
         clusterer.addMarkers(markers);
 
-        setMarkerList(markermarker);
+        markerList.current = markermarker;
       })
       .catch((error) => {
         console.log(error);

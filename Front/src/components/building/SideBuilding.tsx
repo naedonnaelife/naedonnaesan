@@ -9,7 +9,7 @@ interface SideProps {
   selectedBuildingRef: React.MutableRefObject<any>;
   buildingId: number;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
-  markerList: any;
+  markerList: React.MutableRefObject<any>;
   buildingMap: any;
 }
 
@@ -106,7 +106,7 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
     if (selectedBuildingRef.current !== null) {
       selectedBuildingRef.current.setImage(markerImage);
     }
-    const marker = markerList[building.buildingId];
+    const marker = markerList.current[building.buildingId];
     setBuildingId(building.buildingId);
     setIsBuildingOpen(false);
     selectedBuildingRef.current = marker;

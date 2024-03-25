@@ -8,23 +8,12 @@ from sklearn.neighbors import NearestNeighbors
 app = FastAPI()
 
 # 모델 파일이 있는 절대 경로 설정
-model_path = '/code/app/'  # 컨테이너 내 경로
-# model_path = './'  # 로컬 테스트 경로
+# model_path = '/code/app/'  # 컨테이너 내 경로
+model_path = './'  # 로컬 테스트 경로
 
 # 모델 로드
 pca_model = joblib.load(model_path + "pca_model.joblib")
 knn_model = joblib.load(model_path + "knn_model.joblib")
-
-label = ['dongId',
-         'dongName',
-         'safetyReport',
-         'leisureReport',
-         'foodReport',
-         'healthReport',
-         'convReport',
-         'transpReport',
-         'cafeReport',
-         'pubReport']
 
 
 class PredictRequest(BaseModel):
@@ -33,6 +22,16 @@ class PredictRequest(BaseModel):
 
 @app.post("/ai/recommend")
 async def predict(preference: PredictRequest):
+    label = ['dongId',
+             'dongName',
+             'safetyReport',
+             'leisureReport',
+             'foodReport',
+             'healthReport',
+             'convReport',
+             'transpReport',
+             'cafeReport',
+             'pubReport']
     # 클러스터 생성
     df = pd.read_csv(model_path + "cluster.csv", index_col=0, encoding='cp949')
     df_train = df.drop(axis=1, columns=['법정동', '군집'])
@@ -64,7 +63,12 @@ async def predict(preference: PredictRequest):
     recommend = recommend.drop(axis=1, columns=['군집'])
     recommend.columns = label
     recommend = recommend.transpose()
-    response = {"object": [i for i in recommend.to_dict().values()]}
+    response = {
+        "object": {
+            "userInfo": [{i: score for i, score in zip(label[2:], preference.features)}],
+            "recommend": [{'dongId': i} for i in recommend.iloc[0, :]]
+        }
+    }
     return response
 
 

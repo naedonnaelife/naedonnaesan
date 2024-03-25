@@ -10,6 +10,7 @@ interface KakaoMapProps {
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
   setMarkerList: React.Dispatch<React.SetStateAction<any>>;
   setBuildingMap: React.Dispatch<React.SetStateAction<any>>;
+  markerList: any;
 }
 
 type Building = {
@@ -28,11 +29,36 @@ const Map = styled.div`
 
 const { kakao } = window;
 
-function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList, setBuildingMap }: KakaoMapProps) {
+const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021%20(1).png?raw=true';
+const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
+const imageSize = new kakao.maps.Size(25, 25);
+const selectedImageSize = new kakao.maps.Size(30, 30);
+const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize);
+
+function KakaoMap({
+  areaName,
+  selectedBuildingRef,
+  setBuildingId,
+  setMarkerList,
+  setBuildingMap,
+  markerList,
+}: KakaoMapProps) {
   const axios = UseAxios();
   const selectedDong: any = newDong.features.find((dong: any) => dong.properties.temp === areaName);
   const x = selectedDong.properties.x;
   const y = selectedDong.properties.y;
+
+  const clickOverlay = (buildingId: number) => {
+    if (selectedBuildingRef.current !== null) {
+      selectedBuildingRef.current.setImage(markerImage);
+    }
+    setBuildingId(buildingId);
+    const marker = markerList[buildingId];
+    console.log(markerList);
+    selectedBuildingRef.current = marker;
+    marker.setImage(selectedMarkerImage);
+  };
 
   // 카카오톡 지도 생성
   useEffect(() => {
@@ -62,12 +88,6 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList,
     polygon.setMap(map);
 
     // 클러스터러 , 마커
-    const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021%20(1).png?raw=true';
-    const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
-    const imageSize = new kakao.maps.Size(25, 25);
-    const selectedImageSize = new kakao.maps.Size(30, 30);
-    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-    const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize);
 
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
@@ -152,10 +172,8 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList,
         map.setLevel(newLevel ? newLevel : 1);
       } else {
         const clusterMarkers = cluster.getMarkers();
-
-        console.log(clusterMarkers[0].getTitle());
         const buildingIdList = clusterMarkers.map((marker: any) => Number(marker.getTitle()));
-        console.log(buildingIdList);
+
         axios
           .post('/api/buildings/detail', {
             buildingIdList: buildingIdList,
@@ -170,7 +188,7 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList,
               `;
 
             response.data.object.forEach((building: any) => {
-              content += `<li onclick=""> [${building.buildingType}]${building.name} ${building.payType}${building.deposit}/${building.monthlyPay} </li>`;
+              content += `<li id=${building.buildingId}> [${building.buildingType}]${building.name} ${building.payType}${building.deposit}/${building.monthlyPay} </li>`;
             });
 
             content += `</ul></div>`;
@@ -190,6 +208,11 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList,
             };
 
             document.getElementById('closeButton')?.addEventListener('click', closeOverlay);
+            response.data.object.forEach((building: any) => {
+              document
+                .getElementById(`${building.buildingId}`)
+                ?.addEventListener('click', () => clickOverlay(building.buildingId));
+            });
           })
           .catch((error) => {
             console.log(error);

@@ -13,6 +13,9 @@ const ChartWrapper = styled.figure`
 `;
 
 const RadarChart: React.FC<RadarProps> = ({ dongData, seoulData }) => {
+
+  console.log('동 데이터 : ', dongData)
+  console.log('서울 데이터 : ', seoulData)
   ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
   const chartData = {
     labels: ['편의시설', '치안', '여가', '보건', '음식점', '카페', '술집', '대중교통'],

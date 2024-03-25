@@ -17,32 +17,34 @@ interface ReportProps {
 }
 
 const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen }) => {
-  const [dongScores, setDongScores] = useState<number[]>([2,3,1,4,5,6,7,6])
+  const [dongScores, setDongScores] = useState<number[]>([])
   const [dongCounts, setDongCounts] = useState<number[]>([])
-  const [seoulScores, setSeoulScores] = useState<number[]>([4,5,2,3,2,1,4,5])
-  const [seoulCounts, setSeoulCounts] = useState<number[]>([1,2,3,4,5,6,7,8])
+  const [seoulScores, setSeoulScores] = useState<number[]>([])
+  const [seoulCounts, setSeoulCounts] = useState<number[]>([])
   const axios = UseAxios()
   const dongId = 12
 
   useEffect(() => {
-      // const getSeoulData = async () => {
-      //   const response = await axios.get('/api/dashboard/infra/avg')
-      //   const counts = response.data.object.map((e: any) => e.totalCount);
-      //   const scores = response.data.object.map((e: any) => e.score); 
-      //   setSeoulCounts(counts)
-      //   setSeoulScores(scores)
-      //   }
+      const getSeoulData = async () => {
+        const response = await axios.get('/api/dashboard/infra/avg')
+        // console.log('데이터 : ' ,response)
+        const counts = response.data.object.infraCountAvg.map((e: any) => e.avgCount);
+        const scores = response.data.object.infraScoreAvg.map((e: any) => e.score); 
+        setSeoulCounts(counts)
+        setSeoulScores(scores)
+        }
 
       const getDongData = async () => {
         const response = await axios.get(`/api/dashboard/infra/${dongId}`);
         const counts = response.data.object.map((e: any) => e.totalCount);
-        // const scores = response.data.object.map((e: any) => e.score);  
+        const scores = response.data.object.map((e: any) => e.infraTypeScore); 
+        console.log('데이터 :' ,response) 
         setDongCounts(counts);
-        // setDongScores(scores);
+        setDongScores(scores);
       };
 
       getDongData()
-      // getSeoulData()
+      getSeoulData()
 
   }, []);
 

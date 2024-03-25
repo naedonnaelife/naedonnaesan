@@ -28,9 +28,9 @@ const Td = styled.td`
   ${tw`py-1`}
 `;
 
-const infraList = [ '🚨 편의시설', '🚨 치안', '🎨 여가', '🏥 보건', '🍔 음식점', '🛒 카페', '🛒 술집', '🚌 대중교통']
 
 const TableChart: React.FC<DataProps> = ({seoulData, dongData}) => {
+    const infraList = [ '🚨 편의시설', '🚨 치안', '🎨 여가', '🏥 보건', '🍔 음식점', '🛒 카페', '🛒 술집', '🚌 대중교통']
   return (
     <TableWrapper>
       <Table>

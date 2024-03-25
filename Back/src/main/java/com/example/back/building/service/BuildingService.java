@@ -125,4 +125,26 @@ public class BuildingService {
 
         return dto;
     }
+
+    public List<BuildingDto> getBuildings(List<Long> buildingIdList){
+        List<Building> buildingList = buildingRepository.findByBuildingIdIn(buildingIdList);
+
+        List<BuildingDto> buildingDtoList = buildingList.stream().map(building -> {
+            BuildingDto dto = new BuildingDto();
+            dto.setBuildingId(building.getBuildingId());
+            dto.setName(building.getName());
+            dto.setPayType(building.getPayType());
+            dto.setDeposit(building.getDeposit());
+            dto.setMonthlyPay(building.getMonthlyPay());
+            dto.setBuildingType(building.getBuildingType());
+            dto.setFloor(building.getFloor());
+            dto.setArea(building.getArea());
+            dto.setX(building.getX());
+            dto.setY(building.getY());
+            dto.setAddress(building.getAddress());
+            return dto;
+        }).collect(Collectors.toList());
+        return buildingDtoList;
+    }
 }
+

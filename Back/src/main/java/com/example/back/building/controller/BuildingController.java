@@ -1,6 +1,7 @@
 package com.example.back.building.controller;
 
 import com.example.back.building.dto.BuildingDto;
+import com.example.back.building.dto.BuildingIdRequestDto;
 import com.example.back.building.dto.BuildingPageDto;
 import com.example.back.building.dto.BuildingXYDto;
 import com.example.back.building.service.BuildingService;
@@ -61,6 +62,14 @@ public class BuildingController {
         BuildingDto building = buildingService.getBuilding(buildingId);
 
         Message message = new Message(HttpStatusEnum.OK, "빌딩 상세 조회 완료", building);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @PostMapping("/detail")
+    public ResponseEntity<Message> getBuildingsDetail(@RequestBody BuildingIdRequestDto buildingIdList){
+
+        List<BuildingDto> buildings = buildingService.getBuildings(buildingIdList.getBuildingIdList());
+        Message message = new Message(HttpStatusEnum.OK, "빌딩들 상세 조회 완료", buildings);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

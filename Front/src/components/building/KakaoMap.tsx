@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import newDong from '../../datas/newDong.json';
 import UseAxios from '../../utils/UseAxios.tsx';
+import './content.css';
 
 interface KakaoMapProps {
   areaName: string;
   selectedBuildingRef: React.MutableRefObject<any>;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
-  setMarkerList:  React.Dispatch<React.SetStateAction<any>>;
-  setBuildingMap:  React.Dispatch<React.SetStateAction<any>>;
+  setMarkerList: React.Dispatch<React.SetStateAction<any>>;
+  setBuildingMap: React.Dispatch<React.SetStateAction<any>>;
 }
 
 type Building = {
@@ -44,7 +45,7 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList,
       disableDoubleClickZoom: true,
     };
     const map = new kakao.maps.Map(container, options);
-    setBuildingMap(map)
+    setBuildingMap(map);
     // 폴리곤 생성
     const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
       return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
@@ -71,7 +72,8 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList,
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
       averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-      minLevel: 2, // 클러스터 할 최소 지도 레벨
+      disableClickZoom: true,
+      minLevel: 1, // 클러스터 할 최소 지도 레벨
       calculator: [3, 5, 10, 30, 50, 100, 500, 1000], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
       texts: ['2', '3+', '5+', '10+', '30+', '50+', '100+', '500+', '1000+'],
       styles: [
@@ -142,13 +144,68 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList,
       ],
     });
 
+    kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster: any) {
+      const level = map.getLevel();
+      if (level >= 2) {
+        const newLevel = level - 2;
+        map.setCenter(cluster.getCenter());
+        map.setLevel(newLevel ? newLevel : 1);
+      } else {
+        const clusterMarkers = cluster.getMarkers();
+
+        console.log(clusterMarkers[0].getTitle());
+        const buildingIdList = clusterMarkers.map((marker: any) => Number(marker.getTitle()));
+        console.log(buildingIdList);
+        axios
+          .post('/api/buildings/detail', {
+            buildingIdList: buildingIdList,
+          })
+          .then((response) => {
+            console.log(response.data);
+            let content = `
+            <div class="contentStyle">
+              <p>매물 List</p>
+              <div id="closeButton">여기 닫는버튼임</div>
+              <ul>
+              `;
+
+            response.data.object.forEach((building: any) => {
+              content += `<li onclick=""> [${building.buildingType}]${building.name} ${building.payType}${building.deposit}/${building.monthlyPay} </li>`;
+            });
+
+            content += `</ul></div>`;
+            const customOverlay = new kakao.maps.CustomOverlay({
+              map: map,
+              clickable: true,
+              content: content,
+              position: cluster.getCenter(),
+              xAnchor: 0.5,
+              yAnchor: 1,
+              zIndex: 3,
+            });
+            customOverlay.setMap(map);
+            const closeOverlay = () => {
+              map.setZoomable(true);
+              customOverlay.setMap(null);
+            };
+
+            document.getElementById('closeButton')?.addEventListener('click', closeOverlay);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        map.setZoomable(false);
+      }
+    });
+
     // 데이터에서 좌표 값을 가지고 마커를 표시합니다
     // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
     axios
       .get('/api/buildings', { params: { dongname: '역삼동' } })
       .then((response) => {
         console.log(response.data);
-        const markermarker:any = {}
+        const markermarker: any = {};
         const markers = response.data.object.map((building: Building) => {
           const marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(building.x, building.y),
@@ -167,7 +224,8 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setMarkerList,
           return marker;
         });
         clusterer.addMarkers(markers);
-        setMarkerList(markermarker)
+
+        setMarkerList(markermarker);
       })
       .catch((error) => {
         console.log(error);

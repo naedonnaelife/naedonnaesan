@@ -1,0 +1,15 @@
+.contentStyle {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  background-color: white;
+  border: 1px solid black;
+  overflow-y: scroll;
+  height: 30vh;
+  width: 70vw;
+}
+
+.contentStyle ul li {
+  border: 1px solid black;
+}

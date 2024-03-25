@@ -1,4 +1,6 @@
 import tw, { styled } from 'twin.macro';
+import buildings from '../../../datas/buildings.json';
+
 interface CardProps {
   building: {
     buildingId: number;
@@ -12,7 +14,7 @@ interface CardProps {
     address: string;
     x: string;
     y: string;
-  } | null;
+  };
 }
 
 const CardWrapper = styled.div`
@@ -34,9 +36,10 @@ const BuildingContent = styled.p`
   ${tw`text-sm`}
 `;
 
-const roomImage =
-  'https://mblogthumb-phinf.pstatic.net/MjAyMTA0MjFfMTQw/MDAxNjE4OTkzMzg3NjY5.GjCh66nVVndNgl65sQzQDLOIeY2iY4MeedK83naKWjQg.G4QcAlGl8nM-YtqGi1fQ2zUnjXIHptLksgrUV9VLuowg.JPEG.jgy/%EC%98%A4%ED%94%BC%EC%8A%A4%ED%85%94%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4,_%EC%98%A4%ED%94%BC%EC%8A%A4%ED%85%94%EB%94%94%EC%9E%90%EC%9D%B8,_%EC%A3%BC%EA%B1%B0%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4,_%EC%A3%BC%EA%B1%B0%EB%94%94%EC%9E%90%EC%9D%B8,_%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4%EB%94%94%EC%9E%90%EC%9D%B8,_%EB%82%B4%EB%B6%80%ED%88%AC%EC%8B%9C%EB%8F%84.jpg?type=w800';
 const BuildingCard: React.FC<CardProps> = ({ building }) => {
+  const roomImage = buildings.url[building?.buildingId % 31];
+  // const roomImage =
+  //   'https://mstatic2.e-himart.co.kr/contents/content/upload/style/20190626/530591/thumbnail_450_propse_tagging_5155.jpg';
   return (
     <CardWrapper>
       <ImageWrapper>

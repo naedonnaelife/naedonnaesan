@@ -35,10 +35,17 @@ type StyleProps = {
 const Aside = styled.aside`
   ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg px-2 bg-white duration-200 overflow-y-auto
     max-sm:absolute max-sm:z-10 max-sm:w-[100%] `}
-  ${({ isBuildingOpen, selectedBuilding }: StyleProps) => (isBuildingOpen ? (selectedBuilding? tw`max-sm:-bottom-[0%]` : tw`max-sm:-bottom-[0%]`) : (selectedBuilding ? tw`max-sm:-bottom-[64%]` : tw`max-sm:-bottom-[95%]`))}
+  ${({ isBuildingOpen, selectedBuilding }: StyleProps) =>
+    isBuildingOpen
+      ? selectedBuilding
+        ? tw`max-sm:-bottom-[0%]`
+        : tw`max-sm:-bottom-[0%]`
+      : selectedBuilding
+      ? tw`max-sm:-bottom-[64%]`
+      : tw`max-sm:-bottom-[95%]`}
 `;
 const Card = styled.article`
-  ${tw`flex w-[100%] h-[15%] p-1`}
+  ${tw`flex w-[100%] h-[15vh] p-1`}
 `;
 const SideFixWrapper = styled.div`
   ${tw`w-[100%] sticky top-0 bg-white`}
@@ -50,8 +57,12 @@ const HamburgerButton = styled.button`
   ${tw`hidden w-[100%] h-[5vh]
     max-sm:flex-c`}
 `;
+const SelectedWrapper = styled.div`
+  ${tw`flex-cc w-[100%] h-[20vh] bg-gray`}
+`;
+
 const SelectedCard = styled.article`
-  ${tw`flex-cc w-[100%] h-[15%] bg-gray p-1`}
+  ${tw`flex w-[100%] h-[15vh] p-1`}
 `;
 const CloseButton = styled.button`
   ${tw`flex w-[100%] justify-end`}
@@ -81,30 +92,28 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
   const selectedImageSize = new kakao.maps.Size(30, 30);
   const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize);
 
-
   const handleHamburgerButton = () => {
     setIsBuildingOpen((prev) => !prev);
   };
   const handleCloseButton = () => {
     selectedBuildingRef.current.setImage(markerImage);
     selectedBuildingRef.current = null;
-    setSelectedBuilding(null)
+    setSelectedBuilding(null);
     setBuildingId(0);
   };
 
   const handleBuildingCard = (building: Building) => {
-    
     if (selectedBuildingRef.current !== null) {
       selectedBuildingRef.current.setImage(markerImage);
     }
-    const marker =  markerList[building.buildingId]
+    const marker = markerList[building.buildingId];
     setBuildingId(building.buildingId);
     setIsBuildingOpen(false);
     selectedBuildingRef.current = marker;
     marker.setImage(selectedMarkerImage);
-    buildingMap.setCenter(new kakao.maps.LatLng(building.x, building.y))
-    buildingMap.setLevel(1)
-  }
+    buildingMap.setCenter(new kakao.maps.LatLng(building.x, building.y));
+    buildingMap.setLevel(1);
+  };
 
   const getBuildingList = () => {
     axios
@@ -149,11 +158,13 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
           <Button>가격</Button>
           <Button>유형</Button>
         </ButtonWrapper>
-        {buildingId ? (
-          <SelectedCard>
+        {buildingId && selectedBuilding ? (
+          <SelectedWrapper>
             <CloseButton onClick={handleCloseButton}>✖</CloseButton>
-            <BuildingCard building={selectedBuilding} />
-          </SelectedCard>
+            <SelectedCard>
+              <BuildingCard building={selectedBuilding} />
+            </SelectedCard>
+          </SelectedWrapper>
         ) : (
           ''
         )}

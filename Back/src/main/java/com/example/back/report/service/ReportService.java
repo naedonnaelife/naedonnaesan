@@ -12,12 +12,16 @@ import com.example.back.reportdong.entity.ReportDong;
 import com.example.back.reportdong.repository.ReportdongRepository;
 import com.example.back.user.entity.User;
 import com.example.back.user.service.UserService;
+import com.example.back.zzim.entity.Zzim;
+import com.example.back.zzim.repository.ZzimRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +32,9 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final ReportdongRepository reportdongRepository;
     private final DongRepository dongRepository;
+    private final ZzimRepository zzimRepository;
 
-    public Long addReportAndDong(RequestDto request2Dto){
+    public List<Boolean> addReportAndDong(RequestDto request2Dto){
         User user = userService.getUser();
 
         ReportDto reportDto = request2Dto.getUserInfo();
@@ -42,6 +47,8 @@ public class ReportService {
 //        Long reportId = report.getReportId();
 
         // report dong 저장하기
+        List<Boolean> zzimList = new ArrayList<>();
+
         Long reportdongId = 0L;
         for (int i = 0; i < 3; i++) {
             Long dongId = recommendationDtos.get(i).getDongId();
@@ -50,10 +57,20 @@ public class ReportService {
             ReportDong reportDong = new ReportDong(dong, report);
             reportdongRepository.save(reportDong);
             reportdongId = reportDong.getReportdongId();
+
+            // 사용자와 동에 해당하는 찜(Zzim) 조회
+            Optional<Zzim> existingZzim = zzimRepository.findByUserAndDong(user, dong);
+
+            boolean isZzim = false;
+            // 이미 존재하는 경우 처리. 근데 뭘 하는게 좋을지 모르겠음
+            if (existingZzim.isPresent()) {
+                isZzim = true;
+            }
+            System.out.println(dongId+"의 결과: "+isZzim);
+            zzimList.add(isZzim);
         }
 
-
-        return reportdongId;
+        return zzimList;
     }
 
     public ReportDto showFilter(){

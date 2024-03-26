@@ -25,6 +25,9 @@ public class User {
 
     private Long kakaoId;
     private String bAddress; // 회사 주소
+    private String x;
+    private String y;
+
     private int age;
 
     // 성별은 F, M 두 개이므로 Enum 타입으로
@@ -56,8 +59,10 @@ public class User {
     }
 
     // 주소 bAddress 변경
-    public void updateAddress(String address){
+    public void updateAddress(String address, String x, String y){
         this.bAddress = address;
+        this.x = x;
+        this.y = y;
 
         System.out.println(this.userId+"의 주소를 "+this.getBAddress()+"로 변경");
     }

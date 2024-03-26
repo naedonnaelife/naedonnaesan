@@ -24,9 +24,9 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Long updateAddr(String address){
+    public Long updateAddr(String address,String x, String y){
         User user = getUser();
-        user.updateAddress(address);
+        user.updateAddress(address,x,y);
         return user.getUserId();
     }
 

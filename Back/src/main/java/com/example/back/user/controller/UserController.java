@@ -33,8 +33,8 @@ public class UserController {
 
     // 주소 변경 API
     @PutMapping("mypage/edit/address")
-    public ResponseEntity<Message> editAddr(@RequestParam("address") String address){
-        Long userId = userService.updateAddr(address);
+    public ResponseEntity<Message> editAddr(@RequestParam("address") String address, @RequestParam("x") String x, @RequestParam("y") String y){
+        Long userId = userService.updateAddr(address,x,y);
 
         log.info("** "+ address +"로 주소 변환 완료! **");
         Message message = new Message(HttpStatusEnum.OK, "주소 변경 완료되었습니다.", userId);

@@ -29,16 +29,16 @@ ${tw`flex items-center h-[50%] mx-2`}
 `
 
 const SliderWrapper = styled.div`
-  ${tw`flex-c relative h-[50%]`}
+  ${tw`flex relative h-[50%]`}
 `;
 
 const Line = styled.div`
-  ${tw`absolute -top-[0.25vh] w-[85%] h-[0.5vh] bg-gray m-2`}
+  ${tw`absolute -top-[0.25vh] w-[50%] h-[0.5vh] bg-gray m-2`}
 `;
 
 const Dot = styled.button`
   ${tw`flex-c absolute top-0 w-[1vw] h-[2vh] bg-gray rounded-full`}
-  ${({position}:DotProps) => `left: calc(${(position / 7) * 100}% - 2.4vw);`}
+  ${({position}:DotProps) => `left: calc(${(position / 3 ) * 75}%);`}
   `;
  
 const InnerDot = styled.div`
@@ -47,7 +47,7 @@ ${({isSelected}:InnerDotProps) => (isSelected ? tw`w-[100%] h-[100%] bg-blue-500
 
 const InfraSlider: React.FC<SliderProps> = ({data, changeScore}) => {
     const [selectPoint, setSelectPoint] = useState(3)
-    const dotPositions = Array.from({ length: 7 }, (_, index) => index + 1);
+    const dotPositions =[0,1,2]
 
     const selected = (index:number) => {
         setSelectPoint(index)

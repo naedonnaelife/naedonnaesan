@@ -1,16 +1,17 @@
 from datetime import datetime, timedelta
 
+import httpx
 import joblib
 import numpy as np
 import pandas as pd
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pymongo import MongoClient
 from sklearn.neighbors import NearestNeighbors
 
 # 모델 파일이 있는 절대 경로 설정
-file_path = '/code/app/'  # 컨테이너 내 경로
-# file_path = './'  # 로컬 테스트 경로
+# file_path = '/code/app/'  # 컨테이너 내 경로
+file_path = './'  # 로컬 테스트 경로
 
 # MongoDB 접속 정보
 user = "mango"
@@ -55,6 +56,21 @@ knn_model = joblib.load(file_path + "knn_model.joblib")
 
 class PredictRequest(BaseModel):
     features: list
+    token: str
+
+
+async def send_data_to_spring_boot(data, token):
+    async with httpx.AsyncClient() as client:
+        # 스프링 부트 애플리케이션의 엔드포인트 URL을 지정해주세요.
+        url = "http://localhost:8080/api/addreport"
+        # url = "https://j10e204.p.ssafy.io/api/addreport"
+        headers = {"Authorization": f"Bearer {token}"}
+        try:
+            response = await client.post(url, json=data, headers=headers)
+            response.raise_for_status()
+            return response.json()  # 스프링 부트로부터 받은 응답을 반환
+        except httpx.HTTPStatusError as e:
+            raise HTTPException(status_code=e.response.status_code, detail="Error sending data to Spring Boot")
 
 
 @app.post("/ai/recommend")
@@ -104,11 +120,10 @@ async def predict(preference: PredictRequest):
     print(recommend)
     print(preference.features)
     response = {
-        "object": {
-            "userInfo": [{i: score for i, score in zip(label[2:], preference.features)}],
-            "recommend": [{'dongId': i} for i in recommend.iloc[0, :]]
-        }
+        "userInfo": {i: score for i, score in zip(label[2:], preference.features)},
+        "recommend": [{'dongId': i} for i in recommend.iloc[0, :]]
     }
+    await send_data_to_spring_boot(response, preference.token)
     return response
 
 

@@ -87,7 +87,9 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
 
   const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
   const selectedImageSize = new kakao.maps.Size(52, 52);
-  const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize, { offset:  new kakao.maps.Point(26, 26)});
+  const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize, {
+    offset: new kakao.maps.Point(26, 26),
+  });
 
   const handleHamburgerButton = () => {
     setIsBuildingOpen((prev) => !prev);
@@ -114,7 +116,7 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
     });
 
     selectedBuildingRef.current = selectedMarker;
-    selectedMarker.setMap(buildingMap)
+    selectedMarker.setMap(buildingMap);
     buildingMap.setCenter(new kakao.maps.LatLng(building.x, building.y));
     buildingMap.setLevel(1);
   };
@@ -173,8 +175,8 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
         )}
       </SideFixWrapper>
       {buildingList.map((building) => (
-        <Card onClick={() => handleBuildingCard(building)}>
-          <BuildingCard key={building.buildingId} building={building}></BuildingCard>
+        <Card key={building.buildingId} onClick={() => handleBuildingCard(building)}>
+          <BuildingCard building={building}></BuildingCard>
         </Card>
       ))}
       <ScrollDiv ref={pageRef} />

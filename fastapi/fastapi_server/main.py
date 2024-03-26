@@ -43,8 +43,10 @@ stopwords = list_file[0].split(",")
 app = FastAPI()
 
 # 모델 로드
-pca_model = joblib.load(file_path + "pca_model.joblib")
-knn_model = joblib.load(file_path + "knn_model.joblib")
+# pca_model = joblib.load(file_path + "pca_model.joblib")
+# knn_model = joblib.load(file_path + "knn_model.joblib")
+# pca_model = joblib.load("pca_model.joblib")
+# knn_model = joblib.load("knn_model.joblib")
 
 
 class PredictRequest(BaseModel):
@@ -139,35 +141,52 @@ def getKeyword():
     # 쿼리 결과를 리스트로 변환하여 길이 측정
     # 주의: 대량의 데이터를 처리할 경우, 메모리 문제를 유발할 수 있습니다.
     last_year_news = list(last_year_news)
-
+    print(len(last_year_news))
     # 쿼리 실행 후 시간 측정
     end_time = time.time()
 
     # 실행 시간 출력
     print(f"쿼리 실행 시간: {end_time - start_time}초")
-    # print(last_year_news[0]['article'])
-    # 뉴스 기사 본문 추출
-    documents = [news['article'] for news in last_year_news if 'article' in news]
 
-    # BERTopic 모델 훈련
-    topic_model = BERTopic()
-    topics, _ = topic_model.fit_transform(documents)
+    # Okt 객체 생성
+    okt = Okt()
 
-    # 가장 대표적인 토픽 3개 추출
-    topic_freq = topic_model.get_topic_info()  # 토픽과 빈도수 정보를 가져옴
-    top_3_topics = topic_freq.head(4)  # 상위 3개 토픽 선택 (첫 번째 행은 전체 문서를 나타냄)
+    # 불용어 목록 로드 (이미 로드된 list_file을 사용)
+    stopwords = list_file[0].split(",")
 
-    # 각 토픽의 상위 단어 추출 및 결과 준비
-    top_3_topic_words = []
-    for topic_num in top_3_topics['Topic'][1:]:  # 첫 번째 행(전체 문서)는 제외
-        topic_words = topic_model.get_topic(topic_num)
-        top_3_topic_words.append({
-            "topic": topic_num,
-            "words": [word[0] for word in topic_words[:5]],  # 상위 5개 단어만 선택
-            "coherence": topic_words[0][1]  # 첫 번째 단어의 점수(일관성)를 토픽의 점수로 사용
-        })
+    # 뉴스 기사 본문 예시
+    news_articles = [news['article'] for news in last_year_news if 'article' in news]
 
-    return top_3_topic_words
+    # # 뉴스 기사에서 불용어 제거
+    # def remove_stopwords(text):
+    #     tokenized = okt.morphs(text)  # 형태소 분석
+    #     return ' '.join(word for word in tokenized if word not in stopwords)  # 불용어 제거
+
+    # 모든 뉴스 기사에 대해 불용어 제거 처리
+    # processed_articles = [remove_stopwords(article) for article in news_articles]
+    processed_articles = news_articles
+
+    # 처리된 뉴스 기사 확인
+    print(processed_articles[:5])  # 처리된 뉴스 기사 예시 출력
+
+   # 모든 뉴스 기사에서 명사를 추출하고, 기사별 중복 제거 후 빈도수 계산
+    all_nouns = []
+    for article in processed_articles:
+        nouns = okt.nouns(article)  # 명사 추출
+        unique_nouns = set(nouns) - set(stopwords)  # 기사 내에서 중복된 명사와 불용어 제거
+        all_nouns.extend(unique_nouns)  # 중복이 제거된 명사를 전체 명사 리스트에 추가
+
+    # 명사의 빈도수 계산
+    nouns_counter = Counter(all_nouns)
+
+    # 가장 많이 나온 키워드와 그 빈도수 출력 (상위 10개)
+    most_common_nouns = nouns_counter.most_common(10)
+    for noun, freq in most_common_nouns:
+        print(f"{noun}: {freq}회")
+
+    # 가장 많이 등장한 키워드만 출력
+    print(f"가장 많이 등장한 키워드: {most_common_nouns[0][0]}, 등장 횟수: {most_common_nouns[0][1]}회")
+    return 200
 
 
 @app.get("/status")

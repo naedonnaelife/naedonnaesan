@@ -38,7 +38,6 @@ const Like: React.FC = () => {
       .get("/api/mypage/likelist")
       .then((response) => {
         const newLikedDongList = response.data.object.map((dong: any) => dong);
-        console.log(newLikedDongList);
         setLikedDongList(newLikedDongList);
       })
       .catch((error) => {

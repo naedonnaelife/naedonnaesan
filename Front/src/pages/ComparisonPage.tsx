@@ -13,7 +13,7 @@ const Main = styled.main`
 
 const AsideWrapper = styled.aside`
   ${tw`w-[25%]
-  max-sm:justify-center max-sm:w-[90%]`}
+  max-sm:w-[90%]`}
   `;
   
 const GraphWrapper = styled.section`
@@ -25,7 +25,6 @@ const Comparison = styled.section`
   ${tw`flex w-full
   max-sm:justify-center max-sm:w-[90%]`}
 `;
-
 
 function ComparisonPage() {
   const [category, setCategory] = useState<string>('');

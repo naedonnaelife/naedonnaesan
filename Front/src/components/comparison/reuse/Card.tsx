@@ -11,7 +11,7 @@ interface SelectedProps {
 }
 
 const CardWrapper = styled.figure`
-  ${tw`flex flex-col w-[43%] h-96 bg-amber-50 `}
+  ${tw`flex flex-col w-[40%] h-96 bg-amber-50 `}
 `;
 
 const CardTop = styled.div`

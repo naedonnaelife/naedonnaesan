@@ -10,7 +10,9 @@ const UseAxios = (): AxiosInstance => {
 
   axiosInstance.interceptors.request.use(
     (config) => {
-      config.headers["authorization"] = localStorage.getItem("accessToken");
+      // config.headers["authorization"] = localStorage.getItem("accessToken");
+      config.headers["authorization"] =
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE0MjkwODcsInJvbGUiOiJVU0VSIiwiaWQiOjN9.jcDNvSrNzNvK_-Ww3Yx65g2xSZYqHEZPfPQuWie7f5w";
       return config;
     },
     async (error) => {

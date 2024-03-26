@@ -4,7 +4,6 @@ import ReportContent from "./ReportContent";
 import SB from "../../datas/SB.json";
 import UseAxios from "../../utils/UseAxios";
 
-
 const ReportWrapper = styled.section`
   ${tw`w-[90%] border-b-2 border-grayHover pb-5
   max-sm:w-full`}
@@ -32,8 +31,11 @@ const Report: React.FC = () => {
     daum.postcode.load(() => {
       const postcode = new daum.Postcode({
         oncomplete: function (data: any) {
-          // console.log(data.address)
-          // axios.put("/api/mypage/edit/address" ,{ params: { address: data.address } })
+          console.log(data.address);
+          axios.put("/api/mypage/edit/address", {
+            address: `${data.address}`,
+          }
+          );
           setAddress(data.address);
         },
       });

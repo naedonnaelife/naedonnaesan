@@ -16,12 +16,13 @@ function BuildingPage() {
   const markerList = useRef<any>({});
   const selectedBuildingRef = useRef<any>(null);
   const location = useLocation();
-  console.log('props데이터 :', location);
+
   return (
     <>
       <NavBar />
       <Main>
         <SideBuilding
+          areaName={location.state ? location.state.areaName : '역삼동'}
           selectedBuildingRef={selectedBuildingRef}
           buildingId={buildingId}
           setBuildingId={setBuildingId}
@@ -29,7 +30,7 @@ function BuildingPage() {
           buildingMap={buildingMap}
         />
         <KakaoMap
-          areaName={location.state ? location.state.areaName : '강남구 역삼2동'}
+          areaName={location.state ? location.state.areaName : '역삼동'}
           selectedBuildingRef={selectedBuildingRef}
           setBuildingId={setBuildingId}
           setBuildingMap={setBuildingMap}

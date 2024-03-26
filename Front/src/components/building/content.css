@@ -3,13 +3,21 @@
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  background-color: white;
+  background-color: #c9a48c;
   border: 1px solid black;
   overflow-y: scroll;
   height: 30vh;
-  width: 70vw;
+  width: 50vw;
+}
+
+.contentStyle ul {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .contentStyle ul li {
   border: 1px solid black;
+  background-color: white;
 }

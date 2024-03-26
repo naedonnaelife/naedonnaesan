@@ -6,6 +6,7 @@ import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
 
 interface SideProps {
+  areaName: string;
   selectedBuildingRef: React.MutableRefObject<any>;
   buildingId: number;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
@@ -48,35 +49,45 @@ const Card = styled.article`
   ${tw`flex w-[100%] h-[15vh] p-1`}
 `;
 const SideFixWrapper = styled.div`
-  ${tw`w-[100%] sticky top-0 bg-white`}
+  ${tw`flex-cc w-[100%] sticky top-0 bg-white pt-1`}
 `;
-const ButtonWrapper = styled.aside`
-  ${tw`flex justify-between w-[100%]`}
+const SearchWarpper = styled.div`
+  ${tw`w-[100%] h-12`}
 `;
+// const ButtonWrapper = styled.aside`
+//   ${tw`flex justify-between w-[100%]`}
+// `;
+// const Button = styled.button`
+//   ${tw`bg-dongButton rounded-3xl px-4 py-1 my-2`}
+// `;
 const HamburgerButton = styled.button`
   ${tw`hidden w-[100%] h-[5vh]
     max-sm:flex-c`}
 `;
 const SelectedWrapper = styled.div`
-  ${tw`flex-cc w-[100%] h-[20vh] bg-gray`}
+  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1`}
 `;
 
 const SelectedCard = styled.article`
-  ${tw`flex w-[100%] h-[15vh] p-1`}
+  ${tw`flex w-[100%] h-[15vh]`}
 `;
 const CloseButton = styled.button`
   ${tw`flex w-[100%] justify-end`}
 `;
-const Button = styled.button`
-  ${tw`bg-dongButton rounded-3xl px-4 py-1 my-2`}
-`;
 const ScrollDiv = styled.div`
-  ${tw`bg-red h-[10px]`}
+  ${tw`h-[20px]`}
 `;
 
 const { kakao } = window;
 
-function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerList, buildingMap }: SideProps) {
+function SideBuilding({
+  areaName,
+  selectedBuildingRef,
+  buildingId,
+  setBuildingId,
+  markerList,
+  buildingMap,
+}: SideProps) {
   const [isBuildingOpen, setIsBuildingOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [buildingList, setBuildingList] = useState<Building[]>([]);
@@ -123,7 +134,7 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
 
   const getBuildingList = () => {
     axios
-      .get('/api/buildings/name', { params: { dongname: '역삼동', page: page } })
+      .get('/api/buildings/name', { params: { dongname: areaName, page: page } })
       .then((response) => {
         setPage((prev) => prev + 1);
         setBuildingList([...buildingList, ...response.data.object.buildingDtoList]);
@@ -158,11 +169,13 @@ function SideBuilding({ selectedBuildingRef, buildingId, setBuildingId, markerLi
     <Aside isBuildingOpen={isBuildingOpen} selectedBuilding={selectedBuilding}>
       <SideFixWrapper>
         <HamburgerButton onClick={handleHamburgerButton}>🍔</HamburgerButton>
-        <SearchBar />
-        <ButtonWrapper>
+        <SearchWarpper>
+          <SearchBar />
+        </SearchWarpper>
+        {/* <ButtonWrapper>
           <Button>가격</Button>
           <Button>유형</Button>
-        </ButtonWrapper>
+        </ButtonWrapper> */}
         {buildingId && selectedBuilding ? (
           <SelectedWrapper>
             <CloseButton onClick={handleCloseButton}>✖</CloseButton>

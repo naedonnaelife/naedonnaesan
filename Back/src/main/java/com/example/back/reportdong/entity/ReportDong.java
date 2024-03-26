@@ -25,4 +25,9 @@ public class ReportDong {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="report_id")
     private Report report;
+
+    public ReportDong(Dong dong, Report report) {
+        this.dong = dong;
+        this.report = report;
+    }
 }

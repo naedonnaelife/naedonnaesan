@@ -5,7 +5,6 @@ import com.example.back.dong.repository.DongRepository;
 import com.example.back.exception.DongNotFoundException;
 import com.example.back.report.dto.RecommendationDto;
 import com.example.back.report.dto.ReportDto;
-import com.example.back.report.dto.Request2Dto;
 import com.example.back.report.dto.RequestDto;
 import com.example.back.report.entity.Report;
 import com.example.back.report.repository.ReportRepository;
@@ -30,7 +29,7 @@ public class ReportService {
     private final ReportdongRepository reportdongRepository;
     private final DongRepository dongRepository;
 
-    public Long addReportAndDong(Request2Dto request2Dto){
+    public Long addReportAndDong(RequestDto request2Dto){
         User user = userService.getUser();
 
         ReportDto reportDto = request2Dto.getUserInfo();

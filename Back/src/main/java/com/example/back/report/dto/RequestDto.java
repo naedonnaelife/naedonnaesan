@@ -5,10 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestDto {
-    private Request2Dto object;
+    private ReportDto userInfo;
+    private List<RecommendationDto> recommend;
+
 }

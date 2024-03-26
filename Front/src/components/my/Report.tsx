@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import tw, { styled } from "twin.macro";
-import ReportContent from "./ReportContent";
-import SB from "../../datas/SB.json";
-import UseAxios from "../../utils/UseAxios";
-
+import React, { useState, useEffect } from 'react';
+import tw, { styled } from 'twin.macro';
+import ReportContent from './ReportContent';
+import SB from '../../datas/SB.json';
+// import UseAxios from "../../utils/UseAxios";
 
 const ReportWrapper = styled.section`
   ${tw`w-[90%] border-b-2 border-grayHover pb-5
@@ -23,8 +22,8 @@ const DongChangeButton = styled.button`
 `;
 
 const Report: React.FC = () => {
-  const [_, setAddress] = useState("");
-  const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+  const [_, setAddress] = useState('');
+  const src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
   const daum = window.daum;
   // const axios = UseAxios();
 
@@ -42,7 +41,7 @@ const Report: React.FC = () => {
   };
 
   useEffect(() => {
-    const script = document.createElement("script");
+    const script = document.createElement('script');
     script.src = src;
     document.body.append(script);
   }, []);
@@ -52,11 +51,8 @@ const Report: React.FC = () => {
       <ReportTitle>
         <span>{SB.reportUserInfo.object.nickname}님의 </span>
         <span>
-          <DongChangeButton onClick={serachAddress}>
-            {SB.reportUserInfo.object.bAddress}
-          </DongChangeButton>{" "}
-          기준
-        </span>{" "}
+          <DongChangeButton onClick={serachAddress}>{SB.reportUserInfo.object.bAddress}</DongChangeButton> 기준
+        </span>{' '}
         추천 결과 보고서입니다
       </ReportTitle>
       <ReportContent />

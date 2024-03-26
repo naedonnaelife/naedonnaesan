@@ -10,10 +10,10 @@ const Aside = styled.aside`
 function SideRecommend() {
     return (
     <>
-    <Aside>
-        <RecommendList/>
-        <SelectInfra/>
-    </Aside>
+      <Aside>
+          <RecommendList/>
+          <SelectInfra/>
+      </Aside>
     </>
     );
   }

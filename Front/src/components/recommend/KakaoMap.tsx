@@ -29,28 +29,23 @@ const KakaoMap: React.FC = () => {
 
   const levelUp = () => {
     if(mapLevelRef.current){
-      console.log('up', mapLevelRef.current)
       mapLevelRef.current += 1
-      console.log('up', mapLevelRef.current)
     mapRef.current.setLevel(mapLevelRef.current, { animate: { duration: 500 } });
   }}
   const levelDown = () => {
     if(mapLevelRef.current){
     mapLevelRef.current -= 1
-    console.log('down', mapLevelRef.current)
     mapRef.current.setLevel(mapLevelRef.current, { animate: { duration: 500 } });
   }}
 
   const handleWidthSize = () => {
     const isSmall = window.innerWidth <= 640 
-    console.log('width test : ', window.innerWidth, isSmall, isSmallRef.current)
     if (isSmall && !isSmallRef.current){
       levelUp()
     } else if (!isSmall && isSmallRef.current){
       levelDown()
     }
     isSmallRef.current = isSmall
-    console.log('좌표 : ', coordinateRef.current)
     mapRef.current.setCenter(new kakao.maps.LatLng(coordinateRef.current![0], coordinateRef.current![1]))
   }
 
@@ -68,12 +63,10 @@ const KakaoMap: React.FC = () => {
   const jsonProcessing = async (json: any, sig_cd: string | boolean) => {
     let geoJson = json.features;
     if (sig_cd) {
-      console.log('구 코드 : ', sig_cd);
       geoJson = json.features.filter((e: any) => {
         const prefix = e.properties.EMD_CD.slice(0, 5)
         return prefix === sig_cd})
     }
-    console.log('확인용 : ', geoJson)
 
     try {
       const newJson = geoJson.map((unit: any) => {
@@ -159,7 +152,6 @@ const KakaoMap: React.FC = () => {
           jsonProcessing(newDong, unit.sig_cd);
           mapLevelRef.current = level
           coordinateRef.current = [unit.centerCoordinate[1], unit.centerCoordinate[0]]
-          console.log('area : ', unit);
         }
       });
     });

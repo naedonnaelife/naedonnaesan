@@ -35,19 +35,23 @@ function UserForm() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [name, setName] = useState("");
+  const [coordinate, SetCoordinate] = useState({x : '', y : ''})
   const axios = UseAxios();
   const inputData = {
     age,
     address,
     gender,
     name,
+    coordinate
   };
   const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-  const daum = window.daum;
+  const {daum} = window;
+  
   const serachAddress = () => {
     daum.postcode.load(() => {
       const postcode = new daum.Postcode({
         oncomplete: function (data: any) {
+          console.log('데이터 : ', data)
           setAddress(data.address);
         },
       });
@@ -60,6 +64,18 @@ function UserForm() {
     script.src = src;
     document.body.append(script);
   }, []);
+
+  useEffect(()=>{
+    if(address){
+      const geocoder = new daum.maps.services.Geocoder();
+      geocoder.addressSearch(address, function(result:any, status:any){
+        if(status === daum.maps.services.Status.OK){
+          const roadData = result[0].road_address
+          SetCoordinate({x : roadData.x, y : roadData.y})
+        }
+      })
+    }
+  }, [address])
 
   const inputUserInfo = async (e: React.FormEvent) => {
     e.preventDefault();

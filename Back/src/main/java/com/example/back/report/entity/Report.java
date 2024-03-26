@@ -37,4 +37,15 @@ public class Report {
     @OneToMany(mappedBy = "report")
     private List<ReportDong> reportDongList = new ArrayList<>();
 
+    public Report(User user, int convReport, int safetyReport, int healthReport, int foodReport, int transpReport, int leisureReport, int cafeReport, int pubReport) {
+        this.user = user;
+        this.convReport = convReport;
+        this.safetyReport = safetyReport;
+        this.healthReport = healthReport;
+        this.foodReport = foodReport;
+        this.transpReport = transpReport;
+        this.leisureReport = leisureReport;
+        this.cafeReport = cafeReport;
+        this.pubReport = pubReport;
+    }
 }

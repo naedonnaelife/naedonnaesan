@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -23,8 +25,8 @@ public class ReportController {
     // -> report / reportdong 값을 저장해줘야함
     @PostMapping("addreport")
     public ResponseEntity<Message> addRecommend(@RequestBody RequestDto requestDto){
-        Long id = reportService.addReportAndDong(requestDto);
-        Message message = new Message(HttpStatusEnum.OK, "report/reportdong 저장 완료", id);
+        List<Boolean> list = reportService.addReportAndDong(requestDto);
+        Message message = new Message(HttpStatusEnum.OK, "report/reportdong 저장 완료", list);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

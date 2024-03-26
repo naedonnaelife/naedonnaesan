@@ -1,7 +1,7 @@
 import React from "react";
 import tw, { styled } from "twin.macro";
 import ComparisonGraph from "../ComparisonGraph";
-import UseAxios from "../../../utils/UseAxios";
+// import UseAxios from "../../../utils/UseAxios";
 
 interface SelectedProps {
   selected: string | null;
@@ -32,10 +32,10 @@ const ButtonWrapper = styled.div`
   ${tw`flex`}
 `;
 
-const LikeButton = styled.button`
-  ${tw`w-[30px] h-[30px] border-2 border-red rounded-full
-  max-sm:hidden`}
-`;
+// const LikeButton = styled.button`
+//   ${tw`w-[30px] h-[30px] border-2 border-red rounded-full
+//   max-sm:hidden`}
+// `;
 
 const Card: React.FC<SelectedProps> = ({
   selected,
@@ -43,11 +43,11 @@ const Card: React.FC<SelectedProps> = ({
   cardIndex,
   setDetail,
 }) => {
-  const axios = UseAxios();
+  // const axios = UseAxios();
 
-  const removeLike = async (id: number) => {
-    await axios.delete(`/api/zzim/${id}`);
-  };
+  // const removeLike = async (id: number) => {
+  //   await axios.delete(`/api/zzim/${id}`);
+  // };
 
   return (
     <CardWrapper>

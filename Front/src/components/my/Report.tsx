@@ -26,7 +26,7 @@ const Report: React.FC = () => {
   const [_, setAddress] = useState("");
   const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
   const daum = window.daum;
-  const axios = UseAxios();
+  // const axios = UseAxios();
 
   const serachAddress = () => {
     daum.postcode.load(() => {

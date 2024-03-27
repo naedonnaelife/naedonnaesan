@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 import os
 
 # .env 파일에서 환경변수 로드
-env = 'test'  # test / deploy
+env = 'deploy'  # test / deploy
 load_dotenv(f'.env.{env}')
 
 # 환경변수 사용

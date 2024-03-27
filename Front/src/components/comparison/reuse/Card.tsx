@@ -1,6 +1,7 @@
 import React from "react";
 import tw, { styled } from "twin.macro";
 import ComparisonGraph from "../ComparisonGraph";
+// import UseAxios from "../../../utils/UseAxios";
 
 interface SelectedProps {
   selected: string | null;
@@ -10,7 +11,8 @@ interface SelectedProps {
 }
 
 const CardWrapper = styled.figure`
-  ${tw`flex flex-col w-[40%] h-96 bg-amber-50 `}
+  ${tw`flex flex-col w-[40%] h-96 bg-amber-50 
+  max-sm:h-64`}
 `;
 
 const CardTop = styled.div`
@@ -32,8 +34,7 @@ const ButtonWrapper = styled.div`
 `;
 
 // const LikeButton = styled.button`
-//   ${tw`w-[30px] h-[30px] border-2 border-red rounded-full
-//   max-sm:hidden`}
+//   ${tw`w-[30px] h-[30px]`}
 // `;
 
 const Card: React.FC<SelectedProps> = ({
@@ -42,10 +43,19 @@ const Card: React.FC<SelectedProps> = ({
   cardIndex,
   setDetail,
 }) => {
+  
   // const axios = UseAxios();
 
-  // const removeLike = async (id: number) => {
-  //   await axios.delete(`/api/zzim/${id}`);
+  // const removeLike = (id: number) => {
+  //   axios
+  //     .delete(`/api/zzim/${id}`)
+  //     .then((response) => {
+  //       console.log(response);
+  //       setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.zzimId !== id));
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
   // };
 
   return (
@@ -55,6 +65,7 @@ const Card: React.FC<SelectedProps> = ({
           <CardTop>
             <CardTitle>{selected}</CardTitle>
             <ButtonWrapper>
+            {/* <LikeButton onClick={() => removeLike(likedDongId)}>💗</LikeButton> */}
               <button onClick={() => setSelected(null)}>삭제</button>
             </ButtonWrapper>
           </CardTop>

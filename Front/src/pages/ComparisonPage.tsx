@@ -32,8 +32,8 @@ function ComparisonPage() {
   const [selected2, setSelected2] = useState<string | null>(null);
   const [detail1, setDetail1] = useState<any | null>(null);
   const [detail2, setDetail2] = useState<any | null>(null);
-  const [higher1, setHigher1] = useState<string | null>(null);
-  const [higher2, setHigher2] = useState<string | null>(null);
+  // const [higher1, setHigher1] = useState<string | null>(null);
+  // const [higher2, setHigher2] = useState<string | null>(null);
 
   useEffect(() => {
     if (selected1 === null || selected2 === null) {

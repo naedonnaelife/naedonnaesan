@@ -1,9 +1,13 @@
 import tw, { styled } from "twin.macro";
 import { useEffect, useState } from "react";
 import SearchBar from "../../utils/SearchBar";
-import SB from "../../datas/SB.json";
 import UseAxios from "../../utils/UseAxios";
 import LikedDong from "./reuse/LikedDong";
+
+interface LikeProps {
+  name: string | null;
+}
+
 
 const LikeWrapper = styled.section`
   ${tw`w-[90%]
@@ -23,15 +27,12 @@ const LikeContent = styled.ul`
   ${tw`flex-cc`}
 `;
 
-const Like: React.FC = () => {
+const Like: React.FC<LikeProps> = ({name}) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
   // const likeList = zustand로 끌고옴
 
   const axios = UseAxios();
 
-  // useEffect(() => {
-  // setLikeDongList(likeList);
-  // }, [likeList])
   
   useEffect(() => {
     axios
@@ -50,7 +51,7 @@ const Like: React.FC = () => {
   return (
     <LikeWrapper>
       <LikeTop>
-        <LikeTitle>{SB.reportUserInfo.object.nickname}님이 찜한 동네</LikeTitle>
+        <LikeTitle>{name}님이 찜한 동네</LikeTitle>
         <SearchBar />
       </LikeTop>
       <LikeContent>

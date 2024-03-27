@@ -15,15 +15,15 @@ const ReportWrapper = styled.section`
 `;
 
 const ReportTitle = styled.h1`
-  ${tw`text-3xl mx-5 my-3
-  max-sm:text-2xl max-sm:mx-2`}
+  ${tw`text-3xl font-bold mx-5 my-3
+  max-sm:text-xl max-sm:mx-2`}
   span {
     ${tw`max-sm:block`}
   }
   `;
   
   const DongChangeButton = styled.button`
-  ${tw`underline`}
+  ${tw`underline underline-offset-8`}
   `;
   
 const Report: React.FC<ReportProps> = ({name, address, setAddress}) => {
@@ -89,8 +89,8 @@ const Report: React.FC<ReportProps> = ({name, address, setAddress}) => {
             {address}
           </DongChangeButton>{" "}
           기준
-        </span>{" "}
-        추천 결과 보고서입니다
+        </span>
+        <p>추천 결과 보고서입니다</p>
       </ReportTitle>
       <ReportContent />
     </ReportWrapper>

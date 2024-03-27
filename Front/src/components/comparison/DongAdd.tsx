@@ -18,7 +18,7 @@ const Aside = styled.aside`
 const Title = styled.h1`
   ${tw`text-3xl my-2
   max-sm:hidden`}
-`
+`;
 
 const LikeDongWrapper = styled.div`
   ${tw`items-center w-full pb-4`}
@@ -54,7 +54,6 @@ const LikeButton = styled.button`
   max-sm:hidden`}
 `;
 
-
 const DongAdd: React.FC<DongAddProps> = ({
   setSelected1,
   setSelected2,
@@ -74,10 +73,10 @@ const DongAdd: React.FC<DongAddProps> = ({
       .catch((error) => {
         console.log(error);
       });
-  },[]);
+  }, []);
 
   const handleClick = (dong: string) => {
-
+    console.log(dong);
     // 똑같은 동 또 추가
     if (dong === selected1 || dong === selected2) {
       alert("이미 선택된 동네입니다. 다른 동네를 선택해주세요.");
@@ -94,8 +93,18 @@ const DongAdd: React.FC<DongAddProps> = ({
     }
   };
 
-  const removeLike = async (id: number) => {
-    await axios.delete(`/api/zzim/${id}`);
+  const removeLike = (id: number) => {
+    axios
+      .delete(`/api/zzim/${id}`)
+      .then((response) => {
+        console.log(response);
+        setLikedDongList((prev: any) =>
+          prev.filter((zzim: any) => zzim.zzimId !== id)
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -104,15 +113,19 @@ const DongAdd: React.FC<DongAddProps> = ({
       <LikeDongWrapper>
         <LikedDongTitle>찜한동네</LikedDongTitle>
         <LikeDongList>
-          {likedDongList.map((dong, i) => (
-            <Dong key={i} onClick={() => handleClick(dong.dongName)}>
-              {dong.dongName}
-              <LikeButton onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.stopPropagation()
-                removeLike(dong.zzinId)
-              }}>💗</LikeButton>
-            </Dong>
-          ))}
+          {likedDongList.length > 0 ? (
+            likedDongList.map((dong, i) => (
+              <Dong key={i} onClick={() => handleClick(dong.dongName)}>
+                {dong.dongName}
+                <LikeButton
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {e.stopPropagation();
+                    removeLike(dong.zzimId);}}>💗
+                </LikeButton>
+              </Dong>
+            ))
+          ) : (
+            <p>아직 찜한 동네가 없습니다</p>
+          )}
         </LikeDongList>
       </LikeDongWrapper>
       <SearchWrapper>

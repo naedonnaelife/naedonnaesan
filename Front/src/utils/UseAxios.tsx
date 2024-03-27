@@ -12,7 +12,7 @@ const UseAxios = (): AxiosInstance => {
     (config) => {
       // config.headers["authorization"] = localStorage.getItem("accessToken");
       config.headers['authorization'] =
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE2MTg4ODQsInJvbGUiOiJVU0VSIiwiaWQiOjF9.BSJLKvVQSpIRttMHzagp6U5rc6WiU-lnGmZI65fa0Pw';
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE2Mjg3MzksInJvbGUiOiJVU0VSIiwiaWQiOjZ9.cHCY6xOiS34EOZvOiXpJU6etnzdl3KbN52fky_s_XbQ';
       return config;
     },
     async (error) => {

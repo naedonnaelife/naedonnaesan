@@ -38,12 +38,12 @@ collection = db["news"]  # 사용할 컬렉션 이름
 # documents = collection.find()  # 컬렉션 내 모든 문서 조회
 
 # 모델 로드
-# pca_model = joblib.load(file_path + "pca_model.joblib")
-# knn_model = joblib.load(file_path + "knn_model.joblib")
+pca_model = joblib.load(file_path + "pca_model.joblib")
+knn_model = joblib.load(file_path + "knn_model.joblib")
 
 
-pca_model = joblib.load("pca_model.joblib")
-knn_model = joblib.load("knn_model.joblib")
+# pca_model = joblib.load("pca_model.joblib")
+# knn_model = joblib.load("knn_model.joblib")
 
 origins = [
     "j10e204.p.ssafy.io",

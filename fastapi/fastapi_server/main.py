@@ -8,6 +8,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pymongo import MongoClient
 from sklearn.neighbors import NearestNeighbors
+from starlette.middleware.cors import CORSMiddleware
 
 # 모델 파일이 있는 절대 경로 설정
 # file_path = '/code/app/'  # 컨테이너 내 경로
@@ -47,11 +48,23 @@ with open(file_path + 'korean_stopwords.txt', 'r', encoding='utf-8') as f:
     list_file = f.readlines()
 stopwords = list_file[0].split(",")
 
-app = FastAPI()
-
 # 모델 로드
 pca_model = joblib.load(file_path + "pca_model.joblib")
 knn_model = joblib.load(file_path + "knn_model.joblib")
+
+origins = [
+    "j10e204.p.ssafy.io",
+]
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,  # cross-origin request에서 cookie를 포함할 것인지 (default=False)
+    allow_methods=["*"],  # cross-origin request에서 허용할 method들을 나타냄. (default=['GET']
+    allow_headers=["*"],  # cross-origin request에서 허용할 HTTP Header 목록
+)
 
 
 class PredictRequest(BaseModel):
@@ -61,16 +74,15 @@ class PredictRequest(BaseModel):
 
 async def send_data_to_spring_boot(data, token):
     async with httpx.AsyncClient() as client:
-        # 스프링 부트 애플리케이션의 엔드포인트 URL을 지정해주세요.
-        url = "http://localhost:8080/api/addreport"
-        # url = "https://j10e204.p.ssafy.io/api/addreport"
+        # url = "http://localhost:8080/api/addreport"
+        url = "https://j10e204.p.ssafy.io/api/addreport"
         headers = {"Authorization": f"Bearer {token}"}
         try:
             response = await client.post(url, json=data, headers=headers)
             response.raise_for_status()
-            return response.json()  # 스프링 부트로부터 받은 응답을 반환
+            return response.json()
         except httpx.HTTPStatusError as e:
-            raise HTTPException(status_code=e.response.status_code, detail="Error sending data to Spring Boot")
+            raise HTTPException(status_code=e.response.status_code, detail="전송 실패")
 
 
 @app.post("/ai/recommend")
@@ -116,22 +128,9 @@ async def predict(preference: PredictRequest):
     recommend = recommend.drop(axis=1, columns=['군집'])
     recommend.columns = label
     recommend = recommend.transpose()
-    print(label)
-    print(recommend)
-    print(preference.features)
     response = {
         "userInfo": {i: score for i, score in zip(label[2:], preference.features)},
         "recommend": [{'dongId': i} for i in recommend.iloc[0, :]]
     }
     await send_data_to_spring_boot(response, preference.token)
     return response
-
-
-@app.get("/")
-def health_check():
-    return 200
-
-
-@app.get("/status")
-async def sayHello():
-    return "Hello!!"

@@ -1,10 +1,8 @@
 import httpx
 import joblib
-import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from pymongo import MongoClient
 from sklearn.neighbors import NearestNeighbors
 from starlette.middleware.cors import CORSMiddleware
 # 여기 밑의 import는 뉴스기사용
@@ -21,20 +19,17 @@ from dotenv import load_dotenv
 import os
 
 # .env 파일에서 환경변수 로드
-env = 'deploy'  # test / deploy
+env = 'test'  # test / deploy
 load_dotenv(f'.env.{env}')
-print(load_dotenv())
 
 # 환경변수 사용
 file_path = os.getenv('FILE_PATH')
-print(file_path)
 user = os.getenv('MONGO_USER')
 password = os.getenv('MONGO_PASSWORD')
 host = os.getenv('MONGO_HOST')
 port = os.getenv('MONGO_PORT')
 dbname = os.getenv('MONGO_DBNAME')
 spring_boot_url = os.getenv('SPRING_BOOT_URL')
-
 # MongoDB URI 구성
 uri = f"mongodb://{user}:{password}@{host}:{port}"
 
@@ -132,9 +127,11 @@ async def predict(preference: PredictRequest):
         'recommend': [{'dongId': Id, 'dongName': Name} for Id, Name in zip(recommend.iloc[0, :], recommend.iloc[1, :])]
     }
     spring_boot_response = await send_data_to_spring_boot(response, preference.token)
-    for data, TF in zip(response['recommend'], spring_boot_response['object']):
-        data['isLike'] = TF
+    for data, obj in zip(response['recommend'], spring_boot_response['object']):
+        data['isLike'] = obj['zzim']
     return response
+
+
 @app.get("/ai/keyword")
 def getKeyword():
 
@@ -170,7 +167,6 @@ def getKeyword():
         # 파일 내용 읽기
         content = file.read()
     stopwords = content.strip().split('\n')
-    stopwords
 
     # 뉴스 제목에서 불용어 제거
     cleaned_titles = []
@@ -229,6 +225,3 @@ scheduler.add_job(
 )
 scheduler.start()
 
-@app.get("/status")
-async def sayHello():
-    return "Hello!!"

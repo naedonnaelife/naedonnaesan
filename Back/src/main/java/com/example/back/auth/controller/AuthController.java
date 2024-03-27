@@ -54,7 +54,7 @@ public class AuthController {
 
     // 회원가입 추가정보 전달
     @PostMapping("/userinfo")
-    public ResponseEntity<Message> updateUserInfo(FormDto formDto){
+    public ResponseEntity<Message> updateUserInfo(@RequestBody FormDto formDto){
         Long userId = userService.saveUserInfo(formDto);
         Message message = new Message(HttpStatusEnum.OK, "유저 정보 저장 완료", userId);
         return new ResponseEntity<>(message, HttpStatus.OK);

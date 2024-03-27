@@ -39,7 +39,7 @@ collection = db["news"]  # 사용할 컬렉션 이름
 
 # documents = collection.find()  # 컬렉션 내 모든 문서 조회
 
-with open('korean_stopwords.txt', 'r', encoding='utf-8') as f:
+with open(file_path + 'korean_stopwords.txt', 'r', encoding='utf-8') as f:
   list_file = f.readlines() 
 stopwords = list_file[0].split(",")
 

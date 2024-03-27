@@ -5,13 +5,17 @@ import UseAxios from './UseAxios';
 
 type Dong = {
   dongName : string;
-  dongPk : number;
-  isDongLike : boolean;
+  dongId : number;
+  isLike : boolean;
 }[]
 
+type StyleProps = {
+  color: string;
+}
+
 const RecommendWrapper = styled.ul`
-  ${tw`flex flex-col justify-between h-[35%] border-2 border-lightGray rounded-lg m-2
-  max-sm:w-[50%] max-sm:h-[100%] max-sm:bg-red max-sm:mt-0`}
+  ${tw`flex flex-col h-[35%] border-2 border-lightGray rounded-lg m-2
+  max-sm:w-[100%] max-sm:h-[100%] max-sm:mt-0 max-sm:bg-semiWhite`}
 `;
 
 const Title = styled.h2`
@@ -31,7 +35,8 @@ const TownName = styled.p`
 `;
 
 const Like = styled.button`
-  ${tw`flex justify-center items-center w-[30px] h-[30px] border-2 border-red rounded-full`}
+  ${tw`flex justify-center items-center w-[30px] h-[30px] border-2 border-grayHover rounded-full`}
+  ${({color}:StyleProps) => `border-color : ${color}`};
 `;
 
 
@@ -44,7 +49,6 @@ const RecommendList: React.FC = () => {
   const recommendList = useSearchStore(state => state.recommendList)
 
   const addLike = async (id:number, index: number) => {
-    console.log('좋아요 : ', id)
     await axios.post(`/api/zzim/${id}`)
     .then((response) => {
       setLikeDongList(prev => prev.map((e, idx) => (idx === index ? true : e)))
@@ -53,7 +57,6 @@ const RecommendList: React.FC = () => {
   };
 
   const removeLike = async (id:number, index: number) => {
-    console.log('싫어요 : ', id)
     await axios.delete(`/api/zzim/${id}`)
     .then((response) => {
       setLikeDongList(prev => prev.map((e, idx) => (idx === index ? false : e)))
@@ -64,8 +67,7 @@ const RecommendList: React.FC = () => {
 
   useEffect(()=>{
     setNewRecommendList(recommendList)
-    // console.log(recommendList)
-    const selectLikeDong = recommendList.map(e => e.isDongLike)
+    const selectLikeDong = recommendList.map(e => e.isLike)
     setLikeDongList(selectLikeDong)
   }, [recommendList])
 
@@ -81,9 +83,9 @@ const RecommendList: React.FC = () => {
             <Index>{index + 1}</Index>
             <TownName onClick={() => selectArea(element.dongName)}>{element.dongName}</TownName>
             {likeDongList[index]? (
-              <Like onClick={() => removeLike(element.dongPk, index)}>💗</Like>
+              <Like color='red' onClick={() => removeLike(element.dongId, index)}>💗</Like>
             ) : (
-              <Like onClick={() => addLike(element.dongPk, index)}>🤍</Like>
+              <Like onClick={() => addLike(element.dongId, index)}>🤍</Like>
             )}
           </RecommendResult>
         ))}

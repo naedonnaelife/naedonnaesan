@@ -2,6 +2,7 @@ import tw, { styled } from 'twin.macro';
 import { useEffect, useState } from 'react';
 import { keyframes } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
+import { indexColor } from '../../../datas/ms';
 
 interface CardProps {
   index: number;
@@ -19,17 +20,19 @@ type StyleProps = {
   width: string;
   isAnimate: boolean;
   isLeft: boolean;
+  index: number;
+  isApp: boolean;
 };
 
-const upAnimation = (animate: boolean) => {
+const upAnimation = (animate: boolean, isApp: boolean) => {
   if (animate) {
     return keyframes`
       from {
-        top: 50vh;
+        ${isApp? 'left:-200px': 'top: 50vh'};
         opacity: 0;
       }
       to {
-        top: 25vh;
+        ${isApp? 'left:0px': 'top: 25vh'};
         opacity: 1;
       }
     `;
@@ -52,7 +55,7 @@ const CardImage = styled.img`
     left: ${({ width }: StyleProps) => `${width}px`};
     ${({ isLeft }: StyleProps) => (isLeft ? 'margin-left : 150px;' : 'margin-left : -150px;')}
   }
-  animation: ${({ isAnimate }: StyleProps) => upAnimation(isAnimate)} 1.5s ease-in-out;
+  animation: ${({ isAnimate, isApp }: StyleProps) => upAnimation(isAnimate, isApp)} 1s ease-in-out;
 `;
 
 const CaptionWrapper = styled.figcaption`
@@ -61,31 +64,35 @@ const CaptionWrapper = styled.figcaption`
   @media (min-width: 640px) {
     ${({ width }: StyleProps) => `left: ${width}px;`}
   }
-  animation: ${({ isAnimate }: StyleProps) => upAnimation(isAnimate)} 1s ease-in-out;
+  animation: ${({ isAnimate, isApp }: StyleProps) => upAnimation(isAnimate, isApp)} 1s ease-in-out;
 `;
 
 const CardTitle = styled.h2`
-  ${tw`w-[60%] text-2xl text-orange-400 ml-[10vw] mb-auto
-  max-sm:text-left max-sm:mb-[3vh]`}
+  ${tw`w-[60%] text-2xl ml-[10vw] mb-auto
+  max-sm:w-[80%] max-sm:mb-[3vh]`}
+  ${({ index }: StyleProps) => `color: ${indexColor[index].title};`}
 `;
 
 const CardContent = styled.p`
   ${tw`w-[60%] text-3xl whitespace-pre-wrap ml-[10vw] mb-auto
-  max-sm:text-2xl max-sm:text-left max-sm:mb-[2vh]`}
+  max-sm:w-[80%] max-sm:text-xl max-sm:mb-[2vh]`}
 `;
 
 const CardSubContent = styled(CardContent)`
   ${tw`w-[60%] text-xl ml-[10vw] mb-[2vh]
-  max-sm:text-lg max-sm:text-left`}
+  max-sm:w-[80%] max-sm:text-sm `}
 `;
 
 const ServiceLink = styled.button`
-  ${tw` w-[40%] h-[20%]  bg-gradient-to-r from-orange-300 to-pink-400 rounded-lg text-xl text-white p-2
-  max-sm:absolute max-sm:top-[77.5vh] max-sm:text-lg `}
+  ${tw` w-[40%] h-[20%] rounded-lg text-xl text-white p-2
+  max-sm:absolute max-sm:w-[60%] max-sm:top-[77.5vh] max-sm:text-lg `}
+  ${({ width, index }: StyleProps) => `left: ${width}px; background: ${indexColor[index].bg};`}
+
 `;
 
 const Card: React.FC<CardProps> = ({ index, data }) => {
   const [isAnimate, setIsAnimate] = useState(false);
+  const [isApp, setIsApp] = useState(false)
   const navigate = useNavigate();
   const height = window.innerHeight * index + 150;
   const width = window.innerWidth / 2;
@@ -99,14 +106,25 @@ const Card: React.FC<CardProps> = ({ index, data }) => {
     }
   };
 
+  const handleResize = () => {
+    const nowWidth = window.innerWidth
+    if(nowWidth <= 640){
+      setIsApp(true)
+    } else{
+      setIsApp(false)
+    }
+  }
+
   const movePage = (url: string) => {
     navigate(`./${url}`);
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -114,23 +132,23 @@ const Card: React.FC<CardProps> = ({ index, data }) => {
     <>
       {index % 2 === 0 ? (
         <CardWrapper color="#ffffff">
-          <CaptionWrapper isAnimate={isAnimate}>
-            <CardTitle>{data.title}</CardTitle>
+          <CaptionWrapper isAnimate={isAnimate} isApp={isApp}>
+            <CardTitle index={index}>{data.title}</CardTitle>
             <CardContent> {data.content} </CardContent>
             <CardSubContent> {data.subContent} </CardSubContent>
-            <ServiceLink onClick={() => movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
+            <ServiceLink index={index} onClick={() => movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
           </CaptionWrapper>
-          <CardImage width={width} isLeft={false} isAnimate={isAnimate} src={data.image} alt="image" />
+          <CardImage width={width} isLeft={false} isAnimate={isAnimate} isApp={isApp} src={data.image} alt="image" />
         </CardWrapper>
       ) : (
         <CardWrapper>
-          <CaptionWrapper width={width} isAnimate={isAnimate}>
-            <CardTitle CardTitle>{data.title}</CardTitle>
+          <CaptionWrapper width={width} isAnimate={isAnimate} isApp={isApp}>
+            <CardTitle index={index}>{data.title}</CardTitle>
             <CardContent> {data.content} </CardContent>
             <CardSubContent> {data.subContent} </CardSubContent>
-            <ServiceLink onClick={() => movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
+            <ServiceLink index={index} onClick={() => movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
           </CaptionWrapper>
-          <CardImage isAnimate={isAnimate} isLeft={true} src={data.image} alt="image" />
+          <CardImage isAnimate={isAnimate} isLeft={true} isApp={isApp} src={data.image} alt="image" />
         </CardWrapper>
       )}
     </>

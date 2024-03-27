@@ -8,6 +8,7 @@ interface SliderProps {
       detail : string,
       pk : number
     };
+    score : number;
     changeScore : (element:number, index:number) => void;
 }
 
@@ -47,14 +48,12 @@ ${tw`flex-c w-[30px] h-[25px] rounded-t-lg bg-green-200 text-xs hover:scale-110 
 ${({isMouseEnter}:StyleProps) => (isMouseEnter ? tw`` : tw`hidden`)}
 `
 
-const SelectCard: React.FC<SliderProps> = ({data, changeScore}) => {
-    const [score, setScore] = useState(0)
+const SelectCard: React.FC<SliderProps> = ({data, score, changeScore}) => {
     const [isMouseEnter, setIsMouseEnter] = useState(false)
     const arr = ['낮음', '보통', '높음']
 
 
     const handleBox = (e:number) => {
-        setScore(e)
         changeScore(e, data.pk)
     }
 

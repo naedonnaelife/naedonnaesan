@@ -54,3 +54,11 @@ export const contents = [
   { name: '동네 정보', background: informationCarousel },
   { name: '마이페이지', background: mypageCarousel },
 ];
+
+export const indexColor = [
+  {title : '#FFB6E6', bg : 'linear-gradient(to right, #F7DAE2, #FFB6E6)'},
+  {title : '#BC86FF', bg : 'linear-gradient(to left, #BC86FF, #E8D6FF)'},
+  {title : '#F6C4B9', bg : 'linear-gradient(to right, #F6C4B9, #FADDD7)'},
+  {title : '#8DB3FF', bg : 'linear-gradient(to left, #8DB3FF, #CBC9FF)'},
+  {title : '#8BEFB1', bg : 'linear-gradient(to right, #8BEFB1, #D4F1EF)'},
+]

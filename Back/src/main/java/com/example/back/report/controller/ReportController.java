@@ -4,6 +4,7 @@ import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
 import com.example.back.report.dto.ReportDto;
 import com.example.back.report.dto.RequestDto;
+import com.example.back.report.dto.ResponseDto;
 import com.example.back.report.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class ReportController {
     // -> report / reportdong 값을 저장해줘야함
     @PostMapping("addreport")
     public ResponseEntity<Message> addRecommend(@RequestBody RequestDto requestDto){
-        List<Boolean> list = reportService.addReportAndDong(requestDto);
+        List<ResponseDto> list = reportService.addReportAndDong(requestDto);
         Message message = new Message(HttpStatusEnum.OK, "report/reportdong 저장 완료", list);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

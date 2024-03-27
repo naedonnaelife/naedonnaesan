@@ -1,34 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
-import data from '../../datas/jm.json';
+import UseAxios from '../../utils/UseAxios';
+
+interface TextBoxProps {
+  dongName : string;
+}
 
 const TextWrapper = styled.div`
   ${tw`flex-cc border-basic m-1`}
 `;
 
-const TextBox: React.FC = () => {
-  const [dongInformation, setDongInformation] = useState({
-    metro: [''],
-    age: 0,
-    gender: '',
-    montlyFeeAvg: 0,
-  });
+const SubwaySpan = styled.span`
+  ${tw`text-blue-500`}
+`
+
+const TextBox: React.FC<TextBoxProps> = ({dongName}) => {
+  const [subways, setSubways] = useState(['']);
+
+  const axios = UseAxios()
+
 
   useEffect(() => {
-    setDongInformation(data.dongInformation.object);
-  });
+    const getSubways = async () => {
+      const response = await axios.get(`/api/dashboard/subway/${dongName}`).then(res => res.data.object)
+      const lastIndex = response.length - 1
+      const arrData = response.map((e:any, index:number) => index===lastIndex? `${e.line}호선 ${e.subwayName}역` : `${e.line}호선 ${e.subwayName}역, ` )
+      setSubways(arrData)
+    }
+
+    getSubways()
+  },[]);
 
   return (
     <TextWrapper>
       <p>
-        ㅇㅇ동에는{' '}
-        {dongInformation.metro.map((station) => (
-          <span key={station}>'{station}' </span>
-        ))}{' '}
-        이 있습니다.
-      </p>
-      <p>
-        {dongInformation.age}대 {dongInformation.gender}성이 가장 선호한 지역입니다!
+        {dongName}에 인접한 지하철은 {subways.map((e:any) => <SubwaySpan>{e}</SubwaySpan>)}이 있습니다.
       </p>
     </TextWrapper>
   );

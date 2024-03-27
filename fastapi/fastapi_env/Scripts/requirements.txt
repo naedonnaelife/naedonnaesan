@@ -6,9 +6,6 @@ pymongo
 numpy
 pandas
 konlpy
-# conda install -c conda-forge hdbscan
-hdbscan==0.8.32
-bertopic
 httpx
 apscheduler
 python-dotenv

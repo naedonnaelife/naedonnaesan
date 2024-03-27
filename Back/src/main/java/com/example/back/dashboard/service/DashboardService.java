@@ -17,7 +17,7 @@ import com.example.back.subway.repository.SubwayRepository;
 import org.springframework.stereotype.Service;
 
 import com.example.back.dashboard.dto.ArticleDto;
-import com.example.back.dashboard.entity.Article;
+import com.example.back.dashboard.document.Article;
 import com.example.back.dashboard.repository.ArticleRepository;
 import com.example.back.infracount.dto.InfraTypeCountDto;
 import com.example.back.infracount.repository.InfraCountRepository;
@@ -38,24 +38,34 @@ public class DashboardService {
 		return articleList.stream().map(
 			article -> {
 				ArticleDto dto = new ArticleDto();
-				dto.setArticleId(article.getArticleId());
-				dto.setContent(article.getContent());
-				dto.setImageUrl(article.getImageUrl());
+				dto.setId(article.getId());
+				dto.setCompany(article.getCompany());
 				dto.setTitle(article.getTitle());
+				dto.setLink(article.getLink());
+				dto.setPublished(article.getPublished());
+				dto.setCategory(article.getCategory());
+				dto.setCategory_str(article.getCategory_str());
+				dto.setReporter(article.getReporter());
+				dto.setArticle(article.getArticle());
 				return dto;
 			}).collect(Collectors.toList());
 	}
 
-	public ArticleDto getArticle(long articleId) {
+	public ArticleDto getArticle(String articleId) {
 		Article article = articleRepository.findByArticleId(articleId);
 		System.out.println(article);  // 디버깅 코드
 		ArticleDto dto = null;
 		if (article != null) {
 			dto = new ArticleDto();
-			dto.setArticleId(article.getArticleId());
-			dto.setContent(article.getContent());
-			dto.setImageUrl(article.getImageUrl());
+			dto.setId(article.getId());
+			dto.setCompany(article.getCompany());
 			dto.setTitle(article.getTitle());
+			dto.setLink(article.getLink());
+			dto.setPublished(article.getPublished());
+			dto.setCategory(article.getCategory());
+			dto.setCategory_str(article.getCategory_str());
+			dto.setReporter(article.getReporter());
+			dto.setArticle(article.getArticle());
 		}
 		return dto;
 	}

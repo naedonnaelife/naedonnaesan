@@ -39,7 +39,7 @@ public class DashboardController {
 	}
 
 	@GetMapping("/news/articleid/{articleid}")
-	public ResponseEntity<Message> getArticle(@PathVariable(value = "articleid") long articleId) {
+	public ResponseEntity<Message> getArticle(@PathVariable(value = "articleid") String articleId) {
 		ArticleDto article = dashboardService.getArticle(articleId);
 		Message message =
 			article != null ?

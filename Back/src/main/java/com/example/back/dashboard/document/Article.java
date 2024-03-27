@@ -1,15 +1,16 @@
-package com.example.back.dashboard.dto;
+package com.example.back.dashboard.document;
 
-import lombok.AllArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 
+@Document(collection = "news")
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class ArticleDto {
+@ToString
+public class Article {
+	@Id
 	private String id;
 	private String company;
 	private String title;
@@ -19,4 +20,6 @@ public class ArticleDto {
 	private String category_str;
 	private String reporter;
 	private String article;
+
+
 }

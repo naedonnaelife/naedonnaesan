@@ -3,6 +3,7 @@ import tw, { styled } from "twin.macro";
 import UseAxios from "./UseAxios";
 // import alert, {alert2, alert3, alert4} from './Alet';
 import alert4 from "./Alet";
+import { useNavigate } from "react-router-dom";
 
 type EventType = React.ChangeEvent<HTMLInputElement>;
 
@@ -37,6 +38,7 @@ function UserForm() {
   const [name, setName] = useState("");
   const [coordinate, SetCoordinate] = useState({x : '', y : ''})
   const axios = UseAxios();
+  const navigate = useNavigate()
   const inputData = {
     age,
     address,
@@ -44,6 +46,7 @@ function UserForm() {
     name,
     coordinate
   };
+
   const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
   const {daum} = window;
   
@@ -80,7 +83,9 @@ function UserForm() {
 
   const inputUserInfo = async (e: React.FormEvent) => {
     e.preventDefault();
-    await axios.post("/api/userinfo", inputData);
+    await axios.post("/api/userinfo", inputData).then(
+      () => {navigate('/recommend')}
+    );
   };
   // 테스트
   const testAlert = () => {

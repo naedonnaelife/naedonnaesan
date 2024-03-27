@@ -37,6 +37,7 @@ public class UserService {
     public Long updateAddr(String address,String x, String y){
         User user = getUser();
         user.updateAddress(address,x,y);
+        userRepository.save(user);
         return user.getUserId();
     }
 

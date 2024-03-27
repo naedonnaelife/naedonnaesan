@@ -50,7 +50,7 @@ const CardImage = styled.img`
   @media (min-width: 640px) {
     /* max-sm 크기에서는 아래 스타일들을 적용하지 않음 */
     left: ${({ width }: StyleProps) => `${width}px`};
-    ${({ isLeft }: StyleProps) => (isLeft ? 'margin-left : 50px;' : 'margin-left : -50px;')}
+    ${({ isLeft }: StyleProps) => (isLeft ? 'margin-left : 150px;' : 'margin-left : -150px;')}
   }
   animation: ${({ isAnimate }: StyleProps) => upAnimation(isAnimate)} 1.5s ease-in-out;
 `;
@@ -65,17 +65,17 @@ const CaptionWrapper = styled.figcaption`
 `;
 
 const CardTitle = styled.h2`
-  ${tw`w-[100%] text-2xl text-orange-400 ml-[10vw] mb-auto
+  ${tw`w-[60%] text-2xl text-orange-400 ml-[10vw] mb-auto
   max-sm:text-left max-sm:mb-[3vh]`}
 `;
 
 const CardContent = styled.p`
-  ${tw`w-[100%] text-3xl whitespace-pre-wrap ml-[10vw] mb-auto
+  ${tw`w-[60%] text-3xl whitespace-pre-wrap ml-[10vw] mb-auto
   max-sm:text-2xl max-sm:text-left max-sm:mb-[2vh]`}
 `;
 
 const CardSubContent = styled(CardContent)`
-  ${tw`w-[100%] text-xl ml-[10vw] mb-[2vh]
+  ${tw`w-[60%] text-xl ml-[10vw] mb-[2vh]
   max-sm:text-lg max-sm:text-left`}
 `;
 

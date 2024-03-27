@@ -1,12 +1,29 @@
 import { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
+import { keyframes } from '@emotion/react';
 import UseAxios from '../../utils/UseAxios';
 import UserStore from '../../stores/UserStore';
 import { useNavigate } from 'react-router-dom';
 
+
+const fadeIn = keyframes`
+  from{
+    transform: translateY(25%);
+    opacity : 0;
+  }
+  to{
+    transform: translateY(0%);
+    opacity : 1;
+  }
+`;
+
+
+
 const LoginButton = styled.button`
-  ${tw`flex-c h-[15%] w-[10vw] bg-gray rounded-lg text-2xl ml-auto mr-[5vw] p-2
-  max-sm:w-[15vw] max-sm:text-lg`}
+  ${tw`flex-c bg-mango rounded-lg text-2xl p-5
+  max-sm:w-[25vw] max-sm:text-lg `}
+  animation : ${fadeIn} 1s ease-in-out;
+
 `;
 
 const KakaoLogin:React.FC = () => {
@@ -18,6 +35,9 @@ const KakaoLogin:React.FC = () => {
     // const REST_API_KEY = process.env.REACT_APP_REST_API_KEY
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${redirect_uri}&prompt=login`;
 
+    // const moveRecommend = () => {
+    //   navigate('/recommend');
+    // };
 
     const kakaoLogin = () => {
         window.location.href = kakaoURL;
@@ -44,7 +64,6 @@ const KakaoLogin:React.FC = () => {
         localStorage.setItem("refreshToken", response.headers['authorization-refresh']);
         localStorage.setItem("kakaoToken", response.headers['kakao-authorization']);
         useStore.setIsLogin(true)
-        console.log('응답 : ', response)
         if(response.headers['isfirst']){
           navigate('./initial')
         }
@@ -66,7 +85,7 @@ const KakaoLogin:React.FC = () => {
     
     return( 
     <>
-      {!useStore.isLogin &&<LoginButton onClick={kakaoLogin}>로그인</LoginButton>}
+      {!useStore.isLogin &&<LoginButton onClick={kakaoLogin}>로그인하고 시작하기</LoginButton>}
       {useStore.isLogin &&<LoginButton onClick={kakaoLogout}>로그아웃</LoginButton>}
 
     </>

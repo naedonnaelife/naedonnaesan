@@ -3,9 +3,13 @@ import { keyframes } from '@emotion/react';
 import { useState } from 'react';
 import { contents } from '../../../datas/ms';
 
-type runningProps = {
+type RunningProps = {
   isRunning: boolean;
 };
+
+type StyleProps = {
+  background : string;
+}
 
 const fadeIn = keyframes`
   0%{
@@ -32,13 +36,13 @@ const clone = keyframes`
 `;
 
 const SlideWrapper = styled.section`
-  ${tw`flex w-full h-[60vh] overflow-hidden`}
+  ${tw`flex w-full h-[60vh] overflow-hidden mt-[5vh]`}
   animation : ${fadeIn} 0.8s;
 `;
 
 const OriginSlides = styled.ul`
   ${tw`flex-c mt-[10vh] pl-0 `}
-  animation: ${({ isRunning }: runningProps) =>
+  animation: ${({ isRunning }: RunningProps) =>
     isRunning
       ? '60s linear 0s infinite normal forwards running'
       : '60s linear 0s infinite normal forwards paused'} ${origin};
@@ -46,20 +50,26 @@ const OriginSlides = styled.ul`
 
 const CloneSlides = styled.ul`
   ${tw`flex-c mt-[10vh] pl-0 `}
-  animation: ${({ isRunning }: runningProps) =>
+  animation: ${({ isRunning }: RunningProps) =>
     isRunning
       ? '60s linear 0s infinite normal forwards running'
       : '60s linear 0s infinite normal forwards paused'} ${clone};
 `;
 
 const Slide = styled.li`
-  ${tw`flex flex-col justify-between h-[100%] w-calc-6 rounded-lg bg-gradient-to-r from-green-300 to-blue-100 shadow-lg text-center text-white mr-[5vw] mb-[5vw] hover:scale-105 transition-transform duration-300
+  ${tw`flex flex-col justify-between h-[100%] w-calc-6 rounded-lg shadow-lg text-center text-white mr-[5vw] mb-[5vw] hover:scale-105 transition-transform duration-300
     max-sm:w-calc-4`}
+  background-image: ${({ background }: StyleProps) => `url(${background})`};
+  background-size: cover;
+  background-position: center;
 `;
 
+// bg-gradient-to-r from-green-300 to-blue-100
+
 const ContentName = styled.p`
-  ${tw`mt-[5vh] text-2xl
+  ${tw`mt-[5vh] text-4xl text-semiWhite
     max-sm:text-lg`}
+    -webkit-text-stroke: 0.5px lightgray;
 `;
 
 const MoveContent = styled.button`
@@ -92,8 +102,8 @@ const Carousel: React.FC = () => {
       <SlideWrapper>
         <OriginSlides isRunning={isRunning}>
           {contents.map((content, index) => (
-            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={index}>
-              <ContentName>{content}</ContentName>
+            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={index} background={content.background}>
+              <ContentName>{content.name}</ContentName>
               <MoveContent onClick={() => handleScroll(index)}> 더 알아보기 ▼ </MoveContent>
             </Slide>
           ))}
@@ -101,8 +111,8 @@ const Carousel: React.FC = () => {
 
         <CloneSlides isRunning={isRunning}>
           {contents.map((content, index) => (
-            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={index}>
-              <ContentName>{content}</ContentName>
+            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={index} background={content.background}>
+              <ContentName>{content.name}</ContentName>
               <MoveContent onClick={() => handleScroll(index)}> 더 알아보기 ↓ </MoveContent>
             </Slide>
           ))}

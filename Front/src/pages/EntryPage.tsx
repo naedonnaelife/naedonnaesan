@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 import { keyframes } from '@emotion/react';
-import UserStore from '../stores/UserStore';
+// import UserStore from '../stores/UserStore';
 import Card from '../components/entry/reuse/Card';
 import Carousel from '../components/entry/reuse/Carousel';
 import KakaoLogin from '../components/entry/KakaoLogin';
@@ -28,16 +27,21 @@ const EntryWrapper = styled.section`
 `;
 
 const EntryTitle = styled.h1`
-  ${tw` h-[30%] text-5xl
+  ${tw` flex-c h-[20%] mt-[15vh] text-7xl
   max-sm:text-3xl max-sm:mt-[10vh]`}
   animation : ${fadeIn} 1s ease-in-out;
 `;
 
-const StartButton = styled.button`
-  ${tw`flex-c h-[15%] w-[10vw] bg-mango rounded-lg text-2xl p-2
-  max-sm:w-[25vw] max-sm:text-lg `}
+const P = styled.p`
+  ${tw` h-[40%] text-3xl mt-[3vh]`}
   animation : ${fadeIn} 1s ease-in-out;
-`;
+`
+
+//   const StartButton = styled.button`
+//   ${tw`flex-c h-[15%] w-[10vw] bg-mango rounded-lg text-2xl p-2
+//   max-sm:w-[25vw] max-sm:text-lg `}
+//   animation : ${fadeIn} 1s ease-in-out;
+// `;
 
 const TopScrollButton = styled.button`
   ${tw`fixed h-[4vh] w-[2vw] border-2 rounded-full bottom-4 right-4 hover:bg-yellow-200 hover:scale-105
@@ -45,12 +49,7 @@ max-sm:w-[5vw]`}
 `;
 
 function EntryPage() {
-  const isLogin = UserStore((state) => state.isLogin);
-  const navigate = useNavigate();
-
-  const moveRecommend = () => {
-    navigate('/recommend');
-  };
+  // const isLogin = UserStore((state) => state.isLogin);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -63,10 +62,9 @@ function EntryPage() {
     <>
       <Main>
         <EntryWrapper>
+          <EntryTitle> 🧀🍤 내 돈 내 산 🍜🥝</EntryTitle>
+          <P>인프라 기반 동네 추천 서비스</P>
           <KakaoLogin />
-          <EntryTitle>내돈내산의 인프라 기반 동네 추천 서비스</EntryTitle>
-          {isLogin && <StartButton onClick={moveRecommend}>시작하기</StartButton>}
-          {!isLogin && <StartButton onClick={moveRecommend}>시작하기</StartButton>}
         </EntryWrapper>
         <Carousel />
 

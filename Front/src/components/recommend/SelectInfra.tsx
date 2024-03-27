@@ -21,8 +21,16 @@ const Title = styled.h2`
 ${tw` w-full m-2 mb-4`}
 `
 
+const ButtonWrapper = styled.div`
+    ${tw`flex-c w-full `}
+`
+
+const ResetButton = styled.button`
+${tw` w-[20%] bg-purple-200 rounded-lg  ml-auto mb-2 p-1`}
+`
+
 const SubmitButton = styled.button`
-${tw` w-full bg-purple-200 rounded-lg  ml-auto mr-[1vw] mb-2 p-1`}
+${tw` w-[70%] bg-purple-200 rounded-lg  ml-auto mr-[1vw] mb-2 p-1`}
 `
 
 
@@ -41,7 +49,11 @@ const SelectInfra:React.FC = () => {
     const axios = UseAxios()
     // const update = useSearchStore(state => state.updateRecommendList)
     const getDongList = async () => {
-        const response:recommendDong = await axios.post(`/ai/recommend`, infraData)
+        // const token = localStorage.getItem("accessToken")
+        // console.log('결과 : ', token)
+        // const result = token.slice(6)
+
+        const response:recommendDong = await axios.post(`/ai/recommend`, {features : infraData, token : `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE2MDM2MjksInJvbGUiOiJVU0VSIiwiaWQiOjJ9.kqDjXRWumW_KEOpjFtFZ8RQV8ySeH4MW0nz5AU2DqeQ` })
         // update(response)
         console.log('응답 : ', response)
     }
@@ -58,7 +70,10 @@ const SelectInfra:React.FC = () => {
             <SelectWrapper>
                 <Title>인프라 선택하기</Title>
                 {dummyData.map(element => <SelectCard key={element.pk} data={element} changeScore={changeScore}/>)}
-                <SubmitButton onClick={getDongList}>검색</SubmitButton>
+                <ButtonWrapper>
+                    <ResetButton> 초기화 </ResetButton>
+                    <SubmitButton onClick={getDongList}>검색</SubmitButton>
+                </ButtonWrapper>
             </SelectWrapper>
         </>
     );

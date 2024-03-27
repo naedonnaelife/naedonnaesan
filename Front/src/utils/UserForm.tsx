@@ -59,6 +59,7 @@ function UserForm() {
     });
   };
 
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = src;
@@ -86,6 +87,7 @@ function UserForm() {
     alert4({ title: "title", content: "content", icon: "icon" });
     console.log("경고");
   };
+  
   return (
     <FormWrapper>
       <div onClick={testAlert}>Alert 테스트</div>
@@ -96,8 +98,8 @@ function UserForm() {
             value={gender}
             onChange={(e: EventType) => setGender(e.target.value)}
           >
-            <option value="여자">여자</option>
-            <option value="남자">남자</option>
+            <option value="F">여자</option>
+            <option value="M">남자</option>
           </Select>
         </Label>
         <Label htmlFor="">

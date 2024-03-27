@@ -23,13 +23,13 @@ const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen }) => {
   const [seoulCounts, setSeoulCounts] = useState<number[]>([])
   const axios = UseAxios()
   const dongId = 12
+  const dongName = '창동'
 
   useEffect(() => {
       const getSeoulData = async () => {
         const response = await axios.get('/api/dashboard/infra/avg')
-        // console.log('데이터 : ' ,response)
-        const counts = response.data.object.infraCountAvg.map((e: any) => e.avgCount);
-        const scores = response.data.object.infraScoreAvg.map((e: any) => e.score); 
+        const counts = response.data.object.infraCountAvg.map((e: any) => e.avgCount.toFixed(1));
+        const scores = response.data.object.infraScoreAvg.map((e: any) => e.score);
         setSeoulCounts(counts)
         setSeoulScores(scores)
         }
@@ -38,7 +38,6 @@ const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen }) => {
         const response = await axios.get(`/api/dashboard/infra/${dongId}`);
         const counts = response.data.object.map((e: any) => e.totalCount);
         const scores = response.data.object.map((e: any) => e.infraTypeScore); 
-        console.log('데이터 :' ,response) 
         setDongCounts(counts);
         setDongScores(scores);
       };
@@ -56,7 +55,7 @@ const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen }) => {
         <>
           <RadarChart seoulData={seoulScores} dongData={dongScores} />
           <TableChart dongData={dongCounts} seoulData={seoulCounts}/>
-          <TextBox />
+          <TextBox dongName={dongName}/>
         </>
       )}
     </ReportWrapper>

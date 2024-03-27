@@ -11,7 +11,7 @@ const UseAxios = (): AxiosInstance => {
   axiosInstance.interceptors.request.use(
     (config) => {
       // config.headers["authorization"] = localStorage.getItem("accessToken");
-      config.headers["authorization"] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE1MTg0MDYsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.toC12P01e90dppp0GSbzAwDyjBZUKf9enquDqPPWHZY'
+      config.headers["authorization"] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE2MDM2MjksInJvbGUiOiJVU0VSIiwiaWQiOjJ9.kqDjXRWumW_KEOpjFtFZ8RQV8ySeH4MW0nz5AU2DqeQ'
       return config;
     },
     async (error) => {

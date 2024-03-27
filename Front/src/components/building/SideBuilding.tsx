@@ -93,6 +93,7 @@ function SideBuilding({
   const [buildingList, setBuildingList] = useState<Building[]>([]);
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
   const [isLast, setIsLast] = useState(false);
+  const [searchDong, setSearchDong] = useState(areaName);
   const [pageRef, inView] = useInView();
   const axios = UseAxios();
 
@@ -170,7 +171,7 @@ function SideBuilding({
       <SideFixWrapper>
         <HamburgerButton onClick={handleHamburgerButton}>🍔</HamburgerButton>
         <SearchWarpper>
-          <SearchBar />
+          <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
         </SearchWarpper>
         {/* <ButtonWrapper>
           <Button>가격</Button>

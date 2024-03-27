@@ -1,13 +1,12 @@
-import tw, { styled } from "twin.macro";
-import { useEffect, useState } from "react";
-import SearchBar from "../../utils/SearchBar";
-import UseAxios from "../../utils/UseAxios";
-import LikedDong from "./reuse/LikedDong";
+import tw, { styled } from 'twin.macro';
+import { useEffect, useState } from 'react';
+import SearchBar from '../../utils/SearchBar';
+import UseAxios from '../../utils/UseAxios';
+import LikedDong from './reuse/LikedDong';
 
 interface LikeProps {
   name: string | null;
 }
-
 
 const LikeWrapper = styled.section`
   ${tw`w-[90%]
@@ -27,16 +26,16 @@ const LikeContent = styled.ul`
   ${tw`flex-cc`}
 `;
 
-const Like: React.FC<LikeProps> = ({name}) => {
+const Like: React.FC<LikeProps> = ({ name }) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
+  const [searchDong, setSearchDong] = useState('');
   // const likeList = zustand로 끌고옴
 
   const axios = UseAxios();
 
-  
   useEffect(() => {
     axios
-      .get("/api/mypage/likelist")
+      .get('/api/mypage/likelist')
       .then((response) => {
         const newLikedDongList = response.data.object.map((dong: any) => dong);
         setLikedDongList(newLikedDongList);
@@ -52,7 +51,7 @@ const Like: React.FC<LikeProps> = ({name}) => {
     <LikeWrapper>
       <LikeTop>
         <LikeTitle>{name}님이 찜한 동네</LikeTitle>
-        <SearchBar />
+        <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
       </LikeTop>
       <LikeContent>
         {likedDongList.map((likedDong: any, index: number) => (

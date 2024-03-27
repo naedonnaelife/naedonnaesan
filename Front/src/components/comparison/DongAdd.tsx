@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import tw, { styled } from "twin.macro";
-import SearchBar from "../../utils/SearchBar";
-import UseAxios from "../../utils/UseAxios";
+import React, { useEffect, useState } from 'react';
+import tw, { styled } from 'twin.macro';
+import SearchBar from '../../utils/SearchBar';
+import UseAxios from '../../utils/UseAxios';
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -18,7 +18,7 @@ const Aside = styled.aside`
 const Title = styled.h1`
   ${tw`text-3xl my-2
   max-sm:hidden`}
-`
+`;
 
 const LikeDongWrapper = styled.div`
   ${tw`items-center w-full pb-4`}
@@ -54,18 +54,13 @@ const LikeButton = styled.button`
   max-sm:hidden`}
 `;
 
-
-const DongAdd: React.FC<DongAddProps> = ({
-  setSelected1,
-  setSelected2,
-  selected1,
-  selected2,
-}) => {
+const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1, selected2 }) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
+  const [searchDong, setSearchDong] = useState('');
   const axios = UseAxios();
   useEffect(() => {
     axios
-      .get("/api/mypage/likelist")
+      .get('/api/mypage/likelist')
       .then((response) => {
         const newLikedDongList = response.data.object.map((dong: any) => dong);
         setLikedDongList(newLikedDongList);
@@ -74,13 +69,12 @@ const DongAdd: React.FC<DongAddProps> = ({
       .catch((error) => {
         console.log(error);
       });
-  },[]);
+  }, []);
 
   const handleClick = (dong: string) => {
-
     // 똑같은 동 또 추가
     if (dong === selected1 || dong === selected2) {
-      alert("이미 선택된 동네입니다. 다른 동네를 선택해주세요.");
+      alert('이미 선택된 동네입니다. 다른 동네를 선택해주세요.');
       return;
     }
 
@@ -90,7 +84,7 @@ const DongAdd: React.FC<DongAddProps> = ({
       setSelected2(dong);
     } else {
       // 둘다 선택해놓고 또 추가하면
-      alert("지역이 선택되어 있습니다. 변경하려면 기존 지역을 삭제하세요.");
+      alert('지역이 선택되어 있습니다. 변경하려면 기존 지역을 삭제하세요.');
     }
   };
 
@@ -107,17 +101,21 @@ const DongAdd: React.FC<DongAddProps> = ({
           {likedDongList.map((dong, i) => (
             <Dong key={i} onClick={() => handleClick(dong.dongName)}>
               {dong.dongName}
-              <LikeButton onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.stopPropagation()
-                removeLike(dong.zzinId)
-              }}>💗</LikeButton>
+              <LikeButton
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  e.stopPropagation();
+                  removeLike(dong.zzinId);
+                }}
+              >
+                💗
+              </LikeButton>
             </Dong>
           ))}
         </LikeDongList>
       </LikeDongWrapper>
       <SearchWrapper>
         <SearchTitle>동네 검색</SearchTitle>
-        <SearchBar />
+        <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
       </SearchWrapper>
     </Aside>
   );

@@ -12,7 +12,7 @@ interface DongAddProps {
 
 const Aside = styled.aside`
   ${tw`h-[100%] border-r-2 border-lightGray p-2
-  max-sm:flex max-sm:flex-col max-sm:w-[90%] max-sm:border-0`}
+  max-sm:flex max-sm:flex-col max-sm:border-0`}
 `;
 
 const Title = styled.h1`
@@ -21,17 +21,17 @@ const Title = styled.h1`
 `;
 
 const LikeDongWrapper = styled.div`
-  ${tw`items-center w-full pb-4`}
+  ${tw`items-center w-full pb-2`} 
 `;
 
 const LikedDongTitle = styled.h2`
   ${tw`text-2xl font-bold
-  max-sm:w-[30%] max-sm:text-xl max-sm:text-left`}
+  max-sm:w-[30%] max-sm:text-left`}
 `;
 
 const LikeDongList = styled.ul`
   ${tw`h-[300px] overflow-y-scroll
-  max-sm:flex max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
+  max-sm:flex max-sm:h-[40px] max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
 `;
 
 const SearchTitle = styled.h2`
@@ -41,7 +41,7 @@ const SearchTitle = styled.h2`
 
 const Dong = styled.li`
   ${tw`flex justify-between w-full border-2 border-lightGray rounded-lg my-1 p-1
-  max-sm:flex-c max-sm:h-8 max-sm:rounded-full max-sm:bg-dongButton max-sm:text-base max-sm:mr-2 max-sm:px-3 max-sm:cursor-pointer max-sm:hover:bg-dongButtonHover`}
+  max-sm:flex-c max-sm:h-8 max-sm:border-0 max-sm:rounded-full max-sm:bg-dongButton max-sm:text-base max-sm:mr-2 max-sm:px-3 max-sm:cursor-pointer max-sm:hover:bg-dongButtonHover`}
 `;
 
 const SearchWrapper = styled.div`

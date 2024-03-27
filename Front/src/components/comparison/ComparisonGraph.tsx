@@ -20,13 +20,34 @@ const GraphWrapper = styled.figure`
   ${tw`h-full`}
 `;
 
+
 const ComparisonGraph: React.FC<CardIndexProps> = ({
   selected,
   cardIndex,
   setDetail,
 }) => {
   const [dataArray, setDataArray] = useState<number[]>([]);
+  const [bar, setBar] = useState<number>(40);
   const axios = UseAxios();
+
+  const updateBarThickness = () => {
+    // 화면 너비에 따라 바 두께 조정
+    const width = window.innerWidth;
+    if (width <= 480) {
+      setBar(20);
+    } else {
+      setBar(40);
+    }
+  };
+
+  useEffect(() => {
+    updateBarThickness();
+    window.addEventListener('resize', updateBarThickness); // 화면 크기 변경 시 업데이트
+
+    return () => {
+      window.removeEventListener('resize', updateBarThickness);
+    };
+  }, []);
 
   ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
@@ -34,7 +55,7 @@ const ComparisonGraph: React.FC<CardIndexProps> = ({
     // 그래프 방향 가로로 전환
     indexAxis: "y" as const,
     // 바 두께
-    maxBarThickness: 40,
+    maxBarThickness: bar,
     responsive: true,
     maintainAspectRatio: false,
     plugins: {

@@ -64,6 +64,6 @@ public class User {
         this.x = x;
         this.y = y;
 
-        System.out.println(this.userId+"의 주소를 "+this.getBAddress()+"로 변경");
+        System.out.println(this.userId+"의 주소를 "+this.getBAddress()+"로 변경, x: "+this.x +" y: "+this.y);
     }
 }

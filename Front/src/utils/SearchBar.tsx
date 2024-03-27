@@ -48,10 +48,15 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
       setSelectedKeyword((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
     } else if (e.key === 'Enter') {
       const nowValue = selectedKeyword === -1 ? keyword : autoComplete[selectedKeyword];
-      console.log(nowValue);
-      setSearchDong(nowValue);
+      handleInput(nowValue);
     }
   };
+
+  const handleInput = (dong: string) => {
+    setSearchDong(dong);
+    setKeyword(dong)
+    setIsActive(false)
+  }
 
   useEffect(() => {
     const regex = new RegExp(`^${keyword}`, 'i');
@@ -75,13 +80,12 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
             onBlur={() => setIsActive(false)}
             onKeyDown={handleKeyDown}
           />
-          {isActive &&
-            keyword &&
-            autoComplete.map((e, index) => (
-              <AutocompleteKeyWord key={index} color={index == selectedKeyword ? 'lightGray' : 'white'}>
-                🔍 {e}
+          {isActive && keyword ?
+            autoComplete.map((name, index) => (
+              <AutocompleteKeyWord onMouseDown={(e: React.MouseEvent) => e.preventDefault()} onClick={() => handleInput(name)} key={index} color={index == selectedKeyword ? 'lightGray' : 'white'}>
+                🔍 {name}
               </AutocompleteKeyWord>
-            ))}
+            )) : null}
         </Wrapper>
         <AddButton>검색</AddButton>
       </Search>

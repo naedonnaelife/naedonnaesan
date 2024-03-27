@@ -4,8 +4,8 @@ import { devtools, persist } from 'zustand/middleware'
 
 type recommendDong = {
   dongName : string;
-  dongPk : number;
-  isDongLike : boolean;
+  dongId : number;
+  isLike : boolean;
 }[]
 
 interface BearState {
@@ -27,7 +27,7 @@ const useSearchStore = create<BearState>()(
         newsId : null,
         selectedNews : (articleId) => set(() => ({newsId : articleId})),
         likeList : [1, 2],
-        recommendList : [{dongName : '성동구 성수1가1동', dongPk : 1, isDongLike : false}, {dongName : '성동구 성수1가2동', dongPk : 2, isDongLike : true}, {dongName : '중구 을지로동', dongPk : 3, isDongLike : true}],
+        recommendList : [{dongName : '성수1가1동', dongId : 1, isLike : false}, {dongName : '성수1가2동', dongId : 2, isLike : true}, {dongName : '을지로동', dongId : 3, isLike : true}],
         updateRecommendList : (response) => set(() => ({recommendList : response})),
       }),
       { name: 'SearchStore' },

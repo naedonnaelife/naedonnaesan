@@ -7,12 +7,13 @@ interface ColumnProps {
 }
 
 const CategoryWrapper = styled.ul`
-  ${tw`mt-14 h-[80%]`}
+  ${tw`mt-14 h-[80%]
+  max-sm:mt-12`}
 `;
 
 const Category = styled.li`
   ${tw`flex-c text-3xl my-0.5 px-2 cursor-pointer
-  max-sm:text-sm`}
+  max-sm:text-sm max-sm:my-1.5`}
 `;
 
 const categories = ['치안', '여가', '음식점', '보건', '편의시설', '대중교통', '카페', '술집'];

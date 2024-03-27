@@ -21,7 +21,7 @@ const fadeIn = keyframes`
 
 const LoginButton = styled.button`
   ${tw`flex-c bg-mango rounded-lg text-2xl p-5
-  max-sm:w-[25vw] max-sm:text-lg `}
+  max-sm:text-lg `}
   animation : ${fadeIn} 1s ease-in-out;
 
 `;
@@ -91,7 +91,6 @@ const KakaoLogin:React.FC = () => {
     <>
       {!useStore.isLogin &&<LoginButton onClick={kakaoLogin}>로그인하고 시작하기</LoginButton>}
       {useStore.isLogin &&<LoginButton onClick={kakaoLogout}>로그아웃</LoginButton>}
-
     </>
     )
 }

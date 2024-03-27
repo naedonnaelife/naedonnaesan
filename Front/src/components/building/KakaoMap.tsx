@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
-import newDong from '../../datas/dong.json';
+import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
+import newDong from '../../datas/dong.json';
 import './content.css';
 
 interface KakaoMapProps {
@@ -10,8 +11,6 @@ interface KakaoMapProps {
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
   setBuildingMap: React.Dispatch<React.SetStateAction<any>>;
   markerList: React.MutableRefObject<any>;
-  // selectedMarker: any;
-  // setSelectedMarker: React.Dispatch<React.SetStateAction<any>>;
 }
 
 type Building = {
@@ -25,8 +24,13 @@ const MapWrapper = styled.div`
   max-sm:w-[100%]`}
 `;
 const Map = styled.div`
-  ${tw`w-[100] h-[100%]`}
+  ${tw`w-[100] h-[100%] relative`}
 `;
+
+const SearchWarpper = styled.div`
+  ${tw`w-[100%] h-12 absolute top-4 px-4 z-10`}
+`;
+
 
 const { kakao } = window;
 
@@ -40,6 +44,7 @@ const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selecte
 });
 
 function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap, markerList }: KakaoMapProps) {
+  const [searchDong, setSearchDong] = useState(areaName);
   const axios = UseAxios();
   const selectedDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === areaName);
   console.log(selectedDong);
@@ -84,6 +89,12 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
       selectedBuildingRef.current = selectedMarker;
       selectedMarker.setMap(map);
       map.setZoomable(true);
+    };
+
+    // 커스텀 오버레이 닫기
+    const closeOverlay = () => {
+      map.setZoomable(true);
+      customOverlay.setMap(null);
     };
 
     // 폴리곤 생성
@@ -204,10 +215,7 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
             map.setCenter(cluster.getCenter());
 
             // 오버레이 닫기 이벤트
-            const closeOverlay = () => {
-              map.setZoomable(true);
-              customOverlay.setMap(null);
-            };
+            
 
             // 오버레이 클릭 / 닫기 이벤트 달기
             document.getElementById('close-button')?.addEventListener('click', closeOverlay);
@@ -266,7 +274,11 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
 
   return (
     <MapWrapper>
-      <Map id="map" />
+      <Map id="map">
+      <SearchWarpper>
+          <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
+        </SearchWarpper>
+      </Map>
     </MapWrapper>
   );
 }

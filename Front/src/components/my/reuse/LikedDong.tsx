@@ -20,7 +20,8 @@ const NameWrapper = styled.span`
 `;
 
 const ButtonWrapper = styled.span`
-  ${tw`w-[40%] flex-c`}
+  ${tw`w-[40%] flex-c
+  max-sm:mr-3`}
 `;
 
 const Button = styled.button`
@@ -31,6 +32,7 @@ const Button = styled.button`
 const LikeButton = styled.button`
   ${tw`w-[30px] h-[30px] border-2 border-red rounded-full`}
 `;
+
 
 const Like: React.FC<Props> = ({
   likedDongName,
@@ -47,12 +49,18 @@ const Like: React.FC<Props> = ({
     );
   };
 
+  // const buildingClick = () => {
+  //   axios.get("/api/buildings", {
+  //     name:
+  //   })
+  // }
+
   return (
     <DongWrapper>
       <NameWrapper>{likedDongName}</NameWrapper>
       <ButtonWrapper>
-        <Button onClick={() => navigate("/building")}>매물</Button>
-        <Button onClick={() => navigate("/information")}>정보</Button>
+        <Button onClick={() => navigate("/building", { state: { areaName: likedDongName } })}>매물</Button>
+        <Button onClick={() => navigate("/information", { state: { areaName: likedDongName } })}>정보</Button>
         <LikeButton onClick={() => removeLike(likedDongId)}>💗</LikeButton>
       </ButtonWrapper>
     </DongWrapper>

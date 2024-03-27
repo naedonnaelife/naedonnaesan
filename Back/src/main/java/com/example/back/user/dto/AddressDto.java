@@ -1,4 +1,4 @@
-package com.example.back.user.entity;
+package com.example.back.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -2,15 +2,13 @@ package com.example.back.user.service;
 
 import com.example.back.auth.FormDto;
 import com.example.back.auth.oauth.PrincipalDetails;
-import com.example.back.exception.UserNotFoundException;
 import com.example.back.user.dto.MypageDto;
 import com.example.back.user.dto.UserSimple;
-import com.example.back.user.entity.AddressDto;
+import com.example.back.user.dto.AddressDto;
 import com.example.back.user.entity.Gender;
 import com.example.back.user.entity.User;
 import com.example.back.user.repository.UserRepository;
 import com.example.back.zzim.dto.ZzimDto;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,5 +1,6 @@
 package com.example.back.user.entity;
 
+import com.example.back.user.dto.AddressDto;
 import com.example.back.zzim.entity.Zzim;
 import com.example.back.report.entity.Report;
 import lombok.AccessLevel;

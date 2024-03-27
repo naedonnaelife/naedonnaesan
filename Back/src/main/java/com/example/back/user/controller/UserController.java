@@ -3,14 +3,13 @@ package com.example.back.user.controller;
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
 import com.example.back.user.dto.MypageDto;
-import com.example.back.user.entity.AddressDto;
+import com.example.back.user.dto.AddressDto;
 import com.example.back.user.service.UserService;
 import com.example.back.zzim.dto.ZzimDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

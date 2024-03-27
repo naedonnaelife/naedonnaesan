@@ -2,6 +2,7 @@ package com.example.back.user.controller;
 
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
+import com.example.back.user.dto.MypageDto;
 import com.example.back.user.service.UserService;
 import com.example.back.zzim.dto.ZzimDto;
 import lombok.RequiredArgsConstructor;
@@ -42,5 +43,11 @@ public class UserController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("mypage")
+    public ResponseEntity<Message> mypageAbove(){
+        MypageDto mypageDto = userService.getMypage();
+        Message message = new Message(HttpStatusEnum.OK, "마이페이지 상단 출력 완료되었습니다.", mypageDto);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 
 }

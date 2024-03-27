@@ -127,7 +127,7 @@ async def predict(preference: PredictRequest):
     }
     await send_data_to_spring_boot(response, preference.token)
     return response
-@app.get("/keyword")
+@app.get("/ai/keyword")
 def getKeyword():
 
     # 오늘 날짜와 정확히 1년 전 날짜 계산

@@ -34,8 +34,8 @@ const PreferenceButton = styled.button`
 `;
 
 const Preference = styled.li`
-  ${tw`text-2xl ml-5
-  max-sm:text-base max-sm:font-jamsilLight`}
+  ${tw`text-2xl font-jamsilLight ml-5
+  max-sm:text-base`}
 `;
 
 
@@ -51,7 +51,6 @@ const ReportContent: React.FC = () => {
     axios
       .get("/api/mypage/filterlist")
       .then((response) => {
-        console.log(response.data.object);
         setPreferences(response.data.object)
       })
       .catch((error) => {
@@ -74,7 +73,7 @@ const ReportContent: React.FC = () => {
   const scoreTexts:any = {
     1: "상관없어요",
     2: "적당히 중요해요",
-    3: "중요해요 🥰"
+    3: "중요해요"
   };
 
   const scoreLabels:any = {

@@ -18,10 +18,8 @@ function MyPage() {
   useEffect(() => {
     axios.get("/api/mypage")
       .then((response) => {
-        console.log("마이페이지 유저 정보", response.data)
         setName(response.data.object.userName)
         setAddress(response.data.object.baddress)
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error);

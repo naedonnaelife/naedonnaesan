@@ -20,7 +20,7 @@ const LikeTop = styled.div`
 
 const LikeTitle = styled.h1`
   ${tw`text-3xl font-bold w-[90%]
-  max-sm:text-2xl max-sm:mb-2 max-sm:mx-1`}
+  max-sm:text-xl max-sm:mb-2 max-sm:mx-1`}
 `;
 
 const LikeContent = styled.ul`

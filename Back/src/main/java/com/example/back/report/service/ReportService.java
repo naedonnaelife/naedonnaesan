@@ -6,6 +6,7 @@ import com.example.back.exception.DongNotFoundException;
 import com.example.back.report.dto.RecommendationDto;
 import com.example.back.report.dto.ReportDto;
 import com.example.back.report.dto.RequestDto;
+import com.example.back.report.dto.ResponseDto;
 import com.example.back.report.entity.Report;
 import com.example.back.report.repository.ReportRepository;
 import com.example.back.reportdong.entity.ReportDong;
@@ -19,6 +20,7 @@ import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfigura
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +36,7 @@ public class ReportService {
     private final DongRepository dongRepository;
     private final ZzimRepository zzimRepository;
 
-    public List<Boolean> addReportAndDong(RequestDto request2Dto){
+    public List<ResponseDto> addReportAndDong(RequestDto request2Dto){
         User user = userService.getUser();
 
         ReportDto reportDto = request2Dto.getUserInfo();
@@ -47,7 +49,7 @@ public class ReportService {
 //        Long reportId = report.getReportId();
 
         // report dong 저장하기
-        List<Boolean> zzimList = new ArrayList<>();
+        List<ResponseDto> responseDtos = new ArrayList<>();
 
         Long reportdongId = 0L;
         for (int i = 0; i < 3; i++) {
@@ -66,11 +68,16 @@ public class ReportService {
             if (existingZzim.isPresent()) {
                 isZzim = true;
             }
-            System.out.println(dongId+"의 결과: "+isZzim);
-            zzimList.add(isZzim);
+            BigDecimal dongX = new BigDecimal(dong.getDongX());
+            BigDecimal dongY = new BigDecimal(dong.getDongY());
+            BigDecimal userX = new BigDecimal(user.getX());
+            BigDecimal userY = new BigDecimal(user.getY());
+
+            ResponseDto responseDto = new ResponseDto(dongId, isZzim, dong.getDongX(), dong.getDongY(), user.getX(), user.getY());
+            responseDtos.add(responseDto);
         }
 
-        return zzimList;
+        return responseDtos;
     }
 
     public ReportDto showFilter(){

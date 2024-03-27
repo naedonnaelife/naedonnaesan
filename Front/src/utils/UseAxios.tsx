@@ -1,7 +1,7 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from 'axios';
 
 // const API_URL = 'http://localhost:8080/api'
-const API_URL = "https://j10e204.p.ssafy.io";
+const API_URL = 'https://j10e204.p.ssafy.io';
 
 const UseAxios = (): AxiosInstance => {
   const axiosInstance = axios.create({
@@ -11,7 +11,8 @@ const UseAxios = (): AxiosInstance => {
   axiosInstance.interceptors.request.use(
     (config) => {
       // config.headers["authorization"] = localStorage.getItem("accessToken");
-      config.headers["authorization"] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE1MTg0MDYsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.toC12P01e90dppp0GSbzAwDyjBZUKf9enquDqPPWHZY'
+      config.headers['authorization'] =
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE2MTg4ODQsInJvbGUiOiJVU0VSIiwiaWQiOjF9.BSJLKvVQSpIRttMHzagp6U5rc6WiU-lnGmZI65fa0Pw';
       return config;
     },
     async (error) => {
@@ -31,18 +32,18 @@ const UseAxios = (): AxiosInstance => {
 
         try {
           const response = await axios.get(`${API_URL}/token`, {
-            headers: { authorization: localStorage.getItem("refreshToken") },
+            headers: { authorization: localStorage.getItem('refreshToken') },
           });
 
-          const newAccessToken = response.headers["authorization"];
-          const newRefreshToken = response.headers["authorization-refresh"];
+          const newAccessToken = response.headers['authorization'];
+          const newRefreshToken = response.headers['authorization-refresh'];
 
-          localStorage.setItem("accessToken", newAccessToken);
-          localStorage.setItem("refreshToken", newRefreshToken);
+          localStorage.setItem('accessToken', newAccessToken);
+          localStorage.setItem('refreshToken', newRefreshToken);
 
           return axiosInstance(originalRequest);
         } catch (error) {
-          console.error("Error refreshing token:", error);
+          console.error('Error refreshing token:', error);
           throw error;
         }
       }

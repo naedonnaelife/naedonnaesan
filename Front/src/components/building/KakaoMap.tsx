@@ -192,11 +192,11 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
             buildingIdList: buildingIdList,
           })
           .then((response) => {
-            let content = '<div class="contentStyle"><p>매물 List</p><div id="closeButton">여기 닫는버튼임</div><ul>';
+            let content = '<div class="contentStyle"><ul class="container">';
             response.data.object.forEach((building: any) => {
-              content += `<li id=${building.buildingId}> [${building.buildingType}]${building.name} ${building.payType}${building.deposit}/${building.monthlyPay} </li>`;
+              content += `<li class="item" id=${building.buildingId}> <p>[${building.buildingType}]</p><p>${building.name}</p><p> ${building.payType}${building.deposit}/${building.monthlyPay} </p></li>`;
             });
-            content += '</ul></div>';
+            content += '</ul><div class="close" id="close-button">닫기</div></div>';
 
             customOverlay.setPosition(cluster.getCenter());
             customOverlay.setContent(content);
@@ -210,7 +210,7 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
             };
 
             // 오버레이 클릭 / 닫기 이벤트 달기
-            document.getElementById('closeButton')?.addEventListener('click', closeOverlay);
+            document.getElementById('close-button')?.addEventListener('click', closeOverlay);
             response.data.object.forEach((building: any) => {
               document
                 .getElementById(`${building.buildingId}`)

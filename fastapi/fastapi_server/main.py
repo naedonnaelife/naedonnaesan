@@ -48,7 +48,7 @@ pca_model = joblib.load(file_path + "pca_model.joblib")
 knn_model = joblib.load(file_path + "knn_model.joblib")
 
 origins = [
-    "j10e204.p.ssafy.io",
+    "*"
 ]
 
 app = FastAPI()

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class KeywordController {
     private final KeywordService keywordService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<Message> getTodayKeywords(){
         LocalDate today = LocalDate.now();
         System.out.println("오늘의 날짜: " + today);

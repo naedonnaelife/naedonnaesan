@@ -69,8 +69,8 @@ class PredictRequest(BaseModel):
 
 async def send_data_to_spring_boot(data, token):
     async with httpx.AsyncClient() as client:
-        # url = "http://localhost:8080/api/addreport"
-        url = "https://j10e204.p.ssafy.io/api/addreport"
+        url = "http://localhost:8080/api/addreport"
+        # url = "https://j10e204.p.ssafy.io/api/addreport"
         headers = {"Authorization": f"Bearer {token}"}
         try:
             response = await client.post(url, json=data, headers=headers)
@@ -123,6 +123,7 @@ async def predict(preference: PredictRequest):
     recommend = recommend.drop(axis=1, columns=['군집'])
     recommend.columns = label
     recommend = recommend.transpose()
+    print(recommend)
     response = {
         "userInfo": {i: score for i, score in zip(label[2:], preference.features)},
         "recommend": [{'dongId': i} for i in recommend.iloc[0, :]]

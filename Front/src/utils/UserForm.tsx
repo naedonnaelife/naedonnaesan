@@ -33,7 +33,7 @@ const Select = styled.select`
 function UserForm() {
   const [age, setAge] = useState<string>("");
   const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("F");
   const [name, setName] = useState("");
   const [coordinate, SetCoordinate] = useState({x : '', y : ''})
   const axios = UseAxios();
@@ -80,7 +80,7 @@ function UserForm() {
 
   const inputUserInfo = async (e: React.FormEvent) => {
     e.preventDefault();
-    await axios.post("/userinfo", inputData);
+    await axios.post("/api/userinfo", inputData);
   };
   // 테스트
   const testAlert = () => {

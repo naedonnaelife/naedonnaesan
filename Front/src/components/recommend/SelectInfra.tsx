@@ -2,18 +2,13 @@ import tw, { styled } from 'twin.macro';
 // import Slider from './reuse/InfraSlider'
 import SelectCard from './reuse/SelectCard';
 import UseAxios from '../../utils/UseAxios';
-import { useState } from 'react';
-// import useSearchStore from '../../stores/SearchStore';
+import { useEffect, useState } from 'react';
+import useSearchStore from '../../stores/SearchStore';
 
-type recommendDong = {
-    dongName : string;
-    dongPk : number;
-    isDongLike : boolean;
-  }[]
 
 const SelectWrapper = styled.section`
 ${tw`flex flex-wrap h-[60%] w-[96%] border-2 border-lightGray rounded-lg m-2 mt-4
-max-sm:w-[50%] max-sm:h-[100%] bg-white max-sm:mt-0`}
+max-sm:w-[100%] max-sm:h-[100%] bg-white max-sm:mt-0`}
 `
 
 
@@ -46,33 +41,47 @@ const SelectInfra:React.FC = () => {
         {name : '휴게음식점', detail : '휴게음식점 툴팁', pk : 7}
     ]
     const [infraData, setInfraData] = useState([0,0,0,0,0,0,0,0])
+    const [isAllChecked, setIsAllChecked] = useState(false)
     const axios = UseAxios()
-    // const update = useSearchStore(state => state.updateRecommendList)
+    const update = useSearchStore(state => state.updateRecommendList)
     const getDongList = async () => {
         // const token = localStorage.getItem("accessToken")
         // console.log('결과 : ', token)
         // const result = token.slice(6)
-
-        const response:recommendDong = await axios.post(`/ai/recommend`, {features : infraData, token : `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE2MDM2MjksInJvbGUiOiJVU0VSIiwiaWQiOjJ9.kqDjXRWumW_KEOpjFtFZ8RQV8ySeH4MW0nz5AU2DqeQ` })
-        // update(response)
-        console.log('응답 : ', response)
+        if (isAllChecked){
+        const response = await axios.post(`/ai/recommend`, {features : infraData, token : `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE2MDM2MjksInJvbGUiOiJVU0VSIiwiaWQiOjJ9.kqDjXRWumW_KEOpjFtFZ8RQV8ySeH4MW0nz5AU2DqeQ` })
+        update(response.data.recommend)
+        console.log('응답 : ', response.data.recommend)
+        } else {
+            alert('안돼 새꺄')
+        }
     }
 
     const changeScore = (element:number, index:number) => {
         const copyData = [...infraData]
         copyData[index] = element
         setInfraData(copyData)
-        console.log(infraData)
     }
 
+    const ResetScore = () => {
+        setInfraData([0,0,0,0,0,0,0,0])
+    }
+    useEffect(()=>{
+        const checkZero = infraData.some(e => e === 0)
+        if(!checkZero){
+            setIsAllChecked(true)
+        } else{
+            setIsAllChecked(false)
+        }
+    }, [infraData])
     return (
         <>
             <SelectWrapper>
                 <Title>인프라 선택하기</Title>
-                {dummyData.map(element => <SelectCard key={element.pk} data={element} changeScore={changeScore}/>)}
+                {dummyData.map((element, index) => <SelectCard key={element.pk} data={element} score={infraData[index]} changeScore={changeScore}/>)}
                 <ButtonWrapper>
-                    <ResetButton> 초기화 </ResetButton>
-                    <SubmitButton onClick={getDongList}>검색</SubmitButton>
+                    <ResetButton onClick={ResetScore}> 초기화 </ResetButton>
+                    <SubmitButton onClick={getDongList}>{isAllChecked? '검색하기' : '인프라를 선택해주세요'} </SubmitButton>
                 </ButtonWrapper>
             </SelectWrapper>
         </>

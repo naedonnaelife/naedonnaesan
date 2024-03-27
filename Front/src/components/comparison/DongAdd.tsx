@@ -74,7 +74,7 @@ const DongAdd: React.FC<DongAddProps> = ({
       .catch((error) => {
         console.log(error);
       });
-  });
+  },[]);
 
   const handleClick = (dong: string) => {
 

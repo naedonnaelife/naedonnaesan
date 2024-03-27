@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
-import tw, { styled } from 'twin.macro';
-import RecommendList from '../../utils/RecommendList';
+import React, { useState, useEffect } from "react";
+import tw, { styled } from "twin.macro";
+import RecommendList from "../../utils/RecommendList";
+import UseAxios from "../../utils/UseAxios";
 
 type PreferenceShowProps = {
   isPreferencesShow: boolean;
+};
+
+type PreferencesType = {
+  [key: string]: number;
 };
 
 const Backgroud = styled.div`
@@ -19,7 +24,8 @@ const RecommendWrapper = styled.div`
 const PreferenceWrapper = styled.ul`
   ${tw`flex flex-col justify-center w-[50%] px-2 my-2
   max-sm:w-full`}
-  ${({ isPreferencesShow }: PreferenceShowProps) => (isPreferencesShow ? tw`` : tw`max-sm:hidden`)}
+  ${({ isPreferencesShow }: PreferenceShowProps) =>
+    isPreferencesShow ? tw`` : tw`max-sm:hidden`}
 `;
 
 const PreferenceButton = styled.button`
@@ -32,11 +38,49 @@ const Preference = styled.li`
   max-sm:text-base max-sm:font-jamsilLight`}
 `;
 
-const ReportContent: React.FC = () => {
 
-  const [isPreferencesShow, setIsPreferencesShow] = useState(true);
+const ReportContent: React.FC = () => {
+  const [isPreferencesShow, setIsPreferencesShow] = useState<boolean>(true);
+  const [preferences, setPreferences] = useState<PreferencesType  |null>(null);
+  const axios = UseAxios();
   const preferenceShow = () => {
     setIsPreferencesShow((prev) => !prev);
+  };
+
+  useEffect(() => {
+    axios
+      .get("/api/mypage/filterlist")
+      .then((response) => {
+        console.log(response.data.object);
+        setPreferences(response.data.object)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+
+  const reportLabels:any = {
+    convReport: "편의시설은",
+    safetyReport: "치안은",
+    healthReport: "건강은",
+    foodReport: "식당은",
+    transpReport: "교통은",
+    leisureReport: "여가는",
+    cafeReport: "카페는",
+    pubReport: "술집는"
+  };
+
+  const scoreTexts:any = {
+    1: "상관없어요",
+    2: "적당히 중요해요",
+    3: "중요해요 🥰"
+  };
+
+  const scoreLabels:any = {
+    1: "😐",
+    2: "😀",
+    3: "🥰"
   };
 
   return (
@@ -45,16 +89,20 @@ const ReportContent: React.FC = () => {
         <RecommendWrapper>
           <RecommendList />
         </RecommendWrapper>
-          <PreferenceButton onClick={preferenceShow}>
-            {isPreferencesShow ? "선호도 접기" : "나의 선호도 보기"}
-          </PreferenceButton>
+        <PreferenceButton onClick={preferenceShow}>
+          {isPreferencesShow ? "선호도 접기" : "나의 선호도 보기"}
+        </PreferenceButton>
         <PreferenceWrapper isPreferencesShow={isPreferencesShow}>
-            <Preference>🥰 치안이 중요해요</Preference>
-            <Preference>🥰 식당이 중요해요</Preference>
-            <Preference>😀 보건시설은 적당히 필요해요</Preference>
-            <Preference>😐 문화시설은 없어도 괜찮아요</Preference>
-            <Preference>😐 편의시설은 없어도 괜찮아요</Preference>
-          </PreferenceWrapper>
+        {preferences === null ? (
+            <p>아직 검사결과가 없어요</p>
+          ) : (
+            Object.entries(preferences).map(([key, value]) => (
+              <Preference key={key}>
+                {scoreLabels[value]} {reportLabels[key]} {scoreTexts[value]}
+              </Preference>
+            ))
+          )}
+        </PreferenceWrapper>
       </Backgroud>
     </>
   );

@@ -35,14 +35,14 @@ type StyleProps = {
 
 const Aside = styled.aside`
   ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg px-2 bg-white duration-200 overflow-y-auto
-    max-sm:absolute max-sm:z-10 max-sm:w-[100%] `}
+    max-sm:absolute max-sm:z-10 max-sm:w-[100%] max-sm:border-t-2 max-sm:border-sbWhite`}
   ${({ isBuildingOpen, selectedBuilding }: StyleProps) =>
     isBuildingOpen
       ? selectedBuilding
-        ? tw`max-sm:-bottom-[0%]`
-        : tw`max-sm:-bottom-[0%]`
+        ? tw`max-sm:-bottom-[10%]`
+        : tw`max-sm:-bottom-[10%]`
       : selectedBuilding
-      ? tw`max-sm:-bottom-[64%]`
+      ? tw`max-sm:-bottom-[70%]`
       : tw`max-sm:-bottom-[95%]`}
 `;
 const Card = styled.article`
@@ -52,7 +52,8 @@ const SideFixWrapper = styled.div`
   ${tw`flex-cc w-[100%] sticky top-0 bg-white pt-1`}
 `;
 const SearchWarpper = styled.div`
-  ${tw`w-[100%] h-12`}
+  ${tw`w-[100%] h-12
+  max-sm:hidden`}
 `;
 // const ButtonWrapper = styled.aside`
 //   ${tw`flex justify-between w-[100%]`}
@@ -64,6 +65,7 @@ const HamburgerButton = styled.button`
   ${tw`hidden w-[100%] h-[5vh]
     max-sm:flex-c`}
 `;
+
 const SelectedWrapper = styled.div`
   ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1`}
 `;
@@ -135,7 +137,7 @@ function SideBuilding({
 
   const getBuildingList = () => {
     axios
-      .get('/api/buildings/name', { params: { dongname: areaName, page: page } })
+      .get('/api/buildings/name', { params: { dongname: searchDong, page: page } })
       .then((response) => {
         setPage((prev) => prev + 1);
         setBuildingList([...buildingList, ...response.data.object.buildingDtoList]);
@@ -151,6 +153,19 @@ function SideBuilding({
       getBuildingList();
     }
   }, [inView]);
+
+  useEffect(() => {
+      axios
+      .get('/api/buildings/name', { params: { dongname: searchDong, page: 0 } })
+      .then((response) => {
+        setPage(1);
+        setBuildingList([...response.data.object.buildingDtoList]);
+        setIsLast(response.data.object.last);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [searchDong]);
 
   // 선택한 매물 정보 1개 받기 !
   useEffect(() => {
@@ -169,7 +184,7 @@ function SideBuilding({
   return (
     <Aside isBuildingOpen={isBuildingOpen} selectedBuilding={selectedBuilding}>
       <SideFixWrapper>
-        <HamburgerButton onClick={handleHamburgerButton}>🍔</HamburgerButton>
+        <HamburgerButton onClick={handleHamburgerButton} isBuildingOpen={isBuildingOpen}>🍔</HamburgerButton>
         <SearchWarpper>
           <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
         </SearchWarpper>

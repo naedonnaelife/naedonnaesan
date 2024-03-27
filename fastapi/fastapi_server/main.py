@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-
 import httpx
 import joblib
 import numpy as np
@@ -8,21 +7,24 @@ import time
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from pymongo import MongoClient
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
 from starlette.middleware.cors import CORSMiddleware
 from konlpy.tag import Okt
+from dotenv import load_dotenv
+import os
 
-# 모델 파일이 있는 절대 경로 설정
-# file_path = '/code/app/'  # 컨테이너 내 경로
-file_path = './'  # 로컬 테스트 경로
+# .env 파일에서 환경변수 로드
+env = 'test'  # test / deploy
+load_dotenv(f'.env.{env}')
 
-# MongoDB 접속 정보
-user = "mango"
-password = "sweetmango123"
-host = "j10e204.p.ssafy.io"  # 또는 MongoDB가 실행되고 있는 서버의 주소
-port = 27017
-dbname = "mango"  # 접속하고자 하는 데이터베이스 이름
+# 환경변수 사용
+file_path = os.getenv('FILE_PATH')
+user = os.getenv('MONGO_USER')
+password = os.getenv('MONGO_PASSWORD')
+host = os.getenv('MONGO_HOST')
+port = os.getenv('MONGO_PORT')
+dbname = os.getenv('MONGO_DBNAME')
+spring_boot_url = os.getenv('SPRING_BOOT_URL')
 
 # MongoDB URI 구성
 uri = f"mongodb://{user}:{password}@{host}:{port}"
@@ -40,10 +42,6 @@ collection = db["news"]  # 사용할 컬렉션 이름
 # 모델 로드
 pca_model = joblib.load(file_path + "pca_model.joblib")
 knn_model = joblib.load(file_path + "knn_model.joblib")
-
-
-# pca_model = joblib.load("pca_model.joblib")
-# knn_model = joblib.load("knn_model.joblib")
 
 origins = [
     "*"
@@ -67,8 +65,7 @@ class PredictRequest(BaseModel):
 
 async def send_data_to_spring_boot(data, token):
     async with httpx.AsyncClient() as client:
-        url = "http://localhost:8080/api/addreport"
-        # url = "https://j10e204.p.ssafy.io/api/addreport"
+        url = spring_boot_url
         headers = {"Authorization": f"Bearer {token}"}
         try:
             response = await client.post(url, json=data, headers=headers)
@@ -161,8 +158,3 @@ def getKeyword():
     print(len(articles))
 
     return 200
-
-
-@app.get("/status")
-async def sayHello():
-    return "Hello!!"

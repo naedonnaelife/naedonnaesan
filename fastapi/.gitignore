@@ -11,3 +11,5 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+fastapi_server/.env.deploy
+fastapi_server/.env.test

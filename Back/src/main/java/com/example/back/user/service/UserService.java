@@ -2,6 +2,7 @@ package com.example.back.user.service;
 
 import com.example.back.auth.FormDto;
 import com.example.back.auth.oauth.PrincipalDetails;
+import com.example.back.user.dto.Coordinate;
 import com.example.back.user.dto.MypageDto;
 import com.example.back.user.dto.UserSimple;
 import com.example.back.user.dto.AddressDto;
@@ -46,14 +47,15 @@ public class UserService {
         String name = formDto.getName();
         int age = formDto.getAge();
         Gender gender = formDto.getGender();
+        Coordinate coordinate = formDto.getCoordinate();
 
         User user = getUser();
         user.setAge(age);
         user.setBAddress(address);
         user.setGender(gender);
         user.setName(name);
-
-//        userRepository.save(user);
+        user.setX(coordinate.getX());
+        user.setY(coordinate.getY());
 
         return user.getUserId();
 

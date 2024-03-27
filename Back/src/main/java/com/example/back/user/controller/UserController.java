@@ -3,6 +3,7 @@ package com.example.back.user.controller;
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
 import com.example.back.user.dto.MypageDto;
+import com.example.back.user.entity.AddressDto;
 import com.example.back.user.service.UserService;
 import com.example.back.zzim.dto.ZzimDto;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +35,10 @@ public class UserController {
 
     // 주소 변경 API
     @PutMapping("mypage/edit/address")
-    public ResponseEntity<Message> editAddr(@RequestParam("address") String address, @RequestParam("x") String x, @RequestParam("y") String y){
-        Long userId = userService.updateAddr(address,x,y);
+    public ResponseEntity<Message> editAddr(@RequestBody AddressDto addressDto){
+        Long userId = userService.updateAddr(addressDto);
 
-        log.info("** "+ address +"로 주소 변환 완료! **");
+        log.info("** "+ addressDto.getAddress() +"로 주소 변환 완료! **");
         Message message = new Message(HttpStatusEnum.OK, "주소 변경 완료되었습니다.", userId);
 
         return new ResponseEntity<>(message, HttpStatus.OK);

@@ -59,10 +59,10 @@ public class User {
     }
 
     // 주소 bAddress 변경
-    public void updateAddress(String address, String x, String y){
-        this.bAddress = address;
-        this.x = x;
-        this.y = y;
+    public void updateAddress(AddressDto addressDto){
+        this.bAddress = addressDto.getAddress();
+        this.x = addressDto.getX();
+        this.y = addressDto.getY();
 
         System.out.println(this.userId+"의 주소를 "+this.getBAddress()+"로 변경, x: "+this.x +" y: "+this.y);
     }

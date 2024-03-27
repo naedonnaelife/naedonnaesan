@@ -5,6 +5,7 @@ import com.example.back.auth.oauth.PrincipalDetails;
 import com.example.back.exception.UserNotFoundException;
 import com.example.back.user.dto.MypageDto;
 import com.example.back.user.dto.UserSimple;
+import com.example.back.user.entity.AddressDto;
 import com.example.back.user.entity.Gender;
 import com.example.back.user.entity.User;
 import com.example.back.user.repository.UserRepository;
@@ -34,9 +35,9 @@ public class UserService {
     }
 
 
-    public Long updateAddr(String address,String x, String y){
+    public Long updateAddr(AddressDto addressDto){
         User user = getUser();
-        user.updateAddress(address,x,y);
+        user.updateAddress(addressDto);
         userRepository.save(user);
         return user.getUserId();
     }

@@ -5,14 +5,14 @@ export default {
     extend: {
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
-        jamsilLight: ['TheJamsil3Regular']
+        jamsilLight: ['TheJamsil3Regular'],
       },
-      fontSize :{
-        10: ['10px']
+      fontSize: {
+        10: ['10px'],
       },
       colors: {
         white: '#FFFFFF',
-        semiWhite : '#FAFBFD',
+        semiWhite: '#FAFBFD',
         black: '#000000',
         lightGray: '#E8E8E8',
         middleGray: `#9ca3af`,
@@ -25,18 +25,19 @@ export default {
         carrot: '#FB8D75',
         dongButton: '#C9A48C',
         dongButtonHover: '#967967',
+        sbWhite: '#F3F4F6',
 
         // 테스트
       },
       height: {
         'full-nav': 'calc(100vh - 75px)',
       },
-      width : {
-        'calc-7' : 'calc(100vw / 7)', 
-        'calc-6' : 'calc(100vw / 6)', 
-        'calc-5' : 'calc(100vw / 5)', 
-        'calc-4' : 'calc(100vw / 4)', 
-        'calc-3' : 'calc(100vw / 3)', 
+      width: {
+        'calc-7': 'calc(100vw / 7)',
+        'calc-6': 'calc(100vw / 6)',
+        'calc-5': 'calc(100vw / 5)',
+        'calc-4': 'calc(100vw / 4)',
+        'calc-3': 'calc(100vw / 3)',
       },
     },
   },

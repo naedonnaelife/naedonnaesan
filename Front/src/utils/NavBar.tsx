@@ -12,16 +12,22 @@ const Navbar = styled.header`
 `;
 
 const NavbarLink = styled(Link)`
-  ${tw` m-2 p-2 text-choco font-bold hover:scale-105 hover:text-black hover:border-b-2 hover:border-choco `}
+  ${tw` m-2 p-2 text-choco font-bold hover:scale-105 hover:text-black hover:border-b-2 hover:border-choco
+  `}
 `;
 
 const NavbarWrapper = styled.section`
-  ${({ isOpen }: NavOpenProps) => (isOpen ? tw`max-sm:flex-cc max-sm:bg-gray max-sm:mt-10` : tw` max-sm:hidden`)}
+  ${({ isOpen }: NavOpenProps) => (isOpen ? tw`max-sm:flex-cc max-sm:bg-sbWhite` : tw`max-sm:hidden`)}
+`;
+
+const HamburgerWrapper = styled.div`
+  ${tw`flex justify-end items-center p-2`}
 `;
 
 const HamburgerButton = styled.button`
-  ${tw`bg-black hidden
+  ${tw`hidden h-[35px] w-[35px] p-1 rounded-md
   max-sm:block`}
+  ${({ isOpen }: NavOpenProps) => (isOpen ? tw`bg-mangoHover` : tw``)}
 `;
 
 function NavBar() {
@@ -33,9 +39,19 @@ function NavBar() {
   return (
     <>
       <Navbar>
-        <HamburgerButton onClick={navOpen} isOpen={isOpen}>
-          ddd
-        </HamburgerButton>
+        <HamburgerWrapper>
+          <HamburgerButton onClick={navOpen} isOpen={isOpen}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path
+                stroke="#403800"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
+            </svg>
+          </HamburgerButton>
+        </HamburgerWrapper>
         <NavbarWrapper isOpen={isOpen}>
           <NavbarLink to="/">EntryPage(임시)</NavbarLink>
           <NavbarLink to="/recommend">동네 검색</NavbarLink>

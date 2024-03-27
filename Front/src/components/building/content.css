@@ -41,7 +41,7 @@
   bottom: 0;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .contentStyle {
     width: 70vw;
   }

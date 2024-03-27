@@ -38,9 +38,9 @@ public class DashboardController {
 		return new ResponseEntity<>(message, articles.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
 
-	@GetMapping("/news/articleid/{articleid}")
-	public ResponseEntity<Message> getArticle(@PathVariable(value = "articleid") String articleId) {
-		ArticleDto article = dashboardService.getArticle(articleId);
+	@GetMapping("/news/articleid/{id}")
+	public ResponseEntity<Message> getArticle(@PathVariable(value = "id") String id) {
+		ArticleDto article = dashboardService.getArticle(id);
 		Message message =
 			article != null ?
 				new Message(HttpStatusEnum.OK, "기사 조회 완료", article) :

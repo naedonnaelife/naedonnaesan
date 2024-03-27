@@ -2,6 +2,7 @@ package com.example.back.dashboard.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.Tuple;
@@ -9,7 +10,6 @@ import javax.persistence.Tuple;
 import com.example.back.dashboard.dto.AvgInfraDto;
 import com.example.back.infracount.dto.InfraTypeAvgCountDto;
 import com.example.back.infrascore.dto.InfraAvgScoreDto;
-import com.example.back.infrascore.dto.InfraScoreDto;
 import com.example.back.infrascore.repository.InfraScoreRepository;
 import com.example.back.subway.dto.SubwayDto;
 import com.example.back.subway.entity.Subway;
@@ -38,36 +38,32 @@ public class DashboardService {
 		return articleList.stream().map(
 			article -> {
 				ArticleDto dto = new ArticleDto();
-				dto.setId(article.getId());
-				dto.setCompany(article.getCompany());
-				dto.setTitle(article.getTitle());
-				dto.setLink(article.getLink());
-				dto.setPublished(article.getPublished());
-				dto.setCategory(article.getCategory());
-				dto.setCategory_str(article.getCategory_str());
-				dto.setReporter(article.getReporter());
-				dto.setArticle(article.getArticle());
+				setDto(article, dto);
 				return dto;
 			}).collect(Collectors.toList());
 	}
 
-	public ArticleDto getArticle(String articleId) {
-		Article article = articleRepository.findByArticleId(articleId);
+	public ArticleDto getArticle(String id) {
+		Article article = articleRepository.findById(id).orElseThrow();
 		System.out.println(article);  // 디버깅 코드
 		ArticleDto dto = null;
 		if (article != null) {
 			dto = new ArticleDto();
-			dto.setId(article.getId());
-			dto.setCompany(article.getCompany());
-			dto.setTitle(article.getTitle());
-			dto.setLink(article.getLink());
-			dto.setPublished(article.getPublished());
-			dto.setCategory(article.getCategory());
-			dto.setCategory_str(article.getCategory_str());
-			dto.setReporter(article.getReporter());
-			dto.setArticle(article.getArticle());
+			setDto(article, dto);
 		}
 		return dto;
+	}
+
+	private void setDto(Article article, ArticleDto dto) {
+		dto.setId(article.getId());
+		dto.setCompany(article.getCompany());
+		dto.setTitle(article.getTitle());
+		dto.setLink(article.getLink());
+		dto.setPublished(article.getPublished());
+		dto.setCategory(article.getCategory());
+		dto.setCategory_str(article.getCategory_str());
+		dto.setReporter(article.getReporter());
+		dto.setArticle(article.getArticle());
 	}
 
 	// 이건 조우재꺼

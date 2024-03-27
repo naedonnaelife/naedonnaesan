@@ -20,6 +20,4 @@ public class Article {
 	private String category_str;
 	private String reporter;
 	private String article;
-
-
 }

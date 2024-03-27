@@ -42,13 +42,13 @@ public class UserService {
     }
 
     public Long saveUserInfo(FormDto formDto){
-
+        System.out.println(formDto);
         String address = formDto.getAddress();
         String name = formDto.getName();
         int age = formDto.getAge();
         Gender gender = formDto.getGender();
         Coordinate coordinate = formDto.getCoordinate();
-
+        System.out.println(coordinate);
         User user = getUser();
         user.setAge(age);
         user.setBAddress(address);

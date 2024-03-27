@@ -23,9 +23,11 @@ import os
 # .env 파일에서 환경변수 로드
 env = 'deploy'  # test / deploy
 load_dotenv(f'.env.{env}')
+print(load_dotenv())
 
 # 환경변수 사용
 file_path = os.getenv('FILE_PATH')
+print(file_path)
 user = os.getenv('MONGO_USER')
 password = os.getenv('MONGO_PASSWORD')
 host = os.getenv('MONGO_HOST')

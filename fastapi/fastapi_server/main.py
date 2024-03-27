@@ -14,8 +14,8 @@ from starlette.middleware.cors import CORSMiddleware
 from konlpy.tag import Okt
 
 # 모델 파일이 있는 절대 경로 설정
-file_path = '/code/app/'  # 컨테이너 내 경로
-# file_path = './'  # 로컬 테스트 경로
+# file_path = '/code/app/'  # 컨테이너 내 경로
+file_path = './'  # 로컬 테스트 경로
 
 # MongoDB 접속 정보
 user = "mango"
@@ -121,12 +121,13 @@ async def predict(preference: PredictRequest):
     recommend = recommend.drop(axis=1, columns=['군집'])
     recommend.columns = label
     recommend = recommend.transpose()
-    print(recommend)
     response = {
-        "userInfo": {i: score for i, score in zip(label[2:], preference.features)},
-        "recommend": [{'dongId': i} for i in recommend.iloc[0, :]]
+        'userInfo': {i: score for i, score in zip(label[2:], preference.features)},
+        'recommend': [{'dongId': Id, 'dongName': Name} for Id, Name in zip(recommend.iloc[0, :], recommend.iloc[1, :])]
     }
-    await send_data_to_spring_boot(response, preference.token)
+    spring_boot_response = await send_data_to_spring_boot(response, preference.token)
+    for data, TF in zip(response['recommend'], spring_boot_response['object']):
+        data['isLike'] = TF
     return response
 
 

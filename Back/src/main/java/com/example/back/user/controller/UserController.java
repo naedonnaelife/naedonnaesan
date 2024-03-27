@@ -50,4 +50,10 @@ public class UserController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("home")
+    public ResponseEntity<Message> home(){
+        Message message = new Message(HttpStatusEnum.OK, "마이페이지 상단 출력 완료되었습니다.", 1);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
 }

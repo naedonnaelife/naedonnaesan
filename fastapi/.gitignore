@@ -4,3 +4,10 @@ myapi.db
 __pycache__
 migrations
 alembic.ini
+# Environments
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/

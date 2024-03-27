@@ -6,6 +6,12 @@ WORKDIR /code
 # dockerFile로 부터 상대적인 위치
 COPY ./fastapi_env/Scripts/requirements.txt /code/requirements.txt
 
+# 패키지 리스트 업데이트 및 빌드 의존성 설치
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
 # pip install 해주기 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 

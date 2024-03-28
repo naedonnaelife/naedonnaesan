@@ -51,10 +51,10 @@ public class UserController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @GetMapping("myLadLat")
-    public ResponseEntity<Message> myLadLat(){
+    @GetMapping("myLatLon")
+    public ResponseEntity<Message> myLatLon(){
         LatLonDto latLonDto = userService.getLatLon();
-        Message message = new Message(HttpStatusEnum.OK, "내 주소값 출력 완료되었습니다.", 1);
+        Message message = new Message(HttpStatusEnum.OK, "내 주소값 출력 완료되었습니다.", latLonDto);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

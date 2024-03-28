@@ -3,10 +3,7 @@ package com.example.back.report.service;
 import com.example.back.dong.entity.Dong;
 import com.example.back.dong.repository.DongRepository;
 import com.example.back.exception.DongNotFoundException;
-import com.example.back.report.dto.RecommendationDto;
-import com.example.back.report.dto.ReportDto;
-import com.example.back.report.dto.RequestDto;
-import com.example.back.report.dto.ResponseDto;
+import com.example.back.report.dto.*;
 import com.example.back.report.entity.Report;
 import com.example.back.report.repository.ReportRepository;
 import com.example.back.reportdong.entity.ReportDong;
@@ -68,10 +65,7 @@ public class ReportService {
             if (existingZzim.isPresent()) {
                 isZzim = true;
             }
-            BigDecimal dongX = new BigDecimal(dong.getDongX());
-            BigDecimal dongY = new BigDecimal(dong.getDongY());
-            BigDecimal userX = new BigDecimal(user.getX());
-            BigDecimal userY = new BigDecimal(user.getY());
+
 
             ResponseDto responseDto = new ResponseDto(dongId, isZzim, dong.getDongX(), dong.getDongY(), user.getX(), user.getY());
             responseDtos.add(responseDto);
@@ -80,18 +74,79 @@ public class ReportService {
         return responseDtos;
     }
 
-    public ReportDto showFilter(){
+    public MypageFilterDto showFilter(){
         User user = userService.getUser();
         List<Report> reportList = reportRepository.findByUser(user);
 
-        ReportDto reportDto = null;
+        MypageFilterDto mypageFilterDto = null;
         int count = reportList.size();
         if (count != 0){
             // 가장 최근에 한 값을 return 해줌
             Report report = reportList.get(count-1);
-            reportDto = new ReportDto(report.getConvReport(), report.getSafetyReport(), report.getHealthReport(), report.getFoodReport(), report.getTranspReport(), report.getLeisureReport(), report.getCafeReport(), report.getPubReport());
+            System.out.println(report.getReportId());
+
+            ReportDto reportDto = new ReportDto(report.getConvReport(), report.getSafetyReport(), report.getHealthReport(), report.getFoodReport(), report.getTranspReport(), report.getLeisureReport(), report.getCafeReport(), report.getPubReport());
+
+            List<ReportDong> reportDongs = reportdongRepository.findByReport(report);
+
+            List<MypageDongDto> mypageDongDtoList = new ArrayList<>();
+
+            for (int i = 0; i < 3; i++) {
+
+                ReportDong reportDong = reportDongs.get(i);
+
+                Dong dong = reportDong.getDong();
+                System.out.println("zzim한 동 id: "+dong.getDongId());
+
+                // 사용자와 동에 해당하는 찜(Zzim) 조회
+                Optional<Zzim> existingZzim = zzimRepository.findByUserAndDong(user, dong);
+
+                boolean isZzim = false;
+                // 이미 존재하는 경우 처리. 근데 뭘 하는게 좋을지 모르겠음
+                if (existingZzim.isPresent()) {
+                    isZzim = true;
+                }
+
+                Double dongX = new Double(dong.getDongX());
+                Double dongY = new Double(dong.getDongY());
+                Double userX = new Double(user.getX());
+                Double userY = new Double(user.getY());
+
+                Double distance = distance(dongX, dongY, userX, userY);
+                mypageDongDtoList.add(new MypageDongDto(dong.getDongName(), isZzim, distance));
+            }
+
+
+
+
+            mypageFilterDto = new MypageFilterDto(reportDto, mypageDongDtoList);
+
         }
-        return reportDto;
+
+
+        return mypageFilterDto;
     }
+
+    // 두 좌표 사이의 거리를 구하는 함수
+    // dsitance(첫번쨰 좌표의 위도, 첫번째 좌표의 경도, 두번째 좌표의 위도, 두번째 좌표의 경도)
+    private static double distance(double lat1, double lon1, double lat2, double lon2){
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))* Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist*60*1.1515*1.60934;
+
+        return dist; //단위 meter
+    }
+
+    //10진수를 radian(라디안)으로 변환
+    private static double deg2rad(double deg){
+        return (deg * Math.PI/180.0);
+    }
+    //radian(라디안)을 10진수로 변환
+    private static double rad2deg(double rad){
+        return (rad * 180 / Math.PI);
+    }
+
 
 }

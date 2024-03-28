@@ -2,6 +2,7 @@ package com.example.back.report.controller;
 
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
+import com.example.back.report.dto.MypageFilterDto;
 import com.example.back.report.dto.ReportDto;
 import com.example.back.report.dto.RequestDto;
 import com.example.back.report.dto.ResponseDto;
@@ -34,8 +35,8 @@ public class ReportController {
     // 나의 선호도 출력하기
     @GetMapping("mypage/filterlist")
     public ResponseEntity<Message> showFilterList(){
-        ReportDto reportDto = reportService.showFilter();
-        Message message = new Message(HttpStatusEnum.OK, "나의 선호도 출력 완료되었습니다.", reportDto);
+        MypageFilterDto mypageFilterDto = reportService.showFilter();
+        Message message = new Message(HttpStatusEnum.OK, "나의 선호도 출력 완료되었습니다.", mypageFilterDto);
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

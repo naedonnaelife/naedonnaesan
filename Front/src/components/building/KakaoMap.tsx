@@ -97,12 +97,6 @@ function KakaoMap({
       map.setZoomable(true);
     };
 
-    // 커스텀 오버레이 닫기
-    const closeOverlay = () => {
-      map.setZoomable(true);
-      customOverlay.setMap(null);
-    };
-    document.getElementById('map')?.addEventListener('click', closeOverlay);
     // 폴리곤 생성
     const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
       return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
@@ -208,11 +202,11 @@ function KakaoMap({
             buildingIdList: buildingIdList,
           })
           .then((response) => {
-            let content = '<article class="contentStyle"><ul class="container">';
+            let content = '<div class="contentStyle"><ul class="container">';
             response.data.object.forEach((building: any) => {
               content += `<li class="item" id=${building.buildingId}> <p>[${building.buildingType}]</p><p>${building.name}</p><p> ${building.payType}${building.deposit} / ${building.monthlyPay} </p></li>`;
             });
-            content += '</ul><div class="close" id="close-button">닫기</div></article>';
+            content += '</ul><div class="close" id="close-button">닫기</div></div>';
 
             customOverlay.setPosition(cluster.getCenter());
             customOverlay.setContent(content);
@@ -220,6 +214,13 @@ function KakaoMap({
             map.setCenter(cluster.getCenter());
 
             // 오버레이 닫기 이벤트
+            // 커스텀 오버레이 닫기
+            const closeOverlay = () => {
+              map.setZoomable(true);
+              customOverlay.setMap(null);
+            };
+
+            document.getElementById('map')?.addEventListener('click', closeOverlay);
 
             // 오버레이 클릭 / 닫기 이벤트 달기
             document.getElementById('close-button')?.addEventListener('click', closeOverlay);

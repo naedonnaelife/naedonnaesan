@@ -54,8 +54,8 @@ const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen, searchDong, 
       ) : (
         <>
           <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
-          <RadarChart seoulData={seoulScores} dongData={dongScores} />
-          <TableChart dongData={dongCounts} seoulData={seoulCounts} />
+          <RadarChart seoulData={seoulScores} dongData={dongScores} searchDong={searchDong} />
+          <TableChart dongData={dongCounts} seoulData={seoulCounts} searchDong={searchDong} />
           <TextBox searchDong={searchDong} />
         </>
       )}

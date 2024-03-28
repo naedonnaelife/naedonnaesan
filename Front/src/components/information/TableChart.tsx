@@ -2,8 +2,9 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 interface DataProps {
-  seoulData : number[];
-  dongData : number[];
+  seoulData: number[];
+  dongData: number[];
+  searchDong: string;
 }
 
 const TableWrapper = styled.figure`
@@ -28,16 +29,15 @@ const Td = styled.td`
   ${tw`py-1`}
 `;
 
-
-const TableChart: React.FC<DataProps> = ({seoulData, dongData}) => {
-    const infraList = [ '🚨 편의시설', '🚨 치안', '🎨 여가', '🏥 보건', '🍔 음식점', '🛒 카페', '🛒 술집', '🚌 대중교통']
+const TableChart: React.FC<DataProps> = ({ seoulData, dongData, searchDong }) => {
+  const infraList = ['🚨 편의시설', '🚨 치안', '🎨 여가', '🏥 보건', '🍔 음식점', '🛒 카페', '🛒 술집', '🚌 대중교통'];
   return (
     <TableWrapper>
       <Table>
         <Thead>
           <tr>
             <Th>지표</Th>
-            <Th>내가 선택한 지역</Th>
+            <Th>{searchDong}</Th>
             <Th>서울시 전체 평균</Th>
           </tr>
         </Thead>

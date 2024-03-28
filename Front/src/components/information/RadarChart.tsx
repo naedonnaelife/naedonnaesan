@@ -6,19 +6,20 @@ import { Radar } from 'react-chartjs-2';
 interface RadarProps {
   dongData: number[];
   seoulData: number[];
+  searchDong: string;
 }
 
 const ChartWrapper = styled.figure`
   ${tw`flex justify-center h-[40%] border-basic m-1`}
 `;
 
-const RadarChart: React.FC<RadarProps> = ({ dongData, seoulData }) => {
+const RadarChart: React.FC<RadarProps> = ({ dongData, seoulData, searchDong }) => {
   ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
   const chartData = {
     labels: ['편의시설', '치안', '여가', '보건', '음식점', '카페', '술집', '대중교통'],
     datasets: [
       {
-        label: '내가 선택한 동',
+        label: searchDong,
         data: dongData,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',

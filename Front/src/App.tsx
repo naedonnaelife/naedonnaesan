@@ -13,8 +13,8 @@ declare global {
 }
 
 const AppContainer = styled.div`
-  ${tw` font-jamsil text-choco h-screen`}
-`;
+  ${tw` font-jamsil text-choco h-screen custom-cursor`}
+  `;
 
 const queryClient = new QueryClient();
 
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContainer>
+      <AppContainer className='custom-cursor'>
         <AppRoutes />
       </AppContainer>
     </QueryClientProvider>

@@ -25,3 +25,7 @@ body {
 ::-webkit-scrollbar {
   display: none;
   }
+
+.cursor-mango{
+  cursor: url('./assets//mango.png'), auto;
+}

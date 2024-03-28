@@ -36,7 +36,7 @@ function UserForm() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("F");
   const [name, setName] = useState("");
-  const [coordinate, SetCoordinate] = useState({x : '', y : ''})
+  const [coordinate, SetCoordinate] = useState({})
   const axios = UseAxios();
   const navigate = useNavigate()
   const inputData = {
@@ -86,9 +86,22 @@ function UserForm() {
   
   const inputUserInfo = async (e: React.FormEvent) => {
     e.preventDefault();
-    await axios.post("/api/userinfo", inputData).then(
-      () => {navigate('/recommend')}
-    );
+
+    const checked = Object.values(inputData).filter(e =>{
+      if(typeof e === 'string'){
+        return e === ""
+      } else {
+        return Object.keys(e).length === 0;
+      }
+    })
+
+    if(!checked.length){
+      await axios.post("/api/userinfo", inputData).then(
+        () => {navigate('/recommend')}
+      );
+    } else{
+      alert('빼먹지 말고 전부 입력하십쇼')
+    }
   };
   // 테스트
   const testAlert = () => {

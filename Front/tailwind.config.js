@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js, jsx, ts, tsx}'],
   theme: {
     extend: {
+      cursor:{
+        mango : 'url(./src/assets/mango.png), pointer'
+      },
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
         jamsilLight: ['TheJamsil3Regular'],
@@ -62,6 +65,9 @@ export default {
           borderRadius: '0.375rem',
           backgroundColor: '#ffffff',
           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        },
+        '.custom-cursor': {
+          cursor: 'url("/../src/assets/mango.png"), auto',
         },
       };
       addUtilities(newUtilities);

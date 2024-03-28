@@ -164,7 +164,7 @@ def getKeyword():
     okt = Okt()
 
     # 불용어 처리를 위한 stopwords 불러오기
-    with open('korean_stopwords.txt', 'r', encoding='utf-8') as file:
+    with open(file_path + 'korean_stopwords.txt', 'r', encoding='utf-8') as file:
         # 파일 내용 읽기
         content = file.read()
     stopwords = content.strip().split('\n')
@@ -222,7 +222,7 @@ def getKeyword():
 # 스케줄러 시작
 scheduler.add_job(
     getKeyword,  # 실행할 함수
-    CronTrigger(hour=15, minute=59, timezone='Asia/Seoul')
+    CronTrigger(hour=16, minute=3, timezone='Asia/Seoul')
 )
 scheduler.start()
 

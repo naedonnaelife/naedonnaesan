@@ -43,11 +43,11 @@ daily_keywords = db['daily_keywords']  # 사용할 컬렉션 선택 또는 생�
 
 
 # 모델 로드
-# pca_model = joblib.load(file_path + "pca_model.joblib")
-# knn_model = joblib.load(file_path + "knn_model.joblib")
+pca_model = joblib.load(file_path + "pca_model.joblib")
+knn_model = joblib.load(file_path + "knn_model.joblib")
 
-pca_model = joblib.load("pca_model.joblib")
-knn_model = joblib.load("knn_model.joblib")
+# pca_model = joblib.load("pca_model.joblib")
+# knn_model = joblib.load("knn_model.joblib")
 origins = [
     "*"
 ]
@@ -222,7 +222,7 @@ def getKeyword():
 # 스케줄러 시작
 scheduler.add_job(
     getKeyword,  # 실행할 함수
-    CronTrigger(hour=15, minute=57, timezone='Asia/Seoul')
+    CronTrigger(hour=15, minute=59, timezone='Asia/Seoul')
 )
 scheduler.start()
 

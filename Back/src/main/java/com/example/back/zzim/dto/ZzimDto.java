@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 public class ZzimDto {
-    private Long zzimId;
+    private Long dongId;
     private String dongName;
 //    private User user;
 }

@@ -2,25 +2,27 @@ package com.example.back.dashboard.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.Tuple;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.example.back.dashboard.document.Article;
+import com.example.back.dashboard.dto.ArticleDto;
+import com.example.back.dashboard.dto.ArticlePageDto;
 import com.example.back.dashboard.dto.AvgInfraDto;
+import com.example.back.dashboard.repository.ArticleRepository;
 import com.example.back.infracount.dto.InfraTypeAvgCountDto;
+import com.example.back.infracount.dto.InfraTypeCountDto;
+import com.example.back.infracount.repository.InfraCountRepository;
 import com.example.back.infrascore.dto.InfraAvgScoreDto;
 import com.example.back.infrascore.repository.InfraScoreRepository;
 import com.example.back.subway.dto.SubwayDto;
 import com.example.back.subway.entity.Subway;
 import com.example.back.subway.repository.SubwayRepository;
-import org.springframework.stereotype.Service;
-
-import com.example.back.dashboard.dto.ArticleDto;
-import com.example.back.dashboard.document.Article;
-import com.example.back.dashboard.repository.ArticleRepository;
-import com.example.back.infracount.dto.InfraTypeCountDto;
-import com.example.back.infracount.repository.InfraCountRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,15 +34,18 @@ public class DashboardService {
 	private final InfraScoreRepository infraScoreRepository;
 	private final SubwayRepository subwayRepository;
 
-	public List<ArticleDto> getArticleList(String keyword) {
-		List<Article> articleList = articleRepository.findByTitleContaining(keyword);
-
-		return articleList.stream().map(
+	public ArticlePageDto getArticleList(String keyword, Pageable page) {
+		Page<Article> articlePage = articleRepository.findByTitleContaining(keyword, page);
+		List<ArticleDto> articleDtoList = articlePage.stream().map(
 			article -> {
 				ArticleDto dto = new ArticleDto();
 				setDto(article, dto);
 				return dto;
 			}).collect(Collectors.toList());
+		ArticlePageDto dto = new ArticlePageDto();
+		dto.setArticleDtoList(articleDtoList);
+		dto.setLast(articlePage.isLast());
+		return dto;
 	}
 
 	public ArticleDto getArticle(String id) {

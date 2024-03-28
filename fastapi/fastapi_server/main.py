@@ -129,7 +129,7 @@ async def predict(preference: PredictRequest):
     }
     spring_boot_response = await send_data_to_spring_boot(response, preference.token)
     for data, obj in zip(response['recommend'], spring_boot_response['object']):
-        data['isLike'] = obj['zzim']
+        data['zzim'] = obj['zzim']
     return response
 
 

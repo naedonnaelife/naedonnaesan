@@ -11,9 +11,9 @@ interface SideProps {
 }
 
 type News = {
-  articleId: number;
+  id: number;
   title: string;
-  content: string;
+  article: string;
   imageUrl: string;
 };
 
@@ -43,7 +43,9 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen, searchDo
   const axios = UseAxios();
 
   const store = useSearchStore((state) => state.selectedNews);
+
   const selectedNews = async (e: number) => {
+    console.log('뉴스 선택 : ', e)
     await store(e);
     setIsNewsOpen(true);
   };
@@ -68,7 +70,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen, searchDo
       />
       <button onClick={getNewsList}> 검색하기</button>
       {newsList?.map((news) => (
-        <Card onClick={() => selectedNews(news.articleId)} key={news.articleId}>
+        <Card onClick={() => selectedNews(news.id)} key={news.id}>
           <NewsCard news={news} />
         </Card>
       ))}

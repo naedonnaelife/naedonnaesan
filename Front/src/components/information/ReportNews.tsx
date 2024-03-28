@@ -8,8 +8,8 @@ interface NewsProps {
 }
 
 type News = {
-  content: string;
-  imageUrl: string;
+  article: string;
+  // imageUrl: string;
   title: string;
 };
 
@@ -30,9 +30,10 @@ const CloseButton = styled.button`
 `;
 
 const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
+  console.log(123)
   const [newsDetail, setNewsDetail] = useState<News>({
-    content: '',
-    imageUrl: '',
+    article: '',
+    // imageUrl: '',
     title: '',
   });
   const axios = UseAxios();
@@ -43,7 +44,9 @@ const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
       if (newsId) {
         try {
           const response = await axios.get(`/api/dashboard/news/articleid/${newsId}`);
+          console.log("완료")
           setNewsDetail(response.data.object);
+          
         } catch (error) {
           console.error('getNewsDtail Fail : ', error);
         }
@@ -56,8 +59,8 @@ const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
     <NewsWrapper>
       <CloseButton onClick={() => setIsNewsOpen(false)}>✖</CloseButton>
       <NewsTitle>{newsDetail.title}</NewsTitle>
-      <NewsImage src={newsDetail.imageUrl} alt="news" />
-      <NewsContent>{newsDetail.content}</NewsContent>
+      {/* <NewsImage src={newsDetail.imageUrl} alt="news" /> */}
+      <NewsContent>{newsDetail.article}</NewsContent>
     </NewsWrapper>
   );
 };

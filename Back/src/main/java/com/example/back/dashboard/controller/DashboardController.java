@@ -1,5 +1,6 @@
 package com.example.back.dashboard.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.back.dashboard.dto.AvgInfraDto;
@@ -40,6 +41,7 @@ public class DashboardController {
 
 	@GetMapping("/news/articleid/{id}")
 	public ResponseEntity<Message> getArticle(@PathVariable(value = "id") String id) {
+		// System.out.println(LocalDate.now());
 		ArticleDto article = dashboardService.getArticle(id);
 		Message message =
 			article != null ?
@@ -48,9 +50,9 @@ public class DashboardController {
 		return new ResponseEntity<>(message, article != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
-	@GetMapping("/infra/{dongid}")
-	public ResponseEntity<Message> getInfraTypeCounts(@PathVariable(value = "dongid") long dongId) {
-		List<InfraTypeCountDto> infraTypeCount = dashboardService.getInfraTypeCounts(dongId);
+	@GetMapping("/infra/{dongname}")
+	public ResponseEntity<Message> getInfraTypeCounts(@PathVariable(value = "dongname") String dongName) {
+		List<InfraTypeCountDto> infraTypeCount = dashboardService.getInfraTypeCounts(dongName);
 		Message message =
 			infraTypeCount.isEmpty() ?
 				new Message(HttpStatusEnum.NOT_FOUND, "동네에 따른 인프라 수치 조회 실패", null) :

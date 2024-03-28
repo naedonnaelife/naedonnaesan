@@ -13,9 +13,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  data:
-    mongodb:
-      uri: mongodb://mango:sweetmango123@j10e204.p.ssafy.io:27017/mango
+#  data:
+#    mongodb:
+#      uri: mongodb://mango:sweetmango123@j10e204.p.ssafy.io:27017/mango
   profiles:
     include: oauth
   redis:

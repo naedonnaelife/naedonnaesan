@@ -67,9 +67,9 @@ public class DashboardService {
 	}
 
 	// 이건 조우재꺼
-	public List<InfraTypeCountDto> getInfraTypeCounts(Long dongId) {
+	public List<InfraTypeCountDto> getInfraTypeCounts(String dongName) {
 
-		List<Tuple> infraCountList = infraCountRepository.findInfraCountByDongId(dongId);
+		List<Tuple> infraCountList = infraCountRepository.findInfraCountByDongName(dongName);
 
 		return infraCountList.stream().map(infraCount -> new InfraTypeCountDto(
 			infraCount.get("dongName", String.class),

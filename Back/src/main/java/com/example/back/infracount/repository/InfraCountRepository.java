@@ -23,9 +23,9 @@ public interface InfraCountRepository extends JpaRepository<InfraCount, Long> {
         "FROM InfraCount as ic " +
         "JOIN InfraScore as is_ " +
         "ON ic.dong.dongId = is_.dong.dongId AND ic.infraType.typeId = is_.infraType.typeId " +
-        "WHERE ic.dong.dongId = :dongId " +
+        "WHERE ic.dong.dongName = :dongName " +
         "GROUP BY ic.dong.dongId, ic.infraType.typeId")
-    List<Tuple> findInfraCountByDongId(@Param("dongId") Long dongId);
+    List<Tuple> findInfraCountByDongName(@Param("dongName") String dongName);
 
 
     // 서울시 전체 인프라타입별 갯수 평균을 가져오기

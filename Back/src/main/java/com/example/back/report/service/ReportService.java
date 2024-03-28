@@ -140,7 +140,7 @@ public class ReportService {
         double dist = Math.sin(deg2rad(lat1))* Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.cos(deg2rad(theta));
         dist = Math.acos(dist);
         dist = rad2deg(dist);
-        dist = dist*60*1.1515*1609.34;
+        dist = dist*60*1.1515*1.60934;
 
         return dist; // km단위
     }

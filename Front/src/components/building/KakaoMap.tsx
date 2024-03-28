@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
@@ -6,11 +6,12 @@ import newDong from '../../datas/dong.json';
 import './content.css';
 
 interface KakaoMapProps {
-  areaName: string;
   selectedBuildingRef: React.MutableRefObject<any>;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
   setBuildingMap: React.Dispatch<React.SetStateAction<any>>;
   markerList: React.MutableRefObject<any>;
+  searchDong: string;
+  setSearchDong: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type Building = {
@@ -28,9 +29,9 @@ const Map = styled.div`
 `;
 
 const SearchWarpper = styled.div`
-  ${tw`w-[100%] h-12 absolute top-4 px-4 z-10`}
+  ${tw`hidden w-[100%] h-12 absolute top-4 px-4 z-10
+  max-sm:block`}
 `;
-
 
 const { kakao } = window;
 
@@ -43,11 +44,16 @@ const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selecte
   offset: new kakao.maps.Point(26, 26),
 });
 
-function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap, markerList }: KakaoMapProps) {
-  const [searchDong, setSearchDong] = useState(areaName);
+function KakaoMap({
+  selectedBuildingRef,
+  setBuildingId,
+  setBuildingMap,
+  markerList,
+  searchDong,
+  setSearchDong,
+}: KakaoMapProps) {
   const axios = UseAxios();
-  const selectedDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === areaName);
-  console.log(selectedDong);
+  const selectedDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === searchDong);
   const x = selectedDong.properties.x;
   const y = selectedDong.properties.y;
 
@@ -96,7 +102,7 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
       map.setZoomable(true);
       customOverlay.setMap(null);
     };
-
+    document.getElementById('map')?.addEventListener('click', closeOverlay);
     // 폴리곤 생성
     const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
       return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
@@ -192,7 +198,6 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
         map.setLevel(newLevel ? newLevel : 1);
       } else {
         // 커스텀 오버레이 생성하는 경우
-        console.log(cluster);
         customOverlay.setMap(null);
         map.setZoomable(false);
         const clusterMarkers = cluster.getMarkers();
@@ -203,11 +208,11 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
             buildingIdList: buildingIdList,
           })
           .then((response) => {
-            let content = '<div class="contentStyle"><ul class="container">';
+            let content = '<article class="contentStyle"><ul class="container">';
             response.data.object.forEach((building: any) => {
-              content += `<li class="item" id=${building.buildingId}> <p>[${building.buildingType}]</p><p>${building.name}</p><p> ${building.payType}${building.deposit}/${building.monthlyPay} </p></li>`;
+              content += `<li class="item" id=${building.buildingId}> <p>[${building.buildingType}]</p><p>${building.name}</p><p> ${building.payType}${building.deposit} / ${building.monthlyPay} </p></li>`;
             });
-            content += '</ul><div class="close" id="close-button">닫기</div></div>';
+            content += '</ul><div class="close" id="close-button">닫기</div></article>';
 
             customOverlay.setPosition(cluster.getCenter());
             customOverlay.setContent(content);
@@ -215,7 +220,6 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
             map.setCenter(cluster.getCenter());
 
             // 오버레이 닫기 이벤트
-            
 
             // 오버레이 클릭 / 닫기 이벤트 달기
             document.getElementById('close-button')?.addEventListener('click', closeOverlay);
@@ -236,7 +240,7 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
     // 데이터에서 좌표 값을 가지고 마커 표시
     // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않음
     axios
-      .get('/api/buildings', { params: { dongname: areaName } })
+      .get('/api/buildings', { params: { dongname: searchDong } })
       .then((response) => {
         const markermarker: any = {};
         const markers = response.data.object.map((building: Building) => {
@@ -270,12 +274,12 @@ function KakaoMap({ areaName, selectedBuildingRef, setBuildingId, setBuildingMap
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [searchDong]);
 
   return (
     <MapWrapper>
       <Map id="map">
-      <SearchWarpper>
+        <SearchWarpper>
           <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
         </SearchWarpper>
       </Map>

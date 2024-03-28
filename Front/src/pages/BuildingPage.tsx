@@ -16,25 +16,30 @@ function BuildingPage() {
   const markerList = useRef<any>({});
   const selectedBuildingRef = useRef<any>(null);
   const location = useLocation();
+  const [searchDong, setSearchDong] = useState(location.state ? location.state.areaName : '역삼동');
 
   return (
     <>
       <NavBar />
       <Main>
         <SideBuilding
-          areaName={location.state ? location.state.areaName : '역삼동'}
+          // areaName={location.state ? location.state.areaName : '역삼동'}
           selectedBuildingRef={selectedBuildingRef}
           buildingId={buildingId}
           setBuildingId={setBuildingId}
           markerList={markerList}
           buildingMap={buildingMap}
+          searchDong={searchDong}
+          setSearchDong={setSearchDong}
         />
         <KakaoMap
-          areaName={location.state ? location.state.areaName : '역삼동'}
+          // areaName={location.state ? location.state.areaName : '역삼동'}
           selectedBuildingRef={selectedBuildingRef}
           setBuildingId={setBuildingId}
           setBuildingMap={setBuildingMap}
           markerList={markerList}
+          searchDong={searchDong}
+          setSearchDong={setSearchDong}
         />
       </Main>
     </>

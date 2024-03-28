@@ -62,8 +62,8 @@ public class User {
     // 주소 bAddress 변경
     public void updateAddress(AddressDto addressDto){
         this.bAddress = addressDto.getAddress();
-        this.x = addressDto.getX();
-        this.y = addressDto.getY();
+        this.y = addressDto.getX();
+        this.x = addressDto.getY();
 
         System.out.println(this.userId+"의 주소를 "+this.getBAddress()+"로 변경, x: "+this.x +" y: "+this.y);
     }

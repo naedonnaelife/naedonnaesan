@@ -88,8 +88,8 @@ const KakaoMap: React.FC = () => {
   const createPolygon = (map: any, newJson: any, customOverlay: any) => {
     if (!rectangle) {
       // 1. 사각형 폴리곤
-      const backgroundSW = new kakao.maps.LatLng(36, 126);
-      const backgroundNE = new kakao.maps.LatLng(39, 128);
+      const backgroundSW = new kakao.maps.LatLng(30, 115);
+      const backgroundNE = new kakao.maps.LatLng(45, 140);
       const rectangleBounds = new kakao.maps.LatLngBounds(backgroundSW, backgroundNE);
 
       const background = new kakao.maps.Rectangle({
@@ -156,6 +156,7 @@ const KakaoMap: React.FC = () => {
       });
     });
   };
+  
   useEffect(() => {
     if (newMap) {
       jsonProcessing(newGu, false);

@@ -10,7 +10,11 @@ COPY ./fastapi_env/Scripts/requirements.txt /code/requirements.txt
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
+    openjdk-11-jdk \
     && rm -rf /var/lib/apt/lists/*
+
+# JAVA_HOME 환경 변수 설정
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 
 # pip install 해주기 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt

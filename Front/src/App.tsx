@@ -26,6 +26,7 @@ function App() {
       if (!isChecked){
         localStorage.clear();
         sessionStorage.setItem('checkIn', 'true')
+        window.location.reload()
       } 
       return;
     };

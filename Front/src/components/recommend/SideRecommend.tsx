@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import RecommendList from '../../utils/RecommendList';
 import SelectInfra from './SelectInfra'
@@ -23,44 +23,25 @@ ${({isActive}:StyleProps) => (isActive ? tw` bg-green-200 scale-[115%]` : tw`tex
 ` 
 
 const SideRecommend:React.FC = () => {
-    const [isInfraActive, setIsInfraActive] = useState(true)
-    const [isRecommendActive, setIsRecommendActive] = useState(true)
+    const [isActive, setIsActive] = useState(true)
 
-    const changeActive = (e:string) => {
+    const handleActive = (e:string) => {
       if(e === 'infra'){
-        setIsInfraActive(true)
-        setIsRecommendActive(false)
+        setIsActive(true)
       } else{
-        setIsInfraActive(false)
-        setIsRecommendActive(true) 
-      }
-    }
-    const handleResize = () => {
-      const nowWidth = window.innerWidth
-      if(nowWidth <= 640){
-        setIsInfraActive(true)
-        setIsRecommendActive(false)
-      } else{
-        setIsInfraActive(true)
-        setIsRecommendActive(true)
+        setIsActive(false)
       }
     }
 
-    useEffect(() => {
-      window.addEventListener('resize', handleResize);
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []);
     return (
     <>
       <Aside>
         <SwitchWrapper>
-          <Switch isActive={isInfraActive} onClick={() => changeActive('infra')}>인프라</Switch>
-          <Switch isActive={isRecommendActive} onClick={() => changeActive('recommend')}>추천결과</Switch>
+          <Switch isActive={isActive} onClick={() => handleActive('infra')}>인프라</Switch>
+          <Switch isActive={!isActive} onClick={() => handleActive('recommend')}>추천결과</Switch>
         </SwitchWrapper>
-          {isRecommendActive && <RecommendList/>}
-          {isInfraActive && <SelectInfra/>}
+          <RecommendList isActive={isActive}/>
+          <SelectInfra isActive={isActive}/>
       </Aside>
     </>
     );

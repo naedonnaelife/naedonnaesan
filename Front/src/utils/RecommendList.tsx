@@ -3,6 +3,10 @@ import tw, { styled } from 'twin.macro';
 import useSearchStore from '../stores/SearchStore';
 import UseAxios from './UseAxios';
 
+interface RecommendProps {
+  isActive: boolean;
+}
+
 type Dong = {
   dongName : string;
   dongId : number;
@@ -11,12 +15,18 @@ type Dong = {
 
 type StyleProps = {
   color: string;
+  isActive: boolean;
 }
 
 const RecommendWrapper = styled.ul`
   ${tw`flex flex-col h-[35%] border-2 border-lightGray rounded-lg m-2
   max-sm:w-[100%] max-sm:h-[100%] max-sm:mt-0 max-sm:bg-semiWhite`}
+  ${({isActive}:StyleProps) => (isActive ? tw`` : tw`max-sm:hidden`)}
 `;
+
+const AlertWrapper = styled.div`
+  ${tw`flex-cc h-[70%] w-[90%] m-auto bg-green-200 `}
+`
 
 const Title = styled.h2`
   ${tw`m-2`}
@@ -40,7 +50,7 @@ const Like = styled.button`
 `;
 
 
-const RecommendList: React.FC = () => {
+const RecommendList: React.FC<RecommendProps> = ({isActive}) => {
   const store = useSearchStore(state => state)
   const axios = UseAxios()
 
@@ -79,22 +89,27 @@ const RecommendList: React.FC = () => {
 
 
 
-
   return (
     <>
-      <RecommendWrapper>
+      <RecommendWrapper isActive={isActive}>
         <Title> 추천 동네 </Title>
-        {newRecommendList.map((element, index) => (
-          <RecommendResult key={index}>
-            <Index>{index + 1}</Index>
-            <TownName onClick={() => selectArea(element.dongName)}>{element.dongName}</TownName>
-            {likeDongList[index]? (
-              <Like color='red' onClick={() => removeLike(element.dongId, index)}>💗</Like>
-            ) : (
-              <Like onClick={() => addLike(element.dongId, index)}>🤍</Like>
-            )}
-          </RecommendResult>
-        ))}
+        {newRecommendList.length?
+          newRecommendList.map((element, index) => (
+            <RecommendResult key={index}>
+              <Index>{index + 1}</Index>
+              <TownName onClick={() => selectArea(element.dongName)}>{element.dongName}</TownName>
+              {likeDongList[index]? (
+                <Like color='red' onClick={() => removeLike(element.dongId, index)}>💗</Like>
+              ) : (
+                <Like onClick={() => addLike(element.dongId, index)}>🤍</Like>
+              )}
+            </RecommendResult>
+          )) : 
+          <AlertWrapper>
+            <div>추천 받은 동네가 없어요!</div>
+            <div>인프라를 선택해주세요!</div>
+          </AlertWrapper>
+        }
       </RecommendWrapper>
     </>
   );

@@ -35,7 +35,7 @@ type StyleProps = {
 };
 
 const Aside = styled.aside`
-  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg px-2 bg-white duration-200 overflow-y-auto
+  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white duration-200 overflow-y-auto px-2 
     max-sm:absolute max-sm:z-10 max-sm:w-[100%] max-sm:border-t-2 max-sm:border-sbWhite`}
   ${({ isBuildingOpen, selectedBuilding }: StyleProps) =>
     isBuildingOpen
@@ -53,7 +53,7 @@ const SideFixWrapper = styled.div`
   ${tw`flex-cc w-[100%] sticky top-0 bg-white pt-1`}
 `;
 const SearchWarpper = styled.div`
-  ${tw`w-[100%] h-12
+  ${tw`w-[100%] h-[5vh] mt-[1vh]
   max-sm:hidden`}
 `;
 // const ButtonWrapper = styled.aside`

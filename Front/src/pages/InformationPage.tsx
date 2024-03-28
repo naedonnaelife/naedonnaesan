@@ -59,7 +59,7 @@ const InformationPage: React.FC = () => {
           </li>
         </ButtonWrapper>
         <ActiveWrapper>
-          <SideNews setIsNewsOpen={setIsNewsOpen} isNewsListOpen={isNewsListOpen} searchDong={searchDong} />
+          <SideNews setIsNewsOpen={setIsNewsOpen} isNewsListOpen={isNewsListOpen} />
           <Report
             isNewsOpen={isNewsOpen}
             setIsNewsOpen={setIsNewsOpen}

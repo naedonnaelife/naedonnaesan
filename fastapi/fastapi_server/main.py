@@ -221,7 +221,7 @@ def getKeyword():
 # 스케줄러 시작
 scheduler.add_job(
     getKeyword,  # 실행할 함수
-    CronTrigger(hour=0, minute=0, timezone='Asia/Seoul')
+    CronTrigger(hour=10, minute=0, timezone='Asia/Seoul')
 )
 scheduler.start()
 

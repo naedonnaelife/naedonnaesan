@@ -12,8 +12,5 @@ import java.math.BigDecimal;
 public class ResponseDto {
     private Long dongId;
     private boolean isZzim;
-    private String selectedDongX;
-    private String selectedDongY;
-    private String myX;
-    private String myY;
+    private Double distance;
 }

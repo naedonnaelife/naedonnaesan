@@ -66,8 +66,14 @@ public class ReportService {
                 isZzim = true;
             }
 
+            Double dongX = new Double(dong.getDongX());
+            Double dongY = new Double(dong.getDongY());
+            Double userX = new Double(user.getX());
+            Double userY = new Double(user.getY());
 
-            ResponseDto responseDto = new ResponseDto(dongId, isZzim, dong.getDongX(), dong.getDongY(), user.getX(), user.getY());
+            Double distance = distance(dongX, dongY, userX, userY);
+
+            ResponseDto responseDto = new ResponseDto(dongId, isZzim, distance);
             responseDtos.add(responseDto);
         }
 
@@ -134,9 +140,9 @@ public class ReportService {
         double dist = Math.sin(deg2rad(lat1))* Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.cos(deg2rad(theta));
         dist = Math.acos(dist);
         dist = rad2deg(dist);
-        dist = dist*60*1.1515*1.60934;
+        dist = dist*60*1.1515*1609.34;
 
-        return dist; //단위 meter
+        return dist; // km단위
     }
 
     //10진수를 radian(라디안)으로 변환

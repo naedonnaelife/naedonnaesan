@@ -2,6 +2,7 @@ package com.example.back.user.controller;
 
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
+import com.example.back.user.dto.LatLonDto;
 import com.example.back.user.dto.MypageDto;
 import com.example.back.user.dto.AddressDto;
 import com.example.back.user.service.UserService;
@@ -50,9 +51,10 @@ public class UserController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @GetMapping("home")
-    public ResponseEntity<Message> home(){
-        Message message = new Message(HttpStatusEnum.OK, "마이페이지 상단 출력 완료되었습니다.", 1);
+    @GetMapping("myLadLat")
+    public ResponseEntity<Message> myLadLat(){
+        LatLonDto latLonDto = userService.getLatLon();
+        Message message = new Message(HttpStatusEnum.OK, "내 주소값 출력 완료되었습니다.", 1);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

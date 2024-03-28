@@ -8,13 +8,13 @@ interface NewsProps {
 }
 
 type News = {
-  content : string;
-  imageUrl : string;
-  title : string;
-  }
+  content: string;
+  imageUrl: string;
+  title: string;
+};
 
 const NewsWrapper = styled.article`
-  ${tw`h-[90%] border-basic relative p-2`}
+  ${tw`h-[100%] border-basic relative p-1`}
 `;
 const NewsTitle = styled.h1`
   ${tw`text-2xl text-center font-bold m-2`}
@@ -31,13 +31,13 @@ const CloseButton = styled.button`
 
 const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
   const [newsDetail, setNewsDetail] = useState<News>({
-    content : '',
-    imageUrl : '',
-    title : ''
-  })
-  const axios = UseAxios()
-  const newsId = useSearchStore(state => state.newsId)
-  
+    content: '',
+    imageUrl: '',
+    title: '',
+  });
+  const axios = UseAxios();
+  const newsId = useSearchStore((state) => state.newsId);
+
   useEffect(() => {
     const getNewsDetail = async () => {
       if (newsId) {
@@ -45,12 +45,12 @@ const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
           const response = await axios.get(`/api/dashboard/news/articleid/${newsId}`);
           setNewsDetail(response.data.object);
         } catch (error) {
-          console.error("getNewsDtail Fail : ", error);
+          console.error('getNewsDtail Fail : ', error);
         }
       }
     };
-  
-    getNewsDetail(); 
+
+    getNewsDetail();
   }, [newsId]);
   return (
     <NewsWrapper>

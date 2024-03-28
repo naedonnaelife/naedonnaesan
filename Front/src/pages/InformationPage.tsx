@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 import NavBar from '../utils/NavBar';
 import SideNews from '../components/information/SideNews.tsx';
@@ -15,7 +16,7 @@ const Main = styled.main`
 
 const ActiveWrapper = styled.div`
   ${tw`flex h-[100%]
-    max-sm:flex-col max-sm:relative max-sm:border-basic max-sm:p-1 max-sm:mx-2`}
+    max-sm:flex-col max-sm:h-[95%] max-sm:relative max-sm:border-basic max-sm:p-1 max-sm:mx-2`}
 `;
 
 const ButtonWrapper = styled.ul`
@@ -27,9 +28,11 @@ const Button = styled.button`
   ${({ isActive }: isButtonProps) => (isActive ? tw`z-1 border-b-0 bg-white scale-125` : '')}
 `;
 
-const InformationPage:React.FC = ( ) => {
+const InformationPage: React.FC = () => {
   const [isNewsOpen, setIsNewsOpen] = useState<boolean>(false);
   const [isNewsListOpen, setIsNewsListOpen] = useState<boolean>(false);
+  const location = useLocation();
+  const [searchDong, setSearchDong] = useState(location.state ? location.state.areaName : '역삼동');
 
   const handleNewsClick = () => {
     setIsNewsListOpen(true);
@@ -56,12 +59,17 @@ const InformationPage:React.FC = ( ) => {
           </li>
         </ButtonWrapper>
         <ActiveWrapper>
-          <SideNews setIsNewsOpen={setIsNewsOpen} isNewsListOpen={isNewsListOpen} />
-          <Report isNewsOpen={isNewsOpen} setIsNewsOpen={setIsNewsOpen} />
+          <SideNews setIsNewsOpen={setIsNewsOpen} isNewsListOpen={isNewsListOpen} searchDong={searchDong} />
+          <Report
+            isNewsOpen={isNewsOpen}
+            setIsNewsOpen={setIsNewsOpen}
+            searchDong={searchDong}
+            setSearchDong={setSearchDong}
+          />
         </ActiveWrapper>
       </Main>
     </>
   );
-}
+};
 
 export default InformationPage;

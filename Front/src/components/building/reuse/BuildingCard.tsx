@@ -18,13 +18,13 @@ interface CardProps {
 }
 
 const CardWrapper = styled.div`
-  ${tw`flex w-[100%] h-[100%] border-basic p-1 m-1`}
+  ${tw`flex w-[100%] h-[100%] border-basic p-1 m-1 hover:cursor-pointer`}
 `;
 const ImageWrapper = styled.figure`
-  ${tw`w-[40%] h-[100%] p-1`}
+  ${tw`w-[40%] h-[100%] p-1 mr-2`}
 `;
 const ContentWrapper = styled.div`
-  ${tw`w-[60%]`}
+  ${tw`w-[60%] font-jamsilLight`}
 `;
 const CardImage = styled.img`
   ${tw`w-[100%] h-[100%] object-cover`}
@@ -32,14 +32,13 @@ const CardImage = styled.img`
 const BuildingPrice = styled.h1`
   ${tw`text-lg font-bold`}
 `;
-const BuildingContent = styled.p`
+const BuildingContent = styled.figcaption`
   ${tw`text-sm`}
 `;
-
+``;
 const BuildingCard: React.FC<CardProps> = ({ building }) => {
   const roomImage = buildings.url[building?.buildingId % 31];
-  // const roomImage =
-  //   'https://mstatic2.e-himart.co.kr/contents/content/upload/style/20190626/530591/thumbnail_450_propse_tagging_5155.jpg';
+  const area = Math.ceil((building?.area / 3.3058) * 10) / 10;
   return (
     <CardWrapper>
       <ImageWrapper>
@@ -53,7 +52,12 @@ const BuildingCard: React.FC<CardProps> = ({ building }) => {
           <p>
             {building?.buildingType} / {building?.name}{' '}
           </p>
-          <p>{building?.address}</p>
+          <p>
+            {building?.address} {building?.floor}층
+          </p>
+          <p>
+            {building?.area} m2 ({area} 평)
+          </p>
         </BuildingContent>
       </ContentWrapper>
     </CardWrapper>

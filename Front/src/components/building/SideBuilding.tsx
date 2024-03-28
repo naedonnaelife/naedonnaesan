@@ -6,12 +6,13 @@ import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
 
 interface SideProps {
-  areaName: string;
   selectedBuildingRef: React.MutableRefObject<any>;
   buildingId: number;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
   markerList: React.MutableRefObject<any>;
   buildingMap: any;
+  searchDong: string;
+  setSearchDong: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type Building = {
@@ -83,19 +84,20 @@ const ScrollDiv = styled.div`
 const { kakao } = window;
 
 function SideBuilding({
-  areaName,
   selectedBuildingRef,
   buildingId,
   setBuildingId,
   markerList,
   buildingMap,
+  searchDong,
+  setSearchDong,
 }: SideProps) {
   const [isBuildingOpen, setIsBuildingOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [buildingList, setBuildingList] = useState<Building[]>([]);
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
   const [isLast, setIsLast] = useState(false);
-  const [searchDong, setSearchDong] = useState(areaName);
+
   const [pageRef, inView] = useInView();
   const axios = UseAxios();
 
@@ -155,7 +157,7 @@ function SideBuilding({
   }, [inView]);
 
   useEffect(() => {
-      axios
+    axios
       .get('/api/buildings/name', { params: { dongname: searchDong, page: 0 } })
       .then((response) => {
         setPage(1);
@@ -184,7 +186,9 @@ function SideBuilding({
   return (
     <Aside isBuildingOpen={isBuildingOpen} selectedBuilding={selectedBuilding}>
       <SideFixWrapper>
-        <HamburgerButton onClick={handleHamburgerButton} isBuildingOpen={isBuildingOpen}>🍔</HamburgerButton>
+        <HamburgerButton onClick={handleHamburgerButton} isBuildingOpen={isBuildingOpen}>
+          🍔
+        </HamburgerButton>
         <SearchWarpper>
           <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
         </SearchWarpper>

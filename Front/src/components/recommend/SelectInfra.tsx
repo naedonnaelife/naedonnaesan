@@ -52,13 +52,12 @@ const SelectInfra:React.FC<InfraProps> = ({isActive}) => {
     const axios = UseAxios()
     const update = useSearchStore(state => state.updateRecommendList)
     const getDongList = async () => {
-        // const token = localStorage.getItem("accessToken")
-        // console.log('결과 : ', token)
-        // const result = token.slice(6)
+        const token = localStorage.getItem("accessToken")
+        const result = token?.slice(6)
+
         if (isAllChecked){
-        const response = await axios.post(`/ai/recommend`, {features : infraData, token : `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE2MDM2MjksInJvbGUiOiJVU0VSIiwiaWQiOjJ9.kqDjXRWumW_KEOpjFtFZ8RQV8ySeH4MW0nz5AU2DqeQ` })
+        const response = await axios.post(`/ai/recommend`, {features : infraData, token : result })
         update(response.data.recommend)
-        console.log('응답 : ', response.data.recommend)
         } else {
             alert('안돼 새꺄')
         }

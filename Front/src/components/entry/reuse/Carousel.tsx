@@ -2,6 +2,7 @@ import tw, { styled } from 'twin.macro';
 import { keyframes } from '@emotion/react';
 import { useState } from 'react';
 import { contents } from '../../../datas/ms';
+import { useNavigate } from 'react-router-dom';
 
 type RunningProps = {
   isRunning: boolean;
@@ -79,6 +80,7 @@ const MoveContent = styled.button`
 
 const Carousel: React.FC = () => {
   const [isRunning, setIsRunning] = useState(true);
+  const navigate = useNavigate()
 
   const handleMouseEnter = () => {
     setIsRunning(false);
@@ -97,12 +99,16 @@ const Carousel: React.FC = () => {
     });
   };
 
+  const movePage = (url:string) => {
+    navigate(`./${url}`)
+  }
+
   return (
     <>
       <SlideWrapper>
         <OriginSlides isRunning={isRunning}>
           {contents.map((content, index) => (
-            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={index} background={content.background}>
+            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={()=> movePage(content.url)}key={index} background={content.background}>
               <ContentName>{content.name}</ContentName>
               <MoveContent onClick={() => handleScroll(index)}> 더 알아보기 ▼ </MoveContent>
             </Slide>

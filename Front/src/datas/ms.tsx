@@ -48,11 +48,11 @@ export const introduce = [
 ];
 
 export const contents = [
-  { name: '동네 추천', background: recommendCarousel },
-  { name: '매물 보기', background: buildingCarousel },
-  { name: '동네 비교', background: comparisonCarousel },
-  { name: '동네 정보', background: informationCarousel },
-  { name: '마이페이지', background: mypageCarousel },
+  { name: '동네 추천', background: recommendCarousel, url: 'recommend' },
+  { name: '매물 보기', background: buildingCarousel, url: 'building' },
+  { name: '동네 비교', background: comparisonCarousel, url: 'comparison' },
+  { name: '동네 정보', background: informationCarousel, url: 'information' },
+  { name: '마이페이지', background: mypageCarousel, url: 'my' },
 ];
 
 export const indexColor = [

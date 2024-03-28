@@ -48,9 +48,8 @@ const KakaoLogin:React.FC = () => {
         axios.post(`/api/logout`, {}, 
         {headers : {"kakao-authorization" : kakaoToken}}
         ).then(() =>{
-          localStorage.removeItem('accessToken')
-          localStorage.removeItem('refreshToken')
-          localStorage.removeItem('kakaoToken')
+          localStorage.clear()
+          useStore.setIsLogin(false)
         })
       }
     
@@ -68,7 +67,7 @@ const KakaoLogin:React.FC = () => {
         localStorage.setItem("refreshToken", response.headers['authorization-refresh']);
         localStorage.setItem("kakaoToken", response.headers['kakao-authorization']);
         useStore.setIsLogin(true)
-        if(response.headers['Isfirst']){
+        if(response.headers['Isfirst'] === 'True'){
           navigate('./initial')
         }
       } catch (error) {

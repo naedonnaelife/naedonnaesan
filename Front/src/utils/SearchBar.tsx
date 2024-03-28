@@ -59,10 +59,13 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
   };
 
   useEffect(() => {
-    const regex = new RegExp(`^${keyword}`, 'i');
+    if(keyword.length !==0){
+    const escapeKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const regex = new RegExp(`^${escapeKeyword}`, 'i');
     const auto = dongName.filter((e) => regex.test(e));
     setAutoComplete(auto);
     setSelectedKeyword(-1);
+    }
   }, [keyword]);
 
   // unmount시 keyword값 초기화

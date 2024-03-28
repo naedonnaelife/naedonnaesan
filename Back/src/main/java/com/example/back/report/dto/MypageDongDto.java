@@ -12,6 +12,6 @@ import lombok.ToString;
 public class MypageDongDto {
 
     private String dongName;
-    private boolean isZzim;
+    private boolean zzim;
     private Double distance;
 }

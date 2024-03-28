@@ -2,10 +2,7 @@ package com.example.back.user.service;
 
 import com.example.back.auth.FormDto;
 import com.example.back.auth.oauth.PrincipalDetails;
-import com.example.back.user.dto.Coordinate;
-import com.example.back.user.dto.MypageDto;
-import com.example.back.user.dto.UserSimple;
-import com.example.back.user.dto.AddressDto;
+import com.example.back.user.dto.*;
 import com.example.back.user.entity.Gender;
 import com.example.back.user.entity.User;
 import com.example.back.user.repository.UserRepository;
@@ -26,6 +23,12 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    public LatLonDto getLatLon(){
+        User user = getUser();
+        LatLonDto latLonDto = new LatLonDto(user.getX(), user.getY());
+        return latLonDto;
+    }
 
     public MypageDto getMypage(){
         User user = getUser();

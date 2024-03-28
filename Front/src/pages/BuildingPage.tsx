@@ -36,6 +36,7 @@ function BuildingPage() {
           // areaName={location.state ? location.state.areaName : '역삼동'}
           selectedBuildingRef={selectedBuildingRef}
           setBuildingId={setBuildingId}
+          buildingMap={buildingMap}
           setBuildingMap={setBuildingMap}
           markerList={markerList}
           searchDong={searchDong}

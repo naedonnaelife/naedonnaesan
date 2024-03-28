@@ -8,9 +8,15 @@ interface NewsProps {
 }
 
 type News = {
-  article: string;
-  // imageUrl: string;
+  id: string;
+  company: string;
   title: string;
+  link: string;
+  published: string;
+  category: string;
+  category_str: string;
+  reporter: string;
+  article: string;
 };
 
 const NewsWrapper = styled.article`
@@ -31,11 +37,7 @@ const CloseButton = styled.button`
 
 const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
   console.log(123)
-  const [newsDetail, setNewsDetail] = useState<News>({
-    article: '',
-    // imageUrl: '',
-    title: '',
-  });
+  const [newsDetail, setNewsDetail] = useState<News | null>(null);
   const axios = UseAxios();
   const newsId = useSearchStore((state) => state.newsId);
 
@@ -58,9 +60,9 @@ const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
   return (
     <NewsWrapper>
       <CloseButton onClick={() => setIsNewsOpen(false)}>✖</CloseButton>
-      <NewsTitle>{newsDetail.title}</NewsTitle>
+      <NewsTitle>{newsDetail?.title}</NewsTitle>
       {/* <NewsImage src={newsDetail.imageUrl} alt="news" /> */}
-      <NewsContent>{newsDetail.article}</NewsContent>
+      <NewsContent>{newsDetail?.article}</NewsContent>
     </NewsWrapper>
   );
 };

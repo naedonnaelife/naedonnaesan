@@ -3,23 +3,23 @@ import tw, { styled } from 'twin.macro';
 
 interface newsCardProps {
   news: {
+    id: string;
+    company: string;
     title: string;
-    content: string;
-    imageUrl : string;
+    link: string;
+    published: string;
+    category: string;
+    category_str: string;
+    reporter: string;
+    article: string;
   };
 }
 
 const CardWrapper = styled.div`
   ${tw`flex w-[100%] h-[100%] border-basic p-1 m-1 hover:cursor-pointer`}
 `;
-const ImageWrapper = styled.figure`
-  ${tw`w-[40%] h-[100%] p-1`}
-`;
 const ContentWrapper = styled.div`
-  ${tw`w-[60%]`}
-`;
-const CardImage = styled.img`
-  ${tw`w-[100%] h-[100%] object-cover`}
+  ${tw`w-[100%]`}
 `;
 const NewsTitle = styled.h1`
   ${tw`text-lg font-bold`}
@@ -32,12 +32,9 @@ const NewsContent = styled.p`
 const NewsCard: React.FC<newsCardProps> = ({ news }) => {
   return (
     <CardWrapper>
-      <ImageWrapper>
-        <CardImage src={news.imageUrl} alt="image" />
-      </ImageWrapper>
       <ContentWrapper>
         <NewsTitle>{news.title}</NewsTitle>
-        <NewsContent>{news.content}</NewsContent>
+        {/* <NewsContent>{news.article}</NewsContent> */}
       </ContentWrapper>
     </CardWrapper>
   );

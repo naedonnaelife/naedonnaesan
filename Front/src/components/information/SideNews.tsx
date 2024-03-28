@@ -11,10 +11,15 @@ interface SideProps {
 }
 
 type News = {
-  id: number;
+  id: string;
+  company: string;
   title: string;
+  link: string;
+  published: string;
+  category: string;
+  category_str: string;
+  reporter: string;
   article: string;
-  imageUrl: string;
 };
 
 type NewsWrapperProps = {
@@ -44,7 +49,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen, searchDo
 
   const store = useSearchStore((state) => state.selectedNews);
 
-  const selectedNews = async (e: number) => {
+  const selectedNews = async (e: string) => {
     console.log('뉴스 선택 : ', e)
     await store(e);
     setIsNewsOpen(true);
@@ -54,7 +59,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen, searchDo
     console.log(keyword);
     const response = await axios.get(`/api/dashboard/news/keyword/${keyword}`);
     console.log(response.data.object);
-    setNewsList(response.data.object);
+    setNewsList(response.data.object.articleDtoList);
   };
 
   useEffect(() => {

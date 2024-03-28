@@ -108,7 +108,7 @@ const Carousel: React.FC = () => {
       <SlideWrapper>
         <OriginSlides isRunning={isRunning}>
           {contents.map((content, index) => (
-            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={()=> movePage(content.url)}key={index} background={content.background}>
+            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={()=> movePage(content.url)} key={index} background={content.background}>
               <ContentName>{content.name}</ContentName>
               <MoveContent onClick={() => handleScroll(index)}> 더 알아보기 ▼ </MoveContent>
             </Slide>
@@ -117,7 +117,7 @@ const Carousel: React.FC = () => {
 
         <CloneSlides isRunning={isRunning}>
           {contents.map((content, index) => (
-            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={index} background={content.background}>
+            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={()=> movePage(content.url)} key={index} background={content.background}>
               <ContentName>{content.name}</ContentName>
               <MoveContent onClick={() => handleScroll(index)}> 더 알아보기 ↓ </MoveContent>
             </Slide>

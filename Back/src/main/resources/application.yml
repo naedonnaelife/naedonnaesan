@@ -15,7 +15,7 @@ spring:
         format_sql: true
   data:
     mongodb:
-      uri: mongodb://admin:adminqwe123@j10e204.p.ssafy.io:37000/mango
+      uri: mongodb://mango:mangoqwe123@j10e204.p.ssafy.io:37000/mango?authSource=admin
   profiles:
     include: oauth
   redis:

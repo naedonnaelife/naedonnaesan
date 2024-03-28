@@ -41,26 +41,32 @@ const Like = styled.button`
 
 
 const RecommendList: React.FC = () => {
-  const [newRecommendList, setNewRecommendList] = useState<Dong>([])
-  const [likeDongList, setLikeDongList] = useState([true, true, false])
+  const store = useSearchStore(state => state)
   const axios = UseAxios()
 
-  const selectArea = useSearchStore(state => state.selectedArea)
-  const recommendList = useSearchStore(state => state.recommendList)
+  const [newRecommendList, setNewRecommendList] = useState<Dong>([])
+  const [likeDongList, setLikeDongList] = useState<boolean[]>(store.likeList)
+
+
+  const selectArea = store.selectedArea
+  const recommendList = store.recommendList
+  const update = store.updateLikeList
 
   const addLike = async (id:number, index: number) => {
     await axios.post(`/api/zzim/${id}`)
-    .then((response) => {
-      setLikeDongList(prev => prev.map((e, idx) => (idx === index ? true : e)))
-      console.log(' 좋아요 : ', response)
+    .then(() => {
+      const newData = likeDongList.map((e, idx) => (idx === index ? true : e))
+      setLikeDongList(newData)
+      update(newData)
     });
   };
 
   const removeLike = async (id:number, index: number) => {
     await axios.delete(`/api/zzim/${id}`)
-    .then((response) => {
-      setLikeDongList(prev => prev.map((e, idx) => (idx === index ? false : e)))
-      console.log('싫어요 : ', response)
+    .then(() => {
+      const newData = likeDongList.map((e, idx) => (idx === index ? false : e))
+      setLikeDongList(newData)
+      update(newData)
     });
   };
   

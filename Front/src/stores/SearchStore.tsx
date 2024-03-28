@@ -13,9 +13,10 @@ interface BearState {
   selectedArea : (area: string) => void;
   newsId : number | null;
   selectedNews : (articleId: number) => void;
-  likeList : number[]
+  likeList : boolean[]
   recommendList : recommendDong,
   updateRecommendList : (response: recommendDong) => void;
+  updateLikeList : (updateData:boolean[]) => void;
 }
 
 const useSearchStore = create<BearState>()(
@@ -26,10 +27,14 @@ const useSearchStore = create<BearState>()(
         selectedArea : (area) => set(() => ({areaName : area})),
         newsId : null,
         selectedNews : (articleId) => set(() => ({newsId : articleId})),
-        likeList : [1, 2],
-        recommendList : [{dongName : '성수1가1동', dongId : 1, isLike : false}, {dongName : '성수1가2동', dongId : 2, isLike : true}, {dongName : '을지로동', dongId : 3, isLike : true}],
-        updateRecommendList : (response) => set(() => ({recommendList : response})),
-      }),
+        likeList : [],
+        recommendList : [],
+        updateRecommendList: (response) => set(() => ({
+          recommendList: response,
+          likeList: response.map(e => e.isLike)
+        })),
+        updateLikeList: (updateData) => set(()=>({likeList: updateData})),
+        }),
       { name: 'SearchStore' },
     ),
   ),

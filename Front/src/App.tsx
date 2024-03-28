@@ -21,6 +21,7 @@ const queryClient = new QueryClient();
 function App() {
   // useEffect(() => {
   //   const handleUnload = (event: BeforeUnloadEvent) => {
+  //     console.log('이벤트 확인 : ', event.currentTarget)
   //     if (event.currentTarget?.performance.navigation.type === 1) {
   //         return
   //     }

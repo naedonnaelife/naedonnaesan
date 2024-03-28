@@ -181,7 +181,7 @@ const KakaoMap: React.FC = () => {
   useEffect(() => {
     if (areaName && newMap) {
       const findDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === areaName);
-      const sggCode = findDong.properties.sgg;
+      const sggCode = findDong.properties.EMD_CD.slice(0, 5)
       const findGu: any = newGu.features.find((gu: any) => gu.properties.SIG_CD === sggCode);
       const newLevel = isSmallRef.current? 7 : 6
       newMap.setCenter(new kakao.maps.LatLng(findGu.properties.y, findGu.properties.x));

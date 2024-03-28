@@ -17,7 +17,6 @@ import numpy as np
 from collections import OrderedDict
 from dotenv import load_dotenv
 import os
-from urllib.parse import quote_plus
 # .env 파일에서 환경변수 로드
 env = 'deploy'  # test / deploy
 load_dotenv(f'.env.{env}')
@@ -31,7 +30,7 @@ port = os.getenv('MONGO_PORT')
 dbname = os.getenv('MONGO_DBNAME')
 spring_boot_url = os.getenv('SPRING_BOOT_URL')
 # MongoDB URI 구성
-uri = f"mongodb://{user}:{quote_plus(password)}@{host}:{port}"
+uri = f"mongodb://{user}:{password}@{host}:{port}/mango?authSource=admin"
 
 # MongoDB 클라이언트 생성
 client = MongoClient(uri)

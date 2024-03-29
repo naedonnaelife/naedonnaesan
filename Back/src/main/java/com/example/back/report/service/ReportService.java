@@ -102,7 +102,6 @@ public class ReportService {
                 ReportDong reportDong = reportDongs.get(i);
 
                 Dong dong = reportDong.getDong();
-                System.out.println("zzim한 동 id: "+dong.getDongId());
 
                 // 사용자와 동에 해당하는 찜(Zzim) 조회
                 Optional<Zzim> existingZzim = zzimRepository.findByUserAndDong(user, dong);
@@ -119,7 +118,7 @@ public class ReportService {
                 Double userY = new Double(user.getY());
 
                 Double distance = distance(dongX, dongY, userX, userY);
-                mypageDongDtoList.add(new MypageDongDto(dong.getDongName(), isZzim, distance));
+                mypageDongDtoList.add(new MypageDongDto(dong.getDongId(), dong.getDongName(), isZzim, distance));
             }
 
 

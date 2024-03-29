@@ -11,7 +11,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class MypageDongDto {
 
+    private Long dongId;
     private String dongName;
-    private boolean isZzim;
+    private boolean zzim;
     private Double distance;
 }

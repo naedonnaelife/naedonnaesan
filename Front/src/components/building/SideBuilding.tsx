@@ -5,6 +5,7 @@ import BuildingCard from './reuse/BuildingCard.tsx';
 import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
 import Alert from '../../utils/Alert.tsx';
+import hamburger from '../../assets/hamburger.png';
 
 interface SideProps {
   selectedBuildingRef: React.MutableRefObject<any>;
@@ -44,7 +45,7 @@ const Aside = styled.aside`
         ? tw`max-sm:-bottom-[10%]`
         : tw`max-sm:-bottom-[10%]`
       : selectedBuilding
-      ? tw`max-sm:-bottom-[70%]`
+      ? tw`max-sm:-bottom-[65vh]`
       : tw`max-sm:-bottom-[95%]`}
 `;
 const Card = styled.article`
@@ -64,7 +65,7 @@ const SearchWarpper = styled.div`
 //   ${tw`bg-dongButton rounded-3xl px-4 py-1 my-2`}
 // `;
 const HamburgerButton = styled.button`
-  ${tw`hidden w-[100%] h-[5vh]
+  ${tw`hidden w-[5%] h-[4vh]
     max-sm:flex-c`}
 `;
 
@@ -76,7 +77,7 @@ const SelectedCard = styled.article`
   ${tw`flex w-[100%] h-[15vh]`}
 `;
 const CloseButton = styled.button`
-  ${tw`flex w-[100%] justify-end`}
+  ${tw`flex w-[100%] h-[3vh] justify-end`}
 `;
 const ScrollDiv = styled.div`
   ${tw`h-[20px]`}
@@ -187,7 +188,7 @@ function SideBuilding({
     <Aside isBuildingOpen={isBuildingOpen} selectedBuilding={selectedBuilding}>
       <SideFixWrapper>
         <HamburgerButton onClick={handleHamburgerButton} isBuildingOpen={isBuildingOpen}>
-          🍔
+          <img src={hamburger} alt="" />
         </HamburgerButton>
         <SearchWarpper>
           <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />

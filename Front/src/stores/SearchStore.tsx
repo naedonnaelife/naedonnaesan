@@ -5,7 +5,8 @@ import { devtools, persist } from 'zustand/middleware'
 type recommendDong = {
   dongName : string;
   dongId : number;
-  isLike : boolean;
+  zzim : boolean;
+  distance : number;
 }[]
 
 interface BearState {
@@ -31,7 +32,7 @@ const useSearchStore = create<BearState>()(
         recommendList : [],
         updateRecommendList: (response) => set(() => ({
           recommendList: response,
-          likeList: response.map(e => e.isLike)
+          likeList: response.map(e => e.zzim)
         })),
         updateLikeList: (updateData) => set(()=>({likeList: updateData})),
         }),

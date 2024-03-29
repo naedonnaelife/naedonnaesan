@@ -52,7 +52,7 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive }) => {
   const axios = UseAxios();
   const update = useSearchStore((state) => state.updateRecommendList);
   const getDongList = async () => {
-    // localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE3MTE2OTgsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.h2jANwrM1Ztdb04B9UYvnW_tskxenU-j4xQrY4tCmV0")
+    // localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE3NzE3MjgsInJvbGUiOiJVU0VSIiwiaWQiOjZ9.uJ7_xxpnfRs9TyrHPmOvkSbh1lSLucuoON92L3sXD9M")
     const token = localStorage.getItem('accessToken');
     const result = token?.slice(7);
     console.log('테스트 : ', result);

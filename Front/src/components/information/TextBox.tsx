@@ -33,26 +33,37 @@ const TextBox: React.FC<TextBoxProps> = ({ searchDong }) => {
   useEffect(() => {
     const getSubways = async () => {
       const response = await axios.get(`/api/dashboard/subway/${searchDong}`).then((res) => res.data.object);
-      const lastIndex = response.length - 1;
-      const arrData = response.map((e: Subway, index: number) =>
+      console.log('응답 : ', response.length)
+      if(response.length){
+        const lastIndex = response.length - 1;
+        const arrData = response.map((e: Subway, index: number) =>
         index === lastIndex ? {subwayName : `${e.line}호선 ${e.subwayName}역`, line : e.line} : {subwayName : `${e.line}호선 ${e.subwayName}역,`, line : e.line}
-      );
-      setSubways(arrData);
+        );
+        setSubways(arrData);
+      } else {
+        setSubways([])
+      }
     };
 
     getSubways();
-  }, []);
+  }, [searchDong]);
 
   return (
+    <>
+    {subways.length?
     <TextWrapper>
       <p>{searchDong}에 인접한 지하철은 </p>
       <p>
         {subways.map((e: Subway) => (
           <SubwaySpan line={e.line} key={e}>{e.subwayName}</SubwaySpan>
-        ))}
+          ))}
         이 있습니다.
       </p>
     </TextWrapper>
+    : <TextWrapper><SubwaySpan>🙏{searchDong}에 인접한 지하철역이 없습니다.🙏</SubwaySpan></TextWrapper>
+    // : <TextWrapper><SubwaySpan>🤦‍♀️{searchDong}에 인접한 지하철역이 없습니다.</SubwaySpan></TextWrapper>
+    }
+  </>
   );
 };
 

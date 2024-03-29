@@ -13,7 +13,7 @@ import com.example.back.dashboard.document.Article;
 
 
 public interface ArticleRepository extends MongoRepository<Article, String> {
-	@Query("{'published': {$regex: ?0}}")
+	@Query("{'published': {$regex: ?0}, 'title': {$regex: ?1, $options: 'i'}}")
 	Page<Article> findByTitleContaining(String publishedDate, String keyword, Pageable pageable);
 	Optional<Article> findById(String id);
 }

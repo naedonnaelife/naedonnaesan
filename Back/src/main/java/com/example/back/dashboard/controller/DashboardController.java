@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back.dashboard.dto.ArticleDto;
@@ -32,10 +34,10 @@ public class DashboardController {
 
 	private final DashboardService dashboardService;
 
-	@GetMapping("/news/keyword/{keyword}")  // 제목 기준 검색
-	public ResponseEntity<Message> getArticleList(@PathVariable(value = "keyword") String keyword, @PageableDefault(size = 10)
+	@GetMapping("/news/keyword")  // 제목 기준 검색
+	public ResponseEntity<Message> getArticleList(@RequestParam("searchWord") String searchWord, @PageableDefault(size = 10)
 	Pageable pageable) {
-		ArticlePageDto articlePageDto = dashboardService.getArticleList(keyword, pageable);
+		ArticlePageDto articlePageDto = dashboardService.getArticleList(searchWord, pageable);
 		Message message =
 			articlePageDto.getArticleDtoList().isEmpty() ?
 				new Message(HttpStatusEnum.NOT_FOUND, "키워드에 해당되는 기사 없음", null) :

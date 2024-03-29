@@ -5,6 +5,7 @@ import useSearchStore from '../../stores/SearchStore';
 // import newDong from '../../datas/newDong.json';
 import newDong from '../../datas/dong.json';
 import newGu from '../../datas/newGu.json';
+import UseAxios from '../../utils/UseAxios';
 
 const Map = styled.div`
   ${tw`h-[100%] w-[75%] p-2
@@ -22,8 +23,9 @@ const KakaoMap: React.FC = () => {
   const [newCustomOverlay, setNewCustomOverlay] = useState(null)
   const [rectangle, setRectangle] = useState(null)
   const polygons = useRef([new kakao.maps.Polygon()])
-  const navigate = useNavigate()
   const areaName = useSearchStore(state => state.areaName)
+  const navigate = useNavigate()
+  const axios = UseAxios()
 
   // 반응형 감지
 
@@ -49,15 +51,17 @@ const KakaoMap: React.FC = () => {
     mapRef.current.setCenter(new kakao.maps.LatLng(coordinateRef.current![0], coordinateRef.current![1]))
   }
 
-
-  useEffect(()=>{
-    window.addEventListener('resize', () => handleWidthSize())
-    return () => {
-      window.removeEventListener('resize', handleWidthSize);
-    };
-  }, [])  
-
-
+  const getLocation = async () => {
+        await axios.get('/api/myLatLon')
+        .then(res => {
+          const markerPosition = new kakao.maps.LatLng(37.56, 127.0)
+          // const markerPosition = new kakao.maps.LatLng(res.data.object.x, res.data.object.y))
+          const marker = new kakao.maps.Marker({
+            position: markerPosition
+          });
+          marker.setMap(newMap)
+        })
+  }
 
   // 구&동 지도 생성 함수
   const jsonProcessing = async (json: any, sig_cd: string | boolean) => {
@@ -159,6 +163,7 @@ const KakaoMap: React.FC = () => {
   
   useEffect(() => {
     if (newMap) {
+      // getLocation()
       jsonProcessing(newGu, false);
     } else {
       const initialLevel = window.innerWidth <= 640? 10 : 9
@@ -192,6 +197,13 @@ const KakaoMap: React.FC = () => {
 
     }
   }, [areaName]);
+
+  useEffect(()=>{
+    window.addEventListener('resize', () => handleWidthSize())
+    return () => {
+      window.removeEventListener('resize', handleWidthSize);
+    };
+  }, [])  
 
   return (
     <>

@@ -8,6 +8,7 @@ import './content.css';
 interface KakaoMapProps {
   selectedBuildingRef: React.MutableRefObject<any>;
   setBuildingId: React.Dispatch<React.SetStateAction<number>>;
+  buildingMap: any;
   setBuildingMap: React.Dispatch<React.SetStateAction<any>>;
   markerList: React.MutableRefObject<any>;
   searchDong: string;
@@ -47,6 +48,7 @@ const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selecte
 function KakaoMap({
   selectedBuildingRef,
   setBuildingId,
+  buildingMap,
   setBuildingMap,
   markerList,
   searchDong,
@@ -64,40 +66,27 @@ function KakaoMap({
     zIndex: 3,
   });
 
-  useEffect(() => {
-    // 카카오톡 지도 생성
-    const container = document.getElementById('map');
-    const options = {
-      center: new kakao.maps.LatLng(y, x),
-      level: 4,
-      draggable: true,
-      scrollwheel: true,
-      disableDoubleClickZoom: true,
-    };
-    const map = new kakao.maps.Map(container, options);
-    setBuildingMap(map);
+  const clickOverlay = (buildingId: number, overlay: any, position: any, map: any) => {
+    overlay.setMap(null);
+    if (selectedBuildingRef.current !== null) {
+      selectedBuildingRef.current.setMap(null);
+    }
+    setBuildingId(buildingId);
 
-    // 커스텀 오버레이 클릭 시 발생 이벤트
-    const clickOverlay = (buildingId: number, overlay: any, position: any) => {
-      overlay.setMap(null);
-      if (selectedBuildingRef.current !== null) {
-        selectedBuildingRef.current.setMap(null);
-      }
-      setBuildingId(buildingId);
+    const selectedMarker = new kakao.maps.Marker({
+      map: map,
+      position: position,
+      image: selectedMarkerImage,
+      zIndex: 2,
+    });
 
-      const selectedMarker = new kakao.maps.Marker({
-        map: map,
-        position: position,
-        image: selectedMarkerImage,
-        zIndex: 2,
-      });
+    selectedBuildingRef.current = selectedMarker;
+    selectedMarker.setMap(map);
+    map.setZoomable(true);
+  };
 
-      selectedBuildingRef.current = selectedMarker;
-      selectedMarker.setMap(map);
-      map.setZoomable(true);
-    };
-
-    // 폴리곤 생성
+  // 폴리곤 생성
+  const makePolygon = (map: any) => {
     const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
       return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
     });
@@ -111,7 +100,9 @@ function KakaoMap({
       fillOpacity: 0.3,
     });
     polygon.setMap(map);
+  };
 
+  const makeClusterer = (map: any) => {
     // 클러스터러 , 마커 생성
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
@@ -228,7 +219,7 @@ function KakaoMap({
               document
                 .getElementById(`${building.buildingId}`)
                 ?.addEventListener('click', () =>
-                  clickOverlay(building.buildingId, customOverlay, cluster.getCenter())
+                  clickOverlay(building.buildingId, customOverlay, cluster.getCenter(), map)
                 );
             });
           })
@@ -269,12 +260,48 @@ function KakaoMap({
           markermarker[building.buildingId] = marker;
           return marker;
         });
+        clusterer.removeMarkers(markerList.current);
         clusterer.addMarkers(markers);
         markerList.current = markermarker;
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    // 카카오톡 지도 생성
+    const container = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(y, x),
+      level: 4,
+      draggable: true,
+      scrollwheel: true,
+      disableDoubleClickZoom: true,
+    };
+    const map = new kakao.maps.Map(container, options);
+    setBuildingMap(map);
+    makePolygon(map);
+    makeClusterer(map);
+
+    // 커스텀 오버레이 클릭 시 발생 이벤트
+  }, []);
+
+  useEffect(() => {
+    if (buildingMap) {
+      makePolygon(buildingMap);
+      makeClusterer(buildingMap);
+      const selectedDong: any = (newDong as any).features.find(
+        (dong: any) => dong.properties.EMD_KOR_NM === searchDong
+      );
+      const x = selectedDong.properties.x;
+      const y = selectedDong.properties.y;
+
+      buildingMap.setCenter(new kakao.maps.LatLng(y, x));
+      selectedBuildingRef.current.setMap(null);
+      selectedBuildingRef.current = null;
+      setBuildingId(0);
+    }
   }, [searchDong]);
 
   return (

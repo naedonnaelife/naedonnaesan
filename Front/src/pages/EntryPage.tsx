@@ -4,6 +4,7 @@ import { keyframes } from '@emotion/react';
 import Card from '../components/entry/reuse/Card';
 import Carousel from '../components/entry/reuse/Carousel';
 import KakaoLogin from '../components/entry/KakaoLogin';
+import SideButton from '../components/entry/SideButton';
 import { introduce } from '../datas/ms';
 
 const fadeIn = keyframes`
@@ -18,7 +19,7 @@ const fadeIn = keyframes`
 `;
 
 const Main = styled.main`
-  ${tw`flex-cc w-full bg-semiWhite overflow-x-hidden`}
+  ${tw`flex-cc w-full bg-semiWhite overflow-x-hidden  `}
 `;
 
 const EntryWrapper = styled.section`
@@ -43,6 +44,8 @@ const TopScrollButton = styled.button`
 max-sm:w-[6vw]`}
 `;
 
+
+
 const EntryPage:React.FC = () => {
 
 
@@ -56,6 +59,7 @@ const EntryPage:React.FC = () => {
   return (
     <>
       <Main>
+        <SideButton/>
         <EntryWrapper>
           <EntryTitle> 🧀🍤 내 돈 내 산 🍜🥝</EntryTitle>
           <P>인프라 기반 동네 추천 서비스</P>
@@ -66,7 +70,7 @@ const EntryPage:React.FC = () => {
         {introduce.map((element, index) => (
           <Card key={index} index={index} data={element} />
         ))}
-        <TopScrollButton onClick={scrollToTop}> ☝ </TopScrollButton>
+        {/* <TopScrollButton onClick={scrollToTop}> ☝ </TopScrollButton> */}
       </Main>
     </>
   );

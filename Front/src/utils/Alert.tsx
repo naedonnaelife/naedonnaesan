@@ -1,27 +1,18 @@
 import Swal from 'sweetalert2'
 import img from '../assets/garma.jpg'
+import { SweetAlertIcon } from 'sweetalert2'
 
 type AlertProps = {
     title : string;
     content : string;
-    icon : string;
+    icon : SweetAlertIcon;
 }
 
-const alert1 = (data :AlertProps) => {
-    return Swal.fire(data.title)
-}
-
-export const alert2 = (data :AlertProps) => {
+const Alert = (data :AlertProps) => {
     return Swal.fire({
         title: data.title,
-        text: data.content,
-        icon: "info"
-      });
-}
-
-export const alert3 = (data :AlertProps) => {
-    return Swal.fire({
-        title: data.title,
+        html : data.content,
+        icon: data.icon,
         showClass: {
           popup: `
             animate__animated
@@ -39,7 +30,7 @@ export const alert3 = (data :AlertProps) => {
       });
 }
 
-export const alert4 = (data :AlertProps) => {
+export const ImageAlert = (data :AlertProps) => {
     return Swal.fire({
         title: data.title,
         width: 600,
@@ -55,4 +46,4 @@ export const alert4 = (data :AlertProps) => {
       });
 }
 
-export default alert1
+export default Alert

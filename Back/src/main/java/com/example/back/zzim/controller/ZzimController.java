@@ -2,6 +2,7 @@ package com.example.back.zzim.controller;
 
 import com.example.back.common.HttpStatusEnum;
 import com.example.back.common.Message;
+import com.example.back.zzim.dto.ZzimRequestDto;
 import com.example.back.zzim.service.ZzimService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +31,10 @@ public class ZzimController {
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-    @PostMapping("/{dongname}")
-    public ResponseEntity<Message> zzim(@PathVariable(value = "dongname") String dongname){
-
-        Long zzimId = zzimService.saveZzim(dongname);
+    @PostMapping
+    public ResponseEntity<Message> zzim(@RequestBody ZzimRequestDto dto){
+        System.out.println(dto.getDongName());
+        Long zzimId = zzimService.saveZzim(dto.getDongName());
         Map<String, Long> zzimIdMap = new HashMap<>();
         zzimIdMap.put("zzimId", zzimId);
         Message message = new Message(HttpStatusEnum.OK, "동 찜이 완료되었습니다.", zzimIdMap);
@@ -50,9 +51,9 @@ public class ZzimController {
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-    @DeleteMapping("/{dongname}")
-    public ResponseEntity<Message> deleteZzim(@PathVariable(value = "dongname") String dongname){
-        Long zzimId = zzimService.deleteZzim(dongname);
+    @DeleteMapping
+    public ResponseEntity<Message> deleteZzim(@RequestBody ZzimRequestDto dto){
+        Long zzimId = zzimService.deleteZzim(dto.getDongName());
         Map<String, Long> zzimIdMap = new HashMap<>();
         zzimIdMap.put("zzimId", zzimId);
         Message message = new Message(HttpStatusEnum.OK, "동 찜이 삭제되었습니다.", zzimIdMap);

@@ -30,17 +30,11 @@ const NewsTitle = styled.h1`
   ${tw`text-lg font-bold truncate`}
   margin: 0.25em 0; /* 제목의 상하단 마진 조정 */
 `;
-<<<<<<< HEAD
-// const NewsContent = styled.p`
-//   ${tw`text-sm`}
-// `;
-=======
 
 const NewsContent = styled.p`
   ${tw`text-sm line-clamp-2 overflow-hidden`}
   margin: 0.25em 0; /* 본문의 상하단 마진 조정 */
 `;
->>>>>>> feat/newsKeyword
 
 
 

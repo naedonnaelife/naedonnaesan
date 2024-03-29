@@ -29,7 +29,6 @@ const LikeContent = styled.ul`
 const Like: React.FC<LikeProps> = ({ name }) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
   const [searchDong, setSearchDong] = useState('');
-  // const likeList = zustand로 끌고옴
 
   const axios = UseAxios();
 
@@ -44,8 +43,6 @@ const Like: React.FC<LikeProps> = ({ name }) => {
         console.log(error);
       });
   }, []);
-
-  useEffect(() => {}, [likedDongList]);
 
   return (
     <LikeWrapper>

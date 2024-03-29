@@ -25,9 +25,9 @@ const NewsWrapper = styled.article`
 const NewsTitle = styled.h1`
   ${tw`text-2xl text-center font-bold m-2`}
 `;
-const NewsImage = styled.img`
-  ${tw`w-[100%] h-[80%] object-contain`}
-`;
+// const NewsImage = styled.img`
+//   ${tw`w-[100%] h-[80%] object-contain`}
+// `;
 const NewsContent = styled.p`
   ${tw`text-left text-sm p-4`}
 `;
@@ -36,7 +36,7 @@ const CloseButton = styled.button`
 `;
 
 const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
-  console.log(123)
+  console.log(123);
   const [newsDetail, setNewsDetail] = useState<News | null>(null);
   const axios = UseAxios();
   const newsId = useSearchStore((state) => state.newsId);
@@ -46,9 +46,8 @@ const ReportNews: React.FC<NewsProps> = ({ setIsNewsOpen }) => {
       if (newsId) {
         try {
           const response = await axios.get(`/api/dashboard/news/articleid/${newsId}`);
-          console.log("완료")
+          console.log('완료');
           setNewsDetail(response.data.object);
-          
         } catch (error) {
           console.error('getNewsDtail Fail : ', error);
         }

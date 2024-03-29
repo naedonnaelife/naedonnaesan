@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2'
 import img from '../assets/garma.jpg'
 import { SweetAlertIcon } from 'sweetalert2'
+import 'animate.css/animate.min.css'
 
 type AlertProps = {
     title : string;

@@ -28,6 +28,7 @@ const NewsTitle = styled.h1`
 //   ${tw`text-sm`}
 // `;
 
+
 const NewsCard: React.FC<newsCardProps> = ({ news }) => {
   return (
     <CardWrapper>

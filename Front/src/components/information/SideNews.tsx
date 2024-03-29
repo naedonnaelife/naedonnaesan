@@ -26,6 +26,14 @@ type NewsWrapperProps = {
   isNewsListOpen: boolean;
 };
 
+const KeywordAndSearchWrapper = styled.div`
+  ${tw`flex flex-col items-center justify-center w-full`}
+  padding: 10px 0; // 상하 패딩 추가
+  z-index: 10; // 다른 요소들 위에 올라오도록 z-index 설정
+  background-color: white; // 배경색 추가
+  border-bottom: 1px solid #ccc; // 하단에 경계선 추가
+`;
+
 const KeywordsWrapper = styled.div`
   ${tw`mb-2 text-center`}
 `;
@@ -160,22 +168,25 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
 
   return (
     <NewsWrapper isNewsListOpen={isNewsListOpen}>
-      <KeywordsWrapper>
-      <KeywordTitle>오늘의 뉴스 키워드</KeywordTitle>
-      {keywords.map((keyword) => (
-          <KeywordButton key={keyword} onClick={() => handleKeywordClick(keyword)}>
-            {keyword}
-          </KeywordButton>
-        ))}
-      </KeywordsWrapper>
-      <SearchWrapper>
-        <KeywrodInput
-          type="text"
-          value={keyword}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
-        />
-        <SearchButton onClick={handleClick}>{isSmall? '검색' : '검색하기'}</SearchButton>
-      </SearchWrapper>
+      <KeywordAndSearchWrapper>
+        <KeywordsWrapper>
+          <KeywordTitle>오늘의 뉴스 키워드</KeywordTitle>
+          {keywords.map((keyword) => (
+              <KeywordButton key={keyword} onClick={() => handleKeywordClick(keyword)}>
+                {keyword}
+              </KeywordButton>
+            ))}
+        </KeywordsWrapper>
+        <SearchWrapper>
+          <KeywrodInput
+            type="text"
+            value={keyword}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
+          />
+          <SearchButton onClick={handleClick}>{isSmall? '검색' : '검색하기'}</SearchButton>
+        </SearchWrapper>
+      </KeywordAndSearchWrapper>
+      
       
       {newsList?.map((news) => (
         <Card onClick={() => selectedNews(news.id)} key={news.id}>

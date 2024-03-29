@@ -237,7 +237,7 @@ function KakaoMap({
         const markermarker: any = {};
         const markers = response.data.object.map((building: Building) => {
           const marker = new kakao.maps.Marker({
-            position: new kakao.maps.LatLng(building.x, building.y),
+            position: new kakao.maps.LatLng(building.y, building.x),
             image: markerImage,
             title: building.buildingId,
           });

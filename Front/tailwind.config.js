@@ -13,6 +13,8 @@ export default {
       },
       fontSize: {
         10: ['10px'],
+        20: ['20px'],
+        30: ['30px']
       },
       colors: {
         white: '#FFFFFF',

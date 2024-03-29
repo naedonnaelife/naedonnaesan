@@ -1,8 +1,9 @@
-import tw, { styled } from 'twin.macro';
+import tw, { styled } from "twin.macro";
+import Alert from "../../utils/Alert.tsx";
 
 interface ColumnProps {
-  selected1: string | null;
-  selected2: string | null;
+  selected1: any | null;
+  selected2: any | null;
   setCategory: (category: string) => void;
 }
 
@@ -16,9 +17,22 @@ const Category = styled.li`
   max-sm:text-sm max-sm:my-1.5`}
 `;
 
-const categories = ['치안', '여가', '음식점', '보건', '편의시설', '대중교통', '카페', '술집'];
+const categories = [
+  "치안",
+  "여가",
+  "음식점",
+  "보건",
+  "편의시설",
+  "대중교통",
+  "카페",
+  "술집",
+];
 
-const Column: React.FC<ColumnProps> = ({ selected1, selected2, setCategory }) => {
+const Column: React.FC<ColumnProps> = ({
+  selected1,
+  selected2,
+  setCategory,
+}) => {
   return (
     <CategoryWrapper>
       {categories.map((category: string) => (
@@ -29,7 +43,11 @@ const Column: React.FC<ColumnProps> = ({ selected1, selected2, setCategory }) =>
               setCategory(category);
             } else {
               // 동네 둘 다 선택 안하고 컬럼 누르면
-              alert('동네를 선택해 주세요');
+              Alert({
+                title: "",
+                content: "동네를 선택해 주세요",
+                icon: "info",
+              });
             }
           }}
         >

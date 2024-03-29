@@ -58,7 +58,7 @@ const Like: React.FC<LikeProps> = ({ name }) => {
           <LikedDong
             key={index}
             likedDongName={likedDong.dongName}
-            likedDongId={likedDong.zzimId}
+            likedDongId={likedDong.dongId}
             setLikedDongList={setLikedDongList}
           />
         ))}

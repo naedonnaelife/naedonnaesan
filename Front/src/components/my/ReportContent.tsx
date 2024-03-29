@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import tw, { styled } from "twin.macro";
 import RecommendList from "../../utils/RecommendList";
 import UseAxios from "../../utils/UseAxios";
+import useSearchStore from "../../stores/SearchStore";
 
 type PreferenceShowProps = {
   isPreferencesShow: boolean;
@@ -41,8 +42,11 @@ const Preference = styled.li`
 
 const ReportContent: React.FC = () => {
   const [isPreferencesShow, setIsPreferencesShow] = useState<boolean>(true);
-  const [preferences, setPreferences] = useState<PreferencesType  |null>(null);
+  const [preferences, setPreferences] = useState<PreferencesType | null>(null);
   const axios = UseAxios();
+
+  const updateRecommendList = useSearchStore((state) => state.updateRecommendList);
+  
   const preferenceShow = () => {
     setIsPreferencesShow((prev) => !prev);
   };
@@ -51,7 +55,8 @@ const ReportContent: React.FC = () => {
     axios
       .get("/api/mypage/filterlist")
       .then((response) => {
-        setPreferences(response.data.object)
+        setPreferences(response.data.object.reportDto)
+        updateRecommendList(response.data.object.mypageDongDtoList)
       })
       .catch((error) => {
         console.log(error);

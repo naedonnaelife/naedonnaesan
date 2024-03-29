@@ -6,6 +6,7 @@ import Carousel from '../components/entry/reuse/Carousel';
 import KakaoLogin from '../components/entry/KakaoLogin';
 import SideButton from '../components/entry/SideButton';
 import { introduce } from '../datas/ms';
+import logo from '../assets/logo.png';
 
 const fadeIn = keyframes`
   from{
@@ -23,21 +24,19 @@ const Main = styled.main`
 `;
 
 const EntryWrapper = styled.section`
-  ${tw`flex-cc w-full h-[50vh]
+  ${tw`flex-cc w-[60vh] h-[60vh]
   max-sm:h-[40vh]`}
+  
 `;
-
-const EntryTitle = styled.h1`
-  ${tw` flex-c h-[20%] mt-[15vh] text-7xl
-  max-sm:text-3xl max-sm:mt-[10vh]`}
-  animation : ${fadeIn} 1s ease-in-out;
+const LogoImage = styled.img`
+  ${tw`flex-cc w-[50vh] h-[50vh] mt-8`}
+  animation : ${fadeIn} 1s ease-in-out
 `;
-
 const P = styled.p`
-  ${tw` h-[40%] text-3xl mt-[3vh]
+  ${tw` h-[40%] text-3xl -mt-5 mb-5
   max-sm:text-lg`}
-  animation : ${fadeIn} 1s ease-in-out;
-`
+  animation : ${fadeIn} 1s ease-in-out
+`;
 
 const EntryPage:React.FC = () => {
 
@@ -46,12 +45,11 @@ const EntryPage:React.FC = () => {
       <Main>
         <SideButton />
         <EntryWrapper>
-          <EntryTitle> 🧀🍤 내 돈 내 산 🍜🥝</EntryTitle>
+          <LogoImage src={logo} alt="Logo" />
           <P>인프라 기반 동네 추천 서비스</P>
           <KakaoLogin />
         </EntryWrapper>
         <Carousel />
-
         {introduce.map((element, index) => (
           <Card key={index} index={index} data={element} />
         ))}

@@ -37,29 +37,13 @@ const P = styled.p`
   ${tw` h-[40%] text-3xl mt-[3vh]
   max-sm:text-lg`}
   animation : ${fadeIn} 1s ease-in-out;
-`
-
-const TopScrollButton = styled.button`
-  ${tw`fixed h-[4vh] w-[2vw] border-2 rounded-full bottom-4 right-4 hover:bg-yellow-200 hover:scale-105
-max-sm:w-[6vw]`}
 `;
 
-
-
-const EntryPage:React.FC = () => {
-
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
+const EntryPage: React.FC = () => {
   return (
     <>
       <Main>
-        <SideButton/>
+        <SideButton />
         <EntryWrapper>
           <EntryTitle> 🧀🍤 내 돈 내 산 🍜🥝</EntryTitle>
           <P>인프라 기반 동네 추천 서비스</P>
@@ -74,6 +58,6 @@ const EntryPage:React.FC = () => {
       </Main>
     </>
   );
-}
+};
 
 export default EntryPage;

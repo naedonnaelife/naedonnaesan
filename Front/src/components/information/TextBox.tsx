@@ -55,7 +55,7 @@ const TextBox: React.FC<TextBoxProps> = ({ searchDong }) => {
       <p>{searchDong}에 인접한 지하철은 </p>
       <p>
         {subways.map((e: Subway) => (
-          <SubwaySpan line={e.line} key={e}>{e.subwayName}</SubwaySpan>
+          <SubwaySpan line={e.line -1} key={e}>{e.subwayName}</SubwaySpan>
           ))}
         이 있습니다.
       </p>

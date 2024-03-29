@@ -30,10 +30,29 @@ public class ZzimController {
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+    @PostMapping("/{dongname}")
+    public ResponseEntity<Message> zzim(@PathVariable(value = "dongname") String dongname){
+
+        Long zzimId = zzimService.saveZzim(dongname);
+        Map<String, Long> zzimIdMap = new HashMap<>();
+        zzimIdMap.put("zzimId", zzimId);
+        Message message = new Message(HttpStatusEnum.OK, "동 찜이 완료되었습니다.", zzimIdMap);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{dongid}")
     public ResponseEntity<Message> deleteZzim(@PathVariable(value = "dongid") Long dongId){
         Long zzimId = zzimService.deleteZzim(dongId);
+        Map<String, Long> zzimIdMap = new HashMap<>();
+        zzimIdMap.put("zzimId", zzimId);
+        Message message = new Message(HttpStatusEnum.OK, "동 찜이 삭제되었습니다.", zzimIdMap);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+    @DeleteMapping("/{dongname}")
+    public ResponseEntity<Message> deleteZzim(@PathVariable(value = "dongname") String dongname){
+        Long zzimId = zzimService.deleteZzim(dongname);
         Map<String, Long> zzimIdMap = new HashMap<>();
         zzimIdMap.put("zzimId", zzimId);
         Message message = new Message(HttpStatusEnum.OK, "동 찜이 삭제되었습니다.", zzimIdMap);

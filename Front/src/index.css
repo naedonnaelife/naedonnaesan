@@ -26,6 +26,6 @@ body {
   display: none;
   }
 
-.cursor-mango{
-  cursor: url('./assets//mango.png'), auto;
+button {
+  cursor: url('./assets//appleMango.png'), pointer;
 }

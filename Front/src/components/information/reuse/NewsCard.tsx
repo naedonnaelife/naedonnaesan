@@ -24,9 +24,9 @@ const ContentWrapper = styled.div`
 const NewsTitle = styled.h1`
   ${tw`text-lg font-bold`}
 `;
-const NewsContent = styled.p`
-  ${tw`text-sm`}
-`;
+// const NewsContent = styled.p`
+//   ${tw`text-sm`}
+// `;
 
 
 const NewsCard: React.FC<newsCardProps> = ({ news }) => {

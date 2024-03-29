@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       cursor:{
-        mango : 'url(./src/assets/mango.png), pointer'
+        mango : 'url(./src/assets/mango.png), auto',
+        appleMango : 'url(./src/assets/appleMango.png), pointer'
       },
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
@@ -66,9 +67,9 @@ export default {
           backgroundColor: '#ffffff',
           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         },
-        '.custom-cursor': {
-          cursor: 'url("/../src/assets/mango.png"), auto',
-        },
+        // '.custom-cursor': {
+        //   cursor: 'url("/../src/assets/mango.png"), auto',
+        // },
       };
       addUtilities(newUtilities);
     },

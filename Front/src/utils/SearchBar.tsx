@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import dongNameData from '../datas/dongName.json';
+import Alert from './Alert.tsx';
 
 interface SearchProps {
   searchDong: string;
@@ -53,17 +54,28 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
   };
 
   const handleInput = (dong: string) => {
-    setSearchDong(dong);
-    setKeyword(dong);
+    console.log('입력이벤트');
+    const isDong = dongNameData.some(function (item) {
+      return item.dongName === dong;
+    });
+    console.log(isDong);
+    if (isDong) {
+      setSearchDong(dong);
+      setKeyword(dong);
+    } else {
+      console.log('경고!');
+      Alert({ title: '', content: '존재하지 않는 동입니다.', icon: 'error' });
+      console.log('왜안뜸');
+    }
   };
 
   useEffect(() => {
-    if(keyword.length !==0){
-    const escapeKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    const regex = new RegExp(`^${escapeKeyword}`, 'i');
-    const auto = dongName.filter((e) => regex.test(e));
-    setAutoComplete(auto);
-    setSelectedKeyword(-1);
+    if (keyword.length !== 0) {
+      const escapeKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`^${escapeKeyword}`, 'i');
+      const auto = dongName.filter((e) => regex.test(e));
+      setAutoComplete(auto);
+      setSelectedKeyword(-1);
     }
   }, [keyword]);
 

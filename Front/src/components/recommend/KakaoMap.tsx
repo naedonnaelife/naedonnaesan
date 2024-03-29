@@ -54,11 +54,12 @@ const KakaoMap: React.FC = () => {
   const getLocation = async () => {
         await axios.get('/api/myLatLon')
         .then(res => {
-          const markerPosition = new kakao.maps.LatLng(37.56, 127.0)
-          // const markerPosition = new kakao.maps.LatLng(res.data.object.x, res.data.object.y))
+          const markerPosition1 = new kakao.maps.LatLng(37.56, 127.0)
+          const markerPosition = new kakao.maps.LatLng(res.data.object.x, res.data.object.y)
           const marker = new kakao.maps.Marker({
-            position: markerPosition
+            position: markerPosition1
           });
+          console.log(markerPosition)
           marker.setMap(newMap)
         })
   }
@@ -163,7 +164,7 @@ const KakaoMap: React.FC = () => {
   
   useEffect(() => {
     if (newMap) {
-      // getLocation()
+      getLocation()
       jsonProcessing(newGu, false);
     } else {
       const initialLevel = window.innerWidth <= 640? 10 : 9

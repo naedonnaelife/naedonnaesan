@@ -39,22 +39,9 @@ const P = styled.p`
   animation : ${fadeIn} 1s ease-in-out;
 `
 
-const TopScrollButton = styled.button`
-  ${tw`fixed h-[4vh] w-[2vw] border-2 rounded-full bottom-4 right-4 hover:bg-yellow-200 hover:scale-105
-max-sm:w-[6vw]`}
-`;
-
 
 
 const EntryPage:React.FC = () => {
-
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
 
   return (
     <>

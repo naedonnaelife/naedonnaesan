@@ -3,13 +3,19 @@ package com.example.back.dashboard.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.back.dashboard.dto.ArticlePageDto;
 import com.example.back.dashboard.dto.AvgInfraDto;
 import com.example.back.subway.dto.SubwayDto;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back.dashboard.dto.ArticleDto;
@@ -28,15 +34,15 @@ public class DashboardController {
 
 	private final DashboardService dashboardService;
 
-	@GetMapping("/news/keyword/{keyword}")  // 제목 기준 검색
-	public ResponseEntity<Message> getArticleList(@PathVariable(value = "keyword") String keyword) {
-		List<ArticleDto> articles = dashboardService.getArticleList(keyword);
-
+	@GetMapping("/news/keyword")  // 제목 기준 검색
+	public ResponseEntity<Message> getArticleList(@RequestParam("searchWord") String searchWord, @PageableDefault(size = 10)
+	Pageable pageable) {
+		ArticlePageDto articlePageDto = dashboardService.getArticleList(searchWord, pageable);
 		Message message =
-			articles.isEmpty() ?
+			articlePageDto.getArticleDtoList().isEmpty() ?
 				new Message(HttpStatusEnum.NOT_FOUND, "키워드에 해당되는 기사 없음", null) :
-				new Message(HttpStatusEnum.OK, "키워드에 해당되는 기사 조회 완료", articles);
-		return new ResponseEntity<>(message, articles.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+				new Message(HttpStatusEnum.OK, "키워드에 해당되는 기사 조회 완료", articlePageDto);
+		return new ResponseEntity<>(message, articlePageDto.getArticleDtoList().isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
 
 	@GetMapping("/news/articleid/{id}")

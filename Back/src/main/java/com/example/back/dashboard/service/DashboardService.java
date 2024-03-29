@@ -1,5 +1,7 @@
 package com.example.back.dashboard.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,8 +36,13 @@ public class DashboardService {
 	private final InfraScoreRepository infraScoreRepository;
 	private final SubwayRepository subwayRepository;
 
+
 	public ArticlePageDto getArticleList(String keyword, Pageable page) {
-		Page<Article> articlePage = articleRepository.findByTitleContaining(keyword, page);
+		LocalDate today = LocalDate.now().minusYears(1);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = today.format(formatter);
+
+		Page<Article> articlePage = articleRepository.findByTitleContaining("^" +formattedDate, keyword, page);
 		List<ArticleDto> articleDtoList = articlePage.stream().map(
 			article -> {
 				ArticleDto dto = new ArticleDto();
@@ -49,8 +56,8 @@ public class DashboardService {
 	}
 
 	public ArticleDto getArticle(String id) {
-		Article article = articleRepository.findById(id).orElseThrow();
-		System.out.println(article);  // 디버깅 코드
+		Article article = articleRepository.findById(id).orElse(null);
+		// System.out.println(article);  // 디버깅 코드
 		ArticleDto dto = null;
 		if (article != null) {
 			dto = new ArticleDto();

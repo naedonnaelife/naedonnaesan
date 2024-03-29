@@ -13,7 +13,9 @@ import com.example.back.dashboard.document.Article;
 
 
 public interface ArticleRepository extends MongoRepository<Article, String> {
+	@Query("{'published': {$regex: ?0}}")
+	Page<Article> findByAll(String publishedDate, Pageable pageable);
 	@Query("{'published': {$regex: ?0}, 'title': {$regex: ?1, $options: 'i'}}")
-	Page<Article> findByTitleContaining(String publishedDate, String keyword, Pageable pageable);
+	Page<Article> findByTitleContaining(String publishedDate, String searchWord, Pageable pageable);
 	Optional<Article> findById(String id);
 }

@@ -37,12 +37,14 @@ public class DashboardService {
 	private final SubwayRepository subwayRepository;
 
 
-	public ArticlePageDto getArticleList(String keyword, Pageable page) {
+	public ArticlePageDto getArticleList(String searchWord, Pageable page) {
 		LocalDate today = LocalDate.now().minusYears(1);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedDate = today.format(formatter);
 
-		Page<Article> articlePage = articleRepository.findByTitleContaining("^" +formattedDate, keyword, page);
+		Page<Article> articlePage = searchWord.isEmpty() ?
+			articleRepository.findByAll("^" +formattedDate, page) :
+			articleRepository.findByTitleContaining("^" +formattedDate, searchWord, page);
 		List<ArticleDto> articleDtoList = articlePage.stream().map(
 			article -> {
 				ArticleDto dto = new ArticleDto();

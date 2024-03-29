@@ -20,17 +20,28 @@ type News = {
 };
 
 const NewsWrapper = styled.article`
-  ${tw`h-[100%] border-basic relative p-1`}
+  ${tw`h-[100%] border-basic relative p-5`}
 `;
 const NewsTitle = styled.h1`
-  ${tw`text-2xl text-center font-bold m-2`}
+  ${tw`text-2xl md:text-3xl text-center font-bold m-2`}
+  white-space: normal; // 줄바꿈 허용
+  overflow-y: auto; // 내용이 넘칠 경우 스크롤
+  max-height: 20vh; // 최대 높이 설정
+  word-break: break-word; // 단어 단위로 줄바꿈
 `;
+
 const NewsImage = styled.img`
   ${tw`w-[100%] h-[80%] object-contain`}
 `;
-const NewsContent = styled.p`
-  ${tw`text-left text-sm p-4`}
+const NewsContent = styled.div` // p 대신 div 태그로 변경
+  ${tw`text-left text-lg p-4`}
+  white-space: pre-wrap;
+  overflow-y: auto;
+  max-height: 70vh;
 `;
+
+
+
 const CloseButton = styled.button`
   ${tw`absolute right-2 top-1`}
 `;

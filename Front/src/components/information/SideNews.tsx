@@ -26,6 +26,19 @@ type NewsWrapperProps = {
   isNewsListOpen: boolean;
 };
 
+const KeywordsWrapper = styled.div`
+  ${tw`mb-2 text-center`}
+`;
+
+
+const KeywordButton = styled.button`
+  ${tw`bg-gray rounded-full px-4 py-1 text-sm mr-2`}
+`;
+
+const KeywordTitle = styled.div`
+  ${tw`text-lg md:text-2xl font-bold my-2`} // Tailwind CSS를 사용하여 모바일과 데스크탑에서 다른 크기 적용
+`;
+
 const NewsWrapper = styled.aside`
   ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white p-2 z-1 overflow-y-auto
     max-sm:absolute max-sm:top-0 max-sm:w-[100%]`}
@@ -33,20 +46,36 @@ const NewsWrapper = styled.aside`
 `;
 
 const Card = styled.article`
-  ${tw`flex w-[100%] h-[15%] p-1
-    max-sm:h-[20%] `}
-`;
-
-const KeywrodInput = styled.input`
-  ${tw` border-basic`}
+  ${tw`flex w-[100%] h-[18%] p-1
+    max-sm:h-[30%] `}
 `;
 
 const ScrollDiv = styled.div`
   ${tw`h-[30px]`}
 `;
 
+const SearchWrapper = styled.div`
+  ${tw`flex items-center p-1 w-full`}
+  
+`;
+
+const KeywrodInput = styled.input`
+  ${tw`w-[70%] border-basic p-2 m-1`}
+  
+`;
+
+const SearchButton = styled.button`
+  ${tw` w-[30%] ml-2 bg-blue-500 text-white p-2 rounded`}
+  @media (max-width: 768px) {
+    ${tw`w-full mt-2`}
+  }
+`;
+
 const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
-  const [keyword, setKeyword] = useState('기사');
+  // 오늘의 뉴스 키워드 상태 추가
+  const [isSmall, setIsSmall] = useState(false)
+  const [keywords, setKeywords] = useState<string[]>([]);
+  const [keyword, setKeyword] = useState('');
   const [newsList, setNewsList] = useState<News[]>([]);
   const [page, setPage] = useState(0);
   const [isLast, setIsLast] = useState(false);
@@ -61,29 +90,93 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
     await store(e);
     setIsNewsOpen(true);
   };
+  // 키워드 버튼 클릭 시 동작
+  const handleKeywordClick = (keyword: string) => {
+    setKeyword(keyword);
+    // 페이지를 0으로 초기화하고 기존 뉴스 리스트를 초기화한 후 검색을 시작합니다.
+    setPage(0);
+    setNewsList([]);
+    setIsLast(false);
+  };
+  
 
   const getNewsList = async () => {
     console.log('검색 키워드 : ', keyword);
-    const response = await axios.get(`/api/dashboard/news/keyword/${keyword}`, {params: {page: page}});
-    setNewsList([...newsList, ...response.data.object.articleDtoList]);
+    const response = await axios.get(`/api/dashboard/news/keyword`, {params: {searchWord : keyword, page: page}});
+    
+    // 연속된 공백을 1개로 줄이는 처리를 적용한 뉴스 리스트 생성
+    const cleanedArticles = response.data.object.articleDtoList.map((article: News) => ({
+      ...article,
+      article: article.article.replace(/\s{2,}/g, ' ') // 본문 내 연속된 공백을 1개로 줄임
+    }));
+  
+    setNewsList([...newsList, ...cleanedArticles]); // 처리된 뉴스 리스트로 상태 업데이트
     setIsLast(response.data.object.last);
     setPage((prev) => prev + 1);
   };
+
+  // 오늘의 뉴스 키워드 데이터를 가져오는 함수
+  const fetchKeywords = async () => {
+    try {
+      const response = await axios.get(`/api/keyword`);
+      if (response.data.status === 'OK') {
+        setKeywords(response.data.object.keywords);
+      }
+    } catch (error) {
+      console.error('오늘의 뉴스 키워드 조회 실패:', error);
+    }
+  };
+
+  
+  
 
   useEffect(() => {
     if (inView && !isLast){
       getNewsList();
     }
-  }, [inView]);
+    // fetchKeywords 함수 호출 및 setKeywords 함수 전달
+    fetchKeywords();
+  }, [inView, keyword]);
+
+  const handleClick = () => {
+    setPage(0)
+    setNewsList([])
+    setIsLast(false)
+  }
+
+  const handleWidth = () => {
+    const width = window.innerWidth
+    if(width < 1200){
+      setIsSmall(true)
+    } else {setIsSmall(false)}
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', handleWidth) 
+    return () => {
+      window.removeEventListener('resize', handleWidth);
+    };
+  },[])
 
   return (
     <NewsWrapper isNewsListOpen={isNewsListOpen}>
-      <KeywrodInput
-        type="text"
-        value={keyword}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
-      />
-      <button onClick={getNewsList}> 검색하기</button>
+      <KeywordsWrapper>
+      <KeywordTitle>오늘의 뉴스 키워드</KeywordTitle>
+      {keywords.map((keyword) => (
+          <KeywordButton key={keyword} onClick={() => handleKeywordClick(keyword)}>
+            {keyword}
+          </KeywordButton>
+        ))}
+      </KeywordsWrapper>
+      <SearchWrapper>
+        <KeywrodInput
+          type="text"
+          value={keyword}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
+        />
+        <SearchButton onClick={handleClick}>{isSmall? '검색' : '검색하기'}</SearchButton>
+      </SearchWrapper>
+      
       {newsList?.map((news) => (
         <Card onClick={() => selectedNews(news.id)} key={news.id}>
           <NewsCard news={news} />
@@ -92,6 +185,8 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
       <ScrollDiv ref={pageRef} />
     </NewsWrapper>
   );
+  
+  
 };
 
 export default SideNews;

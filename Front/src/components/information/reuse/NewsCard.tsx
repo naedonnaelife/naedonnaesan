@@ -21,23 +21,35 @@ const CardWrapper = styled.div`
 const ContentWrapper = styled.div`
   ${tw`w-[100%]`}
 `;
+const NewsDate = styled.div`
+  ${tw`text-xs text-gray`}
+  margin: 0; /* 날짜 정보의 마진 제거 */
+`;
+
 const NewsTitle = styled.h1`
-  ${tw`text-lg font-bold`}
+  ${tw`text-lg font-bold truncate`}
+  margin: 0.25em 0; /* 제목의 상하단 마진 조정 */
 `;
+
 const NewsContent = styled.p`
-  ${tw`text-sm`}
+  ${tw`text-sm line-clamp-2 overflow-hidden`}
+  margin: 0.25em 0; /* 본문의 상하단 마진 조정 */
 `;
+
 
 
 const NewsCard: React.FC<newsCardProps> = ({ news }) => {
   return (
     <CardWrapper>
       <ContentWrapper>
+        <NewsDate>{news.published}</NewsDate>
         <NewsTitle>{news.title}</NewsTitle>
-        {/* <NewsContent>{news.article}</NewsContent> */}
+        <NewsContent>{news.article}</NewsContent>
       </ContentWrapper>
     </CardWrapper>
   );
 };
+
+
 
 export default NewsCard;

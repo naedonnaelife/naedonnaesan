@@ -86,21 +86,21 @@ function KakaoMap({
   };
 
   // 폴리곤 생성
-  const makePolygon = (map: any) => {
-    const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
-      return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
-    });
+  // const makePolygon = (map: any) => {
+  //   const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
+  //     return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
+  //   });
 
-    const polygon = new kakao.maps.Polygon({
-      path: polygonPath,
-      strokeWeight: 4,
-      strokeColor: '#000000',
-      strokeOpacity: 0.7,
-      fillColor: '#ffffff',
-      fillOpacity: 0.3,
-    });
-    polygon.setMap(map);
-  };
+  //   const polygon = new kakao.maps.Polygon({
+  //     path: polygonPath,
+  //     strokeWeight: 4,
+  //     strokeColor: '#000000',
+  //     strokeOpacity: 0.7,
+  //     fillColor: '#ffffff',
+  //     fillOpacity: 0.3,
+  //   });
+  //   polygon.setMap(map);
+  // };
 
   const makeClusterer = (map: any) => {
     // 클러스터러 , 마커 생성
@@ -281,7 +281,7 @@ function KakaoMap({
     };
     const map = new kakao.maps.Map(container, options);
     setBuildingMap(map);
-    makePolygon(map);
+    // makePolygon(map);
     makeClusterer(map);
 
     // 커스텀 오버레이 클릭 시 발생 이벤트
@@ -289,7 +289,7 @@ function KakaoMap({
 
   useEffect(() => {
     if (buildingMap) {
-      makePolygon(buildingMap);
+      // makePolygon(buildingMap);
       makeClusterer(buildingMap);
       const selectedDong: any = (newDong as any).features.find(
         (dong: any) => dong.properties.EMD_KOR_NM === searchDong

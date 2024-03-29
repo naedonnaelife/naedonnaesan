@@ -3,9 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js, jsx, ts, tsx}'],
   theme: {
     extend: {
-      cursor:{
-        mango : 'url(./src/assets/mango.png), auto',
-        appleMango : 'url(./src/assets/appleMango.png), pointer'
+      cursor: {
+        mango: 'url(./src/assets/mango.png), auto',
+        appleMango: 'url(./src/assets/appleMango.png), pointer',
       },
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
@@ -74,5 +74,6 @@ export default {
       addUtilities(newUtilities);
     },
     require('tailwind-scrollbar-hide'),
+    require('tailwindcss-animated'),
   ],
 };

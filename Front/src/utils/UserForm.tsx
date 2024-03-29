@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import tw, { styled } from "twin.macro";
 import UseAxios from "./UseAxios";
-// import alert, {alert2, alert3, alert4} from './Alet';
-import alert4 from "./Alet";
+import Alert from './Alert';
 import { useNavigate } from "react-router-dom";
 
 type EventType = React.ChangeEvent<HTMLInputElement>;
@@ -105,7 +104,7 @@ function UserForm() {
   };
   // 테스트
   const testAlert = () => {
-    alert4({ title: "title", content: "content", icon: "icon" });
+    Alert({ title: "title", content: "필요하면 넣고 아니면 빈문자열", icon: "info" });
     console.log("경고");
   };
   

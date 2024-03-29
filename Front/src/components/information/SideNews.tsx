@@ -76,6 +76,12 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
     }
   }, [inView]);
 
+  const handleClick = () => {
+    setPage(0)
+    setNewsList([])
+    setIsLast(false)
+  }
+
   return (
     <NewsWrapper isNewsListOpen={isNewsListOpen}>
       <KeywrodInput
@@ -83,7 +89,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
         value={keyword}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
       />
-      <button onClick={getNewsList}> 검색하기</button>
+      <button onClick={handleClick}> 검색하기</button>
       {newsList?.map((news) => (
         <Card onClick={() => selectedNews(news.id)} key={news.id}>
           <NewsCard news={news} />

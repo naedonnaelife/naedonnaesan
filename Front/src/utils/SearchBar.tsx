@@ -55,7 +55,6 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
   const handleInput = (dong: string) => {
     setSearchDong(dong);
     setKeyword(dong);
-    setIsActive(false);
   };
 
   useEffect(() => {
@@ -97,7 +96,7 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
               </AutocompleteKeyWord>
             ))}
         </Wrapper>
-        <AddButton>검색</AddButton>
+        <AddButton onClick={() => handleInput(keyword)}>검색</AddButton>
       </Search>
     </>
   );

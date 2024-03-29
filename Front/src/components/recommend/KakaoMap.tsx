@@ -163,7 +163,7 @@ const KakaoMap: React.FC = () => {
   
   useEffect(() => {
     if (newMap) {
-      getLocation()
+      // getLocation()
       jsonProcessing(newGu, false);
     } else {
       const initialLevel = window.innerWidth <= 640? 10 : 9
@@ -199,7 +199,6 @@ const KakaoMap: React.FC = () => {
   }, [areaName]);
 
   useEffect(()=>{
-    getLocation()
     window.addEventListener('resize', () => handleWidthSize())
     return () => {
       window.removeEventListener('resize', handleWidthSize);

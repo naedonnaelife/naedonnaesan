@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import BuildingCard from './reuse/BuildingCard.tsx';
 import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
+import Alert from '../../utils/Alert.tsx';
 
 interface SideProps {
   selectedBuildingRef: React.MutableRefObject<any>;
@@ -141,8 +142,13 @@ function SideBuilding({
     axios
       .get('/api/buildings/name', { params: { dongname: searchDong, page: page } })
       .then((response) => {
-        setPage((prev) => prev + 1);
-        setBuildingList([...buildingList, ...response.data.object.buildingDtoList]);
+        console.log(response.data.object.buildingDtoList);
+        if (response.data.object.buildingDtoList.length === 0) {
+          Alert({ title: '', content: `${searchDong}에 매물이 존재하지 않습니다.`, icon: 'error' });
+        } else {
+          setPage((prev) => prev + 1);
+          setBuildingList([...buildingList, ...response.data.object.buildingDtoList]);
+        }
         setIsLast(response.data.object.last);
       })
       .catch((error) => {
@@ -160,8 +166,12 @@ function SideBuilding({
     axios
       .get('/api/buildings/name', { params: { dongname: searchDong, page: 0 } })
       .then((response) => {
-        setPage(1);
-        setBuildingList([...response.data.object.buildingDtoList]);
+        if (response.data.object.buildingDtoList.length === 0) {
+          Alert({ title: '', content: `${searchDong}에 매물이 존재하지 않습니다.`, icon: 'error' });
+        } else {
+          setPage(1);
+          setBuildingList([...response.data.object.buildingDtoList]);
+        }
         setIsLast(response.data.object.last);
       })
       .catch((error) => {

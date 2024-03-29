@@ -298,7 +298,7 @@ function KakaoMap({
       const y = selectedDong.properties.y;
 
       buildingMap.setCenter(new kakao.maps.LatLng(y, x));
-      selectedBuildingRef.current.setMap(null);
+      selectedBuildingRef.current?.setMap(null);
       selectedBuildingRef.current = null;
       setBuildingId(0);
     }

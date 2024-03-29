@@ -12,8 +12,8 @@ import { Bar } from "react-chartjs-2";
 
 interface DetailGraphProps {
   category: string | null;
-  selected1: string | null;
-  selected2: string | null;
+  selected1: any | null;
+  selected2: any | null;
   detail1: any | null;
   detail2: any | null;
 }
@@ -77,7 +77,7 @@ const Graph: React.FC<DetailGraphProps> = ({
     labels,
     datasets: [
       {
-        label: `${selected1}`,
+        label: `${selected1.dongName}`,
         data: detail1.reduce((detailCount: any, detail: any) => {
           if (detail.infraTypeName === category) {
             detailCount.push(detail.totalCount);
@@ -88,7 +88,7 @@ const Graph: React.FC<DetailGraphProps> = ({
         backgroundColor: "#8EBE6D",
       },
       {
-        label: `${selected2}`,
+        label: `${selected2.dongName}`,
         data: detail2.reduce((detailCount: any, detail: any) => {
           if (detail.infraTypeName === category) {
             detailCount.push(detail.totalCount);
@@ -104,7 +104,7 @@ const Graph: React.FC<DetailGraphProps> = ({
   return (
     <GraphWrapper>
       <GraphTitle>
-        {selected1} {selected2} {category} 수 비교
+        {selected1.dongName} {selected2.dongName} {category} 수 비교
       </GraphTitle>
       <Bar options={options} data={data} />
     </GraphWrapper>

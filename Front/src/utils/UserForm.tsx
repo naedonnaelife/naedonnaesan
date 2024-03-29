@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import tw, { styled } from "twin.macro";
 import UseAxios from "./UseAxios";
 // import alert, {alert2, alert3, alert4} from './Alet';
-import alert4 from "./Alet";
+import alert4 from "./Alert";
 import { useNavigate } from "react-router-dom";
 
 type EventType = React.ChangeEvent<HTMLInputElement>;

@@ -30,7 +30,7 @@ const Button = styled.button`
 `;
 
 const LikeButton = styled.button`
-  ${tw`w-[30px] h-[30px] border-2 border-red rounded-full`}
+  ${tw`w-[30px] h-[30px]`}
 `;
 
 
@@ -45,15 +45,10 @@ const Like: React.FC<Props> = ({
   const removeLike = async (id: number) => {
     await axios.delete(`/api/zzim/${id}`);
     setLikedDongList((prev: any) =>
-      prev.filter((zzim: any) => zzim.zzimId !== id)
+      prev.filter((zzim: any) => zzim.dongId !== id)
     );
   };
 
-  // const buildingClick = () => {
-  //   axios.get("/api/buildings", {
-  //     name:
-  //   })
-  // }
 
   return (
     <DongWrapper>
@@ -61,7 +56,7 @@ const Like: React.FC<Props> = ({
       <ButtonWrapper>
         <Button onClick={() => navigate("/building", { state: { areaName: likedDongName } })}>매물</Button>
         <Button onClick={() => navigate("/information", { state: { areaName: likedDongName } })}>정보</Button>
-        <LikeButton onClick={() => removeLike(likedDongId)}>💗</LikeButton>
+        <LikeButton onClick={() => removeLike(likedDongId)}>❌</LikeButton>
       </ButtonWrapper>
     </DongWrapper>
   );

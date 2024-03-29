@@ -1,11 +1,11 @@
 import React from "react";
 import tw, { styled } from "twin.macro";
 import ComparisonGraph from "../ComparisonGraph";
-// import UseAxios from "../../../utils/UseAxios";
+// import UseAxios from "../../../utils/UseAxios"; 
 
 interface SelectedProps {
-  selected: string | null;
-  setSelected: (value: string | null) => void;
+  selected: any | null;
+  setSelected: (value: any | null) => void;
   cardIndex: number;
   setDetail: (value: any | null) => void;
 }
@@ -43,15 +43,23 @@ const Card: React.FC<SelectedProps> = ({
   cardIndex,
   setDetail,
 }) => {
-  
+  // const [likedDongList, setLikedDongList] = useState<any[]>([]);
   // const axios = UseAxios();
+
+
+  // const addLike = async (id:number) => {
+  //   await axios.post(`/api/zzim/${id}`)
+  //   .then((response) => {
+  //     setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongId !== id))
+  //     console.log(' 좋아요 : ', response)
+  //   });
+  // };
 
   // const removeLike = (id: number) => {
   //   axios
   //     .delete(`/api/zzim/${id}`)
-  //     .then((response) => {
-  //       console.log(response);
-  //       setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.zzimId !== id));
+  //     .then(() => {
+  //       setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongId !== id));
   //     })
   //     .catch((error) => {
   //       console.log(error);
@@ -63,16 +71,20 @@ const Card: React.FC<SelectedProps> = ({
       {selected ? (
         <>
           <CardTop>
-            <CardTitle>{selected}</CardTitle>
+            <CardTitle>{selected.dongName}</CardTitle>
             <ButtonWrapper>
-            {/* <LikeButton onClick={() => removeLike(likedDongId)}>💗</LikeButton> */}
+            {/* {likedDongList? (
+              <LikeButton onClick={() => removeLike(selected.dongId)}>💗</LikeButton>
+            ) : (
+              <LikeButton onClick={() => addLike(selected.dongId)}>🤍</LikeButton>
+            )} */}
               <button onClick={() => setSelected(null)}>삭제</button>
             </ButtonWrapper>
           </CardTop>
           <GraphWrapper cardIndex={cardIndex}>
             <ComparisonGraph
               cardIndex={cardIndex}
-              selected={selected}
+              selected={selected.dongName}
               setDetail={setDetail}
             />
           </GraphWrapper>

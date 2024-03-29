@@ -15,61 +15,63 @@ const Map = styled.div`
 const { kakao } = window;
 
 const KakaoMap: React.FC = () => {
-  const [newMap, setNewMap] = useState<any>(null)
-  const mapRef = useRef<any>(null)
-  const isSmallRef = useRef<boolean | null>(null)
-  const mapLevelRef= useRef<number | null>(null)
-  const coordinateRef = useRef<number[] | null>(null)
-  const [newCustomOverlay, setNewCustomOverlay] = useState(null)
-  const [rectangle, setRectangle] = useState(null)
-  const polygons = useRef([new kakao.maps.Polygon()])
-  const areaName = useSearchStore(state => state.areaName)
-  const navigate = useNavigate()
-  const axios = UseAxios()
+  const [newMap, setNewMap] = useState<any>(null);
+  const mapRef = useRef<any>(null);
+  const isSmallRef = useRef<boolean | null>(null);
+  const mapLevelRef = useRef<number | null>(null);
+  const coordinateRef = useRef<number[] | null>(null);
+  const [newCustomOverlay, setNewCustomOverlay] = useState(null);
+  const [rectangle, setRectangle] = useState(null);
+  const polygons = useRef([new kakao.maps.Polygon()]);
+  const areaName = useSearchStore((state) => state.areaName);
+  const navigate = useNavigate();
+  const axios = UseAxios();
 
   // 반응형 감지
 
   const levelUp = () => {
-    if(mapLevelRef.current){
-      mapLevelRef.current += 1
-    mapRef.current.setLevel(mapLevelRef.current, { animate: { duration: 500 } });
-  }}
+    if (mapLevelRef.current) {
+      mapLevelRef.current += 1;
+      mapRef.current.setLevel(mapLevelRef.current, { animate: { duration: 500 } });
+    }
+  };
   const levelDown = () => {
-    if(mapLevelRef.current){
-    mapLevelRef.current -= 1
-    mapRef.current.setLevel(mapLevelRef.current, { animate: { duration: 500 } });
-  }}
+    if (mapLevelRef.current) {
+      mapLevelRef.current -= 1;
+      mapRef.current.setLevel(mapLevelRef.current, { animate: { duration: 500 } });
+    }
+  };
 
   const handleWidthSize = () => {
-    const isSmall = window.innerWidth <= 640 
-    if (isSmall && !isSmallRef.current){
-      levelUp()
-    } else if (!isSmall && isSmallRef.current){
-      levelDown()
+    const isSmall = window.innerWidth <= 640;
+    if (isSmall && !isSmallRef.current) {
+      levelUp();
+    } else if (!isSmall && isSmallRef.current) {
+      levelDown();
     }
-    isSmallRef.current = isSmall
-    mapRef.current.setCenter(new kakao.maps.LatLng(coordinateRef.current![0], coordinateRef.current![1]))
-  }
+    isSmallRef.current = isSmall;
+    mapRef.current.setCenter(new kakao.maps.LatLng(coordinateRef.current![0], coordinateRef.current![1]));
+  };
 
   const getLocation = async () => {
-        await axios.get('/api/myLatLon')
-        .then(res => {
-          const markerPosition = new kakao.maps.LatLng(37.56, 127.0)
-          // const markerPosition = new kakao.maps.LatLng(res.data.object.x, res.data.object.y))
-          const marker = new kakao.maps.Marker({
-            position: markerPosition
-          });
-          marker.setMap(newMap)
-        })
-  }
+    await axios.get('/api/myLatLon').then((res) => {
+      // const markerPosition = new kakao.maps.LatLng(37.56, 127.0);
+      const markerPosition = new kakao.maps.LatLng(res.data.object.x, res.data.object.y);
+      const marker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+      marker.setMap(newMap);
+    });
+  };
 
   // 구&동 지도 생성 함수
   const jsonProcessing = async (json: any, sig_cd: string | boolean) => {
     let geoJson = json.features;
     if (sig_cd) {
       geoJson = json.features.filter((e: any) => {
-        const prefix = e.properties.EMD_CD.slice(0, 5)
-        return prefix === sig_cd})
+        const prefix = e.properties.EMD_CD.slice(0, 5);
+        return prefix === sig_cd;
+      });
     }
 
     try {
@@ -154,19 +156,19 @@ const KakaoMap: React.FC = () => {
           map.setCenter(new kakao.maps.LatLng(unit.centerCoordinate[1], unit.centerCoordinate[0]));
           map.setLevel(level, { animate: { duration: 500 } });
           jsonProcessing(newDong, unit.sig_cd);
-          mapLevelRef.current = level
-          coordinateRef.current = [unit.centerCoordinate[1], unit.centerCoordinate[0]]
+          mapLevelRef.current = level;
+          coordinateRef.current = [unit.centerCoordinate[1], unit.centerCoordinate[0]];
         }
       });
     });
   };
-  
+
   useEffect(() => {
     if (newMap) {
-      // getLocation()
+      getLocation();
       jsonProcessing(newGu, false);
     } else {
-      const initialLevel = window.innerWidth <= 640? 10 : 9
+      const initialLevel = window.innerWidth <= 640 ? 10 : 9;
       const container = document.getElementById('map');
       const options = {
         center: new kakao.maps.LatLng(37.56, 127.0),
@@ -175,10 +177,10 @@ const KakaoMap: React.FC = () => {
         scrollwheel: false,
         disableDoubleClickZoom: false,
       };
-      const newMap = new kakao.maps.Map(container, options)
-      mapRef.current = newMap
-      mapLevelRef.current = initialLevel
-      coordinateRef.current = [37.56, 127.0]
+      const newMap = new kakao.maps.Map(container, options);
+      mapRef.current = newMap;
+      mapLevelRef.current = initialLevel;
+      coordinateRef.current = [37.56, 127.0];
       setNewMap(newMap);
       setNewCustomOverlay(new kakao.maps.CustomOverlay({}));
     }
@@ -187,23 +189,22 @@ const KakaoMap: React.FC = () => {
   useEffect(() => {
     if (areaName && newMap) {
       const findDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === areaName);
-      const sggCode = findDong.properties.EMD_CD.slice(0, 5)
+      const sggCode = findDong.properties.EMD_CD.slice(0, 5);
       const findGu: any = newGu.features.find((gu: any) => gu.properties.SIG_CD === sggCode);
-      const newLevel = isSmallRef.current? 7 : 6
+      const newLevel = isSmallRef.current ? 7 : 6;
       newMap.setCenter(new kakao.maps.LatLng(findGu.properties.y, findGu.properties.x));
       newMap.setLevel(newLevel, { animate: { duration: 500 } });
       jsonProcessing(newDong, sggCode);
-      mapLevelRef.current = newLevel
-
+      mapLevelRef.current = newLevel;
     }
   }, [areaName]);
 
-  useEffect(()=>{
-    window.addEventListener('resize', () => handleWidthSize())
+  useEffect(() => {
+    window.addEventListener('resize', () => handleWidthSize());
     return () => {
       window.removeEventListener('resize', handleWidthSize);
     };
-  }, [])  
+  }, []);
 
   return (
     <>

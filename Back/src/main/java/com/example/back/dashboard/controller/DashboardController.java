@@ -40,8 +40,6 @@ public class DashboardController {
 			articlePageDto.getArticleDtoList().isEmpty() ?
 				new Message(HttpStatusEnum.NOT_FOUND, "키워드에 해당되는 기사 없음", null) :
 				new Message(HttpStatusEnum.OK, "키워드에 해당되는 기사 조회 완료", articlePageDto);
-		System.out.println("article date " + articlePageDto.getArticleDtoList().get(0).getPublished());
-		System.out.println("local date " + LocalDate.now().minusYears(1));
 		return new ResponseEntity<>(message, articlePageDto.getArticleDtoList().isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
 

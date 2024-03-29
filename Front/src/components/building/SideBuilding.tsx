@@ -54,7 +54,7 @@ const SideFixWrapper = styled.div`
   ${tw`flex-cc w-[100%] sticky top-0 bg-white pt-1`}
 `;
 const SearchWarpper = styled.div`
-  ${tw`w-[100%] h-[5vh] mt-[1vh]
+  ${tw`w-[100%] h-12 mt-[1vh]
   max-sm:hidden`}
 `;
 // const ButtonWrapper = styled.aside`
@@ -69,7 +69,7 @@ const HamburgerButton = styled.button`
 `;
 
 const SelectedWrapper = styled.div`
-  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1`}
+  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1 animate-fade-right`}
 `;
 
 const SelectedCard = styled.article`
@@ -98,6 +98,7 @@ function SideBuilding({
   const [buildingList, setBuildingList] = useState<Building[]>([]);
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
   const [isLast, setIsLast] = useState(false);
+  const [prevProps, setPrevProps] = useState(searchDong);
 
   const [pageRef, inView] = useInView();
   const axios = UseAxios();
@@ -134,50 +135,39 @@ function SideBuilding({
 
     selectedBuildingRef.current = selectedMarker;
     selectedMarker.setMap(buildingMap);
-    buildingMap.setCenter(new kakao.maps.LatLng(building.x, building.y));
+    buildingMap.setCenter(new kakao.maps.LatLng(building.y, building.x));
     buildingMap.setLevel(1);
   };
 
-  const getBuildingList = () => {
-    axios
-      .get('/api/buildings/name', { params: { dongname: searchDong, page: page } })
-      .then((response) => {
-        console.log(response.data.object.buildingDtoList);
-        if (response.data.object.buildingDtoList.length === 0) {
-          Alert({ title: '', content: `${searchDong}에 매물이 존재하지 않습니다.`, icon: 'error' });
-        } else {
-          setPage((prev) => prev + 1);
-          setBuildingList([...buildingList, ...response.data.object.buildingDtoList]);
-        }
-        setIsLast(response.data.object.last);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
+    if (prevProps !== searchDong) {
+      setPage(0);
+      setIsLast(false);
+      setBuildingList([]);
+      setPrevProps(searchDong);
+    }
+
     if (inView && !isLast) {
+      const getBuildingList = () => {
+        axios
+          .get('/api/buildings/name', { params: { dongname: searchDong, page: page } })
+          .then((response) => {
+            if (response.data.object.buildingDtoList.length === 0) {
+              Alert({ title: '', content: `${searchDong}에 매물이 존재하지 않습니다.`, icon: 'error' });
+            } else {
+              setBuildingList((prev) => [...prev, ...response.data.object.buildingDtoList]);
+              setIsLast(response.data.object.last);
+              setPage((prev) => prev + 1);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+
       getBuildingList();
     }
-  }, [inView]);
-
-  useEffect(() => {
-    axios
-      .get('/api/buildings/name', { params: { dongname: searchDong, page: 0 } })
-      .then((response) => {
-        if (response.data.object.buildingDtoList.length === 0) {
-          Alert({ title: '', content: `${searchDong}에 매물이 존재하지 않습니다.`, icon: 'error' });
-        } else {
-          setPage(1);
-          setBuildingList([...response.data.object.buildingDtoList]);
-        }
-        setIsLast(response.data.object.last);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [searchDong]);
+  }, [inView, searchDong]);
 
   // 선택한 매물 정보 1개 받기 !
   useEffect(() => {

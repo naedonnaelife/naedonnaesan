@@ -27,8 +27,8 @@ const Comparison = styled.section`
 
 function ComparisonPage() {
   const [category, setCategory] = useState<string>("");
-  const [selected1, setSelected1] = useState<any | null>(null);
-  const [selected2, setSelected2] = useState<any | null>(null);
+  const [selected1, setSelected1] = useState<string | null>(null);
+  const [selected2, setSelected2] = useState<string | null>(null);
   const [detail1, setDetail1] = useState<any | null>(null);
   const [detail2, setDetail2] = useState<any | null>(null);
   // const [higher1, setHigher1] = useState<string | null>(null);

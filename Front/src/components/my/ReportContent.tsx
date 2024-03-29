@@ -67,9 +67,9 @@ const ReportContent: React.FC = () => {
     healthReport: '건강은',
     foodReport: '식당은',
     transpReport: '교통은',
-    leisureReport: '여가는',
+    leisureReport: '여가 시설은',
     cafeReport: '카페는',
-    pubReport: '술집는',
+    pubReport: '술집은',
   };
 
   const scoreTexts: any = {

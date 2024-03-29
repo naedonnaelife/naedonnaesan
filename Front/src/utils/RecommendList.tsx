@@ -10,7 +10,8 @@ interface RecommendProps {
 type Dong = {
   dongName : string;
   dongId : number;
-  isLike : boolean;
+  zzim : boolean;
+  distance: number;
 }[]
 
 type StyleProps = {
@@ -41,8 +42,12 @@ const Index = styled.h3`
 `;
 
 const TownName = styled.p`
-  ${tw`cursor-pointer hover:scale-105 hover:text-red`}
+  ${tw`cursor-appleMango hover:scale-105 hover:text-red`}
 `;
+
+const Distance = styled.p`
+  ${tw`flex-c text-10`}
+`
 
 const Like = styled.button`
   ${tw`flex justify-center items-center w-[30px] h-[30px] border-2 border-grayHover rounded-full`}
@@ -83,8 +88,10 @@ const RecommendList: React.FC<RecommendProps> = ({isActive}) => {
 
   useEffect(()=>{
     setNewRecommendList(recommendList)
-    const selectLikeDong = recommendList.map(e => e.isLike)
+    const selectLikeDong = recommendList.map(e => e.zzim)
     setLikeDongList(selectLikeDong)
+    console.log('전체 : ', recommendList)
+    console.log('리스트 : ', selectLikeDong)
   }, [recommendList])
 
 
@@ -98,6 +105,7 @@ const RecommendList: React.FC<RecommendProps> = ({isActive}) => {
             <RecommendResult key={index}>
               <Index>{index + 1}</Index>
               <TownName onClick={() => selectArea(element.dongName)}>{element.dongName}</TownName>
+              <Distance>{element.distance.toFixed(1)}km</Distance>
               {likeDongList[index]? (
                 <Like color='red' onClick={() => removeLike(element.dongId, index)}>💗</Like>
               ) : (

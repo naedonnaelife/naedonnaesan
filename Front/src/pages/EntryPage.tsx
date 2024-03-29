@@ -37,9 +37,10 @@ const P = styled.p`
   ${tw` h-[40%] text-3xl mt-[3vh]
   max-sm:text-lg`}
   animation : ${fadeIn} 1s ease-in-out;
-`;
+`
 
-const EntryPage: React.FC = () => {
+const EntryPage:React.FC = () => {
+
   return (
     <>
       <Main>

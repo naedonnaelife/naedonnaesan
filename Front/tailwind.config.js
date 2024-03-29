@@ -23,6 +23,8 @@ export default {
         lightGray: '#E8E8E8',
         middleGray: `#9ca3af`,
         gray: '#D5D5D5',
+        grayMiddle: '#8D8D95',
+        grayMiddle2: '#797981',
         grayHover: '#464555',
         red: '#FF0505',
         mango: '#FFEC9D',

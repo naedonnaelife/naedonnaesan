@@ -10,8 +10,8 @@ ${tw`flex-cc fixed top-[40vh] right-[2vw] z-10`}
 `
 
 const ScrollDot = styled.button`
-${tw` w-[5px] h-[5px] bg-blue-200 rounded-full mb-2 p-2 opacity-70 shadow-lg hover:opacity-100 hover:scale-105 hover:bg-blue-300`}
-${({ nowScroll }: StyleProps) => nowScroll? tw`bg-blue-300` : `` }
+${tw` w-[5px] h-[5px] bg-gray rounded-full mb-2 p-2 opacity-70 shadow-lg hover:opacity-100 hover:scale-105 hover:bg-grayMiddle2`}
+${({ nowScroll }: StyleProps) => nowScroll? tw`bg-grayMiddle` : `` }
 `
 
 const SideButton:React.FC = () => {
@@ -21,7 +21,7 @@ const SideButton:React.FC = () => {
     const handleScroll = (index: number) => {
         let scrollPosition = 0
         if(index){
-            scrollPosition = window.innerHeight * (index + 0.15);
+            scrollPosition = window.innerHeight * (index + 0.25);
         }
         window.scroll({
           top: scrollPosition,

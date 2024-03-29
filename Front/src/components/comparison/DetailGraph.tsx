@@ -77,7 +77,7 @@ const Graph: React.FC<DetailGraphProps> = ({
     labels,
     datasets: [
       {
-        label: `${selected1.dongName}`,
+        label: `${selected1}`,
         data: detail1.reduce((detailCount: any, detail: any) => {
           if (detail.infraTypeName === category) {
             detailCount.push(detail.totalCount);
@@ -88,7 +88,7 @@ const Graph: React.FC<DetailGraphProps> = ({
         backgroundColor: "#8EBE6D",
       },
       {
-        label: `${selected2.dongName}`,
+        label: `${selected2}`,
         data: detail2.reduce((detailCount: any, detail: any) => {
           if (detail.infraTypeName === category) {
             detailCount.push(detail.totalCount);
@@ -104,7 +104,7 @@ const Graph: React.FC<DetailGraphProps> = ({
   return (
     <GraphWrapper>
       <GraphTitle>
-        {selected1.dongName} {selected2.dongName} {category} 수 비교
+        {selected1} {selected2} {category} 수 비교
       </GraphTitle>
       <Bar options={options} data={data} />
     </GraphWrapper>

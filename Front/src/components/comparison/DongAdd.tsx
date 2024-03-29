@@ -5,10 +5,10 @@ import UseAxios from "../../utils/UseAxios";
 import Alert from "../../utils/Alert.tsx";
 
 interface DongAddProps {
-  setSelected1: (value: any | null) => void;
-  setSelected2: (value: any | null) => void;
-  selected1: any | null;
-  selected2: any | null;
+  setSelected1: (value: string | null) => void;
+  setSelected2: (value: string | null) => void;
+  selected1: string | null;
+  selected2: string | null;
 }
 
 const Aside = styled.aside`
@@ -62,22 +62,27 @@ const DongAdd: React.FC<DongAddProps> = ({
   selected2,
 }) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
-  const [searchDong, setSearchDong] = useState("");
+  const [searchDong, setSearchDong] = useState<string>("");
   const axios = UseAxios();
+
+  useEffect(() => {
+    handleClick(searchDong)
+  }, [searchDong]);
+
   useEffect(() => {
     axios
       .get("/api/mypage/likelist")
       .then((response) => {
-        const newLikedDongList = response.data.object.map((dong: any) => dong);
+        const newLikedDongList = response.data.object.map((dong: any) => dong.dongName);
         setLikedDongList(newLikedDongList);
         return newLikedDongList;
       })
-      .catch((error) => {
+      .catch((error) => { 
         console.log(error);
       });
   }, []);
 
-  const handleClick = (dong: any) => {
+  const handleClick = (dong: string) => {
     // 똑같은 동 또 추가
     if (dong === selected1 || dong === selected2) {
       Alert({
@@ -117,11 +122,11 @@ const DongAdd: React.FC<DongAddProps> = ({
         <LikeDongList>
           {likedDongList.map((dong, i) => (
             <Dong key={i} onClick={() => handleClick(dong)}>
-              {dong.dongName}
+              {dong}
               <LikeButton
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation();
-                  removeLike(dong.dongId);
+                  removeLike(dong);
                 }}
               >
                 💗

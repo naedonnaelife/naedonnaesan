@@ -88,7 +88,10 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
           <InputText
             placeholder="동네 검색"
             value={keyword}
-            onChange={(e: any) => setKeyword(e.target.value)}
+            onChange={(e: any) => {
+              setKeyword(e.target.value) 
+              setIsActive(true)}
+            }
             onFocus={() => setIsActive(true)}
             onBlur={() => setIsActive(false)}
             onClick={() => setIsActive(true)}

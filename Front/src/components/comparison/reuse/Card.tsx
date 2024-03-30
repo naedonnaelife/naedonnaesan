@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import tw, { styled } from "twin.macro";
 import ComparisonGraph from "../ComparisonGraph";
 // import UseAxios from "../../../utils/UseAxios"; 

@@ -211,7 +211,7 @@ function KakaoMap({
               customOverlay.setMap(null);
             };
 
-            document.getElementById('map')?.addEventListener('click', closeOverlay);
+            // document.getElementById('map')?.addEventListener('click', closeOverlay);
 
             // 오버레이 클릭 / 닫기 이벤트 달기
             document.getElementById('close-button')?.addEventListener('click', closeOverlay);

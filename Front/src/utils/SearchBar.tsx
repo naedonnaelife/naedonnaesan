@@ -62,6 +62,7 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
     if (isDong) {
       setSearchDong(dong);
       setKeyword(dong);
+      setIsActive(false);
     } else {
       Alert({ title: '', content: '존재하지 않는 동입니다.', icon: 'error' });
     }

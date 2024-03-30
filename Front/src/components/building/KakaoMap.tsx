@@ -251,7 +251,7 @@ function KakaoMap({
               map: map,
               position: marker.getPosition(),
               image: selectedMarkerImage,
-              zIndex: 10,
+              zIndex: 2,
             });
 
             selectedBuildingRef.current = selectedMarker;

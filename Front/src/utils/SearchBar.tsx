@@ -13,11 +13,11 @@ type styleProps = {
 };
 
 const Search = styled.div`
-  ${tw`relative w-full h-10`}
+  ${tw`relative w-full h-10 z-10`}
 `;
 
 const Wrapper = styled.div`
-  ${tw`bg-white border-2 rounded-2xl border-orange-200 overflow-hidden p-2`}
+  ${tw`bg-white border-2 rounded-2xl border-orange-200 overflow-hidden p-2 `}
 `;
 
 const InputText = styled.input`

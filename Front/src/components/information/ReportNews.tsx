@@ -20,7 +20,7 @@ type News = {
 };
 
 const NewsWrapper = styled.article`
-  ${tw`h-[100%] border-basic relative p-5`}
+  ${tw`h-[100%] border-basic relative p-20`}
 `;
 const NewsTitle = styled.h1`
   ${tw`text-2xl md:text-3xl text-center font-bold m-2`}

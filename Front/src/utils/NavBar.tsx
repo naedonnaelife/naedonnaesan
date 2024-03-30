@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import { Link } from 'react-router-dom';
+import hamburger from '../assets/hamburger.png';
 
 type NavOpenProps = {
   isOpen: boolean;
@@ -41,9 +42,7 @@ function NavBar() {
       <Navbar>
         <HamburgerWrapper>
           <HamburgerButton onClick={navOpen} isOpen={isOpen}>
-            {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path stroke="#403800" d="M1 1h15M1 7h15M1 13h15" />
-            </svg> */}
+            <img src={hamburger} alt="button" />
           </HamburgerButton>
         </HamburgerWrapper>
         <NavbarWrapper isOpen={isOpen}>

@@ -35,9 +35,12 @@ const BuildingPrice = styled.h1`
 const BuildingContent = styled.figcaption`
   ${tw`text-sm`}
 `;
-``;
+const P = styled.p`
+  ${tw`truncate`}
+`;
+
 const BuildingCard: React.FC<CardProps> = ({ building }) => {
-  const roomImage = buildings.url[building?.buildingId % 31];
+  const roomImage = buildings.url[building?.buildingId % 29];
   const area = Math.ceil((building?.area / 3.3058) * 10) / 10;
   return (
     <CardWrapper>
@@ -49,15 +52,15 @@ const BuildingCard: React.FC<CardProps> = ({ building }) => {
           {building?.payType} {building?.deposit}/{building?.monthlyPay} 만원
         </BuildingPrice>
         <BuildingContent>
-          <p>
+          <P>
             {building?.buildingType} / {building?.name}{' '}
-          </p>
-          <p>
+          </P>
+          <P>
             {building?.address} {building?.floor}층
-          </p>
-          <p>
+          </P>
+          <P>
             {building?.area} m2 ({area} 평)
-          </p>
+          </P>
         </BuildingContent>
       </ContentWrapper>
     </CardWrapper>

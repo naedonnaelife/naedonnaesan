@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import tw, { styled } from "twin.macro";
 import ComparisonGraph from "../ComparisonGraph";
-import UseAxios from "../../../utils/UseAxios"; 
+// import UseAxios from "../../../utils/UseAxios"; 
 
 interface SelectedProps {
   selected: string | null;
@@ -11,12 +11,12 @@ interface SelectedProps {
 }
 
 const CardWrapper = styled.figure`
-  ${tw`flex flex-col w-[40%] h-96 bg-amber-50 
+  ${tw`flex-cc w-[40%] h-96 bg-amber-50 
   max-sm:h-64`}
 `;
 
 const CardTop = styled.div`
-  ${tw`flex-c my-3 h-[10%]
+  ${tw`flex-c w-[100%] h-[10%] relative my-3
   max-sm:flex-col max-sm:items-center`}
 `;
 const CardTitle = styled.h1`
@@ -30,12 +30,13 @@ const GraphWrapper = styled.figure<{ cardIndex: number }>`
 `;
 
 const ButtonWrapper = styled.div`
-  ${tw`flex`}
+  ${tw`absolute top-2 right-4
+  max-sm:top-1`}
 `;
 
-const LikeButton = styled.button`
-  ${tw`w-[30px] h-[30px]`}
-`;
+// const LikeButton = styled.button`
+//   ${tw`w-[30px] h-[30px]`}
+// `;
 
 const Card: React.FC<SelectedProps> = ({
   selected,
@@ -43,29 +44,29 @@ const Card: React.FC<SelectedProps> = ({
   cardIndex,
   setDetail,
 }) => {
-  const [likedDongList, setLikedDongList] = useState<any[]>([]);
-  const axios = UseAxios();
+  // const [likedDongList, setLikedDongList] = useState<any[]>([]);
+  // const axios = UseAxios();
 
 
-  const addLike = async (name:string) => {
-    await axios.post(`/api/zzim/${name}`)
-    .then((response) => {
-      setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongName === name))
-      console.log(' 좋아요 : ', response)
-    });
-  };
+  // const addLike = async (name:string) => {
+  //   await axios.post(`/api/zzim/${name}`)
+  //   .then((response) => {
+  //     setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongName === name))
+  //     console.log(' 좋아요 : ', response)
+  //   });
+  // };
 
-  const removeLike = (name: string) => {
-    axios
-      .delete(`/api/zzim/${name}`)
-      .then((response) => {
-        console.log(response)
-        setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongName !== name));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const removeLike = (name: string) => {
+  //   axios
+  //     .delete(`/api/zzim/${name}`)
+  //     .then((response) => {
+  //       console.log(response)
+  //       setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongName !== name));
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <CardWrapper>
@@ -74,12 +75,12 @@ const Card: React.FC<SelectedProps> = ({
           <CardTop>
             <CardTitle>{selected}</CardTitle>
             <ButtonWrapper>
-            {likedDongList? (
+            {/* {likedDongList? (
               <LikeButton onClick={() => removeLike(selected)}>💗</LikeButton>
             ) : (
               <LikeButton onClick={() => addLike(selected)}>🤍</LikeButton>
-            )}
-              <button onClick={() => setSelected(null)}>삭제</button>
+            )} */}
+              <button onClick={() => setSelected(null)}>✖</button>
             </ButtonWrapper>
           </CardTop>
           <GraphWrapper cardIndex={cardIndex}>
@@ -91,7 +92,7 @@ const Card: React.FC<SelectedProps> = ({
           </GraphWrapper>
         </>
       ) : (
-        <p>선택된 항목이 없습니다. 동네를 선택해주세요.</p>
+        <p>선택된 동네가 없습니다. 동네를 선택해주세요.</p>
       )}
     </CardWrapper>
   );

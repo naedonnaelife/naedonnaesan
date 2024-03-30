@@ -13,11 +13,11 @@ type styleProps = {
 };
 
 const Search = styled.div`
-  ${tw`relative w-full h-10`}
+  ${tw`relative w-full h-10 z-10`}
 `;
 
 const Wrapper = styled.div`
-  ${tw`bg-white border-2 rounded-2xl border-orange-200 overflow-hidden p-2`}
+  ${tw`bg-white border-2 rounded-2xl border-orange-200 overflow-hidden p-2 `}
 `;
 
 const InputText = styled.input`
@@ -62,6 +62,7 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
     if (isDong) {
       setSearchDong(dong);
       setKeyword(dong);
+      setIsActive(false);
     } else {
       Alert({ title: '', content: '존재하지 않는 동입니다.', icon: 'error' });
     }
@@ -87,7 +88,10 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
           <InputText
             placeholder="동네 검색"
             value={keyword}
-            onChange={(e: any) => setKeyword(e.target.value)}
+            onChange={(e: any) => {
+              setKeyword(e.target.value) 
+              setIsActive(true)}
+            }
             onFocus={() => setIsActive(true)}
             onBlur={() => setIsActive(false)}
             onClick={() => setIsActive(true)}

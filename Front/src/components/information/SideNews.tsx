@@ -55,7 +55,7 @@ const NewsWrapper = styled.aside`
 
 const Card = styled.article`
   ${tw`flex w-[100%] h-[15%] p-2
-    max-sm:h-[30%] `}
+    max-sm:h-[18%] `}
 `;
 
 const ScrollDiv = styled.div`
@@ -74,9 +74,6 @@ const KeywrodInput = styled.input`
 
 const SearchButton = styled.button`
   ${tw` w-[30%] ml-2 bg-blue-500 text-white p-2 rounded`}
-  @media (max-width: 768px) {
-    ${tw`w-full mt-2`}
-  }
 `;
 
 const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {

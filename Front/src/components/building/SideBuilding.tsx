@@ -80,7 +80,7 @@ const CloseButton = styled.button`
   ${tw`flex w-[100%] h-[3vh] justify-end`}
 `;
 const ScrollDiv = styled.div`
-  ${tw`h-[20px]`}
+  ${tw`h-[100px]`}
 `;
 
 const { kakao } = window;

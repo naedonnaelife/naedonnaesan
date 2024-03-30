@@ -40,7 +40,7 @@ const P = styled.p`
 `;
 
 const BuildingCard: React.FC<CardProps> = ({ building }) => {
-  const roomImage = buildings.url[building?.buildingId % 31];
+  const roomImage = buildings.url[building?.buildingId % 30];
   const area = Math.ceil((building?.area / 3.3058) * 10) / 10;
   return (
     <CardWrapper>

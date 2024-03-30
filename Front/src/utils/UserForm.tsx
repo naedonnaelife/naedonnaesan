@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 type EventType = React.ChangeEvent<HTMLInputElement>;
 
 const FormWrapper = styled.section`
-  ${tw`flex-cc w-[50%] h-[90%] border-basic`}
+  ${tw`flex-cc w-[50%] h-[90%] border-basic
+  max-sm:w-[90%]`}
 `;
 
 const Form = styled.form`
-  ${tw`flex-cc w-[70%]`}
+  ${tw`flex-cc w-[70%]
+  max-sm:w-[90%]`}
 `;
 
 const Label = styled.label`
@@ -99,18 +101,18 @@ function UserForm() {
         () => {navigate('/recommend')}
       );
     } else{
-      alert('빼먹지 말고 전부 입력하십쇼')
+      Alert({title:'', content:'정보를 모두 입력해 주세요.', icon: 'info'});
     }
   };
   // 테스트
-  const testAlert = () => {
-    Alert({ title: "title", content: "필요하면 넣고 아니면 빈문자열", icon: "info" });
-    console.log("경고");
-  };
+  // const testAlert = () => {
+  //   Alert({ title: "title", content: "필요하면 넣고 아니면 빈문자열", icon: "info" });
+  //   console.log("경고");
+  // };
   
   return (
     <FormWrapper>
-      <div onClick={testAlert}>Alert 테스트</div>
+      {/* <div onClick={testAlert}>Alert 테스트</div> */}
       <Form onSubmit={inputUserInfo}>
         <Label htmlFor="">
           <span>성별</span>

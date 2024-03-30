@@ -54,7 +54,7 @@ const NewsWrapper = styled.aside`
 `;
 
 const Card = styled.article`
-  ${tw`flex w-[100%] h-[18%] p-1
+  ${tw`flex w-[100%] h-[15%] p-2
     max-sm:h-[30%] `}
 `;
 
@@ -178,11 +178,17 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
             ))}
         </KeywordsWrapper>
         <SearchWrapper>
-          <KeywrodInput
+        <KeywrodInput
             type="text"
             value={keyword}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
+            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === 'Enter') {
+                handleClick(); // 엔터키를 눌렀을 때 실행할 함수, 이 경우는 검색을 시작하는 함수입니다.
+              }
+            }}
           />
+
           <SearchButton onClick={handleClick}>{isSmall? '검색' : '검색하기'}</SearchButton>
         </SearchWrapper>
       </KeywordAndSearchWrapper>

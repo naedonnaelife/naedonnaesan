@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import tw, { styled } from "twin.macro";
 import ReportContent from "./ReportContent";
 import UseAxios from "../../utils/UseAxios";

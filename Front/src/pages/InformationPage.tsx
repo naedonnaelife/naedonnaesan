@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
+import useDongStore from '../stores/DongStore';
 import NavBar from '../utils/NavBar';
 import SideNews from '../components/information/SideNews.tsx';
 import Report from '../components/information/Report.tsx';
@@ -31,9 +32,12 @@ const Button = styled.button`
 const InformationPage: React.FC = () => {
   const [isNewsOpen, setIsNewsOpen] = useState<boolean>(false);
   const [isNewsListOpen, setIsNewsListOpen] = useState<boolean>(false);
+  const areaName = useDongStore((state) => state.areaName);
+  const update = useDongStore((state) => state.searchArea);
   const location = useLocation();
-  const [searchDong, setSearchDong] = useState(location.state ? location.state.areaName : '역삼동');
-
+  
+  const [searchDong, setSearchDong] = useState(location.state ? location.state.areaName : areaName);
+  
   const handleNewsClick = () => {
     setIsNewsListOpen(true);
   };
@@ -41,6 +45,10 @@ const InformationPage: React.FC = () => {
     setIsNewsListOpen(false);
     setIsNewsOpen(false);
   };
+
+  useEffect(() => {
+    update(searchDong);
+  }, [searchDong])
 
   return (
     <>

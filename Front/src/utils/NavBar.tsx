@@ -18,7 +18,7 @@ const NavbarLink = styled(Link)`
 `;
 
 const NavbarWrapper = styled.section`
-  ${({ isOpen }: NavOpenProps) => (isOpen ? tw`max-sm:flex-cc max-sm:bg-sbWhite` : tw`max-sm:hidden`)}
+  ${({ isOpen }: NavOpenProps) => (isOpen ? tw`max-sm:flex-cc max-sm:bg-sbWhite animate-fade-down animate-duration-300` : tw`max-sm:hidden`)}
 `;
 
 const HamburgerWrapper = styled.div`

@@ -201,7 +201,7 @@ function KakaoMap({
       if (level >= 2) {
         const newLevel = level - 2;
         map.setCenter(cluster.getCenter());
-        map.setLevel(newLevel ? newLevel : 1);
+        map.setLevel(newLevel ? newLevel : 1, {animate: true});
       } else {
         // 커스텀 오버레이 생성하는 경우
         customOverlay.setMap(null);
@@ -223,7 +223,7 @@ function KakaoMap({
             customOverlay.setPosition(cluster.getCenter());
             customOverlay.setContent(content);
             customOverlay.setMap(map);
-            map.setCenter(cluster.getCenter());
+            map.panTo(cluster.getCenter());
 
             // 오버레이 닫기 이벤트
             // 커스텀 오버레이 닫기

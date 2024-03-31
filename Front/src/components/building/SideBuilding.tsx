@@ -70,7 +70,8 @@ const HamburgerButton = styled.button`
 `;
 
 const SelectedWrapper = styled.div`
-  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1 animate-fade-right`}
+  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1 animate-fade-right
+  max-sm:animate-none`}
 `;
 
 const SelectedCard = styled.article`

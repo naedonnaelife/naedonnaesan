@@ -13,6 +13,8 @@ interface KakaoMapProps {
   markerList: React.MutableRefObject<any>;
   searchDong: string;
   setSearchDong: React.Dispatch<React.SetStateAction<string>>;
+  buildingClusterer: any;
+  setBuildingClusterer: React.Dispatch<React.SetStateAction<any>>;
 }
 
 type Building = {
@@ -53,6 +55,8 @@ function KakaoMap({
   markerList,
   searchDong,
   setSearchDong,
+  buildingClusterer,
+  setBuildingClusterer
 }: KakaoMapProps) {
   const axios = UseAxios();
   const selectedDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === searchDong);
@@ -65,6 +69,14 @@ function KakaoMap({
     yAnchor: 1,
     zIndex: 3,
   });
+
+  const clustererStyle = (size: number) => {
+    return ({
+      width: size + 'px',
+      height: size + 'px',
+      lineHeight: (size+1) + 'px',
+    })
+  }
 
   const clickOverlay = (buildingId: number, overlay: any, position: any, map: any) => {
     overlay.setMap(null);
@@ -102,8 +114,61 @@ function KakaoMap({
   //   polygon.setMap(map);
   // };
 
-  const makeClusterer = (map: any) => {
+  const makeClusterer = (map: any, clusterer:any) => {
     // 클러스터러 , 마커 생성
+    
+    
+    
+    // 데이터에서 좌표 값을 가지고 마커 표시
+    // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않음
+    axios
+      .get('/api/buildings', { params: { dongname: searchDong } })
+      .then((response) => {
+        const markermarker: any = {};
+        const markers = response.data.object.map((building: Building) => {
+          const marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(building.y, building.x),
+            image: markerImage,
+            title: building.buildingId,
+          });
+          kakao.maps.event.addListener(marker, 'click', function () {
+            if (selectedBuildingRef.current !== null) {
+              selectedBuildingRef.current.setMap(null);
+            }
+            setBuildingId(marker.getTitle());
+
+            const selectedMarker = new kakao.maps.Marker({
+              map: map,
+              position: marker.getPosition(),
+              image: selectedMarkerImage,
+              zIndex: 2,
+            });
+
+            selectedBuildingRef.current = selectedMarker;
+            selectedMarker.setMap(map);
+          });
+          markermarker[building.buildingId] = marker;
+          return marker;
+        });
+        clusterer.addMarkers(markers);
+        markerList.current = markermarker;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    // 카카오톡 지도 생성
+    const container = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(y, x),
+      level: 4,
+      draggable: true,
+      scrollwheel: true,
+      disableDoubleClickZoom: true,
+    };
+    const map = new kakao.maps.Map(container, options);
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
       averageCenter: false, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
@@ -124,53 +189,9 @@ function KakaoMap({
           textAlign: 'center',
           fontWeight: 'bold',
           lineHeight: '28px',
-          paddingTop: '8px',
+          paddingTop: '5px',
         },
-        {
-          width: '30px',
-          height: '30px',
-          lineHeight: '31px',
-        },
-        {
-          width: '32px',
-          height: '32px',
-          lineHeight: '33px',
-        },
-        {
-          width: '35px',
-          height: '35px',
-          lineHeight: '36px',
-        },
-        {
-          width: '37px',
-          height: '37px',
-          lineHeight: '38px',
-        },
-        {
-          width: '40px',
-          height: '40px',
-          lineHeight: '41px',
-        },
-        {
-          width: '45px',
-          height: '45px',
-          lineHeight: '46px',
-        },
-        {
-          width: '50px',
-          height: '50px',
-          lineHeight: '51px',
-        },
-        {
-          width: '55px',
-          height: '55px',
-          lineHeight: '56px',
-        },
-        {
-          width: '60px',
-          height: '60px',
-          lineHeight: '61px',
-        },
+        ...[30, 32, 35, 37, 40, 45, 50, 55, 60].map((size) => clustererStyle(size))
       ],
     });
 
@@ -228,69 +249,18 @@ function KakaoMap({
           });
       }
     });
-
-    // 데이터에서 좌표 값을 가지고 마커 표시
-    // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않음
-    axios
-      .get('/api/buildings', { params: { dongname: searchDong } })
-      .then((response) => {
-        const markermarker: any = {};
-        const markers = response.data.object.map((building: Building) => {
-          const marker = new kakao.maps.Marker({
-            position: new kakao.maps.LatLng(building.y, building.x),
-            image: markerImage,
-            title: building.buildingId,
-          });
-          kakao.maps.event.addListener(marker, 'click', function () {
-            if (selectedBuildingRef.current !== null) {
-              selectedBuildingRef.current.setMap(null);
-            }
-            setBuildingId(marker.getTitle());
-
-            const selectedMarker = new kakao.maps.Marker({
-              map: map,
-              position: marker.getPosition(),
-              image: selectedMarkerImage,
-              zIndex: 2,
-            });
-
-            selectedBuildingRef.current = selectedMarker;
-            selectedMarker.setMap(map);
-          });
-          markermarker[building.buildingId] = marker;
-          return marker;
-        });
-        clusterer.removeMarkers(markerList.current);
-        clusterer.addMarkers(markers);
-        markerList.current = markermarker;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    // 카카오톡 지도 생성
-    const container = document.getElementById('map');
-    const options = {
-      center: new kakao.maps.LatLng(y, x),
-      level: 4,
-      draggable: true,
-      scrollwheel: true,
-      disableDoubleClickZoom: true,
-    };
-    const map = new kakao.maps.Map(container, options);
     setBuildingMap(map);
+    setBuildingClusterer(clusterer);
     // makePolygon(map);
-    makeClusterer(map);
+    makeClusterer(map, clusterer);
 
     // 커스텀 오버레이 클릭 시 발생 이벤트
   }, []);
 
   useEffect(() => {
     if (buildingMap) {
-      // makePolygon(buildingMap);
-      makeClusterer(buildingMap);
+      buildingClusterer.clear();
+      makeClusterer(buildingMap, buildingClusterer);
       const selectedDong: any = (newDong as any).features.find(
         (dong: any) => dong.properties.EMD_KOR_NM === searchDong
       );

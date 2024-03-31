@@ -14,6 +14,7 @@ const Main = styled.main`
 function BuildingPage() {
   const [buildingId, setBuildingId] = useState(0);
   const [buildingMap, setBuildingMap] = useState<any>(null);
+  const [bulidingClusterer, setBuildingClusterer] = useState<any>(null);
   const markerList = useRef<any>({});
   const selectedBuildingRef = useRef<any>(null);
   const areaName = useDongStore((state) => state.areaName);
@@ -49,6 +50,8 @@ function BuildingPage() {
           markerList={markerList}
           searchDong={searchDong}
           setSearchDong={setSearchDong}
+          buildingClusterer={bulidingClusterer}
+          setBuildingClusterer={setBuildingClusterer}
         />
       </Main>
     </>

@@ -70,8 +70,7 @@ const HamburgerButton = styled.button`
 `;
 
 const SelectedWrapper = styled.div`
-  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1 animate-fade-right
-  max-sm:animate-none`}
+  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1`}
 `;
 
 const SelectedCard = styled.article`
@@ -199,16 +198,12 @@ function SideBuilding({
           <Button>가격</Button>
           <Button>유형</Button>
         </ButtonWrapper> */}
-        {buildingId && selectedBuilding ? (
-          <SelectedWrapper>
-            <CloseButton onClick={handleCloseButton}>✖</CloseButton>
-            <SelectedCard>
-              <BuildingCard building={selectedBuilding} />
-            </SelectedCard>
-          </SelectedWrapper>
-        ) : (
-          ''
-        )}
+        <SelectedWrapper>
+          <CloseButton onClick={handleCloseButton}>✖</CloseButton>
+          <SelectedCard>
+            <BuildingCard building={selectedBuilding || null} />
+          </SelectedCard>
+        </SelectedWrapper>
       </SideFixWrapper>
       {buildingList.map((building) => (
         <Card key={building.buildingId} onClick={() => handleBuildingCard(building)}>

@@ -133,7 +133,7 @@ def getKeyword():
 
     # 오늘 날짜와 정확히 1년 전 날짜 계산
     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-    one_year_ago = today - timedelta(days=366)
+    one_year_ago = today - timedelta(days=367)
 
     # 날짜를 "YYYY-MM-DD" 형식의 문자열로 변환
     one_year_ago_str = one_year_ago.strftime("%Y-%m-%d")

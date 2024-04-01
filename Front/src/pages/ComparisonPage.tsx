@@ -17,7 +17,7 @@ const AsideWrapper = styled.aside`
 `;
 
 const GraphWrapper = styled.section`
-  ${tw`w-[75%]
+  ${tw`w-[75%] mt-10
   max-sm:justify-center max-sm:w-[95%] max-sm:border-t-2 max-sm:border-gray max-sm:pt-6`}
 `;
 

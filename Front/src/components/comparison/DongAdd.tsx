@@ -36,11 +36,6 @@ const LikeDongList = styled.ul`
   max-sm:flex max-sm:h-[40px] max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
 `;
 
-const SearchTitle = styled.h2`
-  ${tw`text-xl font-bold
-  max-sm:hidden`}
-`;
-
 const Dong = styled.li`
   ${tw`flex justify-between w-full border-2 border-lightGray rounded-lg my-1 p-1
   max-sm:flex-c max-sm:h-8 max-sm:border-0 max-sm:rounded-full max-sm:bg-dongButton max-sm:text-base max-sm:mr-2 max-sm:px-3 max-sm:cursor-pointer max-sm:hover:bg-dongButtonHover`}
@@ -121,7 +116,6 @@ const DongAdd: React.FC<DongAddProps> = ({
     <Aside>
       <Title>비교할 동네 선택</Title>
       <SearchWrapper>
-        <SearchTitle>동네 검색</SearchTitle>
         <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
       </SearchWrapper>
       <LikeDongWrapper>

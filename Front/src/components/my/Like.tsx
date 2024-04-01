@@ -2,7 +2,9 @@ import tw, { styled } from 'twin.macro';
 import { useEffect, useState } from 'react';
 import SearchBar from '../../utils/SearchBar';
 import UseAxios from '../../utils/UseAxios';
+import Alert from '../../utils/Alert';
 import LikedDong from './reuse/LikedDong';
+
 
 interface LikeProps {
   name: string | null;
@@ -44,6 +46,22 @@ const Like: React.FC<LikeProps> = ({ name }) => {
       });
   }, []);
 
+
+  useEffect(() => {
+    if (searchDong) {
+      console.log(searchDong)
+      axios.post(`/api/zzim`, {dongName:searchDong})
+        .then((response) => {
+          setLikedDongList((prev) => [...prev, {dongId: response.data.object.zzimId, dongName: searchDong}])
+          Alert({title:'', content:`${searchDong} 찜하기 성공!`, icon: 'success'})
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+        
+      }
+  }, [searchDong])
+
   return (
     <LikeWrapper>
       <LikeTop>
@@ -52,7 +70,7 @@ const Like: React.FC<LikeProps> = ({ name }) => {
       </LikeTop>
       <LikeContent>
         {likedDongList.map((likedDong: any, index: number) => (
-          <LikedDong key={index} likedDongName={likedDong.dongName} likedDongId={likedDong.dongId} />
+          <LikedDong key={index} likedDongName={likedDong.dongName} likedDongId={likedDong.dongId} setLikedDongList={setLikedDongList}/>
         ))}
       </LikeContent>
     </LikeWrapper>

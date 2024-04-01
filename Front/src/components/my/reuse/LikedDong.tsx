@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
 import UseAxios from '../../../utils/UseAxios';
+import { ConfirmAlert } from '../../../utils/Alert';
 import like from '../../../assets/like.png';
-import unlike from '../../../assets/unlike.png';
 
 interface Props {
   likedDongName: string;
   likedDongId: number;
+  setLikedDongList: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const DongWrapper = styled.li`
@@ -34,13 +35,15 @@ const LikeButton = styled.button`
   ${tw`w-[30px] h-[30px]`}
 `;
 
-const Like: React.FC<Props> = ({ likedDongName, likedDongId }) => {
+const Like: React.FC<Props> = ({ likedDongName, likedDongId, setLikedDongList }) => {
   const navigate = useNavigate();
   const axios = UseAxios();
-  const [likeImage, setLikeImage] = useState(like);
   const removeLike = async (id: number) => {
-    await axios.delete(`/api/zzim/${id}`);
-    setLikeImage(unlike);
+    const confirm = await ConfirmAlert({title:'', content:`<strong>${likedDongName}</strong>을 <strong style="color:red;">삭제</strong>하시겠습니까?`, icon:'question'})
+    if (confirm) {
+      await axios.delete(`/api/zzim/${id}`);
+      setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongId !== id))
+    }
   };
 
   return (
@@ -60,7 +63,7 @@ const Like: React.FC<Props> = ({ likedDongName, likedDongId }) => {
           정보
         </Button>
         <LikeButton style={{ marginRight: '10px' }} onClick={() => removeLike(likedDongId)}>
-          <img src={likeImage} alt="like" />
+          <img src={like} alt="like" />
         </LikeButton>
       </ButtonWrapper>
     </DongWrapper>

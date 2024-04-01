@@ -3,6 +3,8 @@ import tw, { styled } from 'twin.macro';
 import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
 import newDong from '../../datas/dong.json';
+import redhouse from '../../assets/redhouse.png';
+import bluehouse from '../../assets/bluehouse.png';
 import './content.css';
 
 interface KakaoMapProps {
@@ -28,7 +30,7 @@ const MapWrapper = styled.div`
   max-sm:w-[100%]`}
 `;
 const Map = styled.div`
-  ${tw`w-[100] h-[100%] relative`}
+  ${tw`w-[100] h-[100%] relative z-1`}
 `;
 
 const SearchWarpper = styled.div`
@@ -38,12 +40,10 @@ const SearchWarpper = styled.div`
 
 const { kakao } = window;
 
-const imageSrc = 'https://github.com/jjm6604/react-test/blob/main/Group%2021%20(1).png?raw=true';
 const imageSize = new kakao.maps.Size(25, 25);
-const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
+const markerImage = new kakao.maps.MarkerImage(redhouse, imageSize);
 const selectedImageSize = new kakao.maps.Size(52, 52);
-const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize, {
+const selectedMarkerImage = new kakao.maps.MarkerImage(bluehouse, selectedImageSize, {
   offset: new kakao.maps.Point(26, 26),
 });
 
@@ -56,7 +56,7 @@ function KakaoMap({
   searchDong,
   setSearchDong,
   buildingClusterer,
-  setBuildingClusterer
+  setBuildingClusterer,
 }: KakaoMapProps) {
   const axios = UseAxios();
   const selectedDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === searchDong);
@@ -71,12 +71,12 @@ function KakaoMap({
   });
 
   const clustererStyle = (size: number) => {
-    return ({
+    return {
       width: size + 'px',
       height: size + 'px',
-      lineHeight: (size+1) + 'px',
-    })
-  }
+      lineHeight: size + 1 + 'px',
+    };
+  };
 
   const clickOverlay = (buildingId: number, overlay: any, position: any, map: any) => {
     overlay.setMap(null);
@@ -114,11 +114,9 @@ function KakaoMap({
   //   polygon.setMap(map);
   // };
 
-  const makeClusterer = (map: any, clusterer:any) => {
+  const makeClusterer = (map: any, clusterer: any) => {
     // 클러스터러 , 마커 생성
-    
-    
-    
+
     // 데이터에서 좌표 값을 가지고 마커 표시
     // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않음
     axios
@@ -163,7 +161,7 @@ function KakaoMap({
     const container = document.getElementById('map');
     const options = {
       center: new kakao.maps.LatLng(y, x),
-      level: 4,
+      level: 5,
       draggable: true,
       scrollwheel: true,
       disableDoubleClickZoom: true,
@@ -175,13 +173,13 @@ function KakaoMap({
       disableClickZoom: true,
       minLevel: 1, // 클러스터 할 최소 지도 레벨
       calculator: [3, 5, 10, 30, 50, 100, 500, 1000], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
-      texts: ['2', '3+', '5+', '10+', '30+', '50+', '100+', '500+', '1000+'],
+      texts: ['2', '3+', '5+', '10+', '50+', '100+', '500+', '1000+'],
       styles: [
         {
           // calculator 각 사이 값 마다 적용될 스타일을 지정한다
           width: '27px',
           height: '27px',
-          background: `url("${imageSrc}") round`,
+          background: `url("/src/assets/redhouse.png") round`,
           color: '#fff', // 글자색
           // opacity: '0.7',
           border: 'black',
@@ -191,7 +189,7 @@ function KakaoMap({
           lineHeight: '28px',
           paddingTop: '5px',
         },
-        ...[30, 32, 35, 37, 40, 45, 50, 55, 60].map((size) => clustererStyle(size))
+        ...[30, 32, 35, 40, 45, 50, 55, 60].map((size) => clustererStyle(size)),
       ],
     });
 
@@ -201,7 +199,7 @@ function KakaoMap({
       if (level >= 2) {
         const newLevel = level - 2;
         map.setCenter(cluster.getCenter());
-        map.setLevel(newLevel ? newLevel : 1, {animate: true});
+        map.setLevel(newLevel ? newLevel : 1, { animate: true });
       } else {
         // 커스텀 오버레이 생성하는 경우
         customOverlay.setMap(null);

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import tw, { styled } from "twin.macro";
-import RecommendList from "../../utils/RecommendList";
-import UseAxios from "../../utils/UseAxios";
-import useSearchStore from "../../stores/SearchStore";
+import React, { useState, useEffect } from 'react';
+import tw, { styled } from 'twin.macro';
+import { useNavigate } from 'react-router-dom';
+import RecommendList from '../../utils/RecommendList';
+import UseAxios from '../../utils/UseAxios';
+import useSearchStore from '../../stores/SearchStore';
 
 type PreferenceShowProps = {
   isPreferencesShow: boolean;
@@ -25,8 +26,7 @@ const RecommendWrapper = styled.div`
 const PreferenceWrapper = styled.ul`
   ${tw`flex flex-col justify-center w-[50%] px-2 my-2
   max-sm:w-full`}
-  ${({ isPreferencesShow }: PreferenceShowProps) =>
-    isPreferencesShow ? tw`` : tw`max-sm:hidden`}
+  ${({ isPreferencesShow }: PreferenceShowProps) => (isPreferencesShow ? tw`` : tw`max-sm:hidden`)}
 `;
 
 const PreferenceButton = styled.button`
@@ -39,65 +39,73 @@ const Preference = styled.li`
   max-sm:text-base`}
 `;
 
-
 const ReportContent: React.FC = () => {
   const [isPreferencesShow, setIsPreferencesShow] = useState<boolean>(true);
   const [preferences, setPreferences] = useState<PreferencesType | null>(null);
+  const [isEnter, setIsEnter] = useState(false);
   const axios = UseAxios();
-
+  const navigate = useNavigate();
+  const areaName = useSearchStore((state) => state.areaName);
   const updateRecommendList = useSearchStore((state) => state.updateRecommendList);
-  
+
   const preferenceShow = () => {
     setIsPreferencesShow((prev) => !prev);
   };
 
   useEffect(() => {
     axios
-      .get("/api/mypage/filterlist")
+      .get('/api/mypage/filterlist')
       .then((response) => {
-        setPreferences(response.data.object.reportDto)
-        updateRecommendList(response.data.object.mypageDongDtoList)
+        setPreferences(response.data.object.reportDto);
+        updateRecommendList(response.data.object.mypageDongDtoList);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
+  useEffect(() => {
+    if (isEnter) {
+      navigate('/information', { state: { areaName: areaName } });
+    } else {
+      setIsEnter(true);
+    }
+  }, [areaName]);
 
-  const reportLabels:any = {
-    convReport: "편의시설은",
-    safetyReport: "치안은",
-    healthReport: "건강은",
-    foodReport: "식당은",
-    transpReport: "교통은",
-    leisureReport: "여가 시설은",
-    cafeReport: "카페는",
-    pubReport: "술집은"
+  const reportLabels: any = {
+    convReport: '편의시설은',
+    safetyReport: '치안은',
+    healthReport: '건강은',
+    foodReport: '식당은',
+    transpReport: '교통은',
+    leisureReport: '여가 시설은',
+    cafeReport: '카페는',
+    pubReport: '술집은',
   };
 
-  const scoreTexts:any = {
-    1: "상관없어요",
-    2: "적당히 중요해요",
-    3: "중요해요"
+  const scoreTexts: any = {
+    1: '상관없어요',
+    2: '적당히 중요해요',
+    3: '중요해요',
   };
 
-  const scoreLabels:any = {
-    1: "😐",
-    2: "😀",
-    3: "🥰"
+  const scoreLabels: any = {
+    1: '😐',
+    2: '😀',
+    3: '🥰',
   };
 
   return (
     <>
       <Backgroud>
         <RecommendWrapper>
-          <RecommendList isActive={true}/>
+          <RecommendList isActive={true} />
         </RecommendWrapper>
         <PreferenceButton onClick={preferenceShow}>
-          {isPreferencesShow ? "선호도 접기" : "나의 선호도 보기"}
+          {isPreferencesShow ? '선호도 접기' : '나의 선호도 보기'}
         </PreferenceButton>
         <PreferenceWrapper isPreferencesShow={isPreferencesShow}>
-        {preferences === null ? (
+          {preferences === null ? (
             <p>아직 검사결과가 없어요</p>
           ) : (
             Object.entries(preferences).map(([key, value]) => (

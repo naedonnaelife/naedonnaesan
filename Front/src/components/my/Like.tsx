@@ -52,12 +52,7 @@ const Like: React.FC<LikeProps> = ({ name }) => {
       </LikeTop>
       <LikeContent>
         {likedDongList.map((likedDong: any, index: number) => (
-          <LikedDong
-            key={index}
-            likedDongName={likedDong.dongName}
-            likedDongId={likedDong.dongId}
-            setLikedDongList={setLikedDongList}
-          />
+          <LikedDong key={index} likedDongName={likedDong.dongName} likedDongId={likedDong.dongId} />
         ))}
       </LikeContent>
     </LikeWrapper>

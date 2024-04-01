@@ -74,5 +74,6 @@ export default {
       addUtilities(newUtilities);
     },
     require('tailwind-scrollbar-hide'),
+    require('tailwindcss-animated'),
   ],
 };

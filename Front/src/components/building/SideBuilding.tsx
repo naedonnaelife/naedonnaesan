@@ -163,6 +163,7 @@ function SideBuilding({
   }, [inView]);
 
   useEffect(() => {
+    setBuildingList([])
     axios
       .get('/api/buildings/name', { params: { dongname: searchDong, page: 0 } })
       .then((response) => {

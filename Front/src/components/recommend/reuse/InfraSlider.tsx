@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import Tooltip from '../../../utils/Tooltip';
 
@@ -9,66 +9,81 @@ interface SliderProps {
       pk : number
     };
     changeScore : (element:number, index:number) => void;
+    value: number;
 }
 
-type DotProps = {
-    position : number
+type StyleProps = {
+  gradient: string;
+  isClicked: boolean;
 }
-
-type InnerDotProps = {
-    isSelected : boolean
-}
-
 
 const SelectWrapper = styled.div`
-${tw`flex flex-col h-[20%]
-max-sm:w-[100%] max-sm:h-[100%] `}
+${tw`flex flex-col h-[33.3%]  border-basic w-[33.3%]
+max-sm:h-[26%] max-sm:w-[50%]`}
 `
 const NameWrapper = styled.div`
-${tw`flex items-center h-[50%] mx-2`}
+${tw`flex items-center h-[50%] mx-1`}
 `
 
-const SliderWrapper = styled.div`
-  ${tw`flex relative h-[50%]`}
+const Wrapper = styled.ul`
+  ${tw`flex justify-between w-full text-10 p-1
+  max-sm:max-h-[90%] max-sm:overflow-y-hidden`}
 `;
 
-const Line = styled.div`
-  ${tw`absolute -top-[0.25vh] w-[50%] h-[0.5vh] bg-gray m-2`}
-`;
+const Input = styled.input`
+  ${tw`w-full h-[10%] bg-mango border-[1px] rounded-lg cursor-pointer opacity-70 hover:opacity-100`}
+  -webkit-appearance: none;
+  appearance: none;
+  background: ${({gradient}: StyleProps) => gradient};
+  border-color: #e1e1e1;
 
-const Dot = styled.button`
-  ${tw`flex-c absolute top-0 w-[1vw] h-[2vh] bg-gray rounded-full`}
-  ${({position}:DotProps) => `left: calc(${(position / 3 ) * 75}%);`}
-  `;
- 
-const InnerDot = styled.div`
-${({isSelected}:InnerDotProps) => (isSelected ? tw`w-[100%] h-[100%] bg-blue-500 rounded-full` : tw``)}
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-slider-thumb {
+    ${tw`h-[16px] w-[16px] bg-[#54e6a9] rounded-full cursor-pointer`}
+    -webkit-appearance: none;
+    appearance: none;
+  }
 `
 
-const InfraSlider: React.FC<SliderProps> = ({data, changeScore}) => {
-    const [selectPoint, setSelectPoint] = useState(3)
-    const dotPositions =[0,1,2]
+const ScoreButton = styled.li`
+ ${tw`my-1 cursor-pointer`}
+`
 
-    const selected = (index:number) => {
-        setSelectPoint(index)
-        changeScore(index, data.pk)
+const InfraSlider: React.FC<SliderProps> = ({data, value, changeScore}) => {
+  const [nowValue, setNowValue] = useState(value)
+  const [gradient, setGradient] = useState(`linear-gradient(to right, #54e6a9 0%, #54e6a9 ${(value-1)/2 * 100}%, #e1e1e1 ${(value-1)/2 * 100}%, #e1e1e1 100%)`)
+  const handleValue = (e: number | React.ChangeEvent<HTMLInputElement>) => {
+    let intValue = 0
+    if (typeof e === 'number'){
+      intValue = e
+    } else{
+      intValue = parseInt(e.target.value)
     }
+    setNowValue(intValue);
+    setGradient(`linear-gradient(to right, #54e6a9 0%, #54e6a9 ${(intValue- 1)/2 * 100}%, #e1e1e1 ${(intValue- 1)/2 * 100}%, #e1e1e1 100%)`)
+    changeScore(intValue, data.pk)
+  };
+
+
+  useEffect(()=>{
+    handleValue(value)
+  }, [value])
 
   return (
     <SelectWrapper>
         <NameWrapper>
             {data.name} <Tooltip data={data.detail}/>
         </NameWrapper>
-        <SliderWrapper>
-            <Line/>
-            {dotPositions.map((position, index) => (
-            <Dot key={index} position={position} onClick={()=>selected(index)}>
-                <InnerDot isSelected={selectPoint === index? true : false} />
-            </Dot>
-            ))}
-        </SliderWrapper>
+        <Input gradient={gradient} type='range' min={1} max={3} value={nowValue} onChange={handleValue}></Input>
+        <Wrapper>
+          <ScoreButton onClick={() => handleValue(1)}>낮음</ScoreButton>
+          <ScoreButton onClick={() => handleValue(2)}>보통</ScoreButton>
+          <ScoreButton onClick={() => handleValue(3)}>높음</ScoreButton>
+        </Wrapper>
     </SelectWrapper>
   );
-};
-
+}
 export default InfraSlider;

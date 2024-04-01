@@ -136,23 +136,20 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
   };
 
   
-  useEffect(() => {
-    // fetchKeywords 함수 호출 및 setKeywords 함수 전달
-    fetchKeywords();
-  }, []);
+  
 
   useEffect(() => {
     if (inView && !isLast){
       getNewsList();
     }
-  }, [inView]);
+    // fetchKeywords 함수 호출 및 setKeywords 함수 전달
+    fetchKeywords();
+  }, [inView, keyword]);
 
-  const handleClick = async () => {
-    setPage(0);
-    setNewsList([]);
-    setIsLast(false);
-
-    await getNewsList();
+  const handleClick = () => {
+    setPage(0)
+    setNewsList([])
+    setIsLast(false)
   }
 
   const handleWidth = () => {
@@ -168,7 +165,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
       window.removeEventListener('resize', handleWidth);
     };
   },[])
-
+  
   return (
     <NewsWrapper isNewsListOpen={isNewsListOpen}>
       <KeywordAndSearchWrapper>

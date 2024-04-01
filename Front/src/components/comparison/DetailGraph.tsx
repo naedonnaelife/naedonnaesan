@@ -18,8 +18,14 @@ interface DetailGraphProps {
   detail2: any | null;
 }
 
+type Detail = {
+  infraTypeName: string;
+  infraName: string;
+  totalCount: number;
+}
+
 const GraphWrapper = styled.figure`
-  ${tw`w-[95%] h-[400px] border-t-2 border-gray m-7 mb-5 pt-5
+  ${tw`flex-c w-[33%] h-[400px] border-t-2 border-gray m-7 mb-5 pt-5
   max-sm:w-full max-sm:h-[300px] max-sm:items-center max-sm:mx-0 `}
 `;
 
@@ -34,6 +40,7 @@ const Graph: React.FC<DetailGraphProps> = ({
   detail1,
   detail2,
 }) => {
+  const [infraList, setInfraList] = useState([])
   ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
   // 상태를 사용하여 창 크기 변화 감지
   const [, setWindowSize] = useState({
@@ -41,6 +48,14 @@ const Graph: React.FC<DetailGraphProps> = ({
   });
 
   useEffect(() => {
+    console.log('category : ', category, 'selcted1 : ', selected1, "selected2 : ", selected2, 'detail1 : ', detail1, 'detail2 : ', detail2)
+    
+    // const detailData1 = detail1.filter((e:Detail) => e.infraTypeName === category)
+    // const detailData2 = detail2.filter((e:Detail) => e.infraTypeName === category).map((e:Detail, index:number) => {
+    //   return [e.infraName, e.totalCount, detailData1[index].totalCount]
+    // })
+    // console.log(detailData2)
+    // setInfraList(detailData2)
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
@@ -73,39 +88,36 @@ const Graph: React.FC<DetailGraphProps> = ({
     return labelArray;
   }, []) : [];
 
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: `${selected1}`,
-        data: detail1 ? detail1.reduce((detailCount: any, detail: any) => {
-          if (detail.infraTypeName === category) {
-            detailCount.push(detail.totalCount);
-          }
-          return detailCount;
-        }, []) : [],
-        backgroundColor: "#8EBE6D",
-      },
-      {
-        label: `${selected2}`,
-        data: detail2 ? detail2.reduce((detailCount: any, detail: any) => {
-          if (detail.infraTypeName === category) {
-            detailCount.push(detail.totalCount);
-          }
-          return detailCount;
-        }, []) : [],
-        backgroundColor: "#FB8D75",
-      },
-    ],
-  };
+  const getData = e => {
+      const test = {
+      labels : e[0],
+      datasets: [
+        {
+          label: `${selected1}`,
+          data: e[1],
+          backgroundColor: "#8EBE6D",
+        },
+        {
+          label: `${selected2}`,
+          data: e[2],
+          backgroundColor: "#FB8D75",
+        },
+      ],
+    }
+    console.log(test)
+    return test
+    };
 
   return (
-    <GraphWrapper>
-      <GraphTitle>
+    <>
+    <GraphTitle>
         {selected1} {selected2} {category} 수 비교
-      </GraphTitle>
-      <Bar options={options} data={data} />
+    </GraphTitle>
+      <GraphWrapper>
+      {infraList.map((e) => <Bar options={options} data={getData(e)} />)}
+      
     </GraphWrapper>
+    </>
   );
 };
 

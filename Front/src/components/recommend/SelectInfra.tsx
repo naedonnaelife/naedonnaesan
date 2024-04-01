@@ -23,7 +23,7 @@ max-sm:w-[100%] max-sm:h-[100%] bg-white max-sm:mt-0`}
 
 const Title = styled.h2`
   ${tw`h-[10%] w-full p-2
-  max-sm:h-[5%]`}
+  max-sm:h-[5%] max-sm:mt-[1.5px] text-xl`}
 `;
 
 const SlideWrapper = styled.div`
@@ -32,7 +32,7 @@ const SlideWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   ${tw`flex items-center w-full h-[10%]
-  max-sm:absolute max-sm:justify-end max-sm:w-[95%]`}
+  max-sm:absolute max-sm:justify-end max-sm:w-[95%] max-sm:mt-1`}
 `;
 
 const ResetButton = styled.button`
@@ -47,14 +47,14 @@ const SubmitButton = styled.button`
 
 const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
   const dummyData = [
-    { name: '안전', detail: '안전 툴팁', pk: 0 },
-    { name: '여가활동', detail: '여가활동 툴팁', pk: 1 },
-    { name: '식당', detail: '식당 툴팁', pk: 2 },
-    { name: '보건시설', detail: '보건시설 툴팁', pk: 3 },
-    { name: '편의시설', detail: '편의시설 툴팁', pk: 4 },
-    { name: '대중교통', detail: '대중교통 툴팁', pk: 5 },
-    { name: '카페', detail: '카페 툴팁', pk: 6 },
-    { name: '술집', detail: '펍 툴팁', pk: 7 },
+    { name: '안전', detail: 'CCTV, 경찰서, 119안전센터, 치안센터의 중요도입니다.', pk: 0 },
+    { name: '여가활동', detail: '헬스장, 영화관의 중요도입니다.', pk: 1 },
+    { name: '식당', detail: '음식점, 패스트푸드의 중요도입니다.', pk: 2 },
+    { name: '보건시설', detail: '병원, 약국, 의원의 중요도입니다.', pk: 3 },
+    { name: '편의시설', detail: '마트, 편의점의 중요도입니다.', pk: 4 },
+    { name: '대중교통', detail: '지하철역, 버스정류소의 중요도입니다.', pk: 5 },
+    { name: '카페', detail: '카페, 다방의 중요도입니다.', pk: 6 },
+    { name: '술집', detail: '술집, 유흥주점의 중요도입니다.', pk: 7 },
   ];
 
 
@@ -63,7 +63,7 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
   const axios = UseAxios();
   const update = useSearchStore((state) => state.updateRecommendList);
   const getDongList = async () => {
-    // localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE5NjM4NTgsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.nKbTFlUr5vu843yax2jvAQ6XcDJwDnLS5HSet0Ilcls")
+    // localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIwNTE0NTAsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.4wUkuxYp3Dz4YwdXjyTvQKK20wrC9R4CUMTQfh3Zf6c")
     const token = localStorage.getItem('accessToken');
     const result = token?.slice(7);
     if (isAllChecked) {
@@ -73,6 +73,7 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
         return res
       })
       update(response.data.recommend);
+      console.log(response.data.recommend)
     } else {
       Alert({ title: '', content: '인프라를 모두 선택해 주세요.', icon: 'info' });
     }

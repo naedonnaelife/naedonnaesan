@@ -10,11 +10,13 @@ export default {
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
         jamsilLight: ['TheJamsil3Regular'],
+        chosun : ['ChosunBg'],
+        chosunKg : ['ChosunKg']
       },
       fontSize: {
         10: ['10px'],
         20: ['20px'],
-        30: ['30px']
+        30: ['30px'],
       },
       colors: {
         white: '#FFFFFF',
@@ -29,6 +31,7 @@ export default {
         red: '#FF0505',
         mango: '#FFEC9D',
         mangoHover: '#FBF1D6',
+        mangoHardHover: '#FFC83D',
         choco: '#403800',
         leaf: '#8EBE6D',
         carrot: '#FB8D75',
@@ -39,7 +42,7 @@ export default {
         // 테스트
       },
       height: {
-        'full-nav': 'calc(100vh - 75px)',
+        'full-nav': 'calc(100vh - 60px)',
       },
       width: {
         'calc-7': 'calc(100vw / 7)',

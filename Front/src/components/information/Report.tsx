@@ -47,6 +47,7 @@ const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen, searchDong, 
     };
     getDongData();
   }, [searchDong]);
+  
   return (
     <ReportWrapper>
       {isNewsOpen ? (

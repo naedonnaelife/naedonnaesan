@@ -2,33 +2,34 @@ import { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import useSearchStore from '../stores/SearchStore';
 import UseAxios from './UseAxios';
-import {Idea} from './Tooltip'
+import like from '../assets/like.png';
+import unlike from '../assets/unlike.png';
 
 interface RecommendProps {
   isActive: boolean;
 }
 
 type Dong = {
-  dongName : string;
-  dongId : number;
-  zzim : boolean;
+  dongName: string;
+  dongId: number;
+  zzim: boolean;
   distance: number;
-}[]
+}[];
 
 type StyleProps = {
   color: string;
   isActive: boolean;
-}
+};
 
 const RecommendWrapper = styled.ul`
   ${tw`flex flex-col h-[35%] border-2 border-lightGray rounded-lg m-2
   max-sm:w-[100%] max-sm:h-[100%] max-sm:mt-0 max-sm:bg-semiWhite`}
-  ${({isActive}:StyleProps) => (isActive ? tw`` : tw`max-sm:hidden`)}
+  ${({ isActive }: StyleProps) => (isActive ? tw`` : tw`max-sm:hidden`)}
 `;
 
 const AlertWrapper = styled.div`
   ${tw`flex-cc h-[70%] w-[90%] m-auto `}
-`
+`;
 
 const Title = styled.h2`
   ${tw`m-2`}
@@ -48,80 +49,78 @@ const TownName = styled.p`
 
 const Distance = styled.p`
   ${tw`flex-c text-10`}
-`
+`;
 
 const Like = styled.button`
-  ${tw`flex justify-center items-center w-[30px] h-[30px] border-2 border-grayHover rounded-full`}
-  ${({color}:StyleProps) => `border-color : ${color}`};
+  ${tw`flex justify-center items-center w-[30px] h-[30px]`}
+  ${({ color }: StyleProps) => `border-color : ${color}`};
 `;
 
 const P = styled.p`
   ${tw`text-2xl text-center whitespace-pre-wrap mb-5`}
-`
+`;
 
-const explanation = `추천 받은 동네가 없어요.\n인프라 선호도를 입력하고\n동네 추천을 받아보세요!` 
+const explanation = `추천 받은 동네가 없어요.\n인프라 선호도를 입력하고\n동네 추천을 받아보세요!`;
 
-const RecommendList: React.FC<RecommendProps> = ({isActive}) => {
-  const store = useSearchStore(state => state)
-  const axios = UseAxios()
+const RecommendList: React.FC<RecommendProps> = ({ isActive }) => {
+  const store = useSearchStore((state) => state);
+  const axios = UseAxios();
 
-  const [newRecommendList, setNewRecommendList] = useState<Dong>([])
-  const [likeDongList, setLikeDongList] = useState<boolean[]>(store.likeList)
+  const [newRecommendList, setNewRecommendList] = useState<Dong>([]);
+  const [likeDongList, setLikeDongList] = useState<boolean[]>(store.likeList);
 
+  const selectArea = store.selectedArea;
+  const recommendList = store.recommendList;
+  const update = store.updateLikeList;
 
-  const selectArea = store.selectedArea
-  const recommendList = store.recommendList
-  const update = store.updateLikeList
-
-  const addLike = async (id:number, index: number) => {
-    await axios.post(`/api/zzim/${id}`)
-    .then(() => {
-      const newData = likeDongList.map((e, idx) => (idx === index ? true : e))
-      setLikeDongList(newData)
-      update(newData)
+  const addLike = async (id: number, index: number) => {
+    await axios.post(`/api/zzim/${id}`).then(() => {
+      const newData = likeDongList.map((e, idx) => (idx === index ? true : e));
+      setLikeDongList(newData);
+      update(newData);
     });
   };
 
-  const removeLike = async (id:number, index: number) => {
-    await axios.delete(`/api/zzim/${id}`)
-    .then(() => {
-      const newData = likeDongList.map((e, idx) => (idx === index ? false : e))
-      setLikeDongList(newData)
-      update(newData)
+  const removeLike = async (id: number, index: number) => {
+    await axios.delete(`/api/zzim/${id}`).then(() => {
+      const newData = likeDongList.map((e, idx) => (idx === index ? false : e));
+      setLikeDongList(newData);
+      update(newData);
     });
   };
-  
 
-  useEffect(()=>{
-    setNewRecommendList(recommendList)
-    const selectLikeDong = recommendList.map(e => e.zzim)
-    setLikeDongList(selectLikeDong)
-  }, [recommendList])
-
-
+  useEffect(() => {
+    setNewRecommendList(recommendList);
+    const selectLikeDong = recommendList.map((e) => e.zzim);
+    setLikeDongList(selectLikeDong);
+  }, [recommendList]);
 
   return (
     <>
       <RecommendWrapper isActive={isActive}>
         <Title> 추천 동네 </Title>
-        {newRecommendList.length?
+        {newRecommendList.length ? (
           newRecommendList.map((element, index) => (
             <RecommendResult key={index}>
               <Index>{index + 1}</Index>
               <TownName onClick={() => selectArea(element.dongName)}>{element.dongName}</TownName>
               <Distance>{element.distance.toFixed(1)}km</Distance>
-              {likeDongList[index]? (
-                <Like color='red' onClick={() => removeLike(element.dongId, index)}>💗</Like>
+              {likeDongList[index] ? (
+                <Like color="red" onClick={() => removeLike(element.dongId, index)}>
+                  <img src={like} alt="like" />
+                </Like>
               ) : (
-                <Like onClick={() => addLike(element.dongId, index)}>🤍</Like>
+                <Like onClick={() => addLike(element.dongId, index)}>
+                  <img src={unlike} alt="unlike" />
+                </Like>
               )}
             </RecommendResult>
-          )) : 
+          ))
+        ) : (
           <AlertWrapper>
-            <Idea/>
             <P>{explanation}</P>
           </AlertWrapper>
-        }
+        )}
       </RecommendWrapper>
     </>
   );

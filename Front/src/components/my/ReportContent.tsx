@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
+import { useNavigate } from 'react-router-dom';
 import RecommendList from '../../utils/RecommendList';
 import UseAxios from '../../utils/UseAxios';
 import useSearchStore from '../../stores/SearchStore';
@@ -41,8 +42,10 @@ const Preference = styled.li`
 const ReportContent: React.FC = () => {
   const [isPreferencesShow, setIsPreferencesShow] = useState<boolean>(true);
   const [preferences, setPreferences] = useState<PreferencesType | null>(null);
+  const [isEnter, setIsEnter] = useState(false);
   const axios = UseAxios();
-
+  const navigate = useNavigate();
+  const areaName = useSearchStore((state) => state.areaName);
   const updateRecommendList = useSearchStore((state) => state.updateRecommendList);
 
   const preferenceShow = () => {
@@ -60,6 +63,14 @@ const ReportContent: React.FC = () => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    if (isEnter) {
+      navigate('/information', { state: { areaName: areaName } });
+    } else {
+      setIsEnter(true);
+    }
+  }, [areaName]);
 
   const reportLabels: any = {
     convReport: '편의시설은',

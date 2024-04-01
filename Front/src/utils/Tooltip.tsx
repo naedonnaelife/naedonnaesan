@@ -40,25 +40,3 @@ const Tooltip:React.FC<TooltipProps> = ({data}) => {
 export default Tooltip;
 
 
-const IdeaButton = styled.p`
-    ${tw``}
-`
-export const Idea:React.FC = () => {
-    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-
-  return (
-    <>
-    <TooltipWrapper>
-        <IdeaButton onMouseEnter={() => setIsTooltipVisible(true)}
-        onMouseLeave={() => setIsTooltipVisible(false)}>
-            💡
-        </IdeaButton>
-        {isTooltipVisible && (
-        <TooltopDetail>
-            인프라 선택하기 누르고 빨리 추천 받아주세요...
-        </TooltopDetail>)}
-    </TooltipWrapper>
-    </>
-  );
-}
-

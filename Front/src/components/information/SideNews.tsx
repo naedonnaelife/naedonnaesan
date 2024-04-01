@@ -32,7 +32,10 @@ const KeywordAndSearchWrapper = styled.div`
   z-index: 10; // 다른 요소들 위에 올라오도록 z-index 설정
   background-color: white; // 배경색 추가
   border-bottom: 1px solid #ccc; // 하단에 경계선 추가
+  position: sticky; // 여기에 추가
+  top: 0; // 여기에 추가
 `;
+
 
 const KeywordsWrapper = styled.div`
   ${tw`mb-2 text-center`}
@@ -48,7 +51,7 @@ const KeywordTitle = styled.div`
 `;
 
 const NewsWrapper = styled.aside`
-  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white p-2 z-1 overflow-y-auto
+  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white z-1 overflow-y-auto
     max-sm:absolute max-sm:top-0 max-sm:w-[100%]`}
   ${({ isNewsListOpen }: NewsWrapperProps) => (isNewsListOpen ? '' : tw`max-sm:hidden`)}
 `;

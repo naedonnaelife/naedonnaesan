@@ -47,14 +47,14 @@ const SubmitButton = styled.button`
 
 const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
   const dummyData = [
-    { name: '안전', detail: '안전 툴팁', pk: 0 },
-    { name: '여가활동', detail: '여가활동 툴팁', pk: 1 },
-    { name: '식당', detail: '식당 툴팁', pk: 2 },
-    { name: '보건시설', detail: '보건시설 툴팁', pk: 3 },
-    { name: '편의시설', detail: '편의시설 툴팁', pk: 4 },
-    { name: '대중교통', detail: '대중교통 툴팁', pk: 5 },
-    { name: '카페', detail: '카페 툴팁', pk: 6 },
-    { name: '술집', detail: '펍 툴팁', pk: 7 },
+    { name: '안전', detail: 'CCTV, 경찰서, 119안전센터, 치안센터의 중요도입니다.', pk: 0 },
+    { name: '여가활동', detail: '헬스장, 영화관의 중요도입니다.', pk: 1 },
+    { name: '식당', detail: '음식점, 패스트푸드의 중요도입니다.', pk: 2 },
+    { name: '보건시설', detail: '병원, 약국, 의원의 중요도입니다.', pk: 3 },
+    { name: '편의시설', detail: '마트, 편의점의 중요도입니다.', pk: 4 },
+    { name: '대중교통', detail: '지하철역, 버스정류소의 중요도입니다.', pk: 5 },
+    { name: '카페', detail: '카페, 다방의 중요도입니다.', pk: 6 },
+    { name: '술집', detail: '술집, 유흥주점의 중요도입니다.', pk: 7 },
   ];
 
 

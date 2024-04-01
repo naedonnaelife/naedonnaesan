@@ -13,6 +13,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 20
   data:
     mongodb:
       uri: mongodb://mango:mangoqwe123@j10e204.p.ssafy.io:37000/mango?authSource=admin

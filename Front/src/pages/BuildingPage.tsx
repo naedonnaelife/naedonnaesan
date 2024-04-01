@@ -21,7 +21,7 @@ function BuildingPage() {
   const update = useDongStore((state) => state.searchArea);
   const location = useLocation();
 
-  const [searchDong, setSearchDong] = useState(location.state ? location.state.areaName : areaName);
+  const [searchDong, setSearchDong] = useState(location.state ? location.state.areaName : areaName || '역삼동');
   
   useEffect(() => {
     update(searchDong);

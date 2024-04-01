@@ -25,7 +25,7 @@ const ButtonWrapper = styled.span`
 `;
 
 const Button = styled.button`
-  ${tw`w-16 h-10 rounded-lg bg-mango
+  ${tw`w-16 h-10 rounded-lg bg-mango hover:bg-mangoHardHover
   max-sm:text-xs max-sm:h-7`}
 `;
 
@@ -53,10 +53,10 @@ const Like: React.FC<Props> = ({
   return (
     <DongWrapper>
       <NameWrapper>{likedDongName}</NameWrapper>
-      <ButtonWrapper>
-        <Button onClick={() => navigate("/building", { state: { areaName: likedDongName } })}>매물</Button>
-        <Button onClick={() => navigate("/information", { state: { areaName: likedDongName } })}>정보</Button>
-        <LikeButton onClick={() => removeLike(likedDongId)}>❌</LikeButton>
+      <ButtonWrapper style={{marginLeft: 'auto'}}>
+        <Button style={{ marginRight: '10px' }} onClick={() => navigate("/building", { state: { areaName: likedDongName } })}>매물</Button>
+        <Button style={{ marginRight: '10px' }} onClick={() => navigate("/information", { state: { areaName: likedDongName } })}>정보</Button>
+        <LikeButton style={{ marginRight: '10px' }} onClick={() => removeLike(likedDongId)}>❌</LikeButton>
       </ButtonWrapper>
     </DongWrapper>
   );

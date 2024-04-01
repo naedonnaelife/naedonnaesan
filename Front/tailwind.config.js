@@ -29,6 +29,7 @@ export default {
         red: '#FF0505',
         mango: '#FFEC9D',
         mangoHover: '#FBF1D6',
+        mangoHardHover: '#FFC83D',
         choco: '#403800',
         leaf: '#8EBE6D',
         carrot: '#FB8D75',

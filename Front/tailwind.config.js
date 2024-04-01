@@ -10,7 +10,7 @@ export default {
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
         jamsilLight: ['TheJamsil3Regular'],
-        chosun : ['ChosunBg'],
+        chosun : ['ChosunSg'],
         chosunKg : ['ChosunKg']
       },
       fontSize: {

@@ -23,7 +23,7 @@ max-sm:w-[100%] max-sm:h-[100%] bg-white max-sm:mt-0`}
 
 const Title = styled.h2`
   ${tw`h-[10%] w-full p-2
-  max-sm:h-[5%]`}
+  max-sm:h-[5%] max-sm:mt-2`}
 `;
 
 const SlideWrapper = styled.div`
@@ -32,7 +32,7 @@ const SlideWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   ${tw`flex items-center w-full h-[10%]
-  max-sm:absolute max-sm:justify-end max-sm:w-[95%]`}
+  max-sm:absolute max-sm:justify-end max-sm:w-[95%] max-sm:mt-2`}
 `;
 
 const ResetButton = styled.button`

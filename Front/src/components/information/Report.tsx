@@ -8,8 +8,8 @@ import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
 
 const ReportWrapper = styled.section`
-  ${tw`w-[75%] h-[95%] border-l border-lightGray p-2
-    max-sm:w-[100%]`}
+  ${tw`w-[75%] h-[95%] border-l border-lightGray p-3
+    max-sm:w-[100%] max-sm:h-[100%] max-sm:p-0`}
 `;
 
 interface ReportProps {

@@ -10,7 +10,7 @@ interface SelectedProps {
 }
 
 const CardWrapper = styled.figure`
-  ${tw`flex flex-col w-[40%] h-96 bg-amber-50 
+  ${tw`flex-cc w-[40%] h-96 bg-amber-50 text-2xl
   max-sm:h-64`}
 `;
 
@@ -25,7 +25,7 @@ const CardTitle = styled.h1`
 
 const GraphWrapper = styled.figure<{ cardIndex: number }>`
   ${tw`w-[90%] h-[80%]`}
-  ${({ cardIndex }: { cardIndex: number }) => (cardIndex === 1 ? tw`ml-auto` : tw``)}
+  ${({ cardIndex }: { cardIndex: number }) => (cardIndex === 1 ? tw`ml-auto` : tw`mr-auto`)}
 `;
 
 const ButtonWrapper = styled.div`
@@ -59,7 +59,10 @@ const Card: React.FC<SelectedProps> = ({
           </GraphWrapper>
         </>
       ) : (
-        <p>선택된 동네가 없습니다. 동네를 선택해주세요.</p>
+        <>
+        <p>선택된 동네가 없습니다.</p>
+        <p>동네를 선택해주세요.</p>
+        </>
       )}
     </CardWrapper>
   );

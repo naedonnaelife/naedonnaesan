@@ -165,7 +165,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
       window.removeEventListener('resize', handleWidth);
     };
   },[])
-
+  
   return (
     <NewsWrapper isNewsListOpen={isNewsListOpen}>
       <KeywordAndSearchWrapper>

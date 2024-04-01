@@ -24,7 +24,7 @@ const RecommendWrapper = styled.div`
 `;
 
 const PreferenceWrapper = styled.ul`
-  ${tw`flex flex-col justify-center w-[50%] px-2 my-2
+  ${tw`flex-c w-[50%] px-2 my-2
   max-sm:w-full`}
   ${({ isPreferencesShow }: PreferenceShowProps) => (isPreferencesShow ? tw`` : tw`max-sm:hidden`)}
 `;
@@ -35,10 +35,9 @@ const PreferenceButton = styled.button`
 `;
 
 const Preference = styled.li`
-  ${tw`text-2xl font-jamsilLight ml-5
-  max-sm:text-base`}
-`;
-
+  ${tw`w-[30%] h-[90%] border-basic mx-1 text-center
+  max-sm:h-[20vh]`}
+`
 const ReportContent: React.FC = () => {
   const [isPreferencesShow, setIsPreferencesShow] = useState<boolean>(true);
   const [preferences, setPreferences] = useState<PreferencesType | null>(null);
@@ -57,6 +56,7 @@ const ReportContent: React.FC = () => {
       .get('/api/mypage/filterlist')
       .then((response) => {
         setPreferences(response.data.object.reportDto);
+        console.log(response.data.object.reportDto)
         updateRecommendList(response.data.object.mypageDongDtoList);
       })
       .catch((error) => {
@@ -73,27 +73,34 @@ const ReportContent: React.FC = () => {
   }, [areaName]);
 
   const reportLabels: any = {
-    convReport: '편의시설은',
-    safetyReport: '치안은',
-    healthReport: '건강은',
-    foodReport: '식당은',
-    transpReport: '교통은',
-    leisureReport: '여가 시설은',
-    cafeReport: '카페는',
-    pubReport: '술집은',
+    convReport: '편의시설',
+    safetyReport: '치안',
+    healthReport: '건강',
+    foodReport: '식당',
+    transpReport: '교통',
+    leisureReport: '여가시설',
+    cafeReport: '카페',
+    pubReport: '술집'
   };
 
-  const scoreTexts: any = {
-    1: '상관없어요',
-    2: '적당히 중요해요',
-    3: '중요해요',
-  };
+  const lst = [
+    'convReport',
+    'safetyReport',
+    'healthReport',
+    'foodReport',
+    'transpReport',
+    'leisureReport',
+    'cafeReport',
+    'pubReport'
+  ]
 
-  const scoreLabels: any = {
-    1: '😐',
-    2: '😀',
-    3: '🥰',
-  };
+  const scoreList = [3, 2, 1].map((score) => lst.filter((category) => preferences ? preferences[category] === score : null))
+
+  const scoreLabels = [
+    '🥰',
+    '😀',
+    '😐',
+  ]
 
   return (
     <>
@@ -107,12 +114,15 @@ const ReportContent: React.FC = () => {
         <PreferenceWrapper isPreferencesShow={isPreferencesShow}>
           {preferences === null ? (
             <p>아직 검사결과가 없어요</p>
-          ) : (
-            Object.entries(preferences).map(([key, value]) => (
-              <Preference key={key}>
-                {scoreLabels[value]} {reportLabels[key]} {scoreTexts[value]}
-              </Preference>
-            ))
+          ) : (scoreList.map((score, index) => 
+            <Preference key={index}> 
+            <p>
+              {scoreLabels[index]} 
+            </p>
+            {score.map((s) => <p>{reportLabels[s]}</p>)}
+            
+            </Preference>
+            )
           )}
         </PreferenceWrapper>
       </Backgroud>

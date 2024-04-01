@@ -1,20 +1,27 @@
 import tw, { styled } from "twin.macro";
 import Alert from "../../utils/Alert.tsx";
 
+type SelectProps = {
+  isActive: boolean;
+};
+
 interface ColumnProps {
   selected1: any | null;
   selected2: any | null;
+  category: string;
   setCategory: (category: string) => void;
 }
 
-const CategoryWrapper = styled.ul`
-  ${tw`mt-14 h-[80%]
-  max-sm:mt-12`}
+const Category = styled.li<{ isActive: boolean }>`
+  ${tw`flex-c text-xl px-2 cursor-pointer max-sm:text-sm max-sm:my-0.5`}
+  ${({ isActive }: SelectProps) => isActive && tw`text-dongButtonHover`}
 `;
-
-const Category = styled.li`
-  ${tw`flex-c text-3xl my-0.5 px-2 cursor-pointer
-  max-sm:text-sm max-sm:my-1.5`}
+const Temp = styled.div`
+  ${tw`h-96 max-sm:h-64`}
+`;
+const CategoryWrapper = styled.ul`
+  ${tw`flex flex-col justify-between h-[80%] mt-20 pt-1 pb-2
+  max-sm:h-[82%] max-sm:mt-12 max-sm:pt-0.5`}
 `;
 
 const categories = [
@@ -31,30 +38,35 @@ const categories = [
 const Column: React.FC<ColumnProps> = ({
   selected1,
   selected2,
+  category,
   setCategory,
 }) => {
   return (
-    <CategoryWrapper>
-      {categories.map((category: string) => (
-        <Category
-          onClick={() => {
-            // 동네 둘 다 선택하고 컬럼 누르면 디테일 그래프
-            if (selected1 && selected2) {
-              setCategory(category);
-            } else {
-              // 동네 둘 다 선택 안하고 컬럼 누르면
-              Alert({
-                title: "",
-                content: "동네를 선택해 주세요",
-                icon: "info",
-              });
+    <Temp>
+      <CategoryWrapper>
+        {categories.map((cat: string) => (
+          <Category
+            key={cat}
+            isActive={
+              selected1 != null && selected2 != null && cat === category
             }
-          }}
-        >
-          {category}
-        </Category>
-      ))}
-    </CategoryWrapper>
+            onClick={() => {
+              if (selected1 && selected2) {
+                setCategory(cat);
+              } else {
+                Alert({
+                  title: "",
+                  content: "동네를 선택해 주세요",
+                  icon: "info",
+                });
+              }
+            }}
+          >
+            {cat}
+          </Category>
+        ))}
+      </CategoryWrapper>
+    </Temp>
   );
 };
 

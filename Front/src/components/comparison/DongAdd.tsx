@@ -17,26 +17,27 @@ const Aside = styled.aside`
 `;
 
 const Title = styled.h1`
-  ${tw`text-3xl my-2
+  ${tw`text-2xl my-2
   max-sm:hidden`}
 `;
 
 const LikeDongWrapper = styled.div`
-  ${tw`items-center w-full border-t-2 border-lightGray pt-4`}
+  ${tw`items-center w-full border-t-2 border-lightGray pt-4
+  max-sm:border-0 max-sm:pt-0`}
 `;
 
 const LikedDongTitle = styled.h2`
-  ${tw`text-2xl font-bold
-  max-sm:w-[30%] max-sm:text-left`}
+  ${tw`text-xl font-bold
+  max-sm:w-[30%] max-sm:text-left max-sm:hidden`}
 `;
 
 const LikeDongList = styled.ul`
-  ${tw`h-[300px] overflow-y-scroll
+  ${tw`h-[350px] overflow-y-scroll
   max-sm:flex max-sm:h-[40px] max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
 `;
 
 const SearchTitle = styled.h2`
-  ${tw`text-2xl font-bold
+  ${tw`text-xl font-bold
   max-sm:hidden`}
 `;
 
@@ -47,7 +48,7 @@ const Dong = styled.li`
 
 const SearchWrapper = styled.div`
   ${tw`w-full pb-6
-  max-sm:m-0 max-sm:mb-2 max-sm:border-0 max-sm:pt-0`}
+  max-sm:mt-2 max-sm:mb-0 max-sm:border-0 max-sm:pt-0`}
 `;
 
 const LikeButton = styled.button`

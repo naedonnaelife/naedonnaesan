@@ -21,6 +21,7 @@ const ComparisonGraph: React.FC<CardIndexProps> = ({
 }) => {
   const [dataArray, setDataArray] = useState<number[]>([]);
   const [bar, setBar] = useState<number>(40);
+  const scores: number[] = [];
   const axios = UseAxios();
 
   const updateBarThickness = () => {
@@ -95,7 +96,7 @@ const ComparisonGraph: React.FC<CardIndexProps> = ({
                 datas: any[] | null,
                 cardIndex: number
               ): number[] => {
-                const scores: number[] = [];
+                
                 datas?.map((category: any) => {
                   scores.push(category.score);
                 });

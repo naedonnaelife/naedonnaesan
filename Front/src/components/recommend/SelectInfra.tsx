@@ -63,7 +63,7 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
   const axios = UseAxios();
   const update = useSearchStore((state) => state.updateRecommendList);
   const getDongList = async () => {
-    // localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTE5NjM4NTgsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.nKbTFlUr5vu843yax2jvAQ6XcDJwDnLS5HSet0Ilcls")
+    // localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIwNTE0NTAsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.4wUkuxYp3Dz4YwdXjyTvQKK20wrC9R4CUMTQfh3Zf6c")
     const token = localStorage.getItem('accessToken');
     const result = token?.slice(7);
     if (isAllChecked) {
@@ -73,6 +73,7 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
         return res
       })
       update(response.data.recommend);
+      console.log(response.data.recommend)
     } else {
       Alert({ title: '', content: '인프라를 모두 선택해 주세요.', icon: 'info' });
     }

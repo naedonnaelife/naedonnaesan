@@ -11,9 +11,10 @@ interface RadarProps {
 
 const ChartWrapper = styled.figure`
   ${tw`flex justify-center h-[40%] border-basic m-1`}
-`;
+`
 
 const RadarChart: React.FC<RadarProps> = ({ dongData, seoulData, searchDong }) => {
+  
   ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
   const chartData = {
     labels: ['편의시설', '치안', '여가', '보건', '음식점', '카페', '술집', '대중교통'],
@@ -44,9 +45,10 @@ const RadarChart: React.FC<RadarProps> = ({ dongData, seoulData, searchDong }) =
     },
   };
 
+
   return (
     <ChartWrapper>
-      <Radar data={chartData} options={chartOptions} />
+      <Radar  data={chartData} options={chartOptions}/>
     </ChartWrapper>
   );
 };

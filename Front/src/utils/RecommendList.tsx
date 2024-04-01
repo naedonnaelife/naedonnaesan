@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import useSearchStore from '../stores/SearchStore';
 import UseAxios from './UseAxios';
-import {Idea} from './Tooltip'
 
 interface RecommendProps {
   isActive: boolean;
@@ -118,7 +117,6 @@ const RecommendList: React.FC<RecommendProps> = ({isActive}) => {
             </RecommendResult>
           )) : 
           <AlertWrapper>
-            <Idea/>
             <P>{explanation}</P>
           </AlertWrapper>
         }

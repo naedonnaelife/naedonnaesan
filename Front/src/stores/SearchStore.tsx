@@ -10,9 +10,9 @@ type recommendDong = {
 }[]
 
 interface BearState {
-  areaName :  string | null;
+  areaName :  string;
   selectedArea : (area: string) => void;
-  newsId : string | null;
+  newsId : string;
   selectedNews : (id: string) => void;
   likeList : boolean[]
   recommendList : recommendDong,
@@ -24,9 +24,9 @@ const useSearchStore = create<BearState>()(
   devtools(
     persist(
       (set) => ({
-        areaName : null,
+        areaName : '',
         selectedArea : (area) => set(() => ({areaName : area})),
-        newsId : null,
+        newsId : '',
         selectedNews : (id) => set(() => ({newsId : id})),
         likeList : [],
         recommendList : [],

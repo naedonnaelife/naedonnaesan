@@ -35,8 +35,8 @@ const PreferenceButton = styled.button`
 `;
 
 const Preference = styled.li`
-  ${tw`w-[30%] h-[90%] border-basic mx-1 text-center
-  max-sm:h-[20vh]`}
+  ${tw`w-[30%] h-[95%] border-basic font-jamsilLight text-center mx-1
+  max-sm:h-[30vh]`}
 `
 const ReportContent: React.FC = () => {
   const [isPreferencesShow, setIsPreferencesShow] = useState<boolean>(true);
@@ -119,7 +119,7 @@ const ReportContent: React.FC = () => {
             <p>
               {scoreLabels[index]} 
             </p>
-            {score.map((s) => <p>{reportLabels[s]}</p>)}
+            {score.map((s, index) => <p key={index}>{reportLabels[s]}</p>)}
             
             </Preference>
             )

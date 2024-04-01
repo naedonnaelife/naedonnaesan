@@ -78,6 +78,10 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
     }
   }, [keyword]);
 
+  useEffect(() => {
+    setKeyword(searchDong);
+  }, [searchDong])
+
   // unmount시 keyword값 초기화
 
   return (

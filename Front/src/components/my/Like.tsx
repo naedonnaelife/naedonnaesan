@@ -1,5 +1,6 @@
 import tw, { styled } from 'twin.macro';
 import { useEffect, useState } from 'react';
+import useSearchStore from '../../stores/SearchStore';
 import SearchBar from '../../utils/SearchBar';
 import UseAxios from '../../utils/UseAxios';
 import Alert from '../../utils/Alert';
@@ -27,11 +28,15 @@ const LikeTitle = styled.h1`
 const LikeContent = styled.ul`
   ${tw`flex-cc`}
 `;
+const P = styled.p`
+  ${tw`text-2xl my-10
+  max-sm:text-lg max-sm:my-4`}
+`
 
 const Like: React.FC<LikeProps> = ({ name }) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
   const [searchDong, setSearchDong] = useState('');
-
+  const updateLikeList = useSearchStore((state) => state.likeList)
   const axios = UseAxios();
 
   useEffect(() => {
@@ -44,7 +49,7 @@ const Like: React.FC<LikeProps> = ({ name }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [updateLikeList]);
 
 
   useEffect(() => {
@@ -69,9 +74,9 @@ const Like: React.FC<LikeProps> = ({ name }) => {
         <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
       </LikeTop>
       <LikeContent>
-        {likedDongList.map((likedDong: any, index: number) => (
+        {likedDongList.length > 0 ? likedDongList.map((likedDong: any, index: number) => (
           <LikedDong key={index} likedDongName={likedDong.dongName} likedDongId={likedDong.dongId} setLikedDongList={setLikedDongList}/>
-        ))}
+        )) : <P>{name}님이 찜한 동네가 없습니다.</P>}
       </LikeContent>
     </LikeWrapper>
   );

@@ -142,7 +142,7 @@ def getKeyword():
     start_time = time.time()
 
     ## published 필드 기준으로 인덱싱
-    collection.create_index([("published", 1)])
+    # collection.create_index([("published", 1)])
     # 문자열 기반으로 1년 전 날짜에 해당하는 기사 조회
     last_year_news = list(collection.find({"published": {"$regex": f"^{one_year_ago_str}"}}, {"title": 1, "_id": 0}))
     titles = [news['title'] for news in last_year_news if 'title' in news]

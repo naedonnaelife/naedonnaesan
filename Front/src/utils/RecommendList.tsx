@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import useSearchStore from '../stores/SearchStore';
 import UseAxios from './UseAxios';
+import {Idea} from './Tooltip'
 
 interface RecommendProps {
   isActive: boolean;
@@ -26,7 +27,7 @@ const RecommendWrapper = styled.ul`
 `;
 
 const AlertWrapper = styled.div`
-  ${tw`flex-cc h-[70%] w-[90%] m-auto bg-green-200 `}
+  ${tw`flex-cc h-[70%] w-[90%] m-auto `}
 `
 
 const Title = styled.h2`
@@ -34,7 +35,7 @@ const Title = styled.h2`
 `;
 
 const RecommendResult = styled.li`
-  ${tw`flex justify-between border-2 border-lightGray rounded-lg mx-2 my-1 p-2 bg-orange-100`}
+  ${tw`flex justify-between border-2 border-lightGray rounded-lg mx-2 my-1 p-2 `}
 `;
 
 const Index = styled.h3`
@@ -54,6 +55,11 @@ const Like = styled.button`
   ${({color}:StyleProps) => `border-color : ${color}`};
 `;
 
+const P = styled.p`
+  ${tw`text-2xl text-center whitespace-pre-wrap mb-5`}
+`
+
+const explanation = `추천 받은 동네가 없어요.\n인프라 선호도를 입력하고\n동네 추천을 받아보세요!` 
 
 const RecommendList: React.FC<RecommendProps> = ({isActive}) => {
   const store = useSearchStore(state => state)
@@ -90,8 +96,6 @@ const RecommendList: React.FC<RecommendProps> = ({isActive}) => {
     setNewRecommendList(recommendList)
     const selectLikeDong = recommendList.map(e => e.zzim)
     setLikeDongList(selectLikeDong)
-    console.log('전체 : ', recommendList)
-    console.log('리스트 : ', selectLikeDong)
   }, [recommendList])
 
 
@@ -114,8 +118,8 @@ const RecommendList: React.FC<RecommendProps> = ({isActive}) => {
             </RecommendResult>
           )) : 
           <AlertWrapper>
-            <div>추천 받은 동네가 없어요!</div>
-            <div>인프라를 선택해주세요!</div>
+            <Idea/>
+            <P>{explanation}</P>
           </AlertWrapper>
         }
       </RecommendWrapper>

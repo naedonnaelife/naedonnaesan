@@ -19,7 +19,7 @@ interface DetailGraphProps {
 }
 
 const GraphWrapper = styled.figure`
-  ${tw`w-[95%] h-[400px] border-t-2 border-gray m-7 pt-5
+  ${tw`w-[95%] h-[400px] border-t-2 border-gray m-7 mb-5 pt-5
   max-sm:w-full max-sm:items-center max-sm:mx-0`}
 `;
 

@@ -22,7 +22,7 @@ const Title = styled.h1`
 `;
 
 const LikeDongWrapper = styled.div`
-  ${tw`items-center w-full pb-2`}
+  ${tw`items-center w-full border-t-2 border-lightGray pt-4`}
 `;
 
 const LikedDongTitle = styled.h2`
@@ -46,7 +46,7 @@ const Dong = styled.li`
 `;
 
 const SearchWrapper = styled.div`
-  ${tw`w-full border-t-2 border-lightGray pt-4
+  ${tw`w-full pb-6
   max-sm:m-0 max-sm:mb-2 max-sm:border-0 max-sm:pt-0`}
 `;
 
@@ -66,18 +66,20 @@ const DongAdd: React.FC<DongAddProps> = ({
   const axios = UseAxios();
 
   useEffect(() => {
-    handleClick(searchDong)
+    handleClick(searchDong);
   }, [searchDong]);
 
   useEffect(() => {
     axios
       .get("/api/mypage/likelist")
       .then((response) => {
-        const newLikedDongList = response.data.object.map((dong: any) => dong.dongName);
+        const newLikedDongList = response.data.object.map(
+          (dong: any) => dong.dongName
+        );
         setLikedDongList(newLikedDongList);
         return newLikedDongList;
       })
-      .catch((error) => { 
+      .catch((error) => {
         console.log(error);
       });
   }, []);
@@ -117,6 +119,10 @@ const DongAdd: React.FC<DongAddProps> = ({
   return (
     <Aside>
       <Title>비교할 동네 선택</Title>
+      <SearchWrapper>
+        <SearchTitle>동네 검색</SearchTitle>
+        <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
+      </SearchWrapper>
       <LikeDongWrapper>
         <LikedDongTitle>찜한동네</LikedDongTitle>
         <LikeDongList>
@@ -135,10 +141,6 @@ const DongAdd: React.FC<DongAddProps> = ({
           ))}
         </LikeDongList>
       </LikeDongWrapper>
-      <SearchWrapper>
-        <SearchTitle>동네 검색</SearchTitle>
-        <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
-      </SearchWrapper>
     </Aside>
   );
 };

@@ -118,7 +118,7 @@ public class ReportService {
                 Double userY = new Double(user.getY());
 
                 Double distance = distance(dongX, dongY, userX, userY);
-                mypageDongDtoList.add(new MypageDongDto(dong.getDongId(), dong.getDongName(), isZzim, distance));
+                mypageDongDtoList.add(new MypageDongDto(dong.getDongId(), dong.getDongName(), dong.getGu().getGuId(), dong.getGu().getGuName(), isZzim, distance));
             }
 
 

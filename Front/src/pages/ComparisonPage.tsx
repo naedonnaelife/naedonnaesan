@@ -26,19 +26,22 @@ const Comparison = styled.section`
 `;
 
 function ComparisonPage() {
-  const [category, setCategory] = useState<string>("");
+  const [category, setCategory] = useState<string>("치안");
   const [selected1, setSelected1] = useState<string | null>(null);
   const [selected2, setSelected2] = useState<string | null>(null);
   const [detail1, setDetail1] = useState<any | null>(null);
   const [detail2, setDetail2] = useState<any | null>(null);
-  // const [higher1, setHigher1] = useState<string | null>(null);
-  // const [higher2, setHigher2] = useState<string | null>(null);
+  const [categoryItems, setCategoryItems] = useState<string[]>([]);
 
   useEffect(() => {
     if (selected1 === null || selected2 === null) {
-      setCategory("");
+      setCategory("치안");
     }
   }, [selected1, selected2]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[])
 
   return (
     <>
@@ -63,6 +66,7 @@ function ComparisonPage() {
             <Column
               selected1={selected1}
               selected2={selected2}
+              category = {category}
               setCategory={setCategory}
             />
             <Card

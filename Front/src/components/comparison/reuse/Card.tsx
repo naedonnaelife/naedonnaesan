@@ -1,7 +1,6 @@
 import React from "react";
 import tw, { styled } from "twin.macro";
 import ComparisonGraph from "../ComparisonGraph";
-// import UseAxios from "../../../utils/UseAxios"; 
 
 interface SelectedProps {
   selected: string | null;
@@ -16,8 +15,8 @@ const CardWrapper = styled.figure`
 `;
 
 const CardTop = styled.div`
-  ${tw`flex-c w-[100%] h-[10%] relative my-3
-  max-sm:flex-col max-sm:items-center`}
+  ${tw`flex-c w-[100%] h-20 relative 
+  max-sm:flex-col max-sm:items-center max-sm:h-12`}
 `;
 const CardTitle = styled.h1`
   ${tw`font-bold text-3xl
@@ -34,39 +33,12 @@ const ButtonWrapper = styled.div`
   max-sm:top-1`}
 `;
 
-// const LikeButton = styled.button`
-//   ${tw`w-[30px] h-[30px]`}
-// `;
-
 const Card: React.FC<SelectedProps> = ({
   selected,
   setSelected,
   cardIndex,
   setDetail,
 }) => {
-  // const [likedDongList, setLikedDongList] = useState<any[]>([]);
-  // const axios = UseAxios();
-
-
-  // const addLike = async (name:string) => {
-  //   await axios.post(`/api/zzim/${name}`)
-  //   .then((response) => {
-  //     setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongName === name))
-  //     console.log(' 좋아요 : ', response)
-  //   });
-  // };
-
-  // const removeLike = (name: string) => {
-  //   axios
-  //     .delete(`/api/zzim/${name}`)
-  //     .then((response) => {
-  //       console.log(response)
-  //       setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongName !== name));
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
   return (
     <CardWrapper>
@@ -75,11 +47,6 @@ const Card: React.FC<SelectedProps> = ({
           <CardTop>
             <CardTitle>{selected}</CardTitle>
             <ButtonWrapper>
-            {/* {likedDongList? (
-              <LikeButton onClick={() => removeLike(selected)}>💗</LikeButton>
-            ) : (
-              <LikeButton onClick={() => addLike(selected)}>🤍</LikeButton>
-            )} */}
               <button onClick={() => setSelected(null)}>✖</button>
             </ButtonWrapper>
           </CardTop>

@@ -8,7 +8,7 @@ type NavOpenProps = {
 };
 
 const Navbar = styled.header`
-  ${tw`flex justify-end items-center relative z-40 h-[75px] bg-mango border-b-2 border-lightGray drop-shadow-lg 
+  ${tw`flex justify-end items-center relative z-40 h-[60px] bg-mango border-b-2 border-lightGray drop-shadow-lg 
   max-sm:block max-sm:h-[50px]`}
 `;
 
@@ -18,7 +18,8 @@ const NavbarLink = styled(Link)`
 `;
 
 const NavbarWrapper = styled.section`
-  ${({ isOpen }: NavOpenProps) => (isOpen ? tw`max-sm:flex-cc max-sm:bg-sbWhite animate-fade-down animate-duration-300` : tw`max-sm:hidden`)}
+  ${({ isOpen }: NavOpenProps) =>
+    isOpen ? tw`max-sm:flex-cc max-sm:bg-sbWhite animate-fade-down animate-duration-300` : tw`max-sm:hidden`}
 `;
 
 const HamburgerWrapper = styled.div`

@@ -14,7 +14,7 @@ export default {
       fontSize: {
         10: ['10px'],
         20: ['20px'],
-        30: ['30px']
+        30: ['30px'],
       },
       colors: {
         white: '#FFFFFF',
@@ -39,7 +39,7 @@ export default {
         // 테스트
       },
       height: {
-        'full-nav': 'calc(100vh - 75px)',
+        'full-nav': 'calc(100vh - 60px)',
       },
       width: {
         'calc-7': 'calc(100vw / 7)',

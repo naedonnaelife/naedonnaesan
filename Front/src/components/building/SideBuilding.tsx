@@ -37,8 +37,8 @@ type StyleProps = {
 };
 
 const Aside = styled.aside`
-  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white duration-200 overflow-y-auto px-2 
-    max-sm:absolute max-sm:z-10 max-sm:w-[100%] max-sm:border-t-2 max-sm:border-sbWhite`}
+  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white overflow-y-auto px-2 animate-fade-right animate-duration-[1500ms]
+    max-sm:absolute max-sm:z-10 max-sm:w-[100%] max-sm:border-t-2 max-sm:border-sbWhite max-sm:duration-200`}
   ${({ isBuildingOpen, selectedBuilding }: StyleProps) =>
     isBuildingOpen
       ? selectedBuilding

@@ -196,7 +196,7 @@ def getKeyword():
     feature_names = np.array(tfidf_vectorizer.get_feature_names_out())
 
     # 점수에 따라 내림차순으로 정렬하고 상위 N개의 인덱스 가져오기
-    top_n_indices = np.argsort(scores_sum_array)[::-1][:10]  # 상위 10개 키워드
+    top_n_indices = np.argsort(scores_sum_array)[::-1][:3]  # 상위 3개 키워드
 
     # 상위 N개 키워드와 점수 출력
     result = []

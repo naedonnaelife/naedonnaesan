@@ -18,7 +18,7 @@ from collections import OrderedDict
 from dotenv import load_dotenv
 import os
 # .env 파일에서 환경변수 로드
-env = 'test'  # test / deploy
+env = 'deploy'  # test / deploy
 load_dotenv(f'.env.{env}')
 
 # 환경변수 사용
@@ -43,8 +43,11 @@ daily_keywords = db['daily_keywords']  # 사용할 컬렉션 선택 또는 생�
 
 
 # 모델 로드
+pca_model = joblib.load(file_path + "pca_model.joblib")
 knn_model = joblib.load(file_path + "knn_model.joblib")
 
+# pca_model = joblib.load("pca_model.joblib")
+# knn_model = joblib.load("knn_model.joblib")
 origins = [
     "*"
 ]
@@ -92,21 +95,25 @@ async def predict(preference: PredictRequest):
     # 클러스터 생성
     df = pd.read_csv(file_path + "cluster.csv", index_col=0, encoding='cp949')
     df_train = df.drop(axis=1, columns=['법정동', '군집'])
-    cluster = pd.DataFrame(df_train)
+    pc = pca_model.fit_transform(df_train)
+    cluster = pd.DataFrame(pc)
     cluster['target'] = df['군집']
 
     # 입력 데이터 numpy 배열로 변환
     input_data = np.array(preference.features).reshape(1, -1)
 
+    # 입력 데이터에 PCA 적용
+    reduced_data = pca_model.transform(input_data)
+
     # 타겟 모델 예측
-    predict_data = knn_model.predict(input_data)
+    predict_data = knn_model.predict(reduced_data)
 
     # 추천
     filtered_data = cluster[cluster['target'] == predict_data[0]]
 
     neigh = NearestNeighbors(n_neighbors=3)
     neigh.fit(filtered_data.drop(axis=1, columns=['target']))
-    distances, indices = neigh.kneighbors(input_data)  # 임시 값
+    distances, indices = neigh.kneighbors(reduced_data)  # 임시 값
 
     # 결과 처리
     result = filtered_data.iloc[indices[0]]

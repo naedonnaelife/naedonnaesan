@@ -13,6 +13,8 @@ public class MypageDongDto {
 
     private Long dongId;
     private String dongName;
+    private Long guId;
+    private String guName;
     private boolean zzim;
     private Double distance;
 }

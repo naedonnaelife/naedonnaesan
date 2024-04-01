@@ -14,7 +14,7 @@ interface CardProps {
     address: string;
     x: string;
     y: string;
-  };
+  } | null;
 }
 
 const CardWrapper = styled.div`
@@ -38,31 +38,40 @@ const BuildingContent = styled.figcaption`
 const P = styled.p`
   ${tw`truncate`}
 `;
+const InfoP = styled.p`
+  ${tw`m-auto`}
+`;
 
 const BuildingCard: React.FC<CardProps> = ({ building }) => {
-  const roomImage = buildings.url[building?.buildingId % 29];
-  const area = Math.ceil((building?.area / 3.3058) * 10) / 10;
+  const roomImage = building ? buildings.url[building?.buildingId % 29] : null;
+  const area = building ? Math.ceil((building?.area / 3.3058) * 10) / 10 : null;
   return (
     <CardWrapper>
-      <ImageWrapper>
-        <CardImage src={roomImage} alt="room" />
-      </ImageWrapper>
-      <ContentWrapper>
-        <BuildingPrice>
-          {building?.payType} {building?.deposit}/{building?.monthlyPay} 만원
-        </BuildingPrice>
-        <BuildingContent>
-          <P>
-            {building?.buildingType} / {building?.name}{' '}
-          </P>
-          <P>
-            {building?.address} {building?.floor}층
-          </P>
-          <P>
-            {building?.area} m2 ({area} 평)
-          </P>
-        </BuildingContent>
-      </ContentWrapper>
+      {building ? (
+        <>
+          <ImageWrapper>
+            <CardImage src={roomImage} alt="room" />
+          </ImageWrapper>
+          <ContentWrapper>
+            <BuildingPrice>
+              {building?.payType} {building?.deposit}/{building?.monthlyPay} 만원
+            </BuildingPrice>
+            <BuildingContent>
+              <P>
+                {building?.buildingType} / {building?.name}{' '}
+              </P>
+              <P>
+                {building?.address} {building?.floor}층
+              </P>
+              <P>
+                {building?.area} m2 ({area} 평)
+              </P>
+            </BuildingContent>
+          </ContentWrapper>
+        </>
+      ) : (
+        <InfoP>선택된 매물이 없습니다.</InfoP>
+      )}
     </CardWrapper>
   );
 };

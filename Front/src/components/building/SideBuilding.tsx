@@ -37,8 +37,8 @@ type StyleProps = {
 };
 
 const Aside = styled.aside`
-  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white duration-200 overflow-y-auto px-2 
-    max-sm:absolute max-sm:z-10 max-sm:w-[100%] max-sm:border-t-2 max-sm:border-sbWhite`}
+  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white overflow-y-auto px-2 animate-fade-right animate-duration-[1500ms]
+    max-sm:absolute max-sm:z-10 max-sm:w-[100%] max-sm:border-t-2 max-sm:border-sbWhite max-sm:duration-200`}
   ${({ isBuildingOpen, selectedBuilding }: StyleProps) =>
     isBuildingOpen
       ? selectedBuilding
@@ -70,8 +70,7 @@ const HamburgerButton = styled.button`
 `;
 
 const SelectedWrapper = styled.div`
-  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1 animate-fade-right
-  max-sm:animate-none`}
+  ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1`}
 `;
 
 const SelectedCard = styled.article`
@@ -199,16 +198,12 @@ function SideBuilding({
           <Button>가격</Button>
           <Button>유형</Button>
         </ButtonWrapper> */}
-        {buildingId && selectedBuilding ? (
-          <SelectedWrapper>
-            <CloseButton onClick={handleCloseButton}>✖</CloseButton>
-            <SelectedCard>
-              <BuildingCard building={selectedBuilding} />
-            </SelectedCard>
-          </SelectedWrapper>
-        ) : (
-          ''
-        )}
+        <SelectedWrapper>
+          <CloseButton onClick={handleCloseButton}>✖</CloseButton>
+          <SelectedCard>
+            <BuildingCard building={selectedBuilding || null} />
+          </SelectedCard>
+        </SelectedWrapper>
       </SideFixWrapper>
       {buildingList.map((building) => (
         <Card key={building.buildingId} onClick={() => handleBuildingCard(building)}>

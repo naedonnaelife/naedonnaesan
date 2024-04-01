@@ -18,7 +18,7 @@ type StyleProps = {
 };
 
 const SelectWrapper = styled.div`
-  ${tw`flex flex-col h-[33.3%]   w-[33.3%]
+${tw`flex flex-col h-[33.3%] w-[33.3%]
 max-sm:h-[26%] max-sm:w-[50%]`}
 `;
 const NameWrapper = styled.div`
@@ -26,7 +26,7 @@ const NameWrapper = styled.div`
 `;
 
 const Wrapper = styled.ul`
-  ${tw`flex justify-between w-full text-10 p-1
+  ${tw`flex justify-between w-[90%] text-10 p-1
   max-sm:max-h-[90%] max-sm:overflow-y-hidden`}
 `;
 
@@ -52,13 +52,9 @@ const ScoreButton = styled.li`
   ${tw`my-1 cursor-pointer`}
 `;
 
-const InfraSlider: React.FC<SliderProps> = ({ data, value, changeScore }) => {
-  const [nowValue, setNowValue] = useState(value);
-  const [gradient, setGradient] = useState(
-    `linear-gradient(to right, #FB8D75 0%, #FB8D75 ${
-      ((value - 1) / 2) * 100
-    }%, #e1e1e1 ${((value - 1) / 2) * 100}%, #e1e1e1 100%)`
-  );
+const InfraSlider: React.FC<SliderProps> = ({data, value, changeScore}) => {
+  const [nowValue, setNowValue] = useState(value)
+  const [gradient, setGradient] = useState(`linear-gradient(to right, #FB8D75 0%, #FB8D75 ${(value-1)/2 * 100}%, #e1e1e1 ${(value-1)/2 * 100}%, #e1e1e1 100%)`)
   const handleValue = (e: number | React.ChangeEvent<HTMLInputElement>) => {
     let intValue = 0;
     if (typeof e === "number") {
@@ -67,12 +63,8 @@ const InfraSlider: React.FC<SliderProps> = ({ data, value, changeScore }) => {
       intValue = parseInt(e.target.value);
     }
     setNowValue(intValue);
-    setGradient(
-      `linear-gradient(to right, #FB8D75 0%, #FB8D75 ${
-        ((intValue - 1) / 2) * 100
-      }%, #e1e1e1 ${((intValue - 1) / 2) * 100}%, #e1e1e1 100%)`
-    );
-    changeScore(intValue, data.pk);
+    setGradient(`linear-gradient(to right, #FB8D75 0%, #FB8D75 ${(intValue- 1)/2 * 100}%, #e1e1e1 ${(intValue- 1)/2 * 100}%, #e1e1e1 100%)`)
+    changeScore(intValue, data.pk)
   };
 
   useEffect(() => {

@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 import useSearchStore from '../../stores/SearchStore';
-// import newDong from '../../datas/newDong.json';
 import newDong from '../../datas/dong.json';
 import newGu from '../../datas/newGu.json';
 import UseAxios from '../../utils/UseAxios';
@@ -21,6 +20,33 @@ const BackSpace = styled.button`
   max-sm:left-[2.5vw] max-sm:top-[47vh] max-sm:h-[50px] max-sm:w-[50px] max-sm:text-xs`}
 `
 
+const dongStyle = `
+position: absolute;
+top: -8vh;
+left: -50px;
+color: white;
+background-color: rgba(0, 0, 0, 0.8);
+padding: 5px;
+border: 2px solid #3E84E8;
+border-radius: 4px;
+box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+font-family: 'Noto Sans KR', sans-serif;
+`
+
+const companyStyle =`
+position: absolute;
+top: -8vh;
+left: -50px;
+color: white;
+background-color: rgba(0, 0, 0, 0.8);
+padding: 5px;
+border: 2px solid #3E84E8;
+border-radius: 4px;
+box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+font-family: 'Noto Sans KR', sans-serif;
+`
+
+
 const { kakao } = window;
 
 const KakaoMap: React.FC = () => {
@@ -32,9 +58,9 @@ const KakaoMap: React.FC = () => {
   const mapLevelRef = useRef<number | null>(null);
   const coordinateRef = useRef<number[] | null>(null);
   const [newCustomOverlay] = useState(new kakao.maps.CustomOverlay({}));
-  // const [rectangle, setRectangle] = useState(null);
   const polygons = useRef([new kakao.maps.Polygon()]);
   const areaName = useSearchStore(state => state.areaName);
+  const selectedArea = useSearchStore(state => state.selectedArea);
   const recommendList = useSearchStore(state => state.recommendList)
   const navigate = useNavigate();
   const axios = UseAxios();
@@ -64,24 +90,36 @@ const KakaoMap: React.FC = () => {
     mapRef.current.setCenter(new kakao.maps.LatLng(coordinateRef.current![0], coordinateRef.current![1]));
   };
 
+
+
   const getLocation = async () => {
         await axios.get('/api/myLatLon')
         .then(res => {
-          const position = new kakao.maps.LatLng(res.data.object.y, res.data.object.x)
+          const position = new kakao.maps.LatLng(res.data.object.y - 0.00052, res.data.object.x - 0.00275)
           const marker = new kakao.maps.Marker({
             position: position,
             image : new kakao.maps.MarkerImage(company, new kakao.maps.Size(32, 32))
           });
           marker.setMap(newMap)
 
-          // 인포윈도우
-          const infowindow = new kakao.maps.InfoWindow({
-            position : position, 
-            content : `
-            <p>출근싫어</p>
-          `,
+          const customOverlay = new kakao.maps.CustomOverlay({
+            position: position,
+            content : `<div style="${companyStyle}" id=close>회사입니당</div>` 
+          })
+          customOverlay.setMap(newMap);
+
+          const closeOverlay = () => {
+            customOverlay.setMap(null);
+          }
+          document.getElementById('close')?.addEventListener('click', closeOverlay)
+          
+          kakao.maps.event.addListener(marker, 'click', function () {
+            if (customOverlay.getMap()) {
+              customOverlay.setMap(null);
+            } else {
+              customOverlay.setMap(newMap);
+            }
           });
-          infowindow.open(newMap, marker)
         })
   }
   // 2. 뒤로가기
@@ -92,9 +130,8 @@ const KakaoMap: React.FC = () => {
       jsonProcessing(newGu, '')
       mapRef.current.setCenter(new kakao.maps.LatLng(37.56, 127.0))
       mapRef.current.setLevel(nowLevel + 3, { animate: { duration: 500 } });
-
-      
-    } else{ console.log('최대크기')}
+    }
+    selectedArea('')
   }
 
   // 3. 구&동 지도 생성 함수
@@ -110,9 +147,9 @@ const KakaoMap: React.FC = () => {
     try {
       const newJson = geoJson.map((unit: any) => {
         const name = unit.properties.SIG_KOR_NM ? unit.properties.SIG_KOR_NM : unit.properties.EMD_KOR_NM;
-        const coordinates = unit.geometry.coordinates[0].map(
-          (coordinate: number[]) => new kakao.maps.LatLng(coordinate[1], coordinate[0])
-        );
+        const coordinates = unit.geometry.coordinates.map((e:[]) => e.map(
+            (coordinate: number[]) => new kakao.maps.LatLng(coordinate[1] - 0.00052, coordinate[0] - 0.00275 )
+          ));
         const centerCoordinate = [unit.properties.x, unit.properties.y];
         const sig_cd = unit.properties.SIG_CD;
         return { name, coordinates, centerCoordinate, sig_cd };
@@ -125,25 +162,6 @@ const KakaoMap: React.FC = () => {
 
   // 4. 폴리곤 생성 함수
   const createPolygon = (map: any, newJson: any, customOverlay: any) => {
-    // if (!rectangle) {
-    //   // 1. 사각형 폴리곤
-    //   const backgroundSW = new kakao.maps.LatLng(30, 115);
-    //   const backgroundNE = new kakao.maps.LatLng(45, 140);
-    //   const rectangleBounds = new kakao.maps.LatLngBounds(backgroundSW, backgroundNE);
-
-    //   const background = new kakao.maps.Rectangle({
-    //     bounds: rectangleBounds,
-    //     strokeWeight: 0,
-    //     strokeColor: '#ffffff',
-    //     strokeOpacity: 1,
-    //     strokeStyle: 'shortdashdot',
-    //     fillColor: '#ffffff',
-    //     fillOpacity: 1,
-    //   });
-    //   setRectangle(background);
-    //   background.setMap(map);
-    // }
-
     // 2. 구 & 동 폴리곤
 
     polygons.current.map((polygon: any) => polygon.setMap(null));
@@ -154,7 +172,7 @@ const KakaoMap: React.FC = () => {
         map: map,
         path: unit.coordinates,
         strokeWeight: 3,
-        strokeColor: '#004c80',
+        strokeColor: '#403800',
         strokeOpacity: 0.8,
         fillColor: isSelected ? '#12B9DA' : '#F3F4F6',
         fillOpacity: 0.7,
@@ -186,7 +204,7 @@ const KakaoMap: React.FC = () => {
         if (level < 5) {
           navigate('/building', { state: { areaName: unit.name } });
         } else {
-          map.setCenter(new kakao.maps.LatLng(unit.centerCoordinate[1], unit.centerCoordinate[0]));
+          map.setCenter(new kakao.maps.LatLng(unit.centerCoordinate[1] - 0.00052, unit.centerCoordinate[0] - 0.00275));
           map.setLevel(level, { animate: { duration: 500 } });
           jsonProcessing(newDong, unit.sig_cd);
           mapLevelRef.current = level;
@@ -230,25 +248,33 @@ const KakaoMap: React.FC = () => {
       if(markers){
         markers.map((e:any) =>{ 
         e.marker.setMap(null)
-        e.infowindow.setMap(null)})
-        console.log(markers)
+        e.overlay.setMap(null)})
       }
       const newMarkers = (coordinateList.map(e =>{
         const marker = new kakao.maps.Marker({
           map: newMap,
-          position: new kakao.maps.LatLng(e.y, e.x),
+          position: new kakao.maps.LatLng(e.y - 0.00052, e.x - 0.00275),
           title : e.dongName,
           image : new kakao.maps.MarkerImage(dong, new kakao.maps.Size(32, 32))
         })
-        const test= '<p>동네</p>'
-        const infowindow = new kakao.maps.InfoWindow({
-          position : new kakao.maps.LatLng(e.y, e.x),
-          content : test 
+
+        const customOverlay = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(e.y - 0.00052, e.x - 0.00275),
+          content : `<div style="${dongStyle}">${e.dongName}</div>` 
+        })
+        kakao.maps.event.addListener(marker, 'mouseover', function () {
+          customOverlay.setMap(newMap);
+        })
+
+        kakao.maps.event.addListener(marker, 'mouseout', function () {
+          customOverlay.setMap(null);
         });
-        infowindow.open(newMap, marker)
 
+        kakao.maps.event.addListener(marker, 'click', function () {
+          selectedArea(e.dongName)
+        });
 
-        return {marker: marker, infowindow: infowindow}
+        return {marker: marker, overlay: customOverlay }
       })
       )
       setMarkers(newMarkers)

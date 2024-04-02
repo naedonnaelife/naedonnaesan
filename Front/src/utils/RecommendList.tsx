@@ -26,7 +26,7 @@ type StyleProps = {
 
 const RecommendWrapper = styled.ul`
   ${tw`flex-cc flex-col h-[35%] border-2 border-lightGray rounded-lg m-2
-  max-sm:w-[100%] max-sm:h-[100%] max-sm:mt-0 max-sm:bg-semiWhite`}
+  max-sm:w-[100%] max-sm:h-[100%] max-sm:mt-0 max-sm:mx-0 max-sm:bg-semiWhite `}
   ${({ isActive }: StyleProps) => (isActive ? tw`` : tw`max-sm:hidden`)}
 `;
 

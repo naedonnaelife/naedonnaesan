@@ -50,8 +50,8 @@ const KeywordTitle = styled.div`
 `;
 
 const NewsWrapper = styled.aside`
-  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white z-1 overflow-y-auto
-    max-sm:absolute max-sm:top-0 max-sm:w-[100%] max-sm:z-20`}
+  ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white z-1 pl-[12px] pr-[2px] overflow-y-auto animate-fade-right animate-duration-[500ms] 
+    max-sm:absolute max-sm:top-0 max-sm:w-[100%]`}
   ${({ isNewsListOpen }: NewsWrapperProps) => (isNewsListOpen ? '' : tw`max-sm:hidden`)}
   ::-webkit-scrollbar-thumb {
     background: #fff;

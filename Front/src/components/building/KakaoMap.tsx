@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import SearchBar from '../../utils/SearchBar.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
@@ -70,6 +70,8 @@ function KakaoMap({
     zIndex: 3,
   });
 
+  const [dongPolygon, setDongPolygon] = useState<any>(null);
+
   const clustererStyle = (size: number) => {
     return {
       width: size + 'px',
@@ -98,21 +100,22 @@ function KakaoMap({
   };
 
   // 폴리곤 생성
-  // const makePolygon = (map: any) => {
-  //   const polygonPath = selectedDong.geometry.coordinates[0].map((coordinate: any) => {
-  //     return new kakao.maps.LatLng(coordinate[1], coordinate[0]);
-  //   });
-
-  //   const polygon = new kakao.maps.Polygon({
-  //     path: polygonPath,
-  //     strokeWeight: 4,
-  //     strokeColor: '#000000',
-  //     strokeOpacity: 0.7,
-  //     fillColor: '#ffffff',
-  //     fillOpacity: 0.3,
-  //   });
-  //   polygon.setMap(map);
-  // };
+  const makePolygon = (map: any, unit: any) => {
+    const polygonPath = unit.geometry.coordinates.map((e: []) =>
+      e.map((coordinate: number[]) => new kakao.maps.LatLng(coordinate[1] - 0.00052, coordinate[0] - 0.00275))
+    );
+    dongPolygon?.setMap(null);
+    const polygon = new kakao.maps.Polygon({
+      path: polygonPath,
+      strokeWeight: 3,
+      strokeColor: '#FB8D75',
+      strokeOpacity: 0.7,
+      fillColor: '#FB8D75',
+      fillOpacity: 0.2,
+    });
+    polygon.setMap(map);
+    setDongPolygon(polygon);
+  };
 
   const makeClusterer = (map: any, clusterer: any) => {
     // 클러스터러 , 마커 생성
@@ -250,7 +253,7 @@ function KakaoMap({
     });
     setBuildingMap(map);
     setBuildingClusterer(clusterer);
-    // makePolygon(map);
+    makePolygon(map, selectedDong);
     makeClusterer(map, clusterer);
 
     // 커스텀 오버레이 클릭 시 발생 이벤트
@@ -263,6 +266,7 @@ function KakaoMap({
       const selectedDong: any = (newDong as any).features.find(
         (dong: any) => dong.properties.EMD_KOR_NM === searchDong
       );
+      makePolygon(buildingMap, selectedDong);
       const x = selectedDong.properties.x;
       const y = selectedDong.properties.y;
 

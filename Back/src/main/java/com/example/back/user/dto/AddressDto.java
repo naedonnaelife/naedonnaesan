@@ -11,4 +11,5 @@ public class AddressDto {
     private String address;
     private String x;
     private String y;
+    private String dongName;
 }

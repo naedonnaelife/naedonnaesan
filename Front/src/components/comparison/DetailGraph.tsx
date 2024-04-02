@@ -69,13 +69,13 @@ const Graph: React.FC<DetailGraphProps> = ({
     responsive: true,
     maintainAspectRatio: false,
     scales: {
-      x: { 
+      x: {
         display: true,
         ticks: {
           font: {
             size: 17,
           },
-        }
+        },
       },
       y: { display: false },
     },
@@ -128,7 +128,9 @@ const Graph: React.FC<DetailGraphProps> = ({
         {selected1} {selected2} {category} 수 비교
       </GraphTitle>
       <GraphLegend>
-        <Label1/>{selected1} <Label2/>{selected2}
+        <Label1 />
+        {selected1} <Label2 />
+        {selected2}
       </GraphLegend>
       <GraphWrapper>
         {infraList.map((e) => (

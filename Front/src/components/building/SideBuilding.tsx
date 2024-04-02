@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import tw, { styled } from 'twin.macro';
-import { useInView } from 'react-intersection-observer';
-import BuildingCard from './reuse/BuildingCard.tsx';
-import SearchBar from '../../utils/SearchBar.tsx';
-import UseAxios from '../../utils/UseAxios.tsx';
-import Alert from '../../utils/Alert.tsx';
-import hamburger from '../../assets/hamburger.png';
+import React, { useState, useEffect } from "react";
+import tw, { styled } from "twin.macro";
+import { useInView } from "react-intersection-observer";
+import BuildingCard from "./reuse/BuildingCard.tsx";
+import SearchBar from "../../utils/SearchBar.tsx";
+import UseAxios from "../../utils/UseAxios.tsx";
+import Alert from "../../utils/Alert.tsx";
+import hamburger from "../../assets/hamburger.png";
+
 
 interface SideProps {
   selectedBuildingRef: React.MutableRefObject<any>;
@@ -47,6 +48,15 @@ const Aside = styled.aside`
       : selectedBuilding
       ? tw`max-sm:-bottom-[65vh]`
       : tw`max-sm:-bottom-[95%]`}
+      ::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
+  :hover::-webkit-scrollbar-thumb {
+    background: #d5d5d5;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c5c5c5;
+  }
 `;
 const Card = styled.article`
   ${tw`flex w-[100%] h-[15vh] p-1`}
@@ -98,18 +108,25 @@ function SideBuilding({
   const [isBuildingOpen, setIsBuildingOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [buildingList, setBuildingList] = useState<Building[]>([]);
-  const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
+  const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(
+    null
+  );
   const [isLast, setIsLast] = useState(false);
   const [prevProps, setPrevProps] = useState(searchDong);
 
   const [pageRef, inView] = useInView();
   const axios = UseAxios();
 
-  const selectedImageSrc = 'https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true';
+  const selectedImageSrc =
+    "https://github.com/jjm6604/react-test/blob/main/bluehouse.png?raw=true";
   const selectedImageSize = new kakao.maps.Size(52, 52);
-  const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize, {
-    offset: new kakao.maps.Point(26, 26),
-  });
+  const selectedMarkerImage = new kakao.maps.MarkerImage(
+    selectedImageSrc,
+    selectedImageSize,
+    {
+      offset: new kakao.maps.Point(26, 26),
+    }
+  );
 
   const handleHamburgerButton = () => {
     setIsBuildingOpen((prev) => !prev);
@@ -156,12 +173,21 @@ function SideBuilding({
     if (inView && !getBuilding) {
       const getBuildingList = () => {
         axios
-          .get('/api/buildings/name', { params: { dongname: searchDong, page: getPage } })
+          .get("/api/buildings/name", {
+            params: { dongname: searchDong, page: getPage },
+          })
           .then((response) => {
             if (response.data.object.buildingDtoList.length === 0) {
-              Alert({ title: '', content: `${searchDong}에 매물이 존재하지 않습니다.`, icon: 'error' });
+              Alert({
+                title: "",
+                content: `${searchDong}에 매물이 존재하지 않습니다.`,
+                icon: "error",
+              });
             } else {
-              setBuildingList((prev) => [...prev, ...response.data.object.buildingDtoList]);
+              setBuildingList((prev) => [
+                ...prev,
+                ...response.data.object.buildingDtoList,
+              ]);
               setIsLast(response.data.object.last);
               setPage((prev) => prev + 1);
             }
@@ -192,7 +218,10 @@ function SideBuilding({
   return (
     <Aside isBuildingOpen={isBuildingOpen} selectedBuilding={selectedBuilding}>
       <SideFixWrapper>
-        <HamburgerButton onClick={handleHamburgerButton} isBuildingOpen={isBuildingOpen}>
+        <HamburgerButton
+          onClick={handleHamburgerButton}
+          isBuildingOpen={isBuildingOpen}
+        >
           <img src={hamburger} alt="" />
         </HamburgerButton>
         <SearchWarpper>
@@ -210,7 +239,10 @@ function SideBuilding({
         </SelectedWrapper>
       </SideFixWrapper>
       {buildingList.map((building) => (
-        <Card key={building.buildingId} onClick={() => handleBuildingCard(building)}>
+        <Card
+          key={building.buildingId}
+          onClick={() => handleBuildingCard(building)}
+        >
           <BuildingCard building={building}></BuildingCard>
         </Card>
       ))}

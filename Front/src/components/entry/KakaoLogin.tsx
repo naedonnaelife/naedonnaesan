@@ -3,6 +3,7 @@ import tw, { styled } from 'twin.macro';
 import { keyframes } from '@emotion/react';
 import UseAxios from '../../utils/UseAxios';
 import UserStore from '../../stores/UserStore';
+import useDongStore from '../../stores/DongStore';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -28,6 +29,7 @@ const LoginButton = styled.button`
 
 const KakaoLogin:React.FC = () => {
     const useStore = UserStore((state:any) => state)
+    const searchArea = useDongStore(state => state.searchArea)
     const navigate = useNavigate()
     const axios = UseAxios()
     const redirect_uri = 'https://j10e204.p.ssafy.io';
@@ -57,7 +59,6 @@ const KakaoLogin:React.FC = () => {
     const getToken = async (code:any) => {
       try {
         // 백엔드로 인가 코드를 전송하여 데이터 요청
-        console.log('code 확인 : ', code)
         const response = await axios.get(`/api/oauth`, {
           params: {
             code: code,
@@ -68,6 +69,11 @@ const KakaoLogin:React.FC = () => {
         localStorage.setItem("refreshToken", response.headers['authorization-refresh']);
         localStorage.setItem("kakaoToken", response.headers['kakao-authorization']);
         useStore.setIsLogin(true)
+
+        const dongName = await axios.get('/api/myLatLon').then((res:any) => res.dongName)
+        console.log(dongName)
+        searchArea(dongName)
+        
         if(response.headers['Isfirst'] === 'True'){
           navigate('./initial')
         }

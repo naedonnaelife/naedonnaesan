@@ -36,12 +36,12 @@ const ButtonWrapper = styled.div`
 `;
 
 const ResetButton = styled.button`
-  ${tw` w-[30%] bottom-1 right-1 bg-purple-200 rounded-lg p-1
+  ${tw` w-[30%] bottom-1 right-1 bg-purple-200 rounded-lg p-1 hover:bg-purple-300
   max-sm:w-[auto] max-sm:absolute max-sm:right-[25%]`}
 `;
 
 const SubmitButton = styled.button`
-  ${tw` w-[65%] bg-purple-200 rounded-lg m-2 p-1
+  ${tw` w-[65%] bg-purple-200 rounded-lg m-2 p-1 hover:bg-purple-300
   max-sm:w-[auto]`}
 `;
 
@@ -63,7 +63,7 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
   const axios = UseAxios();
   const update = useSearchStore((state) => state.updateRecommendList);
   const getDongList = async () => {
-    // localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIxMTU5OTgsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.qneo1G5T1MtTRc02XkXqrQJGxqO8mG2NQ24AlFUXDH0")
+    localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIxMTU5OTgsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.qneo1G5T1MtTRc02XkXqrQJGxqO8mG2NQ24AlFUXDH0")
     const token = localStorage.getItem('accessToken');
     const result = token?.slice(7);
     if (isAllChecked) {

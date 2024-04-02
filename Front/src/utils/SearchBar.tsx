@@ -25,11 +25,11 @@ const InputText = styled.input`
 `;
 
 const AddButton = styled.button`
-  ${tw`flex items-center absolute inset-y-0 right-3 px-2`}
+  ${tw`flex items-center absolute inset-y-0 right-3 px-2 hover:text-black hover:duration-200`}
 `;
 
 const AutocompleteKeyWord = styled.p`
-  ${tw`my-1`}
+  ${tw`my-1 animate-fade-down animate-duration-100`}
   ${({ color }: styleProps) => `background-color : ${color};`}
 `;
 

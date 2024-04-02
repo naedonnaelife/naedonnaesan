@@ -42,7 +42,7 @@ const KeywordsWrapper = styled.div`
 `;
 
 const KeywordButton = styled.button`
-  ${tw`bg-gray rounded-full px-4 py-1 text-sm mr-2 hover:bg-deepGray hover:duration-200`}
+  ${tw`bg-gray rounded-full px-4 py-1 text-sm mr-2 hover:bg-deepGray duration-200`}
 `;
 
 const KeywordTitle = styled.div`

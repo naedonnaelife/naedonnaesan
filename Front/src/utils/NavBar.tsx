@@ -1,8 +1,8 @@
-import { useState } from "react";
-import tw, { styled } from "twin.macro";
-import { Link } from "react-router-dom";
-import hamburger from "../assets/hamburger.png";
-import house from "../assets/logoHouse.png";
+import { useState } from 'react';
+import tw, { styled } from 'twin.macro';
+import { Link } from 'react-router-dom';
+import hamburger from '../assets/hamburger.png';
+import house from '../assets/logoHouse.png';
 import { useNavigate } from 'react-router-dom';
 
 type NavOpenProps = {
@@ -56,7 +56,7 @@ function NavBar() {
     <>
       <Navbar>
         <LogoWrapper>
-          <img src={house} onClick={goEntry}/>
+          <img src={house} onClick={goEntry} />
         </LogoWrapper>
         <HamburgerWrapper>
           <HamburgerButton onClick={navOpen} isOpen={isOpen}>

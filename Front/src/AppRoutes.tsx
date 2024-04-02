@@ -15,7 +15,7 @@ function AppRoutes() {
     <Router>
       <Routes>
         <Route path="/" element={<Entry />} />
-        <Route path="/" element={<My />} />
+        <Route path="/my" element={<My />} />
         {/* <Route path="/my" element={<PrivateRoute isLogin={access} component={<My />} />}></Route> */}
         <Route path="/information" element={<Information />} />
         <Route path="/comparison" element={<Comparison />} />

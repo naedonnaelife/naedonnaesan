@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
         jamsilLight: ['TheJamsil3Regular'],
+        jamsilMedium: ['TheJamsil4Medium'],
         chosun: ['ChosunSg'],
         chosunKg: ['ChosunKg'],
       },
@@ -42,7 +43,7 @@ export default {
         // 테스트
       },
       height: {
-        'full-nav': 'calc(100vh - 60px)',
+        'full-nav': 'calc(100vh - 50px)',
       },
       width: {
         'calc-7': 'calc(100vw / 7)',

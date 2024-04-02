@@ -28,11 +28,11 @@ const upAnimation = (animate: boolean, isApp: boolean) => {
   if (animate) {
     return keyframes`
       from {
-        ${isApp? 'left:-200px': 'top: 50vh'};
+        ${isApp ? 'left:-200px' : 'top: 50vh'};
         opacity: 0;
       }
       to {
-        ${isApp? 'left:0px': 'top: 25vh'};
+        ${isApp ? 'left:0px' : 'top: 25vh'};
         opacity: 1;
       }
     `;
@@ -74,7 +74,7 @@ const CardTitle = styled.h2`
 `;
 
 const CardContent = styled.p`
-  ${tw`w-[60%] text-3xl whitespace-pre-wrap ml-[10vw] mb-auto
+  ${tw`w-[60%] text-3xl whitespace-pre-wrap ml-[10vw] mb-auto font-jamsilMedium
   max-sm:w-[80%] max-sm:text-xl max-sm:mb-[2vh]`}
 `;
 
@@ -87,33 +87,32 @@ const ServiceLink = styled.button`
   ${tw` w-[40%] h-[20%] rounded-lg text-xl text-white p-2
   max-sm:absolute max-sm:w-[60%] max-sm:top-[77.5vh] max-sm:text-lg `}
   ${({ width, index }: StyleProps) => `left: ${width}px; background: ${indexColor[index].bg};`}
-
 `;
 
 const Card: React.FC<CardProps> = ({ index, data }) => {
   const [isAnimate, setIsAnimate] = useState(false);
-  const [isApp, setIsApp] = useState(false)
+  const [isApp, setIsApp] = useState(false);
   const navigate = useNavigate();
   const height = window.innerHeight * index + 150;
   const width = window.innerWidth / 2;
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
-    if (scrollY > height){
-      setIsAnimate(true)
+    if (scrollY > height) {
+      setIsAnimate(true);
     } else {
       setIsAnimate(false);
     }
   };
 
   const handleResize = () => {
-    const nowWidth = window.innerWidth
-    if(nowWidth <= 640){
-      setIsApp(true)
-    } else{
-      setIsApp(false)
+    const nowWidth = window.innerWidth;
+    if (nowWidth <= 640) {
+      setIsApp(true);
+    } else {
+      setIsApp(false);
     }
-  }
+  };
 
   const movePage = (url: string) => {
     navigate(`./${url}`);
@@ -136,7 +135,10 @@ const Card: React.FC<CardProps> = ({ index, data }) => {
             <CardTitle index={index}>{data.title}</CardTitle>
             <CardContent> {data.content} </CardContent>
             <CardSubContent> {data.subContent} </CardSubContent>
-            <ServiceLink index={index} onClick={() => movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
+            <ServiceLink index={index} onClick={() => movePage(data.link.url)}>
+              {' '}
+              {data.link.name} 바로가기
+            </ServiceLink>
           </CaptionWrapper>
           <CardImage width={width} isLeft={false} isAnimate={isAnimate} isApp={isApp} src={data.image} alt="image" />
         </CardWrapper>
@@ -146,7 +148,10 @@ const Card: React.FC<CardProps> = ({ index, data }) => {
             <CardTitle index={index}>{data.title}</CardTitle>
             <CardContent> {data.content} </CardContent>
             <CardSubContent> {data.subContent} </CardSubContent>
-            <ServiceLink index={index} onClick={() => movePage(data.link.url)}> {data.link.name} 바로가기</ServiceLink>
+            <ServiceLink index={index} onClick={() => movePage(data.link.url)}>
+              {' '}
+              {data.link.name} 바로가기
+            </ServiceLink>
           </CaptionWrapper>
           <CardImage isAnimate={isAnimate} isLeft={true} isApp={isApp} src={data.image} alt="image" />
         </CardWrapper>

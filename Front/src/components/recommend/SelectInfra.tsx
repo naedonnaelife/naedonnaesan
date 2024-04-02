@@ -17,7 +17,7 @@ type StyleProps = {
 
 const SelectWrapper = styled.section`
   ${tw`flex flex-wrap h-[60%] w-[96%] border-2 border-lightGray rounded-lg m-2 mt-4
-max-sm:w-[100%] max-sm:h-[100%] bg-white max-sm:mt-0`}
+max-sm:w-[100%] max-sm:h-[100%] bg-semiWhite max-sm:mt-0`}
   ${({ isActive }: StyleProps) => (isActive ? tw`max-sm:hidden` : tw``)}
 `;
 
@@ -32,7 +32,7 @@ const SlideWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   ${tw`flex items-center w-full h-[10%]
-  max-sm:absolute max-sm:justify-end max-sm:w-[95%] max-sm:mt-1`}
+  max-sm:absolute max-sm:justify-end max-sm:w-[90%] max-sm:mt-1`}
 `;
 
 const ResetButton = styled.button`
@@ -63,7 +63,7 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
   const axios = UseAxios();
   const update = useSearchStore((state) => state.updateRecommendList);
   const getDongList = async () => {
-    localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIwNTE0NTAsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.4wUkuxYp3Dz4YwdXjyTvQKK20wrC9R4CUMTQfh3Zf6c")
+    // localStorage.setItem("accessToken", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIxMTU5OTgsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.qneo1G5T1MtTRc02XkXqrQJGxqO8mG2NQ24AlFUXDH0")
     const token = localStorage.getItem('accessToken');
     const result = token?.slice(7);
     if (isAllChecked) {

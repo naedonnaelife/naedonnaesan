@@ -11,7 +11,6 @@ const UseAxios = (): AxiosInstance => {
   axiosInstance.interceptors.request.use(
     (config) => {
       config.headers['authorization'] = localStorage.getItem('accessToken');
-
       return config;
     },
     async (error) => {

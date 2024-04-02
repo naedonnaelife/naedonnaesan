@@ -7,6 +7,7 @@ import unlike from '../assets/unlike.png';
 
 interface RecommendProps {
   isActive: boolean;
+  whatComponent: string;
 }
 
 type Dong = {
@@ -14,15 +15,17 @@ type Dong = {
   dongId: number;
   zzim: boolean;
   distance: number;
+  guName: string;
 }[];
 
 type StyleProps = {
   color: string;
   isActive: boolean;
+  whatComponent: string;
 };
 
 const RecommendWrapper = styled.ul`
-  ${tw`flex flex-col h-[35%] border-2 border-lightGray rounded-lg m-2
+  ${tw`flex-cc flex-col h-[35%] border-2 border-lightGray rounded-lg m-2
   max-sm:w-[100%] max-sm:h-[100%] max-sm:mt-0 max-sm:bg-semiWhite`}
   ${({ isActive }: StyleProps) => (isActive ? tw`` : tw`max-sm:hidden`)}
 `;
@@ -32,27 +35,28 @@ const AlertWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  ${tw`m-2`}
+  ${tw`m-2 text-xl`}
 `;
 
 const RecommendResult = styled.li`
-  ${tw`flex justify-between border-2 border-lightGray rounded-lg mx-2 my-1 p-2 `}
+  ${tw`flex border-2 border-lightGray font-jamsilLight rounded-lg mx-2 mb-2 p-2`}
+  ${({whatComponent}:StyleProps) => (whatComponent === 'recommend' ? tw`w-[95%]` : tw`w-[85%]`)}
 `;
 
 const Index = styled.h3`
-  ${tw` flex justify-center items-center w-[10%] bg-gray rounded-lg text-center`}
+  ${tw`flex justify-center items-center w-[10%] bg-dongButtonHover text-white rounded-lg text-center ml-[1vw]`}
 `;
 
 const TownName = styled.p`
-  ${tw`cursor-appleMango hover:scale-105 hover:text-red`}
+  ${tw`flex-c cursor-appleMango hover:scale-105 hover:text-red hover:font-bold ml-[2vw] `}
 `;
 
-const Distance = styled.p`
-  ${tw`flex-c text-10`}
+const Distance = styled.span`
+  ${tw`flex-c text-10 mt-1 ml-[1vw]`}
 `;
 
 const Like = styled.button`
-  ${tw`flex justify-center items-center w-[30px] h-[30px]`}
+  ${tw`flex justify-center items-center w-[30px] h-[30px] ml-auto mr-[1vw]`}
   ${({ color }: StyleProps) => `border-color : ${color}`};
 `;
 
@@ -62,7 +66,7 @@ const P = styled.p`
 
 const explanation = `추천 받은 동네가 없어요.\n인프라 선호도를 입력하고\n동네 추천을 받아보세요!`;
 
-const RecommendList: React.FC<RecommendProps> = ({ isActive }) => {
+const RecommendList: React.FC<RecommendProps> = ({ isActive, whatComponent }) => {
   const store = useSearchStore((state) => state);
   const axios = UseAxios();
 
@@ -93,6 +97,7 @@ const RecommendList: React.FC<RecommendProps> = ({ isActive }) => {
     setNewRecommendList(recommendList);
     const selectLikeDong = recommendList.map((e) => e.zzim);
     setLikeDongList(selectLikeDong);
+    console.log(recommendList)
   }, [recommendList]);
 
   return (
@@ -101,9 +106,9 @@ const RecommendList: React.FC<RecommendProps> = ({ isActive }) => {
         <Title> 추천 동네 </Title>
         {newRecommendList.length ? (
           newRecommendList.map((element, index) => (
-            <RecommendResult key={index}>
+            <RecommendResult key={index} whatComponent={whatComponent}>
               <Index>{index + 1}</Index>
-              <TownName onClick={() => selectArea(element.dongName)}>{element.dongName}</TownName>
+              <TownName onClick={() => selectArea(element.dongName)}>{element.guName} {element.dongName}</TownName>
               <Distance>{element.distance.toFixed(1)}km</Distance>
               {likeDongList[index] ? (
                 <Like color="red" onClick={() => removeLike(element.dongId, index)}>

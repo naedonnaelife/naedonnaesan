@@ -5,7 +5,8 @@ import useSearchStore from '../../stores/SearchStore';
 import newDong from '../../datas/dong.json';
 import newGu from '../../datas/newGu.json';
 import UseAxios from '../../utils/UseAxios';
-import dong from '../../assets/dong.gif'
+// import dong from '../../assets/dong.gif'
+import dong from '../../assets/dong2.gif'
 import company from '../../assets/company.gif'
 
 // https://www.flaticon.com/kr/animated-icons, https://ezgif.com/ 
@@ -16,14 +17,14 @@ const Map = styled.div`
 `;
 
 const BackSpace = styled.button`
-  ${tw`absolute left-[25vw] z-10 h-[100px] w-[100px] bg-red
+  ${tw`absolute right-4 bottom-4 rounded-lg z-10 h-[100px] w-[100px] bg-gray opacity-70
   max-sm:left-[2.5vw] max-sm:top-[47vh] max-sm:h-[50px] max-sm:w-[50px] max-sm:text-xs`}
 `
 
 const dongStyle = `
 position: absolute;
 top: -8vh;
-left: -50px;
+left: -30px;
 color: white;
 background-color: rgba(0, 0, 0, 0.8);
 padding: 5px;
@@ -31,12 +32,13 @@ border: 2px solid #3E84E8;
 border-radius: 4px;
 box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 font-family: 'Noto Sans KR', sans-serif;
+text-center;
 `
 
 const companyStyle =`
 position: absolute;
 top: -8vh;
-left: -50px;
+left: -40px;
 color: white;
 background-color: rgba(0, 0, 0, 0.8);
 padding: 5px;
@@ -53,6 +55,7 @@ const KakaoMap: React.FC = () => {
 
   const [newMap, setNewMap] = useState<any>(null);
   const [markers, setMarkers] = useState<any>(null);
+  const [isView, setisView] = useState(false);
   const mapRef = useRef<any>(null);
   const isSmallRef = useRef<boolean | null>(null);
   const mapLevelRef = useRef<number | null>(null);
@@ -104,7 +107,7 @@ const KakaoMap: React.FC = () => {
 
           const customOverlay = new kakao.maps.CustomOverlay({
             position: position,
-            content : `<div style="${companyStyle}" id=close>회사입니당</div>` 
+            content : `<div style="${companyStyle}" id=close>내 직장</div>` 
           })
           customOverlay.setMap(newMap);
 
@@ -132,6 +135,7 @@ const KakaoMap: React.FC = () => {
       mapRef.current.setLevel(nowLevel + 3, { animate: { duration: 500 } });
     }
     selectedArea('')
+    setisView(false)
   }
 
   // 3. 구&동 지도 생성 함수
@@ -174,7 +178,7 @@ const KakaoMap: React.FC = () => {
         strokeWeight: 3,
         strokeColor: '#403800',
         strokeOpacity: 0.8,
-        fillColor: isSelected ? '#12B9DA' : '#F3F4F6',
+        fillColor: isSelected ? '#aae4c1' : '#F3F4F6',
         fillOpacity: 0.7,
         zIndex: 10,
       });
@@ -201,6 +205,7 @@ const KakaoMap: React.FC = () => {
 
       kakao.maps.event.addListener(polygon, 'click', function () {
         const level = map.getLevel() - 3;
+        setisView(true)
         if (level < 5) {
           navigate('/building', { state: { areaName: unit.name } });
         } else {
@@ -226,7 +231,7 @@ const KakaoMap: React.FC = () => {
         level: initialLevel,
         // draggable : false,
         scrollwheel: false,
-        disableDoubleClickZoom: false,
+        disableDoubleClickZoom: true,
       };
       const newMap = new kakao.maps.Map(container, options);
       mapRef.current = newMap;
@@ -292,6 +297,7 @@ const KakaoMap: React.FC = () => {
       newMap.setLevel(newLevel, { animate: { duration: 500 } });
       jsonProcessing(newDong, sggCode);
       mapLevelRef.current = newLevel;
+      setisView(true)
     }
   }, [areaName]);
 
@@ -305,8 +311,7 @@ const KakaoMap: React.FC = () => {
   return (
     <>
       <Map id="map"></Map>
-      <BackSpace onClick={goBack}>뒤로가기</BackSpace>
-      
+      {isView && <BackSpace onClick={goBack}>전체보기</BackSpace>}
     </>
   );
 };

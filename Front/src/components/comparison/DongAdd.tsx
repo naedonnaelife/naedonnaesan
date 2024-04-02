@@ -53,7 +53,7 @@ const LikeButton = styled.button`
 `;
 
 const Wrapper = styled.div`
-${tw`flex-cc h-full p-5`}
+${tw`flex-cc h-full p-5 animate-fade  animate-jump animate-delay-500`}
 
 `
 const P = styled.p`
@@ -149,7 +149,7 @@ const DongAdd: React.FC<DongAddProps> = ({
         </>
         : <Wrapper>
             <P>찜한 동네가 없어요 💦</P>
-            <P> 동네를 찾고 찜해보세요</P>
+            <P>동네를 찾고 찜해보세요</P>
             <img src={chunsik} alt="춘식이햄" />
           </Wrapper>
         }

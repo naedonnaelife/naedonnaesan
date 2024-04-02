@@ -19,7 +19,7 @@ const Aside = styled.aside`
 `;
 
 const Title = styled.h1`
-  ${tw`text-2xl my-2
+  ${tw`text-2xl py-4
   max-sm:hidden`}
 `;
 

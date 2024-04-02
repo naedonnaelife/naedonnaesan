@@ -48,7 +48,8 @@ const Aside = styled.aside`
       : selectedBuilding
       ? tw`max-sm:-bottom-[65vh]`
       : tw`max-sm:-bottom-[95%]`}
-      ::-webkit-scrollbar-thumb {
+      
+  ::-webkit-scrollbar-thumb {
     background: #fff;
   }
   :hover::-webkit-scrollbar-thumb {

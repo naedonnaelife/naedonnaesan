@@ -8,7 +8,7 @@ type StyleProps = {
 }
 
 const Aside = styled.aside`
-  ${tw`h-[100%] w-[25%] border-r-2 border-lightGray drop-shadow-lg p-2 z-10 animate-fade-right animate-duration-[1500ms]
+  ${tw`h-[100%] w-[25%] border-r-2 border-lightGray drop-shadow-lg p-2 z-10 animate-fade-right animate-duration-[500ms]
   max-sm:flex-cc max-sm:w-[100%] max-sm:h-[50%] max-sm:drop-shadow-sm`}
 `;
 

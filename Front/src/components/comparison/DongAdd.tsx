@@ -14,27 +14,27 @@ interface DongAddProps {
 }
 
 const Aside = styled.aside`
-  ${tw`h-[100%] border-r-2 border-lightGray px-4
+  ${tw`h-full-nav border-r-2 border-lightGray px-2 animate-fade-right animate-duration-[500ms]
   max-sm:flex max-sm:flex-col max-sm:border-0`}
 `;
 
 const Title = styled.h1`
-  ${tw`text-2xl my-2
+  ${tw`text-2xl pt-5 px-4 h-[8%]
   max-sm:hidden`}
 `;
 
 const LikeDongWrapper = styled.div`
-  ${tw`items-center w-full border-t-2 border-lightGray pt-4
+  ${tw`items-center w-full h-[80%] border-t-2 border-lightGray pt-4
   max-sm:border-0 max-sm:pt-0`}
 `;
 
 const LikedDongTitle = styled.h2`
-  ${tw`text-xl font-bold
+  ${tw`h-[6%] text-xl font-bold px-4
   max-sm:w-[30%] max-sm:text-left max-sm:hidden`}
 `;
 
 const LikeDongList = styled.ul`
-  ${tw`h-[430px] overflow-y-scroll
+  ${tw`h-[90%] pl-[12px] pr-[2px] overflow-y-scroll
   max-sm:flex max-sm:h-[40px] max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
   ::-webkit-scrollbar-thumb {
     background: #fff;
@@ -48,12 +48,12 @@ const LikeDongList = styled.ul`
 `;
 
 const Dong = styled.li`
-  ${tw`flex justify-between w-full border-basic my-2 p-1 duration-200 hover:bg-sbWhite 
+  ${tw`flex justify-between items-center w-full border-basic font-jamsilLight text-lg my-2 p-2 px-4 duration-200 hover:bg-sbWhite 
   max-sm:flex-c max-sm:h-8 max-sm:border-0 max-sm:rounded-full max-sm:bg-dongButton max-sm:text-base max-sm:mr-2 max-sm:px-3 max-sm:cursor-pointer max-sm:hover:bg-dongButtonHover`}
 `;
 
 const SearchWrapper = styled.div`
-  ${tw`w-full pb-6
+  ${tw`w-full h-[8%] px-3
   max-sm:mt-2 max-sm:mb-0 max-sm:border-0 max-sm:pt-0`}
 `;
 

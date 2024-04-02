@@ -16,7 +16,7 @@ interface newsCardProps {
 }
 
 const CardWrapper = styled.div`
-  ${tw`flex w-full h-full border-basic p-1 m-1 hover:cursor-pointer`}
+  ${tw`flex w-full h-full border-basic p-1 m-1 hover:cursor-pointer hover:bg-sbWhite duration-200`}
   margin: auto; // 카드를 가운데 정렬
   width: 100%; // 부모 컨테이너에 맞게 너비를 조정
 `;

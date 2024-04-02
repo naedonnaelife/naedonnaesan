@@ -40,7 +40,7 @@ const Title = styled.h2`
 
 const RecommendResult = styled.li`
   ${tw`flex border-2 border-lightGray font-jamsilLight rounded-lg mx-2 mb-2 p-2`}
-  ${({whatComponent}:StyleProps) => (whatComponent === 'recommend' ? tw`w-[95%]` : tw`w-[85%]`)}
+  ${({ whatComponent }: StyleProps) => (whatComponent === 'recommend' ? tw`w-[95%]` : tw`w-[85%]`)}
 `;
 
 const Index = styled.h3`
@@ -48,7 +48,7 @@ const Index = styled.h3`
 `;
 
 const TownName = styled.p`
-  ${tw`flex-c cursor-pointer hover:scale-105 hover:text-red hover:font-bold ml-[2vw] `}
+  ${tw`flex-c cursor-pointer hover:scale-105 hover:text-red hover:font-jamsilMedium ml-[2vw] hover:animate-jump`}
 `;
 
 const Distance = styled.span`
@@ -56,7 +56,7 @@ const Distance = styled.span`
 `;
 
 const Like = styled.button`
-  ${tw`flex justify-center items-center w-[30px] h-[30px] ml-auto mr-[1vw]`}
+  ${tw`flex justify-center items-center w-[30px] h-[30px] ml-auto mr-[1vw] hover:animate-wiggle-more hover:animate-infinite`}
   ${({ color }: StyleProps) => `border-color : ${color}`};
 `;
 
@@ -97,7 +97,7 @@ const RecommendList: React.FC<RecommendProps> = ({ isActive, whatComponent }) =>
     setNewRecommendList(recommendList);
     const selectLikeDong = recommendList.map((e) => e.zzim);
     setLikeDongList(selectLikeDong);
-    console.log(recommendList)
+    console.log(recommendList);
   }, [recommendList]);
 
   return (
@@ -108,7 +108,9 @@ const RecommendList: React.FC<RecommendProps> = ({ isActive, whatComponent }) =>
           newRecommendList.map((element, index) => (
             <RecommendResult key={index} whatComponent={whatComponent}>
               <Index>{index + 1}</Index>
-              <TownName onClick={() => selectArea(element.dongName)}>{element.guName} {element.dongName}</TownName>
+              <TownName onClick={() => selectArea(element.dongName)}>
+                {element.guName} {element.dongName}
+              </TownName>
               <Distance>{element.distance.toFixed(1)}km</Distance>
               {likeDongList[index] ? (
                 <Like color="red" onClick={() => removeLike(element.dongId, index)}>

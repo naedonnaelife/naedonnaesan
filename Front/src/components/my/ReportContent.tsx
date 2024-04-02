@@ -33,11 +33,16 @@ const PreferenceButton = styled.button`
   ${tw`w-[90%] border-2 border-grayHover rounded-full hidden
   max-sm:block max-sm:mb-4`}
 `;
-
+const PreferenceTitle = styled.h2`
+  ${tw`font-jamsilMedium text-lg mb-1`}
+`;
 const Preference = styled.li`
   ${tw`w-[30%] h-[95%] border-basic font-jamsilLight text-center mx-1
   max-sm:h-[30vh]`}
-`
+`;
+const Temp = styled.p`
+  ${tw``}
+`;
 const ReportContent: React.FC = () => {
   const [isPreferencesShow, setIsPreferencesShow] = useState<boolean>(true);
   const [preferences, setPreferences] = useState<PreferencesType | null>(null);
@@ -56,7 +61,7 @@ const ReportContent: React.FC = () => {
       .get('/api/mypage/filterlist')
       .then((response) => {
         setPreferences(response.data.object.reportDto);
-        console.log(response.data.object.reportDto)
+        console.log(response.data.object.reportDto);
         updateRecommendList(response.data.object.mypageDongDtoList);
       })
       .catch((error) => {
@@ -80,7 +85,7 @@ const ReportContent: React.FC = () => {
     transpReport: '교통',
     leisureReport: '여가시설',
     cafeReport: '카페',
-    pubReport: '술집'
+    pubReport: '술집',
   };
 
   const lst = [
@@ -91,22 +96,20 @@ const ReportContent: React.FC = () => {
     'transpReport',
     'leisureReport',
     'cafeReport',
-    'pubReport'
-  ]
+    'pubReport',
+  ];
 
-  const scoreList = [3, 2, 1].map((score) => lst.filter((category) => preferences ? preferences[category] === score : null))
+  const scoreList = [3, 2, 1].map((score) =>
+    lst.filter((category) => (preferences ? preferences[category] === score : null))
+  );
 
-  const scoreLabels = [
-    '🥰',
-    '😀',
-    '😐',
-  ]
+  const scoreLabels = ['🥰 중요해요', '😀 조금 중요해요', '😐 안 중요해요'];
 
   return (
     <>
       <Backgroud>
         <RecommendWrapper>
-          <RecommendList isActive={true} whatComponent='mypage' />
+          <RecommendList isActive={true} whatComponent="mypage" />
         </RecommendWrapper>
         <PreferenceButton onClick={preferenceShow}>
           {isPreferencesShow ? '선호도 접기' : '나의 선호도 보기'}
@@ -114,15 +117,15 @@ const ReportContent: React.FC = () => {
         <PreferenceWrapper isPreferencesShow={isPreferencesShow}>
           {preferences === null ? (
             <p>아직 검사결과가 없어요</p>
-          ) : (scoreList.map((score, index) => 
-            <Preference key={index}> 
-            <p>
-              {scoreLabels[index]} 
-            </p>
-            {score.map((s, index) => <p key={index}>{reportLabels[s]}</p>)}
-            
-            </Preference>
-            )
+          ) : (
+            scoreList.map((score, index) => (
+              <Preference key={index}>
+                <PreferenceTitle>{scoreLabels[index]}</PreferenceTitle>
+                {score.map((s, index) => (
+                  <Temp key={index}>{reportLabels[s]} </Temp>
+                ))}
+              </Preference>
+            ))
           )}
         </PreferenceWrapper>
       </Backgroud>

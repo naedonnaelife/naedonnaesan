@@ -28,12 +28,12 @@ const ButtonWrapper = styled.span`
 `;
 
 const Button = styled.button`
-  ${tw`w-16 h-10 rounded-lg bg-mango hover:bg-mangoHardHover
+  ${tw`w-16 h-10 rounded-lg bg-mango hover:bg-mangoHardHover duration-200
   max-sm:text-xs max-sm:h-7`}
 `;
 
 const LikeButton = styled.button`
-  ${tw`w-[30px] h-[30px]`}
+  ${tw`w-[30px] h-[30px] hover:animate-wiggle-more hover:animate-infinite`}
 `;
 
 const Like: React.FC<Props> = ({ guName, likedDongName, likedDongId, setLikedDongList }) => {
@@ -53,7 +53,9 @@ const Like: React.FC<Props> = ({ guName, likedDongName, likedDongId, setLikedDon
 
   return (
     <DongWrapper>
-      <NameWrapper>{guName} {likedDongName}</NameWrapper>
+      <NameWrapper>
+        {guName} {likedDongName}
+      </NameWrapper>
       <ButtonWrapper style={{ marginLeft: 'auto' }}>
         <Button
           style={{ marginRight: '10px' }}

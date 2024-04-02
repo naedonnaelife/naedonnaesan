@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import tw, { styled } from "twin.macro";
 import SearchBar from "../../utils/SearchBar";
 import UseAxios from "../../utils/UseAxios";
-import Alert from "../../utils/Alert.tsx";
-import chunsik from './newChunsik.gif'
+import Alert, { ConfirmAlert } from "../../utils/Alert.tsx";
+import like from "../../assets/like.png";
+import chunsik from "./newChunsik.gif";
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -13,7 +14,7 @@ interface DongAddProps {
 }
 
 const Aside = styled.aside`
-  ${tw`h-[100%] border-r-2 border-lightGray p-2
+  ${tw`h-[100%] border-r-2 border-lightGray px-4
   max-sm:flex max-sm:flex-col max-sm:border-0`}
 `;
 
@@ -33,12 +34,12 @@ const LikedDongTitle = styled.h2`
 `;
 
 const LikeDongList = styled.ul`
-  ${tw`h-[350px] overflow-y-scroll
+  ${tw`h-[430px] overflow-y-scroll
   max-sm:flex max-sm:h-[40px] max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
 `;
 
 const Dong = styled.li`
-  ${tw`flex justify-between w-full border-2 border-lightGray rounded-lg my-1 p-1
+  ${tw`flex justify-between w-full border-basic my-2 p-1 duration-200 hover:bg-sbWhite 
   max-sm:flex-c max-sm:h-8 max-sm:border-0 max-sm:rounded-full max-sm:bg-dongButton max-sm:text-base max-sm:mr-2 max-sm:px-3 max-sm:cursor-pointer max-sm:hover:bg-dongButtonHover`}
 `;
 
@@ -48,21 +49,20 @@ const SearchWrapper = styled.div`
 `;
 
 const LikeButton = styled.button`
-  ${tw`w-[30px] h-[30px] border-2 border-red rounded-full
+  ${tw`w-[30px] h-[30px] hover:animate-wiggle-more hover:animate-infinite
   max-sm:hidden`}
 `;
 
 const Wrapper = styled.div`
-${tw`flex-cc h-full p-5 animate-fade delay-500`}
-
-`
+  ${tw`flex-cc h-full p-5 animate-fade delay-500`}
+`;
 const P = styled.p`
-${tw`text-2xl my-2 animate-jump delay-1000 `}
-`
+  ${tw`text-2xl my-2 animate-jump delay-1000 `}
+`;
 
 const Image = styled.img`
   ${tw`animate-jump delay-1000`}
-`
+`;
 
 const DongAdd: React.FC<DongAddProps> = ({
   setSelected1,
@@ -118,11 +118,20 @@ const DongAdd: React.FC<DongAddProps> = ({
     }
   };
 
-  const removeLike = async (id: number) => {
-    await axios.delete(`/api/zzim/${id}`);
-    setLikedDongList((prev: any) =>
-      prev.filter((zzim: any) => zzim.dongId !== id)
-    );
+  const removeLike = async (name: string) => {
+    // 여기 alert 창 추가
+    const confirm = await ConfirmAlert({
+      title: "",
+      content: `<strong>${name}</strong>을 <strong style="color:red;">삭제</strong>하시겠습니까?`,
+      icon: "question",
+    });
+    if (confirm) {
+      axios.delete("/api/zzim", { data: { dongName: name } });
+      console.log(likedDongList);
+      setLikedDongList((prev: any) =>
+        prev.filter((zzim: any) => zzim !== name)
+      );
+    }
   };
 
   return (
@@ -132,31 +141,32 @@ const DongAdd: React.FC<DongAddProps> = ({
         <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
       </SearchWrapper>
       <LikeDongWrapper>
-        {likedDongList.length?
-        <>
-        <LikedDongTitle>찜한동네</LikedDongTitle>
-        <LikeDongList>
-          {likedDongList.map((dong, i) => (
-            <Dong key={i} onClick={() => handleClick(dong)}>
-              {dong}
-              <LikeButton
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  e.stopPropagation();
-                  removeLike(dong);
-                }}
-              >
-                💗
-              </LikeButton>
-            </Dong>
-          ))}
-        </LikeDongList>
-        </>
-        : <Wrapper>
+        {likedDongList.length ? (
+          <>
+            <LikedDongTitle>찜한동네</LikedDongTitle>
+            <LikeDongList>
+              {likedDongList.map((dong, i) => (
+                <Dong key={i} onClick={() => handleClick(dong)}>
+                  {dong}
+                  <LikeButton
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.stopPropagation();
+                      removeLike(dong);
+                    }}
+                  >
+                    <img src={like} alt="" />
+                  </LikeButton>
+                </Dong>
+              ))}
+            </LikeDongList>
+          </>
+        ) : (
+          <Wrapper>
             <P>찜한 동네가 없어요 💦</P>
             <P>동네를 찾고 찜해보세요</P>
             <Image src={chunsik} alt="춘식이햄" />
           </Wrapper>
-        }
+        )}
       </LikeDongWrapper>
     </Aside>
   );

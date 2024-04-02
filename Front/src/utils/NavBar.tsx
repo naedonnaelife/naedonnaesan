@@ -2,24 +2,33 @@ import { useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import { Link } from 'react-router-dom';
 import hamburger from '../assets/hamburger.png';
+import house from '../assets/logoHouse.png';
+import { useNavigate } from 'react-router-dom';
 
 type NavOpenProps = {
   isOpen: boolean;
 };
 
 const Navbar = styled.header`
-  ${tw`flex justify-end items-center relative z-40 h-[50px] bg-mango border-b-2 border-lightGray drop-shadow-lg 
-  max-sm:block max-sm:h-[50px]`}
+  ${tw`flex justify-between items-center relative z-40 h-[50px] bg-mango border-b-2 border-lightGray drop-shadow-lg`}
+`;
+
+const LogoWrapper = styled.div`
+  ${tw`flex-cc w-[50px] h-[50px] ml-6 mr-4 cursor-pointer
+  max-sm:mx-6`}
 `;
 
 const NavbarLink = styled(Link)`
-  ${tw` m-2 p-2 text-choco font-jamsilMedium hover:scale-105 hover:text-black hover:border-b-2 hover:border-choco
+  ${tw`text-choco font-jamsilMedium m-2 p-2 hover:scale-105 hover:text-black hover:border-b-2 hover:border-choco
   `}
 `;
 
 const NavbarWrapper = styled.section`
+  ${tw`mx-4`}
   ${({ isOpen }: NavOpenProps) =>
-    isOpen ? tw`max-sm:flex-cc max-sm:bg-sbWhite animate-fade-down animate-duration-300` : tw`max-sm:hidden`}
+    isOpen
+      ? tw`max-sm:absolute max-sm:top-[50px] max-sm:w-[100vw] max-sm:flex-cc max-sm:bg-sbWhite animate-fade-down animate-duration-300 max-sm:m-0`
+      : tw`max-sm:hidden`}
 `;
 
 const HamburgerWrapper = styled.div`
@@ -34,20 +43,27 @@ const HamburgerButton = styled.button`
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const navOpen = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const goEntry = () => {
+    navigate('/');
   };
 
   return (
     <>
       <Navbar>
+        <LogoWrapper>
+          <img src={house} onClick={goEntry} />
+        </LogoWrapper>
         <HamburgerWrapper>
           <HamburgerButton onClick={navOpen} isOpen={isOpen}>
             <img src={hamburger} alt="button" />
           </HamburgerButton>
         </HamburgerWrapper>
         <NavbarWrapper isOpen={isOpen}>
-          <NavbarLink to="/">EntryPage(임시)</NavbarLink>
           <NavbarLink to="/recommend">동네 검색</NavbarLink>
           <NavbarLink to="/building">매물 보기</NavbarLink>
           <NavbarLink to="/comparison">동네 비교</NavbarLink>

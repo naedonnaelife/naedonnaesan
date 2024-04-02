@@ -34,14 +34,14 @@ const NewsTitle = styled.h1`
 `;
 
 const NewsImage = styled.img`
-  ${tw`w-[400px] h-[400px] pt-10 pb-10
+  ${tw`w-[20vw] h-[48vh] pt-10 pb-10
   max-sm:w-[300px] max-sm:h-[300px]`}
   display: block; // 이미지를 블록 요소로 만듭니다.
   margin: 0 auto; // 가운데 정렬
 `;
 
 const NewsContent = styled.div`
-  ${tw`text-lg px-10 md:px-20 lg:pl-40 lg:pr-40 font-chosun h-[30vh] whitespace-pre-wrap overflow-auto`}
+  ${tw`text-lg px-10 md:px-20 lg:pl-40 lg:pr-40 font-chosun h-[30%] whitespace-pre-wrap overflow-auto`}
 `;
 
 

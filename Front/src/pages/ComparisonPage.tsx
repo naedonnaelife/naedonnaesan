@@ -9,7 +9,7 @@ import DongAdd from '../components/comparison/DongAdd.tsx';
 const Main = styled.main`
   ${tw`flex w-full h-full-nav overflow-y-scroll
   max-sm:flex-col max-sm:items-center max-sm:w-full`}
-  ::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar {
     display:none;
   }
 `;

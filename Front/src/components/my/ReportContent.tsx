@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import tw, { styled } from 'twin.macro';
-import { useNavigate } from 'react-router-dom';
-import RecommendList from '../../utils/RecommendList';
-import UseAxios from '../../utils/UseAxios';
-import useSearchStore from '../../stores/SearchStore';
+import React, { useState, useEffect } from "react";
+import tw, { styled } from "twin.macro";
+import { useNavigate } from "react-router-dom";
+import RecommendList from "../../utils/RecommendList";
+import UseAxios from "../../utils/UseAxios";
+import useSearchStore from "../../stores/SearchStore";
 
 type PreferenceShowProps = {
   isPreferencesShow: boolean;
@@ -14,7 +14,7 @@ type PreferencesType = {
 };
 
 const Backgroud = styled.div`
-  ${tw`flex justify-around bg-white
+  ${tw`flex justify-around bg-white rounded-lg mx-[12px]
   max-sm:flex-cc`}
 `;
 
@@ -26,7 +26,8 @@ const RecommendWrapper = styled.div`
 const PreferenceWrapper = styled.ul`
   ${tw`flex-c w-[50%] px-2 my-2
   max-sm:w-full`}
-  ${({ isPreferencesShow }: PreferenceShowProps) => (isPreferencesShow ? tw`` : tw`max-sm:hidden`)}
+  ${({ isPreferencesShow }: PreferenceShowProps) =>
+    isPreferencesShow ? tw`` : tw`max-sm:hidden`}
 `;
 
 const PreferenceButton = styled.button`
@@ -34,7 +35,7 @@ const PreferenceButton = styled.button`
   max-sm:block max-sm:mb-4`}
 `;
 const PreferenceTitle = styled.h2`
-  ${tw`font-jamsilMedium text-lg mb-1`}
+  ${tw`font-jamsilMedium text-lg mb-1 px-[12px]`}
 `;
 const Preference = styled.li`
   ${tw`w-[30%] h-[95%] border-basic font-jamsilLight text-center mx-1
@@ -50,7 +51,9 @@ const ReportContent: React.FC = () => {
   const axios = UseAxios();
   const navigate = useNavigate();
   const areaName = useSearchStore((state) => state.areaName);
-  const updateRecommendList = useSearchStore((state) => state.updateRecommendList);
+  const updateRecommendList = useSearchStore(
+    (state) => state.updateRecommendList
+  );
 
   const preferenceShow = () => {
     setIsPreferencesShow((prev) => !prev);
@@ -58,7 +61,7 @@ const ReportContent: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get('/api/mypage/filterlist')
+      .get("/api/mypage/filterlist")
       .then((response) => {
         setPreferences(response.data.object.reportDto);
         console.log(response.data.object.reportDto);
@@ -71,39 +74,41 @@ const ReportContent: React.FC = () => {
 
   useEffect(() => {
     if (isEnter) {
-      navigate('/information', { state: { areaName: areaName } });
+      navigate("/information", { state: { areaName: areaName } });
     } else {
       setIsEnter(true);
     }
   }, [areaName]);
 
   const reportLabels: any = {
-    convReport: '편의시설',
-    safetyReport: '치안',
-    healthReport: '건강',
-    foodReport: '식당',
-    transpReport: '교통',
-    leisureReport: '여가시설',
-    cafeReport: '카페',
-    pubReport: '술집',
+    convReport: "편의시설",
+    safetyReport: "치안",
+    healthReport: "건강",
+    foodReport: "식당",
+    transpReport: "교통",
+    leisureReport: "여가시설",
+    cafeReport: "카페",
+    pubReport: "술집",
   };
 
   const lst = [
-    'convReport',
-    'safetyReport',
-    'healthReport',
-    'foodReport',
-    'transpReport',
-    'leisureReport',
-    'cafeReport',
-    'pubReport',
+    "convReport",
+    "safetyReport",
+    "healthReport",
+    "foodReport",
+    "transpReport",
+    "leisureReport",
+    "cafeReport",
+    "pubReport",
   ];
 
   const scoreList = [3, 2, 1].map((score) =>
-    lst.filter((category) => (preferences ? preferences[category] === score : null))
+    lst.filter((category) =>
+      preferences ? preferences[category] === score : null
+    )
   );
 
-  const scoreLabels = ['🥰 중요해요', '😀 조금 중요해요', '😐 안 중요해요'];
+  const scoreLabels = ["🥰 중요해요", "😀 조금 중요해요", "😐 안 중요해요"];
 
   return (
     <>
@@ -112,7 +117,7 @@ const ReportContent: React.FC = () => {
           <RecommendList isActive={true} whatComponent="mypage" />
         </RecommendWrapper>
         <PreferenceButton onClick={preferenceShow}>
-          {isPreferencesShow ? '선호도 접기' : '나의 선호도 보기'}
+          {isPreferencesShow ? "선호도 접기" : "나의 선호도 보기"}
         </PreferenceButton>
         <PreferenceWrapper isPreferencesShow={isPreferencesShow}>
           {preferences === null ? (

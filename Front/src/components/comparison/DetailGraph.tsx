@@ -28,8 +28,8 @@ type StylePros = {
 };
 
 const GraphWrapper = styled.figure`
-  ${tw`flex-c w-[95%] h-[full] pt-2 pb-8
-  max-sm:w-full max-sm:h-[300px] max-sm:items-center max-sm:mx-0 `}
+  ${tw`flex-c w-[87%] h-[full] pt-2 pb-8 mx-auto
+  max-sm:h-[300px] max-sm:mx-0 max-sm:px-5`}
 `;
 
 const GraphLegend = styled.figcaption`

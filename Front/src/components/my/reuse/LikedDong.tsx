@@ -13,7 +13,7 @@ interface Props {
 }
 
 const DongWrapper = styled.li`
-  ${tw`flex w-full bg-white text-xl rounded-lg  my-1
+  ${tw`flex w-full bg-white text-xl rounded-lg
   max-sm:h-12`}
 `;
 

@@ -4,14 +4,14 @@ export default {
   theme: {
     extend: {
       cursor: {
-        mango: 'url(./src/assets/mango.png), auto',
+        mango: 'url(/mango.png), auto',
         appleMango: 'url(./src/assets/appleMango.png), pointer',
       },
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
         jamsilLight: ['TheJamsil3Regular'],
-        chosun : ['ChosunSg'],
-        chosunKg : ['ChosunKg']
+        chosun: ['ChosunSg'],
+        chosunKg: ['ChosunKg'],
       },
       fontSize: {
         10: ['10px'],

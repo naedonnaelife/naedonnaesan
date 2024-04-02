@@ -111,7 +111,7 @@ function KakaoMap({
       strokeColor: '#FB8D75',
       strokeOpacity: 0.7,
       fillColor: '#FB8D75',
-      fillOpacity: 0.2,
+      fillOpacity: 0.1,
     });
     polygon.setMap(map);
     setDongPolygon(polygon);

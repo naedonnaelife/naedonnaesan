@@ -7,7 +7,7 @@ import Column from '../components/comparison/Column.tsx';
 import DongAdd from '../components/comparison/DongAdd.tsx';
 
 const Main = styled.main`
-  ${tw`flex w-full h-full 
+  ${tw`flex w-full h-full-nav
   max-sm:flex-col max-sm:items-center max-sm:w-full`}
 `;
 

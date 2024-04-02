@@ -42,7 +42,7 @@ const KeywordsWrapper = styled.div`
 `;
 
 const KeywordButton = styled.button`
-  ${tw`bg-gray rounded-full px-4 py-1 text-sm mr-2 hover:bg-deepGray hover:duration-200`}
+  ${tw`bg-gray rounded-full px-4 py-1 text-sm mr-2 hover:bg-deepGray duration-200`}
 `;
 
 const KeywordTitle = styled.div`
@@ -53,6 +53,15 @@ const NewsWrapper = styled.aside`
   ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white z-1 overflow-y-auto
     max-sm:absolute max-sm:top-0 max-sm:w-[100%]`}
   ${({ isNewsListOpen }: NewsWrapperProps) => (isNewsListOpen ? '' : tw`max-sm:hidden`)}
+  ::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
+  :hover::-webkit-scrollbar-thumb {
+    background: #d5d5d5;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c5c5c5;
+  }
 `;
 
 const Card = styled.article`

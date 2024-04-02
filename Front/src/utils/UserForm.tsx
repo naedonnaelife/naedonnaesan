@@ -3,6 +3,7 @@ import tw, { styled } from "twin.macro";
 import UseAxios from "./UseAxios";
 import Alert from './Alert';
 import { useNavigate } from "react-router-dom";
+import dongCode from "../datas/dongdong.json"
 
 type EventType = React.ChangeEvent<HTMLInputElement>;
 
@@ -38,6 +39,7 @@ function UserForm() {
   const [gender, setGender] = useState("F");
   const [name, setName] = useState("");
   const [coordinate, SetCoordinate] = useState({})
+  const [dongName, SetDongName] = useState("")
   const axios = UseAxios();
   const navigate = useNavigate()
   const inputData = {
@@ -45,7 +47,8 @@ function UserForm() {
     address,
     gender,
     name,
-    coordinate
+    coordinate,
+    dongName
   };
 
   const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
@@ -77,6 +80,9 @@ function UserForm() {
         if(status === daum.maps.services.Status.OK){
           const roadData = result[0].road_address
           SetCoordinate({x : roadData.x, y : roadData.y})
+          const code = result[0].address.b_code.slice(0, 8)
+          const getDongData = dongCode.find(e => e.code === code)
+          SetDongName(getDongData? getDongData.dong : '')
         }
       })
     }
@@ -104,15 +110,9 @@ function UserForm() {
       Alert({title:'', content:'정보를 모두 입력해 주세요.', icon: 'info'});
     }
   };
-  // 테스트
-  // const testAlert = () => {
-  //   Alert({ title: "title", content: "필요하면 넣고 아니면 빈문자열", icon: "info" });
-  //   console.log("경고");
-  // };
   
   return (
     <FormWrapper>
-      {/* <div onClick={testAlert}>Alert 테스트</div> */}
       <Form onSubmit={inputUserInfo}>
         <Label htmlFor="">
           <span>성별</span>

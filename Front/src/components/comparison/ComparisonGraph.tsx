@@ -55,7 +55,20 @@ const ComparisonGraph: React.FC<CardIndexProps> = ({
     plugins: {
       legend: {
         display: false,
+        
       },
+      tooltip: {
+        callbacks: {
+          label: function(context:any) {
+              let label = context.dataset.label || '';
+              if (label) {
+                label += ': ' + Math.abs(context.parsed.x);
+              }
+              return label;
+          }
+        }
+      }
+      
     },
     scales: {
       // 구분선 가리기

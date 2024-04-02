@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import tw, { styled } from 'twin.macro';
-import SearchBar from '../../utils/SearchBar';
-import UseAxios from '../../utils/UseAxios';
-import Alert, { ConfirmAlert } from '../../utils/Alert.tsx';
-import like from '../../assets/like.png';
-import chunsik from './newChunsik.gif';
+import React, { useEffect, useState } from "react";
+import tw, { styled } from "twin.macro";
+import SearchBar from "../../utils/SearchBar";
+import UseAxios from "../../utils/UseAxios";
+import Alert, { ConfirmAlert } from "../../utils/Alert.tsx";
+import like from "../../assets/like.png";
+import chunsik from "./newChunsik.gif";
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -14,7 +14,7 @@ interface DongAddProps {
 }
 
 const Aside = styled.aside`
-  ${tw`h-[100%] border-r-2 border-lightGray p-2
+  ${tw`h-[100%] border-r-2 border-lightGray px-4
   max-sm:flex max-sm:flex-col max-sm:border-0`}
 `;
 
@@ -34,12 +34,21 @@ const LikedDongTitle = styled.h2`
 `;
 
 const LikeDongList = styled.ul`
-  ${tw`h-[350px] overflow-y-scroll
+  ${tw`h-[430px] overflow-y-scroll
   max-sm:flex max-sm:h-[40px] max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
+  ::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
+  :hover::-webkit-scrollbar-thumb {
+    background: #d5d5d5;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c5c5c5;
+  }
 `;
 
 const Dong = styled.li`
-  ${tw`flex justify-between w-full border-2 border-lightGray rounded-lg my-1 p-1
+  ${tw`flex justify-between w-full border-basic my-2 p-1 duration-200 hover:bg-sbWhite 
   max-sm:flex-c max-sm:h-8 max-sm:border-0 max-sm:rounded-full max-sm:bg-dongButton max-sm:text-base max-sm:mr-2 max-sm:px-3 max-sm:cursor-pointer max-sm:hover:bg-dongButtonHover`}
 `;
 
@@ -49,7 +58,7 @@ const SearchWrapper = styled.div`
 `;
 
 const LikeButton = styled.button`
-  ${tw`w-[30px] h-[30px]
+  ${tw`w-[30px] h-[30px] hover:animate-wiggle-more hover:animate-infinite
   max-sm:hidden`}
 `;
 
@@ -64,9 +73,14 @@ const Image = styled.img`
   ${tw`animate-jump delay-1000`}
 `;
 
-const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1, selected2 }) => {
+const DongAdd: React.FC<DongAddProps> = ({
+  setSelected1,
+  setSelected2,
+  selected1,
+  selected2,
+}) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
-  const [searchDong, setSearchDong] = useState<string>('');
+  const [searchDong, setSearchDong] = useState<string>("");
   const axios = UseAxios();
 
   useEffect(() => {
@@ -75,9 +89,11 @@ const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1
 
   useEffect(() => {
     axios
-      .get('/api/mypage/likelist')
+      .get("/api/mypage/likelist")
       .then((response) => {
-        const newLikedDongList = response.data.object.map((dong: any) => dong.dongName);
+        const newLikedDongList = response.data.object.map(
+          (dong: any) => dong.dongName
+        );
         setLikedDongList(newLikedDongList);
         return newLikedDongList;
       })
@@ -90,9 +106,9 @@ const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1
     // 똑같은 동 또 추가
     if (dong === selected1 || dong === selected2) {
       Alert({
-        title: '',
-        content: '이미 선택된 동네입니다. 다른 동네를 선택해주세요.',
-        icon: 'info',
+        title: "",
+        content: "이미 선택된 동네입니다. 다른 동네를 선택해주세요.",
+        icon: "info",
       });
       return;
     }
@@ -104,9 +120,9 @@ const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1
     } else {
       // 둘다 선택해놓고 또 추가하면
       Alert({
-        title: '',
-        content: '지역이 선택되어 있습니다. 변경하려면 기존 지역을 삭제하세요.',
-        icon: 'info',
+        title: "",
+        content: "지역이 선택되어 있습니다. 변경하려면 기존 지역을 삭제하세요.",
+        icon: "info",
       });
     }
   };
@@ -114,14 +130,16 @@ const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1
   const removeLike = async (name: string) => {
     // 여기 alert 창 추가
     const confirm = await ConfirmAlert({
-      title: '',
+      title: "",
       content: `<strong>${name}</strong>을 <strong style="color:red;">삭제</strong>하시겠습니까?`,
-      icon: 'question',
+      icon: "question",
     });
     if (confirm) {
-      axios.delete('/api/zzim', { data: { dongName: name } });
+      axios.delete("/api/zzim", { data: { dongName: name } });
       console.log(likedDongList);
-      setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim !== name));
+      setLikedDongList((prev: any) =>
+        prev.filter((zzim: any) => zzim !== name)
+      );
     }
   };
 

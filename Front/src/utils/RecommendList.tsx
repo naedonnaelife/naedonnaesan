@@ -56,7 +56,7 @@ const Distance = styled.span`
 `;
 
 const Like = styled.button`
-  ${tw`flex justify-center items-center w-[30px] h-[30px] ml-auto mr-[1vw]`}
+  ${tw`flex justify-center items-center w-[30px] h-[30px] ml-auto mr-[1vw] hover:animate-wiggle-more hover:animate-infinite`}
   ${({ color }: StyleProps) => `border-color : ${color}`};
 `;
 

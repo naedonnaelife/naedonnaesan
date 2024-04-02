@@ -17,14 +17,14 @@ const Alert = (data :AlertProps) => {
         showClass: {
           popup: `
             animate__animated
-            animate__fadeInUp
-            animate__faster
+            animate__bounceIn
+            animate__fast
           `
         },
         hideClass: {
           popup: `
             animate__animated
-            animate__fadeOutDown
+            animate__bounceOutUp
             animate__faster
           `
         }

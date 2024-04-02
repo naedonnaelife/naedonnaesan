@@ -12,6 +12,10 @@ const ReportWrapper = styled.section`
     max-sm:w-[100%] max-sm:h-[100%] max-sm:p-0`}
 `;
 
+const SearchWrapper = styled.div`
+  ${tw`p-1`}
+`
+
 interface ReportProps {
   isNewsOpen: boolean;
   setIsNewsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,7 +58,10 @@ const Report: React.FC<ReportProps> = ({ isNewsOpen, setIsNewsOpen, searchDong, 
         <ReportNews setIsNewsOpen={setIsNewsOpen} />
       ) : (
         <>
+        <SearchWrapper>
+
           <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
+        </SearchWrapper>
           <RadarChart seoulData={seoulScores} dongData={dongScores} searchDong={searchDong} />
           <TableChart dongData={dongCounts} seoulData={seoulCounts} searchDong={searchDong} />
           <TextBox searchDong={searchDong} />

@@ -22,7 +22,7 @@ type News = {
 
 const NewsWrapper = styled.article`
   ${tw`h-[100%] border-basic relative px-4 py-10
-  max-sm:z-10`}
+  max-sm:z-30`}
 `;
 
 const NewsTitle = styled.h1`

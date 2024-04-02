@@ -57,7 +57,7 @@ const NewsWrapper = styled.aside`
 `;
 
 const Card = styled.article`
-  ${tw`flex w-[100%] h-[15%] p-2
+  ${tw`flex w-[100%] h-[18%] p-2
     max-sm:h-[18%] `}
 `;
 
@@ -87,7 +87,8 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
   const [newsList, setNewsList] = useState<News[]>([]);
   const [page, setPage] = useState(0);
   const [isLast, setIsLast] = useState(false);
-
+  const [prevProps, setPrevProps] = useState(keyword)
+  const [temp, setTemp] = useState(keyword);
   const [pageRef, inView] = useInView();
   const axios = UseAxios();
 
@@ -100,27 +101,40 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
   };
   // 키워드 버튼 클릭 시 동작
   const handleKeywordClick = (keyword: string) => {
-    setKeyword(keyword);
+    setKeyword(keyword); // 기존 로직 유지
+    setTemp(keyword); // input의 값을 업데이트하기 위해 temp 상태도 함께 업데이트
     // 페이지를 0으로 초기화하고 기존 뉴스 리스트를 초기화한 후 검색을 시작합니다.
     setPage(0);
     setNewsList([]);
     setIsLast(false);
   };
   
+  
 
   const getNewsList = async () => {
+    let getPage = page;
+    let getNews = isLast;
     console.log('검색 키워드 : ', keyword);
-    const response = await axios.get(`/api/dashboard/news/keyword`, {params: {searchWord : keyword, page: page}});
-    
-    // 연속된 공백을 1개로 줄이는 처리를 적용한 뉴스 리스트 생성
-    const cleanedArticles = response.data.object.articleDtoList.map((article: News) => ({
-      ...article,
-      article: article.article.replace(/\s{2,}/g, ' ') // 본문 내 연속된 공백을 1개로 줄임
-    }));
-  
-    setNewsList([...newsList, ...cleanedArticles]); // 처리된 뉴스 리스트로 상태 업데이트
-    setIsLast(response.data.object.last);
-    setPage((prev) => prev + 1);
+    if (keyword !== prevProps) {
+      setPrevProps(keyword);
+      getPage = 0;
+      getNews = false;
+    }
+    console.log(getNews)
+    if (!getNews){
+
+      const response = await axios.get(`/api/dashboard/news/keyword`, {params: {searchWord : keyword, page: getPage}});
+      
+      // 연속된 공백을 1개로 줄이는 처리를 적용한 뉴스 리스트 생성
+      const cleanedArticles = response.data.object.articleDtoList.map((article: News) => ({
+        ...article,
+        article: article.article?.replace(/\s{2,}/g, ' ') // 본문 내 연속된 공백을 1개로 줄임
+      }));
+      
+      setNewsList([...newsList, ...cleanedArticles]); // 처리된 뉴스 리스트로 상태 업데이트
+      setIsLast(response.data.object.last);
+      setPage((prev) => prev + 1);
+    }
   };
 
   // 오늘의 뉴스 키워드 데이터를 가져오는 함수
@@ -142,14 +156,13 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
     if (inView && !isLast){
       getNewsList();
     }
-    // fetchKeywords 함수 호출 및 setKeywords 함수 전달
-    fetchKeywords();
   }, [inView, keyword]);
 
   const handleClick = () => {
     setPage(0)
     setNewsList([])
     setIsLast(false)
+    setKeyword(temp);
   }
 
   const handleWidth = () => {
@@ -160,6 +173,8 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
   }
 
   useEffect(()=>{
+    // fetchKeywords 함수 호출 및 setKeywords 함수 전달
+    fetchKeywords();
     window.addEventListener('resize', handleWidth) 
     return () => {
       window.removeEventListener('resize', handleWidth);
@@ -180,8 +195,8 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
         <SearchWrapper>
         <KeywrodInput
             type="text"
-            value={keyword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
+            value={temp}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTemp(e.target.value)}
             onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
               if (e.key === 'Enter') {
                 handleClick(); // 엔터키를 눌렀을 때 실행할 함수, 이 경우는 검색을 시작하는 함수입니다.

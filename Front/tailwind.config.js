@@ -4,12 +4,13 @@ export default {
   theme: {
     extend: {
       cursor: {
-        mango: 'url(/mango.png), auto',
-        appleMango: 'url(./src/assets/appleMango.png), pointer',
+        pointer: 'url(/appleMango.png) 16 16 , pointer',
+        mango: 'url(/mango.png) 16 16, auto',
       },
       fontFamily: {
         jamsil: ['TheJamsil5Bold', 'sans-serif'],
         jamsilLight: ['TheJamsil3Regular'],
+        jamsilMedium: ['TheJamsil4Medium'],
         chosun: ['ChosunSg'],
         chosunKg: ['ChosunKg'],
       },
@@ -42,7 +43,7 @@ export default {
         // 테스트
       },
       height: {
-        'full-nav': 'calc(100vh - 60px)',
+        'full-nav': 'calc(100vh - 50px)',
       },
       width: {
         'calc-7': 'calc(100vw / 7)',
@@ -74,9 +75,7 @@ export default {
           backgroundColor: '#ffffff',
           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         },
-        // '.custom-cursor': {
-        //   cursor: 'url("/../src/assets/mango.png"), auto',
-        // },
+
       };
       addUtilities(newUtilities);
     },

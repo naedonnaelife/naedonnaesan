@@ -21,7 +21,7 @@ const LikeTop = styled.div`
 `;
 
 const LikeTitle = styled.h1`
-  ${tw`text-3xl font-bold w-[90%]
+  ${tw`text-2xl w-[90%]
   max-sm:text-xl max-sm:mb-2 max-sm:mx-1`}
 `;
 
@@ -75,7 +75,7 @@ const Like: React.FC<LikeProps> = ({ name }) => {
       </LikeTop>
       <LikeContent>
         {likedDongList.length > 0 ? likedDongList.map((likedDong: any, index: number) => (
-          <LikedDong key={index} likedDongName={likedDong.dongName} likedDongId={likedDong.dongId} setLikedDongList={setLikedDongList}/>
+          <LikedDong key={index} guName={likedDong.guName} likedDongName={likedDong.dongName} likedDongId={likedDong.dongId} setLikedDongList={setLikedDongList}/>
         )) : <P>{name}님이 찜한 동네가 없습니다.</P>}
       </LikeContent>
     </LikeWrapper>

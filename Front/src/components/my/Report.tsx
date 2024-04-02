@@ -22,9 +22,13 @@ const ReportTitle = styled.h1`
   }
   `;
   
-  const DongChangeButton = styled.button`
+const DongChangeButton = styled.button`
   ${tw`underline underline-offset-8`}
   `;
+
+const Span = styled.span`
+  ${tw``}
+`
   
 const Report: React.FC<ReportProps> = ({name, address, setAddress}) => {
     
@@ -75,13 +79,13 @@ const Report: React.FC<ReportProps> = ({name, address, setAddress}) => {
   return (
     <ReportWrapper>
       <ReportTitle>
-        <span>{name}님의 </span>
-        <span>
+        <Span>{name}님의 </Span>
+        <Span>
           <DongChangeButton onClick={searchAddress}>
             {address}
           </DongChangeButton>{" "}
           기준
-        </span>
+        </Span>
         <p>추천 결과 보고서입니다</p>
       </ReportTitle>
       <ReportContent />

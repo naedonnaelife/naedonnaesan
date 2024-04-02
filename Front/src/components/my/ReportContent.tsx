@@ -106,7 +106,7 @@ const ReportContent: React.FC = () => {
     <>
       <Backgroud>
         <RecommendWrapper>
-          <RecommendList isActive={true} />
+          <RecommendList isActive={true} whatComponent='mypage' />
         </RecommendWrapper>
         <PreferenceButton onClick={preferenceShow}>
           {isPreferencesShow ? '선호도 접기' : '나의 선호도 보기'}

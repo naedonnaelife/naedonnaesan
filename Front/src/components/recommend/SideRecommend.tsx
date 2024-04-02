@@ -13,12 +13,17 @@ const Aside = styled.aside`
 `;
 
 const SwitchWrapper = styled.div`
-${tw` hidden w-[98%]
+${tw` hidden w-[92.5%] h-[7.5%]
   max-sm:flex`}
 `
 
+const Wrapper = styled.div`
+${tw`h-full w-[98%]
+max-sm:h-[92.5%] max-sm:w-[98%]`}
+`
+
 const Switch = styled.div`
-${tw`bg-white rounded-t-lg ml-1 mt-4 px-2 py-1 `}
+${tw` h-full bg-white rounded-t-lg ml-1 px-2`}
 ${({isActive}:StyleProps) => (isActive ? tw` bg-green-200 scale-[115%]` : tw`text-middleGray text-sm`)}
 ` 
 
@@ -40,8 +45,10 @@ const SideRecommend:React.FC = () => {
           <Switch isActive={!isActive} onClick={() => handleActive('infra')}>인프라</Switch>
           <Switch isActive={isActive} onClick={() => handleActive('recommend')}>추천결과</Switch>
         </SwitchWrapper>
-          <RecommendList isActive={isActive}/>
-          <SelectInfra isActive={isActive} handleActive={handleActive}/>
+          <Wrapper>
+            <RecommendList isActive={isActive} whatComponent='recommend'/>
+            <SelectInfra isActive={isActive} handleActive={handleActive}/>
+          </Wrapper>
       </Aside>
     </>
     );

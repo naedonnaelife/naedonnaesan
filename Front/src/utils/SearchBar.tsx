@@ -13,7 +13,7 @@ type styleProps = {
 };
 
 const Search = styled.div`
-  ${tw`relative w-full h-10 z-10`}
+  ${tw`relative w-full h-10 z-10 font-jamsilMedium`}
 `;
 
 const Wrapper = styled.div`
@@ -80,7 +80,7 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
 
   useEffect(() => {
     setKeyword(searchDong);
-  }, [searchDong])
+  }, [searchDong]);
 
   // unmount시 keyword값 초기화
 
@@ -93,9 +93,9 @@ function SearchBar({ searchDong, setSearchDong }: SearchProps) {
             placeholder="동네 검색"
             value={keyword}
             onChange={(e: any) => {
-              setKeyword(e.target.value) 
-              setIsActive(true)}
-            }
+              setKeyword(e.target.value);
+              setIsActive(true);
+            }}
             onFocus={() => setIsActive(true)}
             onBlur={() => setIsActive(false)}
             onClick={() => setIsActive(true)}

@@ -62,7 +62,7 @@ function ComparisonPage() {
             <Column selected1={selected1} selected2={selected2} category={category} setCategory={setCategory} />
             <Card selected={selected2} setSelected={setSelected2} cardIndex={2} setDetail={setDetail2} />
           </Comparison>
-          {selected1 && selected2 && category ? (
+          {selected1 && selected2 && category && detail1 && detail2 ?
             <DetailGraph
               category={category}
               selected1={selected1}
@@ -70,7 +70,7 @@ function ComparisonPage() {
               detail1={detail1}
               detail2={detail2}
             />
-          ) : null}
+            : null}
         </GraphWrapper>
       </Main>
     </>

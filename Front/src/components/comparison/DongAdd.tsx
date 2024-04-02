@@ -3,7 +3,7 @@ import tw, { styled } from "twin.macro";
 import SearchBar from "../../utils/SearchBar";
 import UseAxios from "../../utils/UseAxios";
 import Alert from "../../utils/Alert.tsx";
-import chunsik from './tenor.gif'
+import chunsik from './newChunsik.gif'
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -53,11 +53,15 @@ const LikeButton = styled.button`
 `;
 
 const Wrapper = styled.div`
-${tw`flex-cc h-full p-5`}
+${tw`flex-cc h-full p-5 animate-fade delay-500`}
 
 `
 const P = styled.p`
-${tw`text-2xl my-2`}
+${tw`text-2xl my-2 animate-jump delay-1000 `}
+`
+
+const Image = styled.img`
+  ${tw`animate-jump delay-1000`}
 `
 
 const DongAdd: React.FC<DongAddProps> = ({
@@ -149,8 +153,8 @@ const DongAdd: React.FC<DongAddProps> = ({
         </>
         : <Wrapper>
             <P>찜한 동네가 없어요 💦</P>
-            <P> 동네를 찾고 찜해보세요</P>
-            <img src={chunsik} alt="춘식이햄" />
+            <P>동네를 찾고 찜해보세요</P>
+            <Image src={chunsik} alt="춘식이햄" />
           </Wrapper>
         }
       </LikeDongWrapper>

@@ -8,6 +8,7 @@ import like from '../../../assets/like.png';
 interface Props {
   likedDongName: string;
   likedDongId: number;
+  guName: string;
   setLikedDongList: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -35,7 +36,7 @@ const LikeButton = styled.button`
   ${tw`w-[30px] h-[30px]`}
 `;
 
-const Like: React.FC<Props> = ({ likedDongName, likedDongId, setLikedDongList }) => {
+const Like: React.FC<Props> = ({ guName, likedDongName, likedDongId, setLikedDongList }) => {
   const navigate = useNavigate();
   const axios = UseAxios();
   const removeLike = async (id: number) => {
@@ -52,7 +53,7 @@ const Like: React.FC<Props> = ({ likedDongName, likedDongId, setLikedDongList })
 
   return (
     <DongWrapper>
-      <NameWrapper>{likedDongName}</NameWrapper>
+      <NameWrapper>{guName} {likedDongName}</NameWrapper>
       <ButtonWrapper style={{ marginLeft: 'auto' }}>
         <Button
           style={{ marginRight: '10px' }}

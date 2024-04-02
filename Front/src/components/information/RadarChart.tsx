@@ -34,6 +34,7 @@ const RadarChart: React.FC<RadarProps> = ({ dongData, seoulData, searchDong }) =
         borderWidth: 1,
       },
     ],
+    
   };
 
   const chartOptions = {

@@ -53,6 +53,15 @@ const NewsWrapper = styled.aside`
   ${tw`w-[25%] h-[100%] border-r-2 border-lightGray drop-shadow-lg bg-white z-1 overflow-y-auto
     max-sm:absolute max-sm:top-0 max-sm:w-[100%]`}
   ${({ isNewsListOpen }: NewsWrapperProps) => (isNewsListOpen ? '' : tw`max-sm:hidden`)}
+  ::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
+  :hover::-webkit-scrollbar-thumb {
+    background: #d5d5d5;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c5c5c5;
+  }
 `;
 
 const Card = styled.article`

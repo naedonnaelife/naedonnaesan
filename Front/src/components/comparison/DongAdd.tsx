@@ -36,6 +36,15 @@ const LikedDongTitle = styled.h2`
 const LikeDongList = styled.ul`
   ${tw`h-[430px] overflow-y-scroll
   max-sm:flex max-sm:h-[40px] max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
+  ::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
+  :hover::-webkit-scrollbar-thumb {
+    background: #d5d5d5;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c5c5c5;
+  }
 `;
 
 const Dong = styled.li`

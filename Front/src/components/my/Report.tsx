@@ -15,7 +15,7 @@ const ReportWrapper = styled.section`
 `;
 
 const ReportTitle = styled.h1`
-  ${tw`text-3xl font-bold mx-5 my-3
+  ${tw`text-2xl mx-5 my-3
   max-sm:text-xl max-sm:mx-2`}
   span {
     ${tw`max-sm:block`}

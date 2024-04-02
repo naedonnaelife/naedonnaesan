@@ -42,7 +42,7 @@ const KeywordsWrapper = styled.div`
 `;
 
 const KeywordButton = styled.button`
-  ${tw`bg-gray rounded-full px-4 py-1 text-sm mr-2`}
+  ${tw`bg-gray rounded-full px-4 py-1 text-sm mr-2 hover:bg-deepGray hover:duration-200`}
 `;
 
 const KeywordTitle = styled.div`
@@ -73,7 +73,7 @@ const KeywordInput = styled.input`
 `;
 
 const SearchButton = styled.button`
-  ${tw` w-[30%] ml-2 bg-blue-500 text-white p-2 rounded`}
+  ${tw` w-[30%] ml-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 hover:duration-200`}
 `;
 
 const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
@@ -144,7 +144,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
         setKeywords(response.data.object.keywords);
       }
     } catch (error) {
-      console.error('오늘의 뉴스 키워드 조회 실패:', error);
+      console.error('뉴스 키워드 조회 실패:', error);
     }
   };
 
@@ -183,7 +183,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
     <NewsWrapper isNewsListOpen={isNewsListOpen}>
       <KeywordAndSearchWrapper>
         <KeywordsWrapper>
-          <KeywordTitle>오늘의 뉴스 키워드</KeywordTitle>
+          <KeywordTitle>1년 전, 오늘의 뉴스 키워드</KeywordTitle>
           {keywords.map((keyword) => (
             <KeywordButton key={keyword} onClick={() => handleKeywordClick(keyword)}>
               {keyword}

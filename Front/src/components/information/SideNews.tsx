@@ -68,7 +68,7 @@ const SearchWrapper = styled.div`
   ${tw`flex items-center p-1 w-full`}
 `;
 
-const KeywrodInput = styled.input`
+const KeywordInput = styled.input`
   ${tw`w-[70%] border-basic p-2 m-1`}
 `;
 
@@ -191,7 +191,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
           ))}
         </KeywordsWrapper>
         <SearchWrapper>
-          <KeywrodInput
+          <KeywordInput
             type="text"
             value={temp}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTemp(e.target.value)}

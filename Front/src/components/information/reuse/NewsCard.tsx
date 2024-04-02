@@ -38,11 +38,9 @@ const NewsTitle = styled.h1`
 `;
 
 const NewsContent = styled.p`
-  ${tw`text-sm line-clamp-2 overflow-hidden`}
+  ${tw`text-sm line-clamp-2 overflow-hidden font-jamsilLight`}
   margin: 0.25em 0; /* 본문의 상하단 마진 조정 */
 `;
-
-
 
 const NewsCard: React.FC<newsCardProps> = ({ news }) => {
   return (
@@ -55,7 +53,5 @@ const NewsCard: React.FC<newsCardProps> = ({ news }) => {
     </CardWrapper>
   );
 };
-
-
 
 export default NewsCard;

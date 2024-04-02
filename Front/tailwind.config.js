@@ -26,6 +26,7 @@ export default {
         lightGray: '#E8E8E8',
         middleGray: `#9ca3af`,
         gray: '#D5D5D5',
+        deepGray: '#C5C5C5',
         grayMiddle: '#8D8D95',
         grayMiddle2: '#797981',
         grayHover: '#464555',
@@ -75,7 +76,6 @@ export default {
           backgroundColor: '#ffffff',
           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         },
-
       };
       addUtilities(newUtilities);
     },

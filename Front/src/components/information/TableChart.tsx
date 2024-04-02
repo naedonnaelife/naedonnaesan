@@ -17,7 +17,7 @@ const Thead = styled.thead`
   ${tw`bg-choco text-white`}
 `;
 const Tbody = styled.tbody`
-  ${tw``}
+  ${tw`font-jamsilMedium`}
 `;
 const BodyTr = styled.tr`
   ${tw`border-b-2 border-lightGray`}
@@ -30,7 +30,7 @@ const Td = styled.td`
 `;
 
 const TableChart: React.FC<DataProps> = ({ seoulData, dongData, searchDong }) => {
-  const infraList = ['🚨 편의시설', '🚨 치안', '🎨 여가', '🏥 보건', '🍔 음식점', '🛒 카페', '🛒 술집', '🚌 대중교통'];
+  const infraList = ['🛒 편의시설', '🚨 치안', '🎨 여가', '🏥 보건', '🍔 음식점', '☕ 카페', '🍺 술집', '🚌 대중교통'];
   return (
     <TableWrapper>
       <Table>

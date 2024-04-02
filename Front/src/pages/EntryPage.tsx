@@ -26,12 +26,13 @@ const Main = styled.main`
 const EntryWrapper = styled.section`
   ${tw`flex-cc w-[60vh] h-[60vh]
   max-sm:h-[40vh]`}
-  
 `;
+
 const LogoImage = styled.img`
   ${tw`flex-cc w-[50vh] h-[50vh] mt-8`}
   animation : ${fadeIn} 1s ease-in-out
 `;
+
 const P = styled.p`
   ${tw` h-[40%] text-3xl -mt-5 mb-5
   max-sm:text-lg`}
@@ -53,7 +54,6 @@ const EntryPage:React.FC = () => {
         {introduce.map((element, index) => (
           <Card key={index} index={index} data={element} />
         ))}
-        {/* <TopScrollButton onClick={scrollToTop}> ☝ </TopScrollButton> */}
       </Main>
     </>
   );

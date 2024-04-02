@@ -6,13 +6,17 @@ import Comparison from './pages/ComparisonPage.tsx';
 import Recommend from './pages/RecommendPage.tsx';
 import Building from './pages/BuildingPage.tsx';
 import InitialForm from './pages/InitialFormPage.tsx';
+// import PrivateRoute from './PrivateRoute.tsx';
 
 function AppRoutes() {
+
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Entry />} />
-        <Route path="/my" element={<My />} />
+        <Route path="/" element={<My />} />
+        {/* <Route path="/my" element={<PrivateRoute isLogin={access} component={<My />} />}></Route> */}
         <Route path="/information" element={<Information />} />
         <Route path="/comparison" element={<Comparison />} />
         <Route path="/recommend" element={<Recommend />} />

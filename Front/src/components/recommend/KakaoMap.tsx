@@ -17,7 +17,7 @@ const Map = styled.div`
 `;
 
 const BackSpace = styled.button`
-  ${tw`absolute right-4 bottom-4 rounded-lg z-10 h-[100px] w-[100px] bg-gray opacity-70
+  ${tw`absolute right-4 bottom-4 rounded-lg z-10 h-[100px] w-[100px] bg-choco text-white opacity-80 hover:bg-black 
   max-sm:left-[2.5vw] max-sm:top-[47vh] max-sm:h-[50px] max-sm:w-[50px] max-sm:text-xs`}
 `
 
@@ -56,6 +56,7 @@ const KakaoMap: React.FC = () => {
   const [newMap, setNewMap] = useState<any>(null);
   const [markers, setMarkers] = useState<any>(null);
   const [isView, setisView] = useState(false);
+  const [dongList, setDongList] = useState(['']);
   const mapRef = useRef<any>(null);
   const isSmallRef = useRef<boolean | null>(null);
   const mapLevelRef = useRef<number | null>(null);
@@ -171,14 +172,14 @@ const KakaoMap: React.FC = () => {
     polygons.current.map((polygon: any) => polygon.setMap(null));
 
     newJson.forEach((unit: any) => {
-      const isSelected = unit.name === areaName;
+      const isSelected = (unit.name === areaName || dongList.includes(unit.name)) 
       const polygon = new kakao.maps.Polygon({
         map: map,
         path: unit.coordinates,
         strokeWeight: 3,
         strokeColor: '#403800',
         strokeOpacity: 0.8,
-        fillColor: isSelected ? '#aae4c1' : '#F3F4F6',
+        fillColor: isSelected? '#aae4c1' : '#F3F4F6',
         fillOpacity: 0.7,
         zIndex: 10,
       });
@@ -248,7 +249,7 @@ const KakaoMap: React.FC = () => {
       const findDong = (newDong as any).features.find((dong:any) => dong.properties.EMD_KOR_NM === e).properties
       return {dongName : e, x : findDong.x, y : findDong.y}
     })
-    
+    setDongList(dongNameList)
     if(newMap){
       if(markers){
         markers.map((e:any) =>{ 

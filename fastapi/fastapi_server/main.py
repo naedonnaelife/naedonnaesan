@@ -121,9 +121,11 @@ async def predict(preference: PredictRequest):
         'recommend': [{'dongId': Id, 'dongName': Name} for Id, Name in zip(recommend.iloc[0, :], recommend.iloc[1, :])]
     }
     spring_boot_response = await send_data_to_spring_boot(response, preference.token)
+
     for data, obj in zip(response['recommend'], spring_boot_response['object']):
-        data['distance'] = obj['distance']
+        data['guName'] = obj['guName']
         data['zzim'] = obj['zzim']
+        data['distance'] = obj['distance']
 
     return response
 

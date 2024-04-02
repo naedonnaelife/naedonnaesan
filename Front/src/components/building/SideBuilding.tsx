@@ -142,17 +142,21 @@ function SideBuilding({
   };
 
   useEffect(() => {
+    let getPage = page;
+    let getBuilding = isLast;
     if (prevProps !== searchDong) {
       setPage(0);
       setIsLast(false);
       setBuildingList([]);
       setPrevProps(searchDong);
+      getPage = 0;
+      getBuilding = false;
     }
 
-    if (inView && !isLast) {
+    if (inView && !getBuilding) {
       const getBuildingList = () => {
         axios
-          .get('/api/buildings/name', { params: { dongname: searchDong, page: page } })
+          .get('/api/buildings/name', { params: { dongname: searchDong, page: getPage } })
           .then((response) => {
             if (response.data.object.buildingDtoList.length === 0) {
               Alert({ title: '', content: `${searchDong}에 매물이 존재하지 않습니다.`, icon: 'error' });

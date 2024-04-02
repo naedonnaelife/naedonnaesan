@@ -180,7 +180,7 @@ function KakaoMap({
           // calculator 각 사이 값 마다 적용될 스타일을 지정한다
           width: '27px',
           height: '27px',
-          background: `url("/src/assets/redhouse.png") round`,
+          background: `url("./src/assets/redhouse.png") round`,
           color: '#fff', // 글자색
           // opacity: '0.7',
           border: 'black',

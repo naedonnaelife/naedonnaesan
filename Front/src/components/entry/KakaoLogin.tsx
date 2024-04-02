@@ -44,13 +44,14 @@ const KakaoLogin:React.FC = () => {
       }
       
       const kakaoLogout = () => {
-        const kakaoToken = localStorage?.getItem('kakaoToken');
-        axios.post(`/api/logout`, {}, 
-        {headers : {"kakao-authorization" : kakaoToken}}
-        ).then(() =>{
-          localStorage.clear()
-          useStore.setIsLogin(false)
-        })
+        // const kakaoToken = localStorage?.getItem('kakaoToken');
+        // axios.post(`/api/logout`, {}, 
+        // {headers : {"kakao-authorization" : kakaoToken}}
+        // ).then(() =>{
+        //   localStorage.clear()
+        //   useStore.setIsLogin(false)
+        // })
+        navigate('/recommend')
       }
     
     const getToken = async (code:any) => {
@@ -89,7 +90,7 @@ const KakaoLogin:React.FC = () => {
     return( 
     <>
       {!useStore.isLogin &&<LoginButton onClick={kakaoLogin}>로그인하고 시작하기</LoginButton>}
-      {useStore.isLogin &&<LoginButton onClick={kakaoLogout}>로그아웃</LoginButton>}
+      {useStore.isLogin &&<LoginButton onClick={kakaoLogout}>시작하기</LoginButton>}
     </>
     )
 }

@@ -48,7 +48,7 @@ const Index = styled.h3`
 `;
 
 const TownName = styled.p`
-  ${tw`flex-c cursor-appleMango hover:scale-105 hover:text-red hover:font-bold ml-[2vw] `}
+  ${tw`flex-c cursor-pointer hover:scale-105 hover:text-red hover:font-bold ml-[2vw] `}
 `;
 
 const Distance = styled.span`

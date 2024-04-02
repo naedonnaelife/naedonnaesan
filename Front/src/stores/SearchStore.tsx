@@ -7,6 +7,7 @@ type recommendDong = {
   dongId : number;
   zzim : boolean;
   distance : number;
+  guName : string;
 }[]
 
 interface BearState {

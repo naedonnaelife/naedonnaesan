@@ -29,9 +29,9 @@ const Button = styled.button`
   ${({ isActive }: isButtonProps) => (isActive ? tw`z-1 border-b-0 bg-white scale-125` : '')}
 `;
 
-const FlexItemWrapper = styled.div`
-  ${tw`flex flex-grow`}
-`;
+// const FlexItemWrapper = styled.div`
+//   ${tw`flex flex-grow`}
+// `;
 
 const InformationPage: React.FC = () => {
   const [isNewsOpen, setIsNewsOpen] = useState<boolean>(false);

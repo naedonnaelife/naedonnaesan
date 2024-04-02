@@ -24,14 +24,24 @@ type Detail = {
   totalCount: number;
 }
 
+type StylePros = {
+  length: number;
+}
+
 const GraphWrapper = styled.figure`
-  ${tw`flex-c w-[33%] h-[400px] border-t-2 border-gray m-7 mb-5 pt-5
+  ${tw`flex-c w-[95%] h-[full] border-t-2 border-gray m-7 mb-5 pt-5
   max-sm:w-full max-sm:h-[300px] max-sm:items-center max-sm:mx-0 `}
 `;
 
 const GraphTitle = styled.h1`
-  ${tw`flex-c text-2xl`}
+  ${tw`flex-c text-2xl mt-10`}
 `;
+
+const TestBox = styled.div`
+  ${tw`h-[40vh]
+  max-sm:h-[30vh]`}
+  ${({length}:StylePros) => `width: ${length}%`};
+`
 
 const Graph: React.FC<DetailGraphProps> = ({
   category,
@@ -41,30 +51,8 @@ const Graph: React.FC<DetailGraphProps> = ({
   detail2,
 }) => {
   const [infraList, setInfraList] = useState([])
+  const [, setWindowSize] = useState({width: window.innerWidth,});
   ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
-  // 상태를 사용하여 창 크기 변화 감지
-  const [, setWindowSize] = useState({
-    width: window.innerWidth,
-  });
-
-  useEffect(() => {
-    console.log('category : ', category, 'selcted1 : ', selected1, "selected2 : ", selected2, 'detail1 : ', detail1, 'detail2 : ', detail2)
-    
-    // const detailData1 = detail1.filter((e:Detail) => e.infraTypeName === category)
-    // const detailData2 = detail2.filter((e:Detail) => e.infraTypeName === category).map((e:Detail, index:number) => {
-    //   return [e.infraName, e.totalCount, detailData1[index].totalCount]
-    // })
-    // console.log(detailData2)
-    // setInfraList(detailData2)
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-      });
-    };
-    window.addEventListener("resize", handleResize);
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const options = {
     responsive: true,
@@ -75,48 +63,62 @@ const Graph: React.FC<DetailGraphProps> = ({
       },
     },
     scales: {
-      // 구분선 보이게
       x: { display: true },
-      y: { display: true },
+      y: { display: false },
     },
   };
 
-  const labels = detail1 ? detail1.reduce((labelArray: string[], detail: any) => {
-    if (detail.infraTypeName === category) {
-      labelArray.push(detail.infraName);
-    }
-    return labelArray;
-  }, []) : [];
 
-  const getData = e => {
+  const getData = (e:any) => {
       const test = {
-      labels : e[0],
+      labels : [e[0]],
       datasets: [
         {
           label: `${selected1}`,
-          data: e[1],
+          data: [e[1]],
           backgroundColor: "#8EBE6D",
         },
         {
           label: `${selected2}`,
-          data: e[2],
+          data: [e[2]],
           backgroundColor: "#FB8D75",
         },
       ],
     }
-    console.log(test)
     return test
     };
 
+  useEffect(()=>{
+    const detailData1 = detail1.filter((e:Detail) => e.infraTypeName === category)
+    const detailData2 = detail2.filter((e:Detail) => e.infraTypeName === category).map((e:Detail, index:number) => {
+      return [e.infraName, detailData1[index].totalCount, e.totalCount]
+    })
+    setInfraList(detailData2)
+  }, [category])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  
   return (
     <>
-    <GraphTitle>
-        {selected1} {selected2} {category} 수 비교
-    </GraphTitle>
+      <GraphTitle>
+          {selected1} {selected2} {category} 수 비교
+      </GraphTitle>
       <GraphWrapper>
-      {infraList.map((e) => <Bar options={options} data={getData(e)} />)}
-      
-    </GraphWrapper>
+        {infraList.map((e) => 
+        <TestBox length={(100 / infraList.length)}>
+          <Bar options={options} data={getData(e)} />
+        </TestBox>
+        )}
+      </GraphWrapper>
     </>
   );
 };

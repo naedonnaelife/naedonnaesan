@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       cursor: {
-        mango: 'url(./src/assets/mango.png), auto',
+        mango: 'url(/mango.png), auto',
         appleMango: 'url(./src/assets/appleMango.png), pointer',
       },
       fontFamily: {

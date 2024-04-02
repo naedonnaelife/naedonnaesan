@@ -15,4 +15,5 @@ public class FormDto {
     private Gender gender;
     private String name;
     private Coordinate coordinate;
+    private String dongName;
 }

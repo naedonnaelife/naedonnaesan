@@ -68,7 +68,7 @@ public class UserService {
         User user = getUser();
 
         List<ZzimDto> zzimList = user.getZzimList().stream()
-                .map(zzim -> new ZzimDto(zzim.getDong().getDongId(), zzim.getDong().getDongName()))
+                .map(zzim -> new ZzimDto(zzim.getDong().getDongId(), zzim.getDong().getDongName(), zzim.getDong().getGu().getGuName()))
                 .collect(Collectors.toList());
 
         return zzimList;

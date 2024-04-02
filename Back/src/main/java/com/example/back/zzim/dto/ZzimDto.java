@@ -14,4 +14,5 @@ public class ZzimDto {
     private Long dongId;
     private String dongName;
 //    private User user;
+    private String guName;
 }

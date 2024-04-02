@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ResponseDto {
     private Long dongId;
+
+    private String guName;
     private boolean isZzim;
     private Double distance;
 }

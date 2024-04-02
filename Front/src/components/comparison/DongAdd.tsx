@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import tw, { styled } from "twin.macro";
-import SearchBar from "../../utils/SearchBar";
-import UseAxios from "../../utils/UseAxios";
-import Alert from "../../utils/Alert.tsx";
-import chunsik from './newChunsik.gif'
+import React, { useEffect, useState } from 'react';
+import tw, { styled } from 'twin.macro';
+import SearchBar from '../../utils/SearchBar';
+import UseAxios from '../../utils/UseAxios';
+import Alert, { ConfirmAlert } from '../../utils/Alert.tsx';
+import like from '../../assets/like.png';
+import chunsik from './newChunsik.gif';
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -48,30 +49,24 @@ const SearchWrapper = styled.div`
 `;
 
 const LikeButton = styled.button`
-  ${tw`w-[30px] h-[30px] border-2 border-red rounded-full
+  ${tw`w-[30px] h-[30px]
   max-sm:hidden`}
 `;
 
 const Wrapper = styled.div`
-${tw`flex-cc h-full p-5 animate-fade delay-500`}
-
-`
+  ${tw`flex-cc h-full p-5 animate-fade delay-500`}
+`;
 const P = styled.p`
-${tw`text-2xl my-2 animate-jump delay-1000 `}
-`
+  ${tw`text-2xl my-2 animate-jump delay-1000 `}
+`;
 
 const Image = styled.img`
   ${tw`animate-jump delay-1000`}
-`
+`;
 
-const DongAdd: React.FC<DongAddProps> = ({
-  setSelected1,
-  setSelected2,
-  selected1,
-  selected2,
-}) => {
+const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1, selected2 }) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
-  const [searchDong, setSearchDong] = useState<string>("");
+  const [searchDong, setSearchDong] = useState<string>('');
   const axios = UseAxios();
 
   useEffect(() => {
@@ -80,11 +75,9 @@ const DongAdd: React.FC<DongAddProps> = ({
 
   useEffect(() => {
     axios
-      .get("/api/mypage/likelist")
+      .get('/api/mypage/likelist')
       .then((response) => {
-        const newLikedDongList = response.data.object.map(
-          (dong: any) => dong.dongName
-        );
+        const newLikedDongList = response.data.object.map((dong: any) => dong.dongName);
         setLikedDongList(newLikedDongList);
         return newLikedDongList;
       })
@@ -97,9 +90,9 @@ const DongAdd: React.FC<DongAddProps> = ({
     // 똑같은 동 또 추가
     if (dong === selected1 || dong === selected2) {
       Alert({
-        title: "",
-        content: "이미 선택된 동네입니다. 다른 동네를 선택해주세요.",
-        icon: "info",
+        title: '',
+        content: '이미 선택된 동네입니다. 다른 동네를 선택해주세요.',
+        icon: 'info',
       });
       return;
     }
@@ -111,18 +104,25 @@ const DongAdd: React.FC<DongAddProps> = ({
     } else {
       // 둘다 선택해놓고 또 추가하면
       Alert({
-        title: "",
-        content: "지역이 선택되어 있습니다. 변경하려면 기존 지역을 삭제하세요.",
-        icon: "info",
+        title: '',
+        content: '지역이 선택되어 있습니다. 변경하려면 기존 지역을 삭제하세요.',
+        icon: 'info',
       });
     }
   };
 
-  const removeLike = async (id: number) => {
-    await axios.delete(`/api/zzim/${id}`);
-    setLikedDongList((prev: any) =>
-      prev.filter((zzim: any) => zzim.dongId !== id)
-    );
+  const removeLike = async (name: string) => {
+    // 여기 alert 창 추가
+    const confirm = await ConfirmAlert({
+      title: '',
+      content: `<strong>${name}</strong>을 <strong style="color:red;">삭제</strong>하시겠습니까?`,
+      icon: 'question',
+    });
+    if (confirm) {
+      axios.delete('/api/zzim', { data: { dongName: name } });
+      console.log(likedDongList);
+      setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim !== name));
+    }
   };
 
   return (
@@ -132,31 +132,32 @@ const DongAdd: React.FC<DongAddProps> = ({
         <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
       </SearchWrapper>
       <LikeDongWrapper>
-        {likedDongList.length?
-        <>
-        <LikedDongTitle>찜한동네</LikedDongTitle>
-        <LikeDongList>
-          {likedDongList.map((dong, i) => (
-            <Dong key={i} onClick={() => handleClick(dong)}>
-              {dong}
-              <LikeButton
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  e.stopPropagation();
-                  removeLike(dong);
-                }}
-              >
-                💗
-              </LikeButton>
-            </Dong>
-          ))}
-        </LikeDongList>
-        </>
-        : <Wrapper>
+        {likedDongList.length ? (
+          <>
+            <LikedDongTitle>찜한동네</LikedDongTitle>
+            <LikeDongList>
+              {likedDongList.map((dong, i) => (
+                <Dong key={i} onClick={() => handleClick(dong)}>
+                  {dong}
+                  <LikeButton
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.stopPropagation();
+                      removeLike(dong);
+                    }}
+                  >
+                    <img src={like} alt="" />
+                  </LikeButton>
+                </Dong>
+              ))}
+            </LikeDongList>
+          </>
+        ) : (
+          <Wrapper>
             <P>찜한 동네가 없어요 💦</P>
             <P>동네를 찾고 찜해보세요</P>
             <Image src={chunsik} alt="춘식이햄" />
           </Wrapper>
-        }
+        )}
       </LikeDongWrapper>
     </Aside>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
 import UseAxios from '../../../utils/UseAxios';
@@ -39,10 +39,14 @@ const Like: React.FC<Props> = ({ likedDongName, likedDongId, setLikedDongList })
   const navigate = useNavigate();
   const axios = UseAxios();
   const removeLike = async (id: number) => {
-    const confirm = await ConfirmAlert({title:'', content:`<strong>${likedDongName}</strong>을 <strong style="color:red;">삭제</strong>하시겠습니까?`, icon:'question'})
+    const confirm = await ConfirmAlert({
+      title: '',
+      content: `<strong>${likedDongName}</strong>을 <strong style="color:red;">삭제</strong>하시겠습니까?`,
+      icon: 'question',
+    });
     if (confirm) {
       await axios.delete(`/api/zzim/${id}`);
-      setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongId !== id))
+      setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongId !== id));
     }
   };
 

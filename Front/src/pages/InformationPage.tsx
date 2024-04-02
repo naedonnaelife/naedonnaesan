@@ -29,9 +29,9 @@ const Button = styled.button`
   ${({ isActive }: isButtonProps) => (isActive ? tw`z-1 border-b-0 bg-white scale-125` : '')}
 `;
 
-const FlexItemWrapper = styled.div`
-  ${tw`flex flex-grow`}
-`;
+// const FlexItemWrapper = styled.div`
+//   ${tw`flex flex-grow`}
+// `;
 
 const InformationPage: React.FC = () => {
   const [isNewsOpen, setIsNewsOpen] = useState<boolean>(false);
@@ -39,9 +39,9 @@ const InformationPage: React.FC = () => {
   const areaName = useDongStore((state) => state.areaName);
   const update = useDongStore((state) => state.searchArea);
   const location = useLocation();
-  
+
   const [searchDong, setSearchDong] = useState(location.state ? location.state.areaName : areaName);
-  
+
   const handleNewsClick = () => {
     setIsNewsListOpen(true);
   };
@@ -52,7 +52,7 @@ const InformationPage: React.FC = () => {
 
   useEffect(() => {
     update(searchDong);
-  }, [searchDong])
+  }, [searchDong]);
 
   return (
     <>

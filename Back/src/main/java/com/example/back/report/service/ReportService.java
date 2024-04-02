@@ -73,7 +73,7 @@ public class ReportService {
 
             Double distance = distance(dongX, dongY, userX, userY);
 
-            ResponseDto responseDto = new ResponseDto(dongId, zzim, distance);
+            ResponseDto responseDto = new ResponseDto(dongId, dong.getGu().getGuName(),zzim, distance);
             responseDtos.add(responseDto);
         }
 

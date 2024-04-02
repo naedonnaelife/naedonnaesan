@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import { useInView } from 'react-intersection-observer';
 import NewsCard from './reuse/NewsCard.tsx';
+import Alert from '../../utils/Alert.tsx';
 import UseAxios from '../../utils/UseAxios.tsx';
 import useSearchStore from '../../stores/SearchStore.tsx';
 
@@ -36,18 +37,16 @@ const KeywordAndSearchWrapper = styled.div`
   top: 0; // 여기에 추가
 `;
 
-
 const KeywordsWrapper = styled.div`
   ${tw`mb-2 text-center`}
 `;
-
 
 const KeywordButton = styled.button`
   ${tw`bg-gray rounded-full px-4 py-1 text-sm mr-2`}
 `;
 
 const KeywordTitle = styled.div`
-  ${tw`text-lg md:text-2xl font-bold my-2`} // Tailwind CSS를 사용하여 모바일과 데스크탑에서 다른 크기 적용
+  ${tw`text-lg md:text-2xl font-bold my-2`}// Tailwind CSS를 사용하여 모바일과 데스크탑에서 다른 크기 적용
 `;
 
 const NewsWrapper = styled.aside`
@@ -67,12 +66,10 @@ const ScrollDiv = styled.div`
 
 const SearchWrapper = styled.div`
   ${tw`flex items-center p-1 w-full`}
-  
 `;
 
 const KeywrodInput = styled.input`
   ${tw`w-[70%] border-basic p-2 m-1`}
-  
 `;
 
 const SearchButton = styled.button`
@@ -81,13 +78,13 @@ const SearchButton = styled.button`
 
 const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
   // 오늘의 뉴스 키워드 상태 추가
-  const [isSmall, setIsSmall] = useState(false)
+  const [isSmall, setIsSmall] = useState(false);
   const [keywords, setKeywords] = useState<string[]>([]);
   const [keyword, setKeyword] = useState('');
   const [newsList, setNewsList] = useState<News[]>([]);
   const [page, setPage] = useState(0);
   const [isLast, setIsLast] = useState(false);
-  const [prevProps, setPrevProps] = useState(keyword)
+  const [prevProps, setPrevProps] = useState(keyword);
   const [temp, setTemp] = useState(keyword);
   const [pageRef, inView] = useInView();
   const axios = UseAxios();
@@ -95,7 +92,7 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
   const store = useSearchStore((state) => state.selectedNews);
 
   const selectedNews = async (e: string) => {
-    console.log('뉴스 선택 : ', e)
+    console.log('뉴스 선택 : ', e);
     await store(e);
     setIsNewsOpen(true);
   };
@@ -108,32 +105,34 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
     setNewsList([]);
     setIsLast(false);
   };
-  
-  
 
   const getNewsList = async () => {
     let getPage = page;
     let getNews = isLast;
-    console.log('검색 키워드 : ', keyword);
     if (keyword !== prevProps) {
       setPrevProps(keyword);
       getPage = 0;
       getNews = false;
     }
-    console.log(getNews)
-    if (!getNews){
+    if (!getNews) {
+      axios
+        .get(`/api/dashboard/news/keyword`, {
+          params: { searchWord: keyword, page: getPage },
+        })
+        .then((response) => {
+          const cleanedArticles = response.data.object.articleDtoList.map((article: News) => ({
+            ...article,
+            article: article.article?.replace(/\s{2,}/g, ' '), // 본문 내 연속된 공백을 1개로 줄임
+          }));
 
-      const response = await axios.get(`/api/dashboard/news/keyword`, {params: {searchWord : keyword, page: getPage}});
-      
+          setNewsList([...newsList, ...cleanedArticles]); // 처리된 뉴스 리스트로 상태 업데이트
+          setIsLast(response.data.object.last);
+          setPage((prev) => prev + 1);
+        })
+        .catch(() => {
+          Alert({ title: '', content: `${keyword}에 해당하는 기사가 없습니다.`, icon: 'error' });
+        });
       // 연속된 공백을 1개로 줄이는 처리를 적용한 뉴스 리스트 생성
-      const cleanedArticles = response.data.object.articleDtoList.map((article: News) => ({
-        ...article,
-        article: article.article?.replace(/\s{2,}/g, ' ') // 본문 내 연속된 공백을 1개로 줄임
-      }));
-      
-      setNewsList([...newsList, ...cleanedArticles]); // 처리된 뉴스 리스트로 상태 업데이트
-      setIsLast(response.data.object.last);
-      setPage((prev) => prev + 1);
     }
   };
 
@@ -149,51 +148,50 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
     }
   };
 
-  
-  
-
   useEffect(() => {
-    if (inView && !isLast){
+    if (inView && !isLast) {
       getNewsList();
     }
   }, [inView, keyword]);
 
   const handleClick = () => {
-    setPage(0)
-    setNewsList([])
-    setIsLast(false)
+    setPage(0);
+    setNewsList([]);
+    setIsLast(false);
     setKeyword(temp);
-  }
+  };
 
   const handleWidth = () => {
-    const width = window.innerWidth
-    if(width < 1200){
-      setIsSmall(true)
-    } else {setIsSmall(false)}
-  }
+    const width = window.innerWidth;
+    if (width < 1200) {
+      setIsSmall(true);
+    } else {
+      setIsSmall(false);
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     // fetchKeywords 함수 호출 및 setKeywords 함수 전달
     fetchKeywords();
-    window.addEventListener('resize', handleWidth) 
+    window.addEventListener('resize', handleWidth);
     return () => {
       window.removeEventListener('resize', handleWidth);
     };
-  },[])
-  
+  }, []);
+
   return (
     <NewsWrapper isNewsListOpen={isNewsListOpen}>
       <KeywordAndSearchWrapper>
         <KeywordsWrapper>
           <KeywordTitle>오늘의 뉴스 키워드</KeywordTitle>
           {keywords.map((keyword) => (
-              <KeywordButton key={keyword} onClick={() => handleKeywordClick(keyword)}>
-                {keyword}
-              </KeywordButton>
-            ))}
+            <KeywordButton key={keyword} onClick={() => handleKeywordClick(keyword)}>
+              {keyword}
+            </KeywordButton>
+          ))}
         </KeywordsWrapper>
         <SearchWrapper>
-        <KeywrodInput
+          <KeywrodInput
             type="text"
             value={temp}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTemp(e.target.value)}
@@ -204,11 +202,10 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
             }}
           />
 
-          <SearchButton onClick={handleClick}>{isSmall? '검색' : '검색하기'}</SearchButton>
+          <SearchButton onClick={handleClick}>{isSmall ? '검색' : '검색하기'}</SearchButton>
         </SearchWrapper>
       </KeywordAndSearchWrapper>
-      
-      
+
       {newsList?.map((news) => (
         <Card onClick={() => selectedNews(news.id)} key={news.id}>
           <NewsCard news={news} />
@@ -217,8 +214,6 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
       <ScrollDiv ref={pageRef} />
     </NewsWrapper>
   );
-  
-  
 };
 
 export default SideNews;

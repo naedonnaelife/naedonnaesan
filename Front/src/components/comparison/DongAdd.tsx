@@ -3,6 +3,7 @@ import tw, { styled } from "twin.macro";
 import SearchBar from "../../utils/SearchBar";
 import UseAxios from "../../utils/UseAxios";
 import Alert from "../../utils/Alert.tsx";
+import chunsik from './tenor.gif'
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -50,6 +51,14 @@ const LikeButton = styled.button`
   ${tw`w-[30px] h-[30px] border-2 border-red rounded-full
   max-sm:hidden`}
 `;
+
+const Wrapper = styled.div`
+${tw`flex-cc h-full p-5`}
+
+`
+const P = styled.p`
+${tw`text-2xl my-2`}
+`
 
 const DongAdd: React.FC<DongAddProps> = ({
   setSelected1,
@@ -119,6 +128,8 @@ const DongAdd: React.FC<DongAddProps> = ({
         <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
       </SearchWrapper>
       <LikeDongWrapper>
+        {likedDongList.length?
+        <>
         <LikedDongTitle>찜한동네</LikedDongTitle>
         <LikeDongList>
           {likedDongList.map((dong, i) => (
@@ -135,6 +146,13 @@ const DongAdd: React.FC<DongAddProps> = ({
             </Dong>
           ))}
         </LikeDongList>
+        </>
+        : <Wrapper>
+            <P>찜한 동네가 없어요 💦</P>
+            <P> 동네를 찾고 찜해보세요</P>
+            <img src={chunsik} alt="춘식이햄" />
+          </Wrapper>
+        }
       </LikeDongWrapper>
     </Aside>
   );

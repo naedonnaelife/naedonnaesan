@@ -10,8 +10,8 @@ const UseAxios = (): AxiosInstance => {
 
   axiosInstance.interceptors.request.use(
     (config) => {
-      config.headers['authorization'] = localStorage.getItem('accessToken');
-      // config.headers['authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIwNTE0NTAsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.4wUkuxYp3Dz4YwdXjyTvQKK20wrC9R4CUMTQfh3Zf6c'
+      // config.headers['authorization'] = localStorage.getItem('accessToken');
+      config.headers['authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIwNTE0NTAsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.4wUkuxYp3Dz4YwdXjyTvQKK20wrC9R4CUMTQfh3Zf6c'
       
       return config;
     },

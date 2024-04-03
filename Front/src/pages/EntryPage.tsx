@@ -1,12 +1,13 @@
 import tw, { styled } from 'twin.macro';
 import { keyframes } from '@emotion/react';
-// import UserStore from '../stores/UserStore';
+import UserStore from '../stores/UserStore';
 import Card from '../components/entry/reuse/Card';
 import Carousel from '../components/entry/reuse/Carousel';
 import KakaoLogin from '../components/entry/KakaoLogin';
 import SideButton from '../components/entry/SideButton';
 import { introduce } from '../datas/ms';
 import logo from '../assets/logo.png';
+import { useEffect } from 'react';
 
 const fadeIn = keyframes`
   from{
@@ -40,6 +41,15 @@ const P = styled.p`
 `;
 
 const EntryPage:React.FC = () => {
+  const setIsLogin = UserStore(state => state.setIsLogin)
+  useEffect(()=>{
+    const isLogout = localStorage.getItem('logout')
+    if(isLogout){
+      setIsLogin(false)
+      localStorage.clear()
+    }
+  },[])
+
 
   return (
     <>

@@ -37,7 +37,7 @@ text-center;
 
 const companyStyle =`
 position: absolute;
-top: -10vh;
+top: -9vh;
 left: -36px;
 color: black;
 background-color: white;

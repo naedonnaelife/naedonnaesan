@@ -17,7 +17,7 @@ interface User {
 const UserStore = create<User>()(
   persist(
     (set) => ({
-      isLogin: false,
+      isLogin: true,
       setIsLogin: (state) => set(() => ({ isLogin: state })),
       name: "",
       bAddress: "",

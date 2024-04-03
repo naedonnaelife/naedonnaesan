@@ -67,6 +67,7 @@ const KakaoMap: React.FC = () => {
   const polygons = useRef([new kakao.maps.Polygon()]);
   const areaName = useSearchStore(state => state.areaName);
   const selectedArea = useSearchStore(state => state.selectedArea);
+  const setNowPage = useSearchStore(state => state.setNowPage);
   const recommendList = useSearchStore(state => state.recommendList)
   const navigate = useNavigate();
   const axios = UseAxios();
@@ -211,6 +212,8 @@ const KakaoMap: React.FC = () => {
         setisView(true)
         if (level < 5) {
           navigate('/building', { state: { areaName: unit.name } });
+          setNowPage('building')
+
         } else {
           map.setCenter(new kakao.maps.LatLng(unit.centerCoordinate[1] - 0.00052, unit.centerCoordinate[0] - 0.00275));
           map.setLevel(level, { animate: { duration: 500 } });

@@ -25,7 +25,7 @@ type StyleProps = {
 };
 
 const RecommendWrapper = styled.ul`
-  ${tw`flex-cc flex-col h-[30vh] border-2 border-lightGray rounded-lg m-2
+  ${tw`flex-cc flex-col h-[32vh] border-basic m-2
   max-sm:w-[100%] max-sm:h-[100%] max-sm:mt-0 max-sm:mx-0 max-sm:bg-semiWhite `}
   ${({ isActive }: StyleProps) => (isActive ? tw`` : tw`max-sm:hidden`)}
 `;
@@ -39,7 +39,7 @@ const Title = styled.h2`
 `;
 
 const RecommendResult = styled.li`
-  ${tw`flex border-2 border-lightGray font-jamsilLight rounded-lg mx-2 mb-2 p-2`}
+  ${tw`flex border-basic font-jamsilLight mx-2 mb-2 p-2`}
   ${({ whatComponent }: StyleProps) => (whatComponent === 'recommend' ? tw`w-[95%]` : tw`w-[85%]`)}
 `;
 

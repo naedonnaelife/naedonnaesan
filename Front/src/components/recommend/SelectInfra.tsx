@@ -1,5 +1,5 @@
 import tw, { styled } from 'twin.macro';
-import Slider from './reuse/InfraSlider'
+import Slider from './reuse/InfraSlider';
 // import SelectCard from './reuse/SelectCard';
 import UseAxios from '../../utils/UseAxios';
 import { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ import Alert from '../../utils/Alert.tsx';
 
 interface InfraProps {
   isActive: boolean;
-  handleActive: (e:string) => void;
+  handleActive: (e: string) => void;
 }
 
 type StyleProps = {
@@ -16,7 +16,7 @@ type StyleProps = {
 };
 
 const SelectWrapper = styled.section`
-  ${tw`flex flex-wrap h-[60%] w-[96%] border-2 border-lightGray rounded-lg m-2 mt-4
+  ${tw`flex flex-wrap h-[60%] w-[96%] border-basic m-2 mt-4
 max-sm:w-[100%] max-sm:h-[100%] bg-semiWhite max-sm:mt-0 max-sm:m-0`}
   ${({ isActive }: StyleProps) => (isActive ? tw`max-sm:hidden` : tw``)}
 `;
@@ -36,12 +36,12 @@ const ButtonWrapper = styled.div`
 `;
 
 const ResetButton = styled.button`
-  ${tw` w-[30%] bottom-1 right-1 bg-purple-200 rounded-lg p-1 hover:bg-purple-300
+  ${tw` w-[27.5%] bottom-1 right-1 bg-green-200 rounded-lg p-1 hover:bg-green-300 duration-200
   max-sm:w-[auto] max-sm:absolute max-sm:right-[25%]`}
 `;
 
 const SubmitButton = styled.button`
-  ${tw` w-[65%] bg-purple-200 rounded-lg m-2 p-1 hover:bg-purple-300
+  ${tw` w-[65%] bg-green-200 rounded-lg m-2 p-1 hover:bg-green-300 duration-200
   max-sm:w-[auto]`}
 `;
 
@@ -57,7 +57,6 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
     { name: '술집', detail: '술집, 유흥주점의 중요도입니다.', pk: 7 },
   ];
 
-
   const [infraData, setInfraData] = useState([2, 2, 2, 2, 2, 2, 2, 2]);
   const [isAllChecked, setIsAllChecked] = useState(false);
   const axios = UseAxios();
@@ -67,13 +66,13 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
     const token = localStorage.getItem('accessToken');
     const result = token?.slice(7);
     if (isAllChecked) {
-      const response = await axios.post(`/ai/recommend`, { features: infraData, token: result }).then(res => {
+      const response = await axios.post(`/ai/recommend`, { features: infraData, token: result }).then((res) => {
         Alert({ title: '검색이 완료되었습니다', content: '추천 동네를 확인해주세요.', icon: 'success' });
-        handleActive('recommend')
-        return res
-      })
+        handleActive('recommend');
+        return res;
+      });
       update(response.data.recommend);
-      console.log(response.data.recommend)
+      console.log(response.data.recommend);
     } else {
       Alert({ title: '', content: '인프라를 모두 선택해 주세요.', icon: 'info' });
     }
@@ -97,26 +96,35 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
     }
   }, [infraData]);
 
-  useEffect(()=>{
-    const getLastData = async () => { 
-      const name = ['safetyReport', 'leisureReport', 'foodReport', 'healthReport', 'convReport', 'transpReport', 'cafeReport', 'pubReport' ]
-      const newInfraData = [0,0,0,0,0,0,0,0]
-      const response = await axios.get('/api/mypage/filterlist')
-      const data = {dongList : response.data.object.mypageDongDtoList, report : response.data.object.reportDto}
-      update(data.dongList)
+  useEffect(() => {
+    const getLastData = async () => {
+      const name = [
+        'safetyReport',
+        'leisureReport',
+        'foodReport',
+        'healthReport',
+        'convReport',
+        'transpReport',
+        'cafeReport',
+        'pubReport',
+      ];
+      const newInfraData = [0, 0, 0, 0, 0, 0, 0, 0];
+      const response = await axios.get('/api/mypage/filterlist');
+      const data = { dongList: response.data.object.mypageDongDtoList, report: response.data.object.reportDto };
+      update(data.dongList);
 
-      const entries:[string, number][] = Object.entries(data.report)
+      const entries: [string, number][] = Object.entries(data.report);
       entries.map(([key, value]) => {
         const index = name.indexOf(key);
         if (index !== -1) {
           newInfraData[index] = value;
         }
-      })
+      });
       setInfraData(newInfraData);
-    }
+    };
 
-    getLastData()
-  }, [])
+    getLastData();
+  }, []);
 
   return (
     <>

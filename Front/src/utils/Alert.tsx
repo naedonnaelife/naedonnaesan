@@ -16,7 +16,7 @@ const Alert = (data :AlertProps) => {
         html : data.content,
         icon: data.icon,
         customClass: {
-          popup: 'custom-style'
+          popup: 'custom-style',
         },
         showClass: {
           popup: `

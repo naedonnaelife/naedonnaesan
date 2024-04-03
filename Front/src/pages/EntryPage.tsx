@@ -43,13 +43,13 @@ const P = styled.p`
 const EntryPage:React.FC = () => {
   const setIsLogin = UserStore(state => state.setIsLogin)
   useEffect(()=>{
-    const isChecked = sessionStorage.getItem('checkIn')
-    const checkLogout = localStorage.getItem('accessToken') ? true : false
-    if(isChecked && checkLogout){
+    const isLogout = localStorage.getItem('logout')
+    if(isLogout){
       setIsLogin(false)
       localStorage.clear()
     }
   },[])
+
   return (
     <>
       <Main>

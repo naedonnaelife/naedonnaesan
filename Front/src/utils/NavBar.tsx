@@ -72,6 +72,7 @@ const NavBar:React.FC = () => {
     axios.post(`/api/logout`, {}, 
     {headers : {"kakao-authorization" : kakaoToken}}
     ).then(() =>{
+      localStorage.setItem('logout', 'true')
       navigate('/')
     })
   }

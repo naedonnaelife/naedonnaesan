@@ -3,7 +3,7 @@ import tw, { styled } from "twin.macro";
 import SearchBar from "../../utils/SearchBar.tsx";
 import UseAxios from "../../utils/UseAxios.tsx";
 import newDong from "../../datas/dong.json";
-import houseMaker from "../../assets/houseMaker.png";
+import redMarker from "../../assets/redMarker.png";
 import circle from "../../assets/circle.png";
 import "./content.css";
 
@@ -44,11 +44,11 @@ const imageSize = new kakao.maps.Size(25, 25);
 const markerImage = new kakao.maps.MarkerImage(circle, imageSize);
 const selectedImageSize = new kakao.maps.Size(55, 55);
 const selectedMarkerImage = new kakao.maps.MarkerImage(
-  houseMaker,
-  selectedImageSize,
-  {
-    offset: new kakao.maps.Point(27, 27),
-  }
+  redMarker,
+  selectedImageSize
+  // {
+  //   offset: new kakao.maps.Point(27, 27),
+  // }
 );
 
 function KakaoMap({

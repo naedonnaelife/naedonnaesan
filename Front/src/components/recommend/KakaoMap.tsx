@@ -5,7 +5,6 @@ import useSearchStore from '../../stores/SearchStore';
 import newDong from '../../datas/dong.json';
 import newGu from '../../datas/newGu.json';
 import UseAxios from '../../utils/UseAxios';
-// import dong from '../../assets/dong.gif'
 import dong from '../../assets/dong2.gif'
 import company from '../../assets/company.gif'
 

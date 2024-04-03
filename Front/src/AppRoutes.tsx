@@ -22,7 +22,6 @@ const AppRoutes:React.FC = () => {
           <Route path="/initial" element={<InitialForm />} />
           <Route path="/my" element={<My />} />
         </Route>
-        {/* 라우트 여기에 추가하세용 */}
       </Routes>
     </Router>
   );

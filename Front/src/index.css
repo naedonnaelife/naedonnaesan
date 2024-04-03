@@ -67,3 +67,7 @@ body {
 button {
   cursor: url("/appleMango.png") 16 16, pointer;
 }
+
+.custom-style{
+  background-color: #2b2b2b;
+}

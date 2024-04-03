@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import ReportContent from './ReportContent';
 import UseAxios from '../../utils/UseAxios';
+import dongCode from '../../datas/dongdong.json'
+import useDongStore from '../../stores/DongStore';
 
 interface ReportProps {
   name: string | null;
@@ -34,6 +36,7 @@ const Report: React.FC<ReportProps> = ({ name, address, setAddress }) => {
   const src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
   const daum = window.daum;
   const axios = UseAxios();
+  const searchArea = useDongStore(state => state.searchArea)
 
   const searchAddress = () => {
     daum.postcode.load(() => {
@@ -45,21 +48,21 @@ const Report: React.FC<ReportProps> = ({ name, address, setAddress }) => {
           geocoder.addressSearch(data.address, function (result: any, status: any) {
             if (status === daum.maps.services.Status.OK) {
               const roadData = result[0].road_address;
+              const code = result[0].address.b_code.slice(0, 8)
+              const dongName = dongCode.find(e => e.code === code)
+              console.log(dongName)
               axios
                 .put('/api/mypage/edit/address', {
                   address: data.address,
                   x: roadData.x,
                   y: roadData.y,
+                  dongName : dongName?.dong
                 })
-                .then((response) => {
-                  console.log(response);
+                .then(()=> {
+                  searchArea(dongName? dongName.dong : '')
                 })
-                .catch((error) => {
-                  console.log(error);
-                });
             }
           });
-          console.log(data.address);
         },
       });
       postcode.open();

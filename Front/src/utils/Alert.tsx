@@ -9,11 +9,15 @@ type AlertProps = {
     icon : SweetAlertIcon;
 }
 
+
 const Alert = (data :AlertProps) => {
     return Swal.fire({
         title: data.title,
         html : data.content,
         icon: data.icon,
+        customClass: {
+          popup: 'custom-style'
+        },
         showClass: {
           popup: `
             animate__animated

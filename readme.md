@@ -423,7 +423,7 @@ Back
 - [요구사항 명세서](https://www.notion.so/f9f680e00c9a4bb384ed23b73671370d)
 - [API 명세서](https://www.notion.so/API-5ee34edf880f426bb3e901878e650d00)
 - [ERD](https://www.notion.so/DB-ERD-a3b7e487c42c4cf8a5835055831efa82)
-- [포팅 매뉴얼]()
+- [포팅 매뉴얼](https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22E204/-/blob/master/exec/%ED%8F%AC%ED%8C%85%EB%A7%A4%EB%89%B4%EC%96%BC.md?ref_type=heads)
 
 ## :bulb: 개발 문화
 

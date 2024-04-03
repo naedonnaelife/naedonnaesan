@@ -19,6 +19,8 @@ interface BearState {
   recommendList : recommendDong,
   updateRecommendList : (response: recommendDong) => void;
   updateLikeList : (updateData:boolean[]) => void;
+  nowPage : string;
+  setNowPage : (pageName: string) => void;
 }
 
 const useSearchStore = create<BearState>()(
@@ -36,6 +38,8 @@ const useSearchStore = create<BearState>()(
           likeList: response.map(e => e.zzim)
         })),
         updateLikeList: (updateData) => set(()=>({likeList: updateData})),
+        nowPage : '',
+        setNowPage: (pageName) => set(() => ({nowPage : pageName}))
         }),
       { name: 'SearchStore' },
     ),

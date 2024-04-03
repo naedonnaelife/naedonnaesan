@@ -4,6 +4,7 @@ import UseAxios from "./UseAxios";
 import Alert from './Alert';
 import { useNavigate } from "react-router-dom";
 import dongCode from "../datas/dongdong.json"
+import useDongStore from "../stores/DongStore";
 
 type EventType = React.ChangeEvent<HTMLInputElement>;
 
@@ -42,6 +43,7 @@ function UserForm() {
   const [dongName, SetDongName] = useState("")
   const axios = UseAxios();
   const navigate = useNavigate()
+  const searchArea = useDongStore(state => state.searchArea)
   const inputData = {
     age,
     address,
@@ -83,6 +85,7 @@ function UserForm() {
           const code = result[0].address.b_code.slice(0, 8)
           const getDongData = dongCode.find(e => e.code === code)
           SetDongName(getDongData? getDongData.dong : '')
+          searchArea(getDongData? getDongData.dong : '' )
         }
       })
     }

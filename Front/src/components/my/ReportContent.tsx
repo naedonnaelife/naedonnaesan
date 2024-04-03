@@ -1,67 +1,61 @@
-import React, { useState, useEffect } from "react";
-import tw, { styled } from "twin.macro";
-import { useNavigate } from "react-router-dom";
-import RecommendList from "../../utils/RecommendList";
-import UseAxios from "../../utils/UseAxios";
-import useSearchStore from "../../stores/SearchStore";
+import React, { useState, useEffect } from 'react';
+import tw, { styled } from 'twin.macro';
+import { useNavigate } from 'react-router-dom';
+import RecommendList from '../../utils/RecommendList';
+import UseAxios from '../../utils/UseAxios';
+import useSearchStore from '../../stores/SearchStore';
+import face from '../../assets/face1.png';
 
-type PreferenceShowProps = {
-  isPreferencesShow: boolean;
-};
+interface ReportContentProps {
+  name: string | null;
+}
 
 type PreferencesType = {
   [key: string]: number;
 };
 
 const Backgroud = styled.div`
-  ${tw`flex justify-around bg-white rounded-lg mx-[12px]
-  max-sm:flex-cc`}
+  ${tw`flex justify-around w-[100%] h-[80%] border-basic mx-[12px] 
+  max-sm:flex-cc max-sm:m-0 max-sm:h-[85%] max-sm:p-2`}
 `;
 
 const RecommendWrapper = styled.div`
-  ${tw`w-[50%] h-full text-center border-r-2 px-2 my-2
-  max-sm:w-full max-sm:border-r-0`}
+  ${tw`w-[50%] h-full py-6
+  max-sm:w-full max-sm:p-2`}
 `;
 
 const PreferenceWrapper = styled.ul`
-  ${tw`flex-c w-[50%] px-2 my-2
-  max-sm:w-full`}
-  ${({ isPreferencesShow }: PreferenceShowProps) =>
-    isPreferencesShow ? tw`` : tw`max-sm:hidden`}
+  ${tw`flex-c w-[50%] h-[100%] px-2
+  max-sm:w-full max-sm:h-[50%]`}
 `;
 
-const PreferenceButton = styled.button`
-  ${tw`w-[90%] border-2 border-grayHover rounded-full hidden
-  max-sm:block max-sm:mb-4`}
+const Card = styled.figure`
+  ${tw`flex-cc w-[100%] h-[100%]`}
 `;
-const PreferenceTitle = styled.h2`
-  ${tw`font-jamsilMedium text-lg mb-1 px-[12px]`}
+const CardImage = styled.img`
+  ${tw`flex-cc h-[30%] object-cover animate-bounce`}
 `;
-const Preference = styled.li`
-  ${tw`w-[30%] h-[95%] border-basic font-jamsilLight text-center mx-1
-  max-sm:h-[30vh]`}
+const CartTitle = styled.h1`
+  ${tw`text-2xl`}
 `;
-const Temp = styled.p`
-  ${tw``}
+const InfraContent = styled.p`
+  ${tw`text-xl text-blue-500`}
 `;
-const ReportContent: React.FC = () => {
-  const [isPreferencesShow, setIsPreferencesShow] = useState<boolean>(true);
+const CardContent = styled.p`
+  ${tw`font-jamsilMedium text-center`}
+`;
+
+const ReportContent: React.FC<ReportContentProps> = ({ name }) => {
   const [preferences, setPreferences] = useState<PreferencesType | null>(null);
   const [isEnter, setIsEnter] = useState(false);
   const axios = UseAxios();
   const navigate = useNavigate();
   const areaName = useSearchStore((state) => state.areaName);
-  const updateRecommendList = useSearchStore(
-    (state) => state.updateRecommendList
-  );
-
-  const preferenceShow = () => {
-    setIsPreferencesShow((prev) => !prev);
-  };
+  const updateRecommendList = useSearchStore((state) => state.updateRecommendList);
 
   useEffect(() => {
     axios
-      .get("/api/mypage/filterlist")
+      .get('/api/mypage/filterlist')
       .then((response) => {
         setPreferences(response.data.object.reportDto);
         console.log(response.data.object.reportDto);
@@ -74,67 +68,72 @@ const ReportContent: React.FC = () => {
 
   useEffect(() => {
     if (isEnter) {
-      navigate("/information", { state: { areaName: areaName } });
+      navigate('/information', { state: { areaName: areaName } });
     } else {
       setIsEnter(true);
     }
   }, [areaName]);
 
   const reportLabels: any = {
-    convReport: "편의시설",
-    safetyReport: "치안",
-    healthReport: "건강",
-    foodReport: "식당",
-    transpReport: "교통",
-    leisureReport: "여가시설",
-    cafeReport: "카페",
-    pubReport: "술집",
+    convReport: '편의시설',
+    safetyReport: '치안',
+    healthReport: '건강',
+    foodReport: '식당',
+    transpReport: '교통',
+    leisureReport: '여가시설',
+    cafeReport: '카페',
+    pubReport: '술집',
   };
 
   const lst = [
-    "convReport",
-    "safetyReport",
-    "healthReport",
-    "foodReport",
-    "transpReport",
-    "leisureReport",
-    "cafeReport",
-    "pubReport",
+    'convReport',
+    'safetyReport',
+    'healthReport',
+    'foodReport',
+    'transpReport',
+    'leisureReport',
+    'cafeReport',
+    'pubReport',
   ];
 
   const scoreList = [3, 2, 1].map((score) =>
-    lst.filter((category) =>
-      preferences ? preferences[category] === score : null
-    )
+    lst.filter((category) => (preferences ? preferences[category] === score : null))
   );
 
-  const scoreLabels = ["🥰 중요해요", "😀 조금 중요해요", "😐 안 중요해요"];
+  const cardTitles = ['욕심이 많은', '현실을 아는', '모든게 다 좋은'];
 
   return (
-    <>
-      <Backgroud>
-        <RecommendWrapper>
-          <RecommendList isActive={true} whatComponent="mypage" />
-        </RecommendWrapper>
-        <PreferenceButton onClick={preferenceShow}>
-          {isPreferencesShow ? "선호도 접기" : "나의 선호도 보기"}
-        </PreferenceButton>
-        <PreferenceWrapper isPreferencesShow={isPreferencesShow}>
-          {preferences === null ? (
-            <p>아직 검사결과가 없어요</p>
-          ) : (
-            scoreList.map((score, index) => (
-              <Preference key={index}>
-                <PreferenceTitle>{scoreLabels[index]}</PreferenceTitle>
-                {score.map((s, index) => (
-                  <Temp key={index}>{reportLabels[s]} </Temp>
-                ))}
-              </Preference>
-            ))
-          )}
-        </PreferenceWrapper>
-      </Backgroud>
-    </>
+    <Backgroud>
+      <PreferenceWrapper>
+        {preferences === null ? (
+          <Card>
+            <CardImage src={face} alt="face" />
+            <CartTitle>{name}님!</CartTitle>
+            <CardContent>아직 검사결과가 없어요</CardContent>
+          </Card>
+        ) : (
+          <Card>
+            <CardImage src={face} alt="face" />
+            <CartTitle>
+              {cardTitles[0]} {name}님!
+            </CartTitle>
+            <InfraContent>
+              {scoreList[0].map((lst) => (
+                <span> {reportLabels[lst]} </span>
+              ))}
+            </InfraContent>
+            <CardContent>
+              항목을 중요하다고 선택했어요.
+              <br />
+              그런 {name}님에게 추천하는 동네는?
+            </CardContent>
+          </Card>
+        )}
+      </PreferenceWrapper>
+      <RecommendWrapper>
+        <RecommendList isActive={true} whatComponent="mypage" />
+      </RecommendWrapper>
+    </Backgroud>
   );
 };
 

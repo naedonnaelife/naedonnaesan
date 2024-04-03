@@ -15,7 +15,7 @@ interface DongAddProps {
 
 const Aside = styled.aside`
   ${tw`h-full-nav border-r-2 border-lightGray px-2 animate-fade-right animate-duration-[500ms]
-  max-sm:flex max-sm:flex-col max-sm:border-0`}
+  max-sm:flex max-sm:flex-col max-sm:border-0 max-sm:h-full`}
 `;
 
 const Title = styled.h1`
@@ -25,7 +25,7 @@ const Title = styled.h1`
 
 const LikeDongWrapper = styled.div`
   ${tw`items-center w-full h-[80%] border-t-2 border-lightGray pt-4
-  max-sm:border-0 max-sm:pt-0`}
+  max-sm:border-0 max-sm:pt-0 max-sm:h-[50%]`}
 `;
 
 const LikedDongTitle = styled.h2`
@@ -35,16 +35,21 @@ const LikedDongTitle = styled.h2`
 
 const LikeDongList = styled.ul`
   ${tw`h-[90%] pl-[12px] pr-[2px] overflow-y-scroll
-  max-sm:flex max-sm:h-[40px] max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
+  max-sm:flex max-sm:border-0 max-sm:whitespace-nowrap max-sm:overflow-x-scroll`}
+  @media (min-width: 390px) {
+    ::-webkit-scrollbar {
+      display: none;
+    }
   ::-webkit-scrollbar-thumb {
     background: #fff;
   }
   :hover::-webkit-scrollbar-thumb {
-    background: #d5d5d5;
+    background: #d5d5d5;  
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #c5c5c5;
   }
+
 `;
 
 const Dong = styled.li`
@@ -53,8 +58,8 @@ const Dong = styled.li`
 `;
 
 const SearchWrapper = styled.div`
-  ${tw`w-full h-[8%] px-3
-  max-sm:mt-2 max-sm:mb-0 max-sm:border-0 max-sm:pt-0`}
+  ${tw`w-full h-[8%] my-2 px-3 
+  max-sm:mt-5 max-sm:mb-0 max-sm:border-0 max-sm:pt-0 max-sm:h-[50%]`}
 `;
 
 const LikeButton = styled.button`
@@ -63,7 +68,8 @@ const LikeButton = styled.button`
 `;
 
 const Wrapper = styled.div`
-  ${tw`flex-cc h-full p-5 animate-fade delay-500`}
+  ${tw`flex-cc h-full p-5 animate-fade delay-500
+  max-sm:hidden`}
 `;
 const P = styled.p`
   ${tw`text-2xl my-2 animate-jump delay-1000 `}
@@ -107,7 +113,7 @@ const DongAdd: React.FC<DongAddProps> = ({
     if (dong === selected1 || dong === selected2) {
       Alert({
         title: "",
-        content: "이미 선택된 동네입니다. 다른 동네를 선택해주세요.",
+        content: "이미 선택된 동네입니다.<br />다른 동네를 선택해주세요.",
         icon: "info",
       });
       return;
@@ -121,7 +127,7 @@ const DongAdd: React.FC<DongAddProps> = ({
       // 둘다 선택해놓고 또 추가하면
       Alert({
         title: "",
-        content: "지역이 선택되어 있습니다. 변경하려면 기존 지역을 삭제하세요.",
+        content: "지역이 선택되어 있습니다.<br />변경하려면 기존 지역을 삭제하세요.",
         icon: "info",
       });
     }

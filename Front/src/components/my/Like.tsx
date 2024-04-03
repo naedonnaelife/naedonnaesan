@@ -1,22 +1,22 @@
-import tw, { styled } from "twin.macro";
-import { useEffect, useState } from "react";
-import useSearchStore from "../../stores/SearchStore";
-import SearchBar from "../../utils/SearchBar";
-import UseAxios from "../../utils/UseAxios";
-import Alert from "../../utils/Alert";
-import LikedDong from "./reuse/LikedDong";
+import tw, { styled } from 'twin.macro';
+import { useEffect, useState } from 'react';
+import useSearchStore from '../../stores/SearchStore';
+import SearchBar from '../../utils/SearchBar';
+import UseAxios from '../../utils/UseAxios';
+import Alert from '../../utils/Alert';
+import LikedDong from './reuse/LikedDong';
 
 interface LikeProps {
   name: string | null;
 }
 
 const LikeWrapper = styled.section`
-  ${tw`w-[90%] h-[55%]
-  max-sm:flex-col max-sm:w-full max-sm:pt-5`}
+  ${tw`w-[90%] h-[40%] pt-4
+  max-sm:flex-col max-sm:w-full max-sm:pt-5 max-sm:h-[50%]`}
 `;
 const LikeTop = styled.div`
-  ${tw`flex justify-between mt-3 mb-6 px-[12px]
-  max-sm:flex-col max-sm:mx-1`}
+  ${tw`flex-c h-[25%]
+  max-sm:flex-col max-sm:mx-1 max-sm:h-[35%]`}
 `;
 
 const SearchWrapper = styled.div`
@@ -52,13 +52,13 @@ const P = styled.p`
 
 const Like: React.FC<LikeProps> = ({ name }) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
-  const [searchDong, setSearchDong] = useState("");
+  const [searchDong, setSearchDong] = useState('');
   const updateLikeList = useSearchStore((state) => state.likeList);
   const axios = UseAxios();
 
   useEffect(() => {
     axios
-      .get("/api/mypage/likelist")
+      .get('/api/mypage/likelist')
       .then((response) => {
         const newLikedDongList = response.data.object.map((dong: any) => dong);
         setLikedDongList(newLikedDongList);
@@ -74,14 +74,11 @@ const Like: React.FC<LikeProps> = ({ name }) => {
       axios
         .post(`/api/zzim`, { dongName: searchDong })
         .then((response) => {
-          setLikedDongList((prev) => [
-            ...prev,
-            { dongId: response.data.object.zzimId, dongName: searchDong },
-          ]);
+          setLikedDongList((prev) => [...prev, { dongId: response.data.object.zzimId, dongName: searchDong }]);
           Alert({
-            title: "",
+            title: '',
             content: `${searchDong} 찜하기 성공!`,
-            icon: "success",
+            icon: 'success',
           });
         })
         .catch((error) => {

@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import useSearchStore from '../stores/SearchStore';
 import door from '../assets/door.png'
 import UseAxios from './UseAxios';
-import UserStore from '../stores/UserStore';
 
 
 type NavOpenProps = {
@@ -57,7 +56,6 @@ const HamburgerButton = styled.button`
 const NavBar:React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const axios = UseAxios()
-  const setIsLogin = UserStore(state => state.setIsLogin)
   const nowPage = useSearchStore(state => state.nowPage)
   const setNowPage = useSearchStore(state => state.setNowPage)
   const navigate = useNavigate();
@@ -75,8 +73,6 @@ const NavBar:React.FC = () => {
     {headers : {"kakao-authorization" : kakaoToken}}
     ).then(() =>{
       navigate('/')
-      setIsLogin(false)
-      localStorage.clear()
     })
   }
 

@@ -31,8 +31,7 @@ const KakaoLogin:React.FC = () => {
     const navigate = useNavigate()
     const axios = UseAxios()
     const redirect_uri = 'https://j10e204.p.ssafy.io';
-    const REST_API_KEY = '218aa28a9e8fa4d947c106cb95b2ec1b';
-    // const REST_API_KEY = process.env.REACT_APP_REST_API_KEY
+    const REST_API_KEY = import.meta.env.VITE_KAKAO_API_KEY
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${redirect_uri}&prompt=login`;
 
 

@@ -1,8 +1,6 @@
-import React from "react";
-import tw, { styled } from "twin.macro";
-import ComparisonGraph from "../ComparisonGraph";
-import EntryPage from './../../../pages/EntryPage';
-import { macrosPlugin } from 'vite-plugin-babel-macros';
+import React from 'react';
+import tw, { styled } from 'twin.macro';
+import ComparisonGraph from '../ComparisonGraph';
 
 interface SelectedProps {
   selected: string | null;
@@ -39,13 +37,7 @@ const CardText = styled.p`
   ${tw`font-jamsilLight text-xl max-sm:text-sm`}
 `;
 
-const Card: React.FC<SelectedProps> = ({
-  selected,
-  setSelected,
-  cardIndex,
-  setDetail,
-}) => {
-
+const Card: React.FC<SelectedProps> = ({ selected, setSelected, cardIndex, setDetail }) => {
   return (
     <CardWrapper>
       {selected ? (
@@ -57,17 +49,13 @@ const Card: React.FC<SelectedProps> = ({
             </ButtonWrapper>
           </CardTop>
           <GraphWrapper cardIndex={cardIndex}>
-            <ComparisonGraph
-              cardIndex={cardIndex}
-              selected={selected}
-              setDetail={setDetail}
-            />
+            <ComparisonGraph cardIndex={cardIndex} selected={selected} setDetail={setDetail} />
           </GraphWrapper>
         </>
       ) : (
         <>
-        <CardText>선택된 동네가 없습니다.</CardText>
-        <CardText>동네를 선택해주세요.</CardText>
+          <CardText>선택된 동네가 없습니다.</CardText>
+          <CardText>동네를 선택해주세요.</CardText>
         </>
       )}
     </CardWrapper>

@@ -16,8 +16,13 @@ type StyleProps = {
 };
 
 const SelectWrapper = styled.section`
+<<<<<<< HEAD
   ${tw`flex flex-wrap h-[60%] w-[96%] border-basic m-2 mt-4
 max-sm:w-[100%] max-sm:h-[100%] bg-semiWhite max-sm:mt-0 max-sm:m-0`}
+=======
+  ${tw`flex flex-wrap h-[60%] w-[96%] border-2 border-lightGray rounded-lg m-2 mt-4
+max-sm:w-[100%] max-sm:h-[100%] bg-semiWhite max-sm:mt-0`}
+>>>>>>> fix/final
   ${({ isActive }: StyleProps) => (isActive ? tw`max-sm:hidden` : tw``)}
 `;
 
@@ -36,12 +41,13 @@ const ButtonWrapper = styled.div`
 `;
 
 const ResetButton = styled.button`
-  ${tw` w-[27.5%] bottom-1 right-1 bg-green-200 rounded-lg p-1 hover:bg-green-300 duration-200
+  ${tw` w-[27.5%] bottom-1 right-1 transition-all duration-500 bg-gradient-to-r to-mainPeach  via-centerPeach from-mainPeach bg-size-200 bg-pos-0 hover:bg-pos-100 rounded-lg p-1
   max-sm:w-[auto] max-sm:absolute max-sm:right-[25%]`}
 `;
 
+
 const SubmitButton = styled.button`
-  ${tw` w-[65%] bg-green-200 rounded-lg m-2 p-1 hover:bg-green-300 duration-200
+  ${tw` w-[65%] transition-all duration-500 bg-gradient-to-r to-mainPeach  via-centerPeach from-mainPeach bg-size-200 bg-pos-0 hover:bg-pos-100 rounded-lg m-2 p-1
   max-sm:w-[auto]`}
 `;
 

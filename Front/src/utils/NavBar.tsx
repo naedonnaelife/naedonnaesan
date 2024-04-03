@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import useSearchStore from '../stores/SearchStore';
 import door from '../assets/door.png'
 import UseAxios from './UseAxios';
+import UserStore from '../stores/UserStore';
 
 
 type NavOpenProps = {
@@ -68,10 +69,12 @@ const NavBar:React.FC = () => {
   };
 
   const logout = () => {
+    const setIsLogin = UserStore(state => state.setIsLogin)
     const kakaoToken = localStorage?.getItem('kakaoToken');
     axios.post(`/api/logout`, {}, 
     {headers : {"kakao-authorization" : kakaoToken}}
     ).then(() =>{
+      setIsLogin(false)
       localStorage.clear()
       navigate('/')
     })

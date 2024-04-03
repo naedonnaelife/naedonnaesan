@@ -3,6 +3,13 @@ export default {
   content: ['./index.html', './src/**/*.{js, jsx, ts, tsx}'],
   theme: {
     extend: {
+      backgroundSize: {
+        'size-200': '200% 200%',
+      },
+      backgroundPosition: {
+        'pos-0': '0% 0%',
+        'pos-100': '100% 100%',
+      },
       cursor: {
         pointer: 'url(/appleMango.png) 16 16 , pointer',
         mango: 'url(/mango.png) 16 16, auto',
@@ -40,7 +47,18 @@ export default {
         dongButton: '#C9A48C',
         dongButtonHover: '#967967',
         sbWhite: '#F3F4F6',
-
+        mainPeach : '#fcb69f ',
+        centerPeach : '#ffecd2 ',
+        mainRecommend:'#F7DAE2',
+        centerRecommend:'#FFB6E6',
+        mainBuilding:'#BC86FF',
+        centerBuilding:'#E8D6FF',
+        mainComparison:'#F6C4B9', 
+        centerComparison:'#FADDD7',
+        mainInformation:'#8DB3FF',
+        centerInformation:'#CBC9FF',
+        mainMy:'#8BEFB1',
+        centerMy:'#D4F1EF',
         // 테스트
       },
       height: {

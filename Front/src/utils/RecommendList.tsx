@@ -48,7 +48,7 @@ const Index = styled.h3`
 `;
 
 const TownName = styled.p`
-  ${tw`flex-c cursor-pointer hover:scale-105 hover:text-red hover:font-jamsilMedium ml-[2vw] hover:animate-jump`}
+  ${tw`flex-c cursor-pointer text-nowrap hover:scale-105 hover:text-red hover:font-jamsilMedium ml-[2vw] hover:animate-jump`}
 `;
 
 const Distance = styled.span`
@@ -104,7 +104,7 @@ const RecommendList: React.FC<RecommendProps> = ({ isActive, whatComponent }) =>
     <>
       <RecommendWrapper isActive={isActive}>
         <Title> 추천 동네 </Title>
-        {newRecommendList.length ? (
+        {newRecommendList.length? (
           newRecommendList.map((element, index) => (
             <RecommendResult key={index} whatComponent={whatComponent}>
               <Index>{index + 1}</Index>

@@ -3,6 +3,7 @@ import { keyframes } from '@emotion/react';
 import { useState } from 'react';
 import { contents } from '../../../datas/ms';
 import { useNavigate } from 'react-router-dom';
+import useSearchStore from '../../../stores/SearchStore';
 
 type RunningProps = {
   isRunning: boolean;
@@ -81,6 +82,7 @@ const MoveContent = styled.button`
 const Carousel: React.FC = () => {
   const [isRunning, setIsRunning] = useState(true);
   const navigate = useNavigate()
+  const setNowPage = useSearchStore(state => state.setNowPage)
 
   const handleMouseEnter = () => {
     setIsRunning(false);
@@ -100,6 +102,7 @@ const Carousel: React.FC = () => {
   };
 
   const movePage = (url:string) => {
+    setNowPage(url)
     navigate(`./${url}`)
   }
 

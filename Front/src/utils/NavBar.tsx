@@ -57,6 +57,7 @@ const HamburgerButton = styled.button`
 const NavBar:React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const axios = UseAxios()
+  const setIsLogin = UserStore(state => state.setIsLogin)
   const nowPage = useSearchStore(state => state.nowPage)
   const setNowPage = useSearchStore(state => state.setNowPage)
   const navigate = useNavigate();
@@ -75,6 +76,7 @@ const NavBar:React.FC = () => {
     axios.post(`/api/logout`, {}, 
     {headers : {"kakao-authorization" : kakaoToken}}
     ).then(() =>{
+      setIsLogin(false)
       localStorage.clear()
       navigate('/')
     })
@@ -97,7 +99,6 @@ const NavBar:React.FC = () => {
 
   const logout2 = () => {
     console.log('로그아웃2  실행')
-    const setIsLogin = UserStore(state => state.setIsLogin)
     setIsLogin(false)
     navigate('/')
     console.log('로그아웃2  종료')

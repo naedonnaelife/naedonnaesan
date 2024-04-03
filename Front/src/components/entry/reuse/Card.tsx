@@ -2,6 +2,7 @@ import tw, { styled } from 'twin.macro';
 import { useEffect, useState } from 'react';
 import { keyframes } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
+import useSearchStore from '../../../stores/SearchStore';
 // import { indexColor } from '../../../datas/ms';
 
 
@@ -109,6 +110,7 @@ const Card: React.FC<CardProps> = ({ index, data }) => {
   const [isAnimate, setIsAnimate] = useState(false);
   const [isApp, setIsApp] = useState(false);
   const navigate = useNavigate();
+  const setNowPage = useSearchStore(state => state.setNowPage)
   const height = window.innerHeight * index + 150;
   const width = window.innerWidth / 2;
 
@@ -131,6 +133,7 @@ const Card: React.FC<CardProps> = ({ index, data }) => {
   };
 
   const movePage = (url: string) => {
+    setNowPage(url)
     navigate(`./${url}`);
   };
 

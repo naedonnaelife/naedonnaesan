@@ -58,7 +58,7 @@ const KakaoLogin:React.FC = () => {
         localStorage.setItem("kakaoToken", response.headers['kakao-authorization']);
         useStore.setIsLogin(true)
 
-        const dongName = await axios.get('/api/myLatLon').then((res:any) => res.dongName)
+        const dongName = await axios.get('/api/myLatLon').then((res:any) => res.object.dongName)
         console.log(dongName)
         searchArea(dongName)
         console.log('첫방문 확인 : ', response.headers['isfirst'], response.headers['Isfirst'], response.headers['isFrist'])

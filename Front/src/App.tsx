@@ -13,7 +13,7 @@ declare global {
 }
 
 const AppContainer = styled.div`
-  ${tw` font-jamsil text-choco h-screen cursor-mango`}
+  ${tw` font-jamsil text-choco h-screen`}
   `;
 
 const queryClient = new QueryClient();

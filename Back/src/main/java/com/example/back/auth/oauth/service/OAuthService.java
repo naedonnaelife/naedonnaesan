@@ -53,9 +53,9 @@ public class OAuthService {
         KakaoProfile profile = findProfile(token);
 
 //        // 이메일이 없으면 null 리턴
-//        if (profile.getKakao_account().getEmail() == null){
-//            return null;
-//        }
+        if (profile.getKakao_account().getEmail() == null){
+            return null;
+        }
 
         // 카카오 회원 PK를 받아와서 그대로 저장
         Long kakaoId = profile.getId();

@@ -6,8 +6,7 @@ import SearchBar from "../../utils/SearchBar.tsx";
 import UseAxios from "../../utils/UseAxios.tsx";
 import Alert from "../../utils/Alert.tsx";
 import hamburger from "../../assets/hamburger.png";
-import houseMaker from "../../assets/houseMaker.png";
-
+import redMarker from "../../assets/redMarker.png";
 
 interface SideProps {
   selectedBuildingRef: React.MutableRefObject<any>;
@@ -121,11 +120,8 @@ function SideBuilding({
 
   const selectedImageSize = new kakao.maps.Size(52, 52);
   const selectedMarkerImage = new kakao.maps.MarkerImage(
-    houseMaker,
-    selectedImageSize,
-    {
-      offset: new kakao.maps.Point(26, 26),
-    }
+    redMarker,
+    selectedImageSize
   );
 
   const handleHamburgerButton = () => {

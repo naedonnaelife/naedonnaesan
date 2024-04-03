@@ -128,8 +128,8 @@ const ReportContent: React.FC<ReportContentProps> = ({ name }) => {
               {cardTitles[scoreIndex]} {name}님!
             </CartTitle>
             <InfraContent>
-              {scoreList[0].map((lst) => (
-                <span> {reportLabels[lst]} </span>
+              {scoreList[0].map((lst, index) => (
+                <span key={index}> {reportLabels[lst]} </span>
               ))}
             </InfraContent>
             <CardContent>

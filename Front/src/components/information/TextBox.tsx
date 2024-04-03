@@ -53,8 +53,8 @@ const TextBox: React.FC<TextBoxProps> = ({ searchDong }) => {
     <TextWrapper>
       <p>{searchDong}에 인접한 지하철은 </p>
       <p>
-        {subways.map((e: Subway) => (
-          <SubwaySpan line={e.line - 1} key={e}>{e.subwayName}</SubwaySpan>
+        {subways.map((e: Subway, index) => (
+          <SubwaySpan line={e.line - 1} key={index}>{e.subwayName}</SubwaySpan>
           ))}
         이 있습니다.
       </p>

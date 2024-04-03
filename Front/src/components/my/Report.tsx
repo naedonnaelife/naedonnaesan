@@ -10,16 +10,13 @@ interface ReportProps {
 }
 
 const ReportWrapper = styled.section`
-  ${tw`w-[90%] border-b-2 border-grayHover pb-5
-  max-sm:w-full`}
+  ${tw`flex flex-col w-[90%] h-[60%] 
+  max-sm:w-[95%] max-sm:pt-2 max-sm:h-[80%]`}
 `;
 
 const ReportTitle = styled.h1`
-  ${tw`text-2xl mx-5 my-3
-  max-sm:text-xl max-sm:mx-2`}
-  span {
-    ${tw`max-sm:block`}
-  }
+  ${tw` h-[20%] text-2xl px-4 my-2
+  max-sm:text-xl max-sm:h-[20%]`}
 `;
 
 const DongChangeButton = styled.button`
@@ -27,7 +24,7 @@ const DongChangeButton = styled.button`
 `;
 
 const Span = styled.span`
-  ${tw``}
+  ${tw`max-sm:block`}
 `;
 
 const Report: React.FC<ReportProps> = ({ name, address, setAddress }) => {
@@ -81,7 +78,7 @@ const Report: React.FC<ReportProps> = ({ name, address, setAddress }) => {
         </Span>
         <p>추천 결과 보고서입니다</p>
       </ReportTitle>
-      <ReportContent />
+      <ReportContent name={name} />
     </ReportWrapper>
   );
 };

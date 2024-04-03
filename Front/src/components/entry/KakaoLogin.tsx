@@ -61,8 +61,8 @@ const KakaoLogin:React.FC = () => {
         const dongName = await axios.get('/api/myLatLon').then((res:any) => res.dongName)
         console.log(dongName)
         searchArea(dongName)
-        
-        if(response.headers['Isfirst'] === 'True'){
+        console.log('첫방문 확인 : ', response.headers['isfirst'], response.headers['Isfirst'], response.headers['isFrist'])
+        if(response.headers['isfirst'] === 'True'){
           navigate('./initial')
         }
       } catch (error) {

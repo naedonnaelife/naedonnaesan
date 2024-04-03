@@ -60,7 +60,6 @@ function UserForm() {
     daum.postcode.load(() => {
       const postcode = new daum.Postcode({
         oncomplete: function (data: any) {
-          console.log('데이터 : ', data)
           setAddress(data.address);
         },
       });
@@ -82,10 +81,12 @@ function UserForm() {
         if(status === daum.maps.services.Status.OK){
           const roadData = result[0].road_address
           SetCoordinate({x : roadData.x, y : roadData.y})
+          console.log('좌표 : ' ,roadData.x , roadData.y)
           const code = result[0].address.b_code.slice(0, 8)
           const getDongData = dongCode.find(e => e.code === code)
           SetDongName(getDongData? getDongData.dong : '')
           searchArea(getDongData? getDongData.dong : '' )
+          console.log('동이름 : ', getDongData?.dong)
         }
       })
     }
@@ -96,7 +97,7 @@ function UserForm() {
   
   const inputUserInfo = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    console.log('데이터 : ', inputData)
     const checked = Object.values(inputData).filter(e =>{
       if(typeof e === 'string'){
         return e === ""
@@ -104,7 +105,7 @@ function UserForm() {
         return Object.keys(e).length === 0;
       }
     })
-
+    console.log('체크 : ', checked)
     if(!checked.length){
       await axios.post("/api/userinfo", inputData).then(
         () => {navigate('/recommend')}

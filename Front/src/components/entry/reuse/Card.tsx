@@ -2,7 +2,16 @@ import tw, { styled } from 'twin.macro';
 import { useEffect, useState } from 'react';
 import { keyframes } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { indexColor } from '../../../datas/ms';
+// import { indexColor } from '../../../datas/ms';
+
+
+const indexColor = [
+  {title : '#FFB6E6', bg : 'bg-gradient-to-r to-mainRecommend via-centerRecommend from-mainRecommend'},
+  {title : '#BC86FF', bg : 'bg-gradient-to-r to-mainBuilding via-centerBuilding from-mainBuilding'},
+  {title : '#F6C4B9', bg : 'bg-gradient-to-r to-mainComparison via-centerComparison from-mainComparison'},
+  {title : '#8DB3FF', bg : 'bg-gradient-to-r to-mainInformation via-centerInformation from-mainInformation'},
+  {title : '#8BEFB1', bg : 'bg-gradient-to-r to-mainMy via-centerMy from-mainMy'},
+]
 
 interface CardProps {
   index: number;
@@ -84,9 +93,16 @@ const CardSubContent = styled(CardContent)`
 `;
 
 const ServiceLink = styled.button`
-  ${tw` w-[40%] h-[20%] rounded-lg text-xl text-white p-2
-  max-sm:absolute max-sm:w-[60%] max-sm:top-[77.5vh] max-sm:text-lg `}
-  ${({ width, index }: StyleProps) => `left: ${width}px; background: ${indexColor[index].bg};`}
+  ${({ index }:StyleProps) => index === 0 ? tw`bg-gradient-to-r to-mainRecommend via-centerRecommend from-mainRecommend`
+  : index === 1 ? tw`bg-gradient-to-r to-mainBuilding via-centerBuilding from-mainBuilding`
+    : index === 2? tw`bg-gradient-to-r to-mainComparison via-centerComparison from-mainComparison`
+      : index === 3? tw`bg-gradient-to-r to-mainInformation via-centerInformation from-mainInformation`
+        : tw`bg-gradient-to-r to-mainMy via-centerMy from-mainMy`}
+
+  ${tw`w-[40%] h-[20%] rounded-lg text-xl text-white p-2 transition-all duration-500 bg-size-200 bg-pos-0 hover:bg-pos-100 
+  max-sm:absolute max-sm:w-[60%] max-sm:top-[77.5vh] max-sm:text-lg
+  `}
+  ${({ width }:StyleProps) => `left: ${width}px;`}
 `;
 
 const Card: React.FC<CardProps> = ({ index, data }) => {

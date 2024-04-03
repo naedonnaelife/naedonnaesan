@@ -78,7 +78,8 @@ const Graph: React.FC<DetailGraphProps> = ({
           },
         },
       },
-      y: { display: false },
+      y: { display: false},
+
     },
   };
 

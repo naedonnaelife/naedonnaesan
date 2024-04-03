@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import tw, { styled } from 'twin.macro';
-import SearchBar from '../../utils/SearchBar.tsx';
-import UseAxios from '../../utils/UseAxios.tsx';
-import newDong from '../../datas/dong.json';
-import redhouse from '../../assets/redhouse.png';
-import bluehouse from '../../assets/bluehouse.png';
-import './content.css';
+import React, { useEffect, useState } from "react";
+import tw, { styled } from "twin.macro";
+import SearchBar from "../../utils/SearchBar.tsx";
+import UseAxios from "../../utils/UseAxios.tsx";
+import newDong from "../../datas/dong.json";
+import houseMaker from "../../assets/houseMaker.png";
+import circle from "../../assets/circle.png";
+import "./content.css";
 
 interface KakaoMapProps {
   selectedBuildingRef: React.MutableRefObject<any>;
@@ -41,11 +41,15 @@ const SearchWarpper = styled.div`
 const { kakao } = window;
 
 const imageSize = new kakao.maps.Size(25, 25);
-const markerImage = new kakao.maps.MarkerImage(redhouse, imageSize);
-const selectedImageSize = new kakao.maps.Size(52, 52);
-const selectedMarkerImage = new kakao.maps.MarkerImage(bluehouse, selectedImageSize, {
-  offset: new kakao.maps.Point(26, 26),
-});
+const markerImage = new kakao.maps.MarkerImage(circle, imageSize);
+const selectedImageSize = new kakao.maps.Size(55, 55);
+const selectedMarkerImage = new kakao.maps.MarkerImage(
+  houseMaker,
+  selectedImageSize,
+  {
+    offset: new kakao.maps.Point(27, 27),
+  }
+);
 
 function KakaoMap({
   selectedBuildingRef,
@@ -59,7 +63,9 @@ function KakaoMap({
   setBuildingClusterer,
 }: KakaoMapProps) {
   const axios = UseAxios();
-  const selectedDong: any = (newDong as any).features.find((dong: any) => dong.properties.EMD_KOR_NM === searchDong);
+  const selectedDong: any = (newDong as any).features.find(
+    (dong: any) => dong.properties.EMD_KOR_NM === searchDong
+  );
   const x = selectedDong.properties.x;
   const y = selectedDong.properties.y;
 
@@ -74,13 +80,18 @@ function KakaoMap({
 
   const clustererStyle = (size: number) => {
     return {
-      width: size + 'px',
-      height: size + 'px',
-      lineHeight: size + 1 + 'px',
+      width: size + "px",
+      height: size + "px",
+      lineHeight: size + 1 + "px",
     };
   };
 
-  const clickOverlay = (buildingId: number, overlay: any, position: any, map: any) => {
+  const clickOverlay = (
+    buildingId: number,
+    overlay: any,
+    position: any,
+    map: any
+  ) => {
     overlay.setMap(null);
     if (selectedBuildingRef.current !== null) {
       selectedBuildingRef.current.setMap(null);
@@ -102,15 +113,21 @@ function KakaoMap({
   // 폴리곤 생성
   const makePolygon = (map: any, unit: any) => {
     const polygonPath = unit.geometry.coordinates.map((e: []) =>
-      e.map((coordinate: number[]) => new kakao.maps.LatLng(coordinate[1] - 0.00052, coordinate[0] - 0.00275))
+      e.map(
+        (coordinate: number[]) =>
+          new kakao.maps.LatLng(
+            coordinate[1] - 0.00052,
+            coordinate[0] - 0.00275
+          )
+      )
     );
     dongPolygon?.setMap(null);
     const polygon = new kakao.maps.Polygon({
       path: polygonPath,
       strokeWeight: 3,
-      strokeColor: '#FB8D75',
+      strokeColor: "#FB8D75",
       strokeOpacity: 0.7,
-      fillColor: '#FB8D75',
+      fillColor: "#FB8D75",
       fillOpacity: 0.1,
     });
     polygon.setMap(map);
@@ -123,7 +140,7 @@ function KakaoMap({
     // 데이터에서 좌표 값을 가지고 마커 표시
     // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않음
     axios
-      .get('/api/buildings', { params: { dongname: searchDong } })
+      .get("/api/buildings", { params: { dongname: searchDong } })
       .then((response) => {
         const markermarker: any = {};
         const markers = response.data.object.map((building: Building) => {
@@ -132,7 +149,7 @@ function KakaoMap({
             image: markerImage,
             title: building.buildingId,
           });
-          kakao.maps.event.addListener(marker, 'click', function () {
+          kakao.maps.event.addListener(marker, "click", function () {
             if (selectedBuildingRef.current !== null) {
               selectedBuildingRef.current.setMap(null);
             }
@@ -161,7 +178,7 @@ function KakaoMap({
 
   useEffect(() => {
     // 카카오톡 지도 생성
-    const container = document.getElementById('map');
+    const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(y, x),
       level: 5,
@@ -177,80 +194,95 @@ function KakaoMap({
       minLevel: 1, // 클러스터 할 최소 지도 레벨
       gridSize: 100,
       calculator: [3, 5, 10, 30, 50, 100, 500, 1000], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
-      texts: ['2', '3+', '5+', '10+', '50+', '100+', '500+', '1000+'],
+      texts: ["2", "3+", "5+", "10+", "50+", "100+", "500+", "1000+"],
       styles: [
         {
           // calculator 각 사이 값 마다 적용될 스타일을 지정한다
-          width: '27px',
-          height: '27px',
-          background: `url("/redhouse.png") round`,
-          color: '#fff', // 글자색
-          // opacity: '0.7',
-          border: 'black',
-          // borderRadius: '100px',
-          textAlign: 'center',
-          fontWeight: 'bold',
-          lineHeight: '28px',
-          paddingTop: '5px',
+          width: "27px",
+          height: "27px",
+          // background: `url("/house.png") round`,
+          background: `#8160E2 round`,
+          color: "white", // 글자색
+          opacity: "0.8",
+          border: "black",
+          // border-radius: '100%',
+          borderRadius: "100px",
+          textAlign: "center",
+          lineHeight: "28px",
+          // paddingTop: "5px",
         },
-        ...[30, 32, 35, 40, 45, 50, 55, 60].map((size) => clustererStyle(size)),
+        ...[30, 35, 40, 45, 50, 55, 60, 70].map((size) => clustererStyle(size)),
       ],
     });
 
     // 클러스터러 클릭 이벤트 (줌 / 커스텀 오버레이 생성)
-    kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster: any) {
-      const level = map.getLevel();
-      if (level >= 2) {
-        const newLevel = level - 2;
-        map.setCenter(cluster.getCenter());
-        map.setLevel(newLevel ? newLevel : 1, { animate: true });
-      } else {
-        // 커스텀 오버레이 생성하는 경우
-        customOverlay.setMap(null);
-        map.setZoomable(false);
-        const clusterMarkers = cluster.getMarkers();
-        const buildingIdList = clusterMarkers.map((marker: any) => Number(marker.getTitle()));
-        // cluster 에 포함된 buliding 리스트 상세 정보
-        axios
-          .post('/api/buildings/detail', {
-            buildingIdList: buildingIdList,
-          })
-          .then((response) => {
-            let content = '<div class="contentStyle"><ul class="container">';
-            response.data.object.forEach((building: any) => {
-              content += `<li class="item" id=${building.buildingId}> <p>[${building.buildingType}]</p><p>${building.name}</p><p> ${building.payType}${building.deposit} / ${building.monthlyPay} </p></li>`;
-            });
-            content += '</ul><div class="close" id="close-button">닫기</div></div>';
+    kakao.maps.event.addListener(
+      clusterer,
+      "clusterclick",
+      function (cluster: any) {
+        const level = map.getLevel();
+        if (level >= 2) {
+          const newLevel = level - 2;
+          map.setCenter(cluster.getCenter());
+          map.setLevel(newLevel ? newLevel : 1, { animate: true });
+        } else {
+          // 커스텀 오버레이 생성하는 경우
+          customOverlay.setMap(null);
+          map.setZoomable(false);
+          const clusterMarkers = cluster.getMarkers();
+          const buildingIdList = clusterMarkers.map((marker: any) =>
+            Number(marker.getTitle())
+          );
+          // cluster 에 포함된 buliding 리스트 상세 정보
+          axios
+            .post("/api/buildings/detail", {
+              buildingIdList: buildingIdList,
+            })
+            .then((response) => {
+              let content = '<div class="contentStyle"><ul class="container">';
+              response.data.object.forEach((building: any) => {
+                content += `<li class="item" id=${building.buildingId}> <p>[${building.buildingType}]</p><p>${building.name}</p><p> ${building.payType}${building.deposit} / ${building.monthlyPay} </p></li>`;
+              });
+              content +=
+                '</ul><div class="close" id="close-button">닫기</div></div>';
 
-            customOverlay.setPosition(cluster.getCenter());
-            customOverlay.setContent(content);
-            customOverlay.setMap(map);
-            map.panTo(cluster.getCenter());
+              customOverlay.setPosition(cluster.getCenter());
+              customOverlay.setContent(content);
+              customOverlay.setMap(map);
+              map.panTo(cluster.getCenter());
 
-            // 오버레이 닫기 이벤트
-            // 커스텀 오버레이 닫기
-            const closeOverlay = () => {
-              map.setZoomable(true);
-              customOverlay.setMap(null);
-            };
+              // 오버레이 닫기 이벤트
+              // 커스텀 오버레이 닫기
+              const closeOverlay = () => {
+                map.setZoomable(true);
+                customOverlay.setMap(null);
+              };
 
-            // document.getElementById('map')?.addEventListener('click', closeOverlay);
+              // document.getElementById('map')?.addEventListener('click', closeOverlay);
 
-            // 오버레이 클릭 / 닫기 이벤트 달기
-            document.getElementById('close-button')?.addEventListener('click', closeOverlay);
-            response.data.object.forEach((building: any) => {
+              // 오버레이 클릭 / 닫기 이벤트 달기
               document
-                .getElementById(`${building.buildingId}`)
-                ?.addEventListener('click', () =>
-                  clickOverlay(building.buildingId, customOverlay, cluster.getCenter(), map)
-                );
+                .getElementById("close-button")
+                ?.addEventListener("click", closeOverlay);
+              response.data.object.forEach((building: any) => {
+                document
+                  .getElementById(`${building.buildingId}`)
+                  ?.addEventListener("click", () =>
+                    clickOverlay(
+                      building.buildingId,
+                      customOverlay,
+                      cluster.getCenter(),
+                      map
+                    )
+                  );
+              });
+            })
+            .catch((error) => {
+              console.log(error);
             });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        }
       }
-    });
+    );
     setBuildingMap(map);
     setBuildingClusterer(clusterer);
     makePolygon(map, selectedDong);

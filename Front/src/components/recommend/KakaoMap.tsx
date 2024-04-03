@@ -22,29 +22,32 @@ const BackSpace = styled.button`
 
 const dongStyle = `
 position: absolute;
-top: -8vh;
-left: -30px;
-color: white;
-background-color: rgba(0, 0, 0, 0.8);
-padding: 5px;
+top: -9vh;
+left: -34px;
+color: black;
+background-color: white;
+opacity: 0.9;
+padding: 2px 8px;
 border: 2px solid #3E84E8;
-border-radius: 4px;
+border-radius: 8px;
 box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-font-family: 'Noto Sans KR', sans-serif;
+font-family: 'TheJamsil3Regular', sans-serif;
 text-center;
 `
 
 const companyStyle =`
 position: absolute;
-top: -8vh;
-left: -40px;
-color: white;
-background-color: rgba(0, 0, 0, 0.8);
-padding: 5px;
+top: -10vh;
+left: -36px;
+color: black;
+background-color: white;
+opacity: 0.9;
+padding: 2px 8px;
 border: 2px solid #3E84E8;
-border-radius: 4px;
+border-radius: 8px;
 box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-font-family: 'Noto Sans KR', sans-serif;
+font-family: 'TheJamsil3Regular', sans-serif;
+text-center;
 `
 
 

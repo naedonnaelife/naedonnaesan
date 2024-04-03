@@ -26,7 +26,7 @@ public class UserService {
 
     public LatLonDto getLatLon(){
         User user = getUser();
-        LatLonDto latLonDto = new LatLonDto(user.getX(), user.getY());
+        LatLonDto latLonDto = new LatLonDto(user.getX(), user.getY(), user.getDongName());
         return latLonDto;
     }
 
@@ -51,6 +51,8 @@ public class UserService {
         int age = formDto.getAge();
         Gender gender = formDto.getGender();
         Coordinate coordinate = formDto.getCoordinate();
+        String dongName = formDto.getDongName();
+        System.out.println(dongName+"을 넣어주니");
 
         User user = getUser();
         user.setAge(age);
@@ -59,6 +61,7 @@ public class UserService {
         user.setName(name);
         user.setX(coordinate.getX());
         user.setY(coordinate.getY());
+        user.setDongName(dongName);
 
         return user.getUserId();
 
@@ -68,7 +71,7 @@ public class UserService {
         User user = getUser();
 
         List<ZzimDto> zzimList = user.getZzimList().stream()
-                .map(zzim -> new ZzimDto(zzim.getDong().getDongId(), zzim.getDong().getDongName()))
+                .map(zzim -> new ZzimDto(zzim.getDong().getDongId(), zzim.getDong().getDongName(), zzim.getDong().getGu().getGuName()))
                 .collect(Collectors.toList());
 
         return zzimList;

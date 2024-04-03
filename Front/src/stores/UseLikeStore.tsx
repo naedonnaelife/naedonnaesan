@@ -6,7 +6,7 @@ interface Like {
 }
 
 const UseLikeStore = create<Like>(set => ({
-    likeList: ["강남구 도곡1동", "성동구 성수1가1동", "강남구 역삼2동"],
+    likeList: [],
     setLikeList: (likeList) => set({ likeList })
 }))
 

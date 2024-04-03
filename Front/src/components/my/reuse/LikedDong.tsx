@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import UseAxios from '../../../utils/UseAxios';
 import { ConfirmAlert } from '../../../utils/Alert';
 import like from '../../../assets/like.png';
+import useSearchStore from '../../../stores/SearchStore';
 
 interface Props {
   likedDongName: string;
@@ -39,6 +40,7 @@ const LikeButton = styled.button`
 const Like: React.FC<Props> = ({ guName, likedDongName, likedDongId, setLikedDongList }) => {
   const navigate = useNavigate();
   const axios = UseAxios();
+  const setNowPage = useSearchStore(state => state.setNowPage)
   const removeLike = async (id: number) => {
     const confirm = await ConfirmAlert({
       title: '',
@@ -50,6 +52,10 @@ const Like: React.FC<Props> = ({ guName, likedDongName, likedDongId, setLikedDon
       setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim.dongId !== id));
     }
   };
+  const handleNavigate = (e:string) => {
+      navigate(`/${e}`, { state: { areaName: likedDongName } })
+      setNowPage(e)
+    }
 
   return (
     <DongWrapper>
@@ -59,13 +65,13 @@ const Like: React.FC<Props> = ({ guName, likedDongName, likedDongId, setLikedDon
       <ButtonWrapper style={{ marginLeft: 'auto' }}>
         <Button
           style={{ marginRight: '10px' }}
-          onClick={() => navigate('/building', { state: { areaName: likedDongName } })}
+          onClick={() => handleNavigate('building')}
         >
           매물
         </Button>
         <Button
           style={{ marginRight: '10px' }}
-          onClick={() => navigate('/information', { state: { areaName: likedDongName } })}
+          onClick={() => handleNavigate('information')}
         >
           정보
         </Button>

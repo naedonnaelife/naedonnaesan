@@ -19,7 +19,7 @@ const fadeIn = keyframes`
 `;
 
 const LoginButton = styled.button`
-  ${tw`flex-c bg-mango rounded-lg text-2xl p-5
+  ${tw`flex-c bg-mango rounded-lg text-2xl p-5 z-10
   max-sm:text-lg `}
   animation : ${fadeIn} 1s ease-in-out;
 
@@ -58,12 +58,17 @@ const KakaoLogin:React.FC = () => {
         localStorage.setItem("kakaoToken", response.headers['kakao-authorization']);
         useStore.setIsLogin(true)
 
-        // const dongName = await axios.get('/api/myLatLon').then((res:any) => res.dongName)
         const dongName = await axios.get('/api/myLatLon').then((res:any) => res.data.object.dongName)
+<<<<<<< HEAD
         console.log(dongName)
         searchArea(dongName)
         console.log('첫방문 확인 : ', response.headers['isfirst'], response.headers['Isfirst'], response.headers['isFrist'])
         if(response.headers['isfirst'] === 'True'){
+=======
+        searchArea(dongName ? dongName : '역삼동')
+        
+        if(response.headers['Isfirst'] === 'True'){
+>>>>>>> front-dev
           navigate('./initial')
         }
       } catch (error) {

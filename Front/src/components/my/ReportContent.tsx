@@ -9,7 +9,6 @@ import face2 from '../../assets/face2.png';
 import face3 from '../../assets/face3.png';
 import face4 from '../../assets/face4.png';
 import sadFace from '../../assets/sadFace.png';
-// import face6 from '../../assets/face6.png';
 
 interface ReportContentProps {
   name: string | null;
@@ -60,6 +59,7 @@ const ReportContent: React.FC<ReportContentProps> = ({ name }) => {
   const navigate = useNavigate();
   const areaName = useSearchStore((state) => state.areaName);
   const update = useSearchStore((state) => state.selectedArea);
+  const setNowPage = useSearchStore((state) => state.setNowPage);
   const updateRecommendList = useSearchStore((state) => state.updateRecommendList);
 
   useEffect(() => {
@@ -67,7 +67,6 @@ const ReportContent: React.FC<ReportContentProps> = ({ name }) => {
       .get('/api/mypage/filterlist')
       .then((response) => {
         setPreferences(response.data.object.reportDto);
-        console.log(response.data.object.reportDto);
         updateRecommendList(response.data.object.mypageDongDtoList);
       })
       .catch((error) => {
@@ -79,6 +78,7 @@ const ReportContent: React.FC<ReportContentProps> = ({ name }) => {
     if (isEnter) {
       update('');
       navigate('/information', { state: { areaName: areaName } });
+      setNowPage('information')
     } else {
       setIsEnter(true);
     }

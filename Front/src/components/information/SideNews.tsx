@@ -101,7 +101,6 @@ const SideNews: React.FC<SideProps> = ({ setIsNewsOpen, isNewsListOpen }) => {
   const store = useSearchStore((state) => state.selectedNews);
 
   const selectedNews = async (e: string) => {
-    console.log('뉴스 선택 : ', e);
     await store(e);
     setIsNewsOpen(true);
   };

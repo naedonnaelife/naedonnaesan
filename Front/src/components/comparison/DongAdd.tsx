@@ -142,7 +142,6 @@ const DongAdd: React.FC<DongAddProps> = ({
     });
     if (confirm) {
       axios.delete("/api/zzim", { data: { dongName: name } });
-      console.log(likedDongList);
       setLikedDongList((prev: any) =>
         prev.filter((zzim: any) => zzim !== name)
       );

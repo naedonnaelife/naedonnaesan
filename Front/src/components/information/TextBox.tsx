@@ -33,7 +33,6 @@ const TextBox: React.FC<TextBoxProps> = ({ searchDong }) => {
   useEffect(() => {
     const getSubways = async () => {
       const response = await axios.get(`/api/dashboard/subway/${searchDong}`).then((res) => res.data.object);
-      console.log('응답 : ', response.length)
       if(response.length){
         const lastIndex = response.length - 1;
         const arrData = response.map((e: Subway, index: number) =>
@@ -61,7 +60,6 @@ const TextBox: React.FC<TextBoxProps> = ({ searchDong }) => {
       </p>
     </TextWrapper>
     : <TextWrapper><SubwaySpan>🙏{searchDong}에 인접한 지하철역이 없습니다.🙏</SubwaySpan></TextWrapper>
-    // : <TextWrapper><SubwaySpan>🤦‍♀️{searchDong}에 인접한 지하철역이 없습니다.</SubwaySpan></TextWrapper>
     }
   </>
   );

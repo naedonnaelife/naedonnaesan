@@ -69,42 +69,16 @@ const NavBar:React.FC = () => {
     navigate('/');
   };
 
-  // 테스트 시작
   const logout = () => {
-    console.log('로그아웃 실행')
     const kakaoToken = localStorage?.getItem('kakaoToken');
     axios.post(`/api/logout`, {}, 
     {headers : {"kakao-authorization" : kakaoToken}}
     ).then(() =>{
+      navigate('/')
       setIsLogin(false)
       localStorage.clear()
-      navigate('/')
     })
-    console.log('로그아웃 종료')
   }
-
-  const logout1 = () => {
-    console.log('테스트 1 실행')
-    const test = async () => {
-    const kakaoToken = localStorage?.getItem('kakaoToken');
-    await axios.post(`/api/logout`, {}, 
-      {headers : {"kakao-authorization" : kakaoToken}}
-      )
-    }
-    test()
-    localStorage.clear()
-    navigate('/')
-    console.log('테스트 1 종료')
-  }
-
-  const logout2 = () => {
-    console.log('로그아웃2  실행')
-    setIsLogin(false)
-    navigate('/')
-    console.log('로그아웃2  종료')
-  }
-
-  // 테스트 끝
 
   return (
     <>
@@ -123,17 +97,9 @@ const NavBar:React.FC = () => {
           <NavbarLink to="/comparison" onClick={()=> setNowPage('comparison')} nowPage={'comparison' === nowPage}>동네 비교</NavbarLink>
           <NavbarLink to="/information" onClick={()=> setNowPage('information')} nowPage={'information' === nowPage}>동네 정보</NavbarLink>
           <NavbarLink to="/my" onClick={()=> setNowPage('my')} nowPage={'my' === nowPage}>마이페이지</NavbarLink>
-          {/* 테스트 시작 */}
           <NavbarLogout onClick={logout}>
             <img src={door}></img>
           </NavbarLogout>
-          <NavbarLogout onClick={logout1}>
-            1번
-          </NavbarLogout>
-          <NavbarLogout onClick={logout2}>
-            2번
-          </NavbarLogout>
-          {/* 테스트 끝 */}
         </NavbarWrapper>
       </Navbar>
     </>

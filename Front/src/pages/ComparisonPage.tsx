@@ -16,12 +16,12 @@ const Main = styled.main`
 
 const AsideWrapper = styled.aside`
   ${tw`w-[25%] h-full-nav
-  max-sm:w-[95%] `}
+  max-sm:w-[95%] max-sm:h-[15%]`}
 `;
 
 const GraphWrapper = styled.section`
   ${tw`w-[75%] mt-10
-  max-sm:justify-center max-sm:w-[95%] max-sm:border-t-2 max-sm:border-gray max-sm:pt-6`}
+  max-sm:justify-center max-sm:w-[95%] max-sm:border-t-2 max-sm:border-gray max-sm:mt-0 max-sm:pt-6`}
 `;
 
 const Comparison = styled.section`
@@ -34,7 +34,6 @@ function ComparisonPage() {
   const [selected2, setSelected2] = useState<string | null>(null);
   const [detail1, setDetail1] = useState<any | null>(null);
   const [detail2, setDetail2] = useState<any | null>(null);
-  // const [categoryItems, setCategoryItems] = useState<string[]>([]);
 
   useEffect(() => {
     if (selected1 === null || selected2 === null) {

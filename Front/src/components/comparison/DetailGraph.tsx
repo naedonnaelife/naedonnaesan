@@ -29,7 +29,7 @@ type StylePros = {
 
 const GraphWrapper = styled.figure`
   ${tw`flex-c w-[87%] h-[full] pt-2 pb-8 mx-auto
-  max-sm:h-[300px] max-sm:mx-0 max-sm:px-5`}
+  max-sm:w-[100%] max-sm:h-[270px]`}
 `;
 
 const GraphLegend = styled.figcaption`
@@ -45,7 +45,8 @@ const Label2 = styled.div`
 `;
 
 const GraphTitle = styled.p`
-  ${tw`flex-c text-2xl border-t-2 border-gray mt-10 pt-5`}
+  ${tw`flex-c text-2xl border-t-2 border-gray mt-10 pt-5
+  max-sm:mt-6`}
 `;
 
 const TestBox = styled.div`

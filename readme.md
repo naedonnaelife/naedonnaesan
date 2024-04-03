@@ -58,6 +58,364 @@ SSAFY 10기 2학기 특화 프로젝트 - 내돈내산 :house:
 
 ## :file_folder: 프로젝트 파일 구조
 
+<details>
+<summary><b>FE</b></summary>
+<pre>
+<code>
+Front
+ ┣ public
+ ┃ ┣ mango.png
+ ┃ ┣ redhouse.png
+ ┃ ┗ vite.svg
+ ┣ src
+ ┃ ┣ assets
+ ┃ ┃ ┣ appleMango.png
+ ┃ ┃ ┣ bluehouse.png
+ ┃ ┃ ┣ building.png
+ ┃ ┃ ┣ buildingCarousel.png
+ ┃ ┃ ┣ camparison.png
+ ┃ ┃ ┣ company.gif
+ ┃ ┃ ┣ comparisonCarousel.png
+ ┃ ┃ ┣ dong.gif
+ ┃ ┃ ┣ garma.jpg
+ ┃ ┃ ┣ hamburger.png
+ ┃ ┃ ┣ house.png
+ ┃ ┃ ┣ information.png
+ ┃ ┃ ┣ informationCarousel.png
+ ┃ ┃ ┣ like.png
+ ┃ ┃ ┣ logo.png
+ ┃ ┃ ┣ marker.png
+ ┃ ┃ ┣ mypage.png
+ ┃ ┃ ┣ mypageCarousel.png
+ ┃ ┃ ┣ news.jpg
+ ┃ ┃ ┣ recommend.png
+ ┃ ┃ ┣ recommendCarousel.png
+ ┃ ┃ ┣ redhouse.png
+ ┃ ┃ ┣ tooltip.png
+ ┃ ┃ ┗ unlike.png
+ ┃ ┣ components
+ ┃ ┃ ┣ building
+ ┃ ┃ ┃ ┣ reuse
+ ┃ ┃ ┃ ┃ ┗ BuildingCard.tsx
+ ┃ ┃ ┃ ┣ content.css
+ ┃ ┃ ┃ ┣ KakaoMap.tsx
+ ┃ ┃ ┃ ┗ SideBuilding.tsx
+ ┃ ┃ ┣ comparison
+ ┃ ┃ ┃ ┣ reuse
+ ┃ ┃ ┃ ┃ ┗ Card.tsx
+ ┃ ┃ ┃ ┣ Column.tsx
+ ┃ ┃ ┃ ┣ ComparisonGraph.tsx
+ ┃ ┃ ┃ ┣ DetailGraph.tsx
+ ┃ ┃ ┃ ┣ DongAdd.tsx
+ ┃ ┃ ┃ ┗ tenor.gif
+ ┃ ┃ ┣ entry
+ ┃ ┃ ┃ ┣ reuse
+ ┃ ┃ ┃ ┃ ┣ Card.tsx
+ ┃ ┃ ┃ ┃ ┗ Carousel.tsx
+ ┃ ┃ ┃ ┣ KakaoLogin.tsx
+ ┃ ┃ ┃ ┗ SideButton.tsx
+ ┃ ┃ ┣ information
+ ┃ ┃ ┃ ┣ reuse
+ ┃ ┃ ┃ ┃ ┗ NewsCard.tsx
+ ┃ ┃ ┃ ┣ RadarChart.tsx
+ ┃ ┃ ┃ ┣ Report.tsx
+ ┃ ┃ ┃ ┣ ReportNews.tsx
+ ┃ ┃ ┃ ┣ SideNews.tsx
+ ┃ ┃ ┃ ┣ TableChart.tsx
+ ┃ ┃ ┃ ┗ TextBox.tsx
+ ┃ ┃ ┣ my
+ ┃ ┃ ┃ ┣ reuse
+ ┃ ┃ ┃ ┃ ┗ LikedDong.tsx
+ ┃ ┃ ┃ ┣ Like.tsx
+ ┃ ┃ ┃ ┣ Report.tsx
+ ┃ ┃ ┃ ┣ ReportContent.tsx
+ ┃ ┃ ┃ ┗ test.tsx
+ ┃ ┃ ┗ recommend
+ ┃ ┃ ┃ ┣ reuse
+ ┃ ┃ ┃ ┃ ┣ InfraSlider.tsx
+ ┃ ┃ ┃ ┃ ┗ SelectCard.tsx
+ ┃ ┃ ┃ ┣ KakaoMap.tsx
+ ┃ ┃ ┃ ┣ SelectInfra.tsx
+ ┃ ┃ ┃ ┗ SideRecommend.tsx
+ ┃ ┣ datas
+ ┃ ┃ ┣ buildings.json
+ ┃ ┃ ┣ dong.json
+ ┃ ┃ ┣ dongName.json
+ ┃ ┃ ┣ jm.json
+ ┃ ┃ ┣ ms.tsx
+ ┃ ┃ ┣ newDong.json
+ ┃ ┃ ┣ newGu.json
+ ┃ ┃ ┣ newsImages.json
+ ┃ ┃ ┣ SB.json
+ ┃ ┃ ┗ test.json
+ ┃ ┣ pages
+ ┃ ┃ ┣ BuildingPage.tsx
+ ┃ ┃ ┣ ComparisonPage.tsx
+ ┃ ┃ ┣ EntryPage.tsx
+ ┃ ┃ ┣ InformationPage.tsx
+ ┃ ┃ ┣ InitialFormPage.tsx
+ ┃ ┃ ┣ MyPage.tsx
+ ┃ ┃ ┗ RecommendPage.tsx
+ ┃ ┣ stores
+ ┃ ┃ ┣ DongStore.tsx
+ ┃ ┃ ┣ SearchStore.tsx
+ ┃ ┃ ┣ store.tsx
+ ┃ ┃ ┣ UseLikeStore.tsx
+ ┃ ┃ ┗ UserStore.tsx
+ ┃ ┣ utils
+ ┃ ┃ ┣ Alert.tsx
+ ┃ ┃ ┣ NavBar.tsx
+ ┃ ┃ ┣ RecommendList.tsx
+ ┃ ┃ ┣ SearchBar.tsx
+ ┃ ┃ ┣ Tooltip.tsx
+ ┃ ┃ ┣ UseAxios.tsx
+ ┃ ┃ ┗ UserForm.tsx
+ ┃ ┣ App.tsx
+ ┃ ┣ AppRoutes.tsx
+ ┃ ┣ index.css
+ ┃ ┣ main.tsx
+ ┃ ┣ twin.d.ts
+ ┃ ┗ vite-env.d.ts
+ ┣ .eslintrc.cjs
+ ┣ .gitignore
+ ┣ index.html
+ ┣ package-lock.json
+ ┣ package.json
+ ┣ postcss.config.js
+ ┣ README.md
+ ┣ tailwind.config.js
+ ┣ tsconfig.json
+ ┣ tsconfig.node.json
+ ┗ vite.config.ts
+</code>
+</pre>
+</details>
+
+
+<details>
+<summary><b>BE</b></summary>
+<pre>
+<code>
+Back
+ ┣ gradle
+ ┃ ┗ wrapper
+ ┃ ┃ ┣ gradle-wrapper.jar
+ ┃ ┃ ┗ gradle-wrapper.properties
+ ┣ specializePJ
+ ┃ ┣ src
+ ┃ ┃ ┗ Main.java
+ ┃ ┗ .gitignore
+ ┣ src
+ ┃ ┣ main
+ ┃ ┃ ┣ java
+ ┃ ┃ ┃ ┗ com
+ ┃ ┃ ┃ ┃ ┗ example
+ ┃ ┃ ┃ ┃ ┃ ┗ back
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ auth
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ AuthController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ jwt
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ TokenService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ JwtAuthenticationFilter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ JwtAuthorizationFilter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ JwtProperties.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ JwtToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ OAuthDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ TokenType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ oauth
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ OAuthService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ FanPrincipalDetailsService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ KakaoProfile.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ OAuthToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ PrincipalDetails.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ redis
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ RedisService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ FormDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ building
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ BuildingController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ BuildingDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ BuildingIdRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ BuildingPageDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ BuildingXYDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Building.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ BuildingRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ BuildingService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ common
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ BaseEntity.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ ErrorMessage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ HttpStatusEnum.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Message.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ CorsConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ RedisRepositoryConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ SecurityConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dashboard
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ DashboardController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ document
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Article.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ ArticleDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ ArticlePageDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ AvgInfraDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ArticleRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ DashboardService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dong
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ DongController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ DongInfraResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Dong.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ DongRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ DongService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ AlreadyZzimedException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ BuildingNotFoundException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ DongNotFoundException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ GlobalControllerExceptionHandler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ ImageUploadException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ RefreshTokenIncorrectException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ UserNotFoundException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ZzimNotFoundException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ gu
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ GuController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Gu.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ infra
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Infra.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ infracount
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ InfraCountSummaryDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ InfraTypeAvgCountDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ InfraTypeCountDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ InfraCount.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ InfraCountRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ infrascore
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ InfraAvgScoreDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ InfraScoreDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ InfraScore.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ InfraScoreRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ infratype
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ InfraType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ keyword
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ KeywordController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ document
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Keyword.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ KeywordDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ KeywordRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ KeywordService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ report
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ReportController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ MypageDongDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ MypageFilterDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ RecommendationDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ ReportDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ RequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Report.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ReportRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ReportService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ reportdong
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ReportDongController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ReportDong.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ReportdongRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ subway
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ SubwayDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Subway.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ SubwayRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ user
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ UserController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ AddressDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ Coordinate.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ LatLonDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ MypageDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ UserSimple.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ Gender.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ User.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ UserRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ UserService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ zzim
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ZzimController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ ZzimDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ZzimRequestDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ entity
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Zzim.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ZzimRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ ZzimService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ BackApplication.java
+ ┃ ┃ ┗ resources
+ ┃ ┃ ┃ ┣ application-oauth.yml
+ ┃ ┃ ┃ ┗ application.yml
+ ┃ ┗ test
+ ┃ ┃ ┗ java
+ ┃ ┃ ┃ ┗ com
+ ┃ ┃ ┃ ┃ ┗ example
+ ┃ ┃ ┃ ┃ ┃ ┗ back
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ DemoApplicationTests.java
+ ┣ .gitignore
+ ┣ build.gradle
+ ┣ Dockerfile
+ ┣ gradlew
+ ┣ gradlew.bat
+ ┗ settings.gradle
+ </code>
+ </pre>
+</details>
+
+
+<details>
+<summary><b>ML</b></summary>
+<pre>
+<code>
+</code>
+</pre>
+</details>
+
+
 ## :sparkler: 내돈내산 주요 기능
 
 ## :memo: 프로젝트 산출물

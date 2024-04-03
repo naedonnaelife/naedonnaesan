@@ -20,7 +20,7 @@ const LikeTop = styled.div`
 `;
 
 const SearchWrapper = styled.div`
-  ${tw`w-full pl-10
+  ${tw`w-full h-12 pl-10
   max-sm:pl-0`}
 `;
 
@@ -30,7 +30,7 @@ const LikeTitle = styled.h1`
 `;
 
 const LikeContent = styled.ul`
-  ${tw`grid grid-cols-2 gap-3 h-[70%] pl-[12px] pr-[2px] overflow-y-scroll
+  ${tw`grid grid-cols-2 auto-rows-min gap-3 h-[70%] pl-[12px] pr-[2px] overflow-y-scroll
   max-sm:grid-cols-1`}
   ::-webkit-scrollbar-track {
     background: #f3f4f6;

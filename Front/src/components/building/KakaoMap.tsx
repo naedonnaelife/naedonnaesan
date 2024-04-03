@@ -46,9 +46,6 @@ const selectedImageSize = new kakao.maps.Size(55, 55);
 const selectedMarkerImage = new kakao.maps.MarkerImage(
   redMarker,
   selectedImageSize
-  // {
-  //   offset: new kakao.maps.Point(27, 27),
-  // }
 );
 
 function KakaoMap({
@@ -188,28 +185,24 @@ function KakaoMap({
     };
     const map = new kakao.maps.Map(container, options);
     const clusterer = new kakao.maps.MarkerClusterer({
-      map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
-      averageCenter: false, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+      map: map, 
+      averageCenter: false, 
       disableClickZoom: true,
       minLevel: 1, // 클러스터 할 최소 지도 레벨
       gridSize: 100,
-      calculator: [3, 5, 10, 30, 50, 100, 500, 1000], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
+      calculator: [3, 5, 10, 30, 50, 100, 500, 1000], // 클러스터의 크기 구분 값
       texts: ["2", "3+", "5+", "10+", "50+", "100+", "500+", "1000+"],
       styles: [
         {
-          // calculator 각 사이 값 마다 적용될 스타일을 지정한다
           width: "27px",
           height: "27px",
-          // background: `url("/house.png") round`,
           background: `#8160E2 round`,
-          color: "white", // 글자색
+          color: "white",
           opacity: "0.8",
           border: "black",
-          // border-radius: '100%',
           borderRadius: "100px",
           textAlign: "center",
           lineHeight: "28px",
-          // paddingTop: "5px",
         },
         ...[30, 35, 40, 45, 50, 55, 60, 70].map((size) => clustererStyle(size)),
       ],
@@ -258,7 +251,6 @@ function KakaoMap({
                 customOverlay.setMap(null);
               };
 
-              // document.getElementById('map')?.addEventListener('click', closeOverlay);
 
               // 오버레이 클릭 / 닫기 이벤트 달기
               document

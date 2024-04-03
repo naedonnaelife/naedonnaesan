@@ -60,7 +60,6 @@ function UserForm() {
     daum.postcode.load(() => {
       const postcode = new daum.Postcode({
         oncomplete: function (data: any) {
-          console.log('데이터 : ', data)
           setAddress(data.address);
         },
       });

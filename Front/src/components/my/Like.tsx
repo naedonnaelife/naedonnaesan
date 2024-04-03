@@ -70,7 +70,6 @@ const Like: React.FC<LikeProps> = ({ name }) => {
 
   useEffect(() => {
     if (searchDong) {
-      console.log(searchDong);
       axios
         .post(`/api/zzim`, { dongName: searchDong })
         .then((response) => {

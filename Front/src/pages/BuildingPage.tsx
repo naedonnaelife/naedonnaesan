@@ -32,7 +32,6 @@ function BuildingPage() {
       <NavBar />
       <Main>
         <SideBuilding
-          // areaName={location.state ? location.state.areaName : '역삼동'}
           selectedBuildingRef={selectedBuildingRef}
           buildingId={buildingId}
           setBuildingId={setBuildingId}
@@ -42,7 +41,6 @@ function BuildingPage() {
           setSearchDong={setSearchDong}
         />
         <KakaoMap
-          // areaName={location.state ? location.state.areaName : '역삼동'}
           selectedBuildingRef={selectedBuildingRef}
           setBuildingId={setBuildingId}
           buildingMap={buildingMap}

@@ -2,13 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface User {
-  // user_id: bigint;
-  // age: number;
   bAddress: string;
-  // gender: string;
-  // kakaoId: bigint;
   name: string;
-  // roles: string;
   setUser: (name: string) => void;
   isLogin: boolean;
   setIsLogin: (state: boolean) => void;

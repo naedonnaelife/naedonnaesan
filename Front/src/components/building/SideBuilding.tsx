@@ -69,21 +69,13 @@ const SearchWarpper = styled.div`
   ${tw`w-[100%] h-12 mt-[1vh]
   max-sm:hidden`}
 `;
-// const ButtonWrapper = styled.aside`
-//   ${tw`flex justify-between w-[100%]`}
-// `;
-// const Button = styled.button`
-//   ${tw`bg-dongButton rounded-3xl px-4 py-1 my-2`}
-// `;
 const HamburgerButton = styled.button`
   ${tw`hidden w-[5%] h-[4vh]
     max-sm:flex-c`}
 `;
-
 const SelectedWrapper = styled.div`
   ${tw`w-[100%] h-[20vh] rounded-md bg-dongButton p-1`}
 `;
-
 const SelectedCard = styled.article`
   ${tw`flex w-[100%] h-[15vh]`}
 `;
@@ -223,10 +215,6 @@ function SideBuilding({
         <SearchWarpper>
           <SearchBar searchDong={searchDong} setSearchDong={setSearchDong} />
         </SearchWarpper>
-        {/* <ButtonWrapper>
-          <Button>가격</Button>
-          <Button>유형</Button>
-        </ButtonWrapper> */}
         <SelectedWrapper>
           <CloseButton onClick={handleCloseButton}>✖</CloseButton>
           <SelectedCard>

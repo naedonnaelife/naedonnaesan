@@ -47,7 +47,6 @@ const Report: React.FC<ReportProps> = ({ name, address, setAddress }) => {
               const roadData = result[0].road_address;
               const code = result[0].address.b_code.slice(0, 8)
               const dongName = dongCode.find(e => e.code === code)
-              console.log(dongName)
               axios
                 .put('/api/mypage/edit/address', {
                   address: data.address,

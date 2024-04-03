@@ -1,6 +1,5 @@
 import tw, { styled } from 'twin.macro';
 import Slider from './reuse/InfraSlider';
-// import SelectCard from './reuse/SelectCard';
 import UseAxios from '../../utils/UseAxios';
 import { useEffect, useState } from 'react';
 import useSearchStore from '../../stores/SearchStore';
@@ -72,7 +71,6 @@ const SelectInfra: React.FC<InfraProps> = ({ isActive, handleActive }) => {
         return res;
       });
       update(response.data.recommend);
-      console.log(response.data.recommend);
     } else {
       Alert({ title: '', content: '인프라를 모두 선택해 주세요.', icon: 'info' });
     }

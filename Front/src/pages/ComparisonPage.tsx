@@ -38,7 +38,6 @@ function ComparisonPage() {
   useEffect(() => {
     if (selected1 === null || selected2 === null) {
       setCategory('치안');
-      console.log(category)
     }
   }, [selected1, selected2]);
 

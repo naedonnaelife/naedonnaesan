@@ -59,6 +59,7 @@ const ReportContent: React.FC<ReportContentProps> = ({ name }) => {
   const navigate = useNavigate();
   const areaName = useSearchStore((state) => state.areaName);
   const update = useSearchStore((state) => state.selectedArea);
+  const setNowPage = useSearchStore((state) => state.setNowPage);
   const updateRecommendList = useSearchStore((state) => state.updateRecommendList);
 
   useEffect(() => {
@@ -77,6 +78,7 @@ const ReportContent: React.FC<ReportContentProps> = ({ name }) => {
     if (isEnter) {
       update('');
       navigate('/information', { state: { areaName: areaName } });
+      setNowPage('information')
     } else {
       setIsEnter(true);
     }

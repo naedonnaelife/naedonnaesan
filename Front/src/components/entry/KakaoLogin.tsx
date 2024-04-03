@@ -19,7 +19,7 @@ const fadeIn = keyframes`
 `;
 
 const LoginButton = styled.button`
-  ${tw`flex-c bg-mango rounded-lg text-2xl p-5
+  ${tw`flex-c bg-mango rounded-lg text-2xl p-5 z-10
   max-sm:text-lg `}
   animation : ${fadeIn} 1s ease-in-out;
 

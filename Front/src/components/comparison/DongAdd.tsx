@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import tw, { styled } from "twin.macro";
-import SearchBar from "../../utils/SearchBar";
-import UseAxios from "../../utils/UseAxios";
-import Alert, { ConfirmAlert } from "../../utils/Alert.tsx";
-import like from "../../assets/like.png";
-import chunsik from "./newChunsik.gif";
+import React, { useEffect, useState } from 'react';
+import tw, { styled } from 'twin.macro';
+import SearchBar from '../../utils/SearchBar';
+import UseAxios from '../../utils/UseAxios';
+import Alert, { ConfirmAlert } from '../../utils/Alert.tsx';
+import like from '../../assets/like.png';
+import chunsik from './newChunsik.gif';
 
 interface DongAddProps {
   setSelected1: (value: string | null) => void;
@@ -79,27 +79,22 @@ const Image = styled.img`
   ${tw`animate-jump delay-1000`}
 `;
 
-const DongAdd: React.FC<DongAddProps> = ({
-  setSelected1,
-  setSelected2,
-  selected1,
-  selected2,
-}) => {
+const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1, selected2 }) => {
   const [likedDongList, setLikedDongList] = useState<any[]>([]);
-  const [searchDong, setSearchDong] = useState<string>("");
+  const [searchDong, setSearchDong] = useState<string>('');
   const axios = UseAxios();
 
   useEffect(() => {
-    handleClick(searchDong);
+    if (searchDong) {
+      handleClick(searchDong);
+    }
   }, [searchDong]);
 
   useEffect(() => {
     axios
-      .get("/api/mypage/likelist")
+      .get('/api/mypage/likelist')
       .then((response) => {
-        const newLikedDongList = response.data.object.map(
-          (dong: any) => dong.dongName
-        );
+        const newLikedDongList = response.data.object.map((dong: any) => dong.dongName);
         setLikedDongList(newLikedDongList);
         return newLikedDongList;
       })
@@ -112,11 +107,10 @@ const DongAdd: React.FC<DongAddProps> = ({
     // 똑같은 동 또 추가
     if (dong === selected1 || dong === selected2) {
       Alert({
-        title: "",
-        content: "이미 선택된 동네입니다.<br />다른 동네를 선택해주세요.",
-        icon: "info",
+        title: '',
+        content: '이미 선택된 동네입니다.<br />다른 동네를 선택해주세요.',
+        icon: 'info',
       });
-      return;
     }
 
     if (!selected1) {
@@ -126,25 +120,24 @@ const DongAdd: React.FC<DongAddProps> = ({
     } else {
       // 둘다 선택해놓고 또 추가하면
       Alert({
-        title: "",
-        content: "지역이 선택되어 있습니다.<br />변경하려면 기존 지역을 삭제하세요.",
-        icon: "info",
+        title: '',
+        content: '지역이 선택되어 있습니다.<br />변경하려면 기존 지역을 삭제하세요.',
+        icon: 'info',
       });
     }
+    setSearchDong('');
   };
 
   const removeLike = async (name: string) => {
     // 여기 alert 창 추가
     const confirm = await ConfirmAlert({
-      title: "",
+      title: '',
       content: `<strong>${name}</strong>을 <strong style="color:red;">삭제</strong>하시겠습니까?`,
-      icon: "question",
+      icon: 'question',
     });
     if (confirm) {
-      axios.delete("/api/zzim", { data: { dongName: name } });
-      setLikedDongList((prev: any) =>
-        prev.filter((zzim: any) => zzim !== name)
-      );
+      axios.delete('/api/zzim', { data: { dongName: name } });
+      setLikedDongList((prev: any) => prev.filter((zzim: any) => zzim !== name));
     }
   };
 

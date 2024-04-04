@@ -10,8 +10,8 @@ type RunningProps = {
 };
 
 type StyleProps = {
-  background : string;
-}
+  background: string;
+};
 
 const fadeIn = keyframes`
   0%{
@@ -59,7 +59,7 @@ const CloneSlides = styled.ul`
 `;
 
 const Slide = styled.li`
-  ${tw`flex flex-col justify-between h-[100%] w-calc-6 rounded-lg shadow-lg text-center text-white mr-[5vw] mb-[5vw] hover:scale-105 transition-transform duration-300
+  ${tw`flex flex-col justify-between h-[100%] w-calc-6 rounded-lg shadow-lg text-center text-white mr-[5vw] mb-[5vw] hover:scale-105 transition-transform duration-300 cursor-pointer
     max-sm:w-calc-4`}
   background-image: ${({ background }: StyleProps) => `url(${background})`};
   background-size: cover;
@@ -71,7 +71,7 @@ const Slide = styled.li`
 const ContentName = styled.p`
   ${tw`mt-[5vh] text-4xl text-semiWhite
     max-sm:text-lg`}
-    -webkit-text-stroke: 0.5px lightgray;
+  -webkit-text-stroke: 0.5px lightgray;
 `;
 
 const MoveContent = styled.button`
@@ -81,8 +81,8 @@ const MoveContent = styled.button`
 
 const Carousel: React.FC = () => {
   const [isRunning, setIsRunning] = useState(true);
-  const navigate = useNavigate()
-  const setNowPage = useSearchStore(state => state.setNowPage)
+  const navigate = useNavigate();
+  const setNowPage = useSearchStore((state) => state.setNowPage);
 
   const handleMouseEnter = () => {
     setIsRunning(false);
@@ -101,17 +101,23 @@ const Carousel: React.FC = () => {
     });
   };
 
-  const movePage = (url:string) => {
-    setNowPage(url)
-    navigate(`./${url}`)
-  }
+  const movePage = (url: string) => {
+    setNowPage(url);
+    navigate(`./${url}`);
+  };
 
   return (
     <>
       <SlideWrapper>
         <OriginSlides isRunning={isRunning}>
           {contents.map((content, index) => (
-            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={()=> movePage(content.url)} key={index} background={content.background}>
+            <Slide
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => movePage(content.url)}
+              key={index}
+              background={content.background}
+            >
               <ContentName>{content.name}</ContentName>
               <MoveContent onClick={() => handleScroll(index)}> 더 알아보기 ▼ </MoveContent>
             </Slide>
@@ -120,7 +126,13 @@ const Carousel: React.FC = () => {
 
         <CloneSlides isRunning={isRunning}>
           {contents.map((content, index) => (
-            <Slide onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={()=> movePage(content.url)} key={index} background={content.background}>
+            <Slide
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => movePage(content.url)}
+              key={index}
+              background={content.background}
+            >
               <ContentName>{content.name}</ContentName>
               <MoveContent onClick={() => handleScroll(index)}> 더 알아보기 ↓ </MoveContent>
             </Slide>

@@ -2,7 +2,7 @@
 
 
 ## :link: 내돈내산 링크(웹 화면): [내돈내산 :house: 으로 이동](https://j10e204.p.ssafy.io/)
-## :cinema: 소개 영상 보기: [UCC ]()|[ 시연영상]()
+## :cinema: 소개 영상 보기: [UCC](https://youtu.be/SHvd28duZ0A)
 ## 소개 PPT: [내돈내산 PPT]()
 
 ## :date: 프로젝트 진행 기간
@@ -12,6 +12,7 @@ SSAFY 10기 2학기 특화 프로젝트 - 내돈내산 :house:
 
 
 ## :cherry_blossom: 내돈내산 기획 배경
+:bulb: 지방 거주자가 서울에 자취방을 구할 때 정보 부족으로 인한 어려움을 해결
 
 ## :fish_cake: 내돈내산 기능
 
@@ -425,8 +426,6 @@ Back
 - [API 명세서](https://www.notion.so/API-5ee34edf880f426bb3e901878e650d00)
 - [ERD](https://www.notion.so/DB-ERD-a3b7e487c42c4cf8a5835055831efa82)
 - [포팅 매뉴얼](https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22E204/-/blob/master/exec/%ED%8F%AC%ED%8C%85%EB%A7%A4%EB%89%B4%EC%96%BC.md?ref_type=heads)
-
-## :bulb: 개발 문화
 
 
 ## :family: 팀원 소개

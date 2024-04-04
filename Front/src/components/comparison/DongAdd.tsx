@@ -111,6 +111,7 @@ const DongAdd: React.FC<DongAddProps> = ({ setSelected1, setSelected2, selected1
         content: '이미 선택된 동네입니다.<br />다른 동네를 선택해주세요.',
         icon: 'info',
       });
+      return;
     }
 
     if (!selected1) {

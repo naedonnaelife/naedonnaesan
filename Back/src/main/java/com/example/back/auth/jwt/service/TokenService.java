@@ -43,10 +43,9 @@ public class TokenService {
     }
 
     public DecodedJWT verifyToken(String token) throws TokenExpiredException {
-        String refreshToken = token.substring(7);
         Algorithm algorithm = Algorithm.HMAC256(JwtProperties.SECRET);
         JWTVerifier verifier = JWT.require(algorithm).build();
-        return verifier.verify(refreshToken);
+        return verifier.verify(token);
     }
 
 

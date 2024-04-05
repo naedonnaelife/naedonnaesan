@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/oauth").permitAll() // /api/oauth에 대한 접근을 누구나 할 수 있도록 허용
-                .antMatchers("/api/**").access("hasRole('USERDDD')"); // 기타 /api/** 경로는 User 역할을 가진 사용자만 접근 가능
+                .antMatchers("/api/**").access("hasRole('ROLE_USER')"); // 기타 /api/** 경로는 User 역할을 가진 사용자만 접근 가능
 
         return http.build();
     }

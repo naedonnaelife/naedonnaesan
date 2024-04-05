@@ -57,9 +57,7 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity http) {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
-            http
-                    .addFilter(corsConfig.corsFilter())
-                    .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository, tokenService));
+            http.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository, tokenService));
         }
     }
 }

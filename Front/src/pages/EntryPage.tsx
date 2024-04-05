@@ -1,5 +1,6 @@
 import tw, { styled } from 'twin.macro';
 import { keyframes } from '@emotion/react';
+import UserStore from '../stores/UserStore';
 import Card from '../components/entry/reuse/Card';
 import Carousel from '../components/entry/reuse/Carousel';
 import KakaoLogin from '../components/entry/KakaoLogin';

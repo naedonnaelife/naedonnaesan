@@ -3,7 +3,7 @@
 
 ## :link: 내돈내산 링크(웹 화면): [내돈내산 :house: 으로 이동](https://j10e204.p.ssafy.io/)
 ## :cinema: 소개 영상 보기: [UCC](https://youtu.be/SHvd28duZ0A)
-## 소개 PPT: [내돈내산 PPT]()
+## 소개 PPT: [내돈내산 PPT](https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22E204/-/blob/master/exec/10%EA%B8%B0_%ED%8A%B9%ED%99%94PJT_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C_E204.pdf?ref_type=heads)
 
 ## :date: 프로젝트 진행 기간
 **2024.02.19(월) ~ 2024.04.04(목)**: 6weeks

@@ -47,6 +47,8 @@ public class SecurityConfig {
                 .apply(new CustomFilter()) // 커스텀 필터 추가
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/oauth").permitAll()
+                .antMatchers("/api/token").permitAll()
                 .antMatchers("/api/**").access("hasRole('ROLE_USER')"); // 기타 /api/** 경로는 User 역할을 가진 사용자만 접근 가능
 
         return http.build();

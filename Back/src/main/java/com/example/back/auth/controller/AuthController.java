@@ -63,7 +63,7 @@ public class AuthController {
     @GetMapping("/token")
     public ResponseEntity<Message> getToken(HttpServletRequest request){
 
-        String refreshToken = request.getHeader("authorization-refresh");
+        String refreshToken = request.getHeader("authorization");
         JwtToken jwtToken = tokenService.verifyRefreshToken(refreshToken);
 
         Message message = new Message(HttpStatusEnum.OK, "엑세스 토큰, 리프레시 토큰 재발급 완료", jwtToken.getId());

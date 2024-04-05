@@ -28,7 +28,7 @@ const UseAxios = (): AxiosInstance => {
         originalRequest._retry = true;
 
         try {
-          const response = await axios.get(`${API_URL}/token`, {
+          const response = await axios.get(`${API_URL}/api/token`, {
             headers: { authorization: localStorage.getItem('refreshToken') },
           });
 

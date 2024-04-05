@@ -76,8 +76,10 @@ public class TokenService {
             String redisTokenKey = JwtProperties.REDIS_REFRESH_PREFIX + role + "_" + id;
             String redisToken = redisService.getValues(redisTokenKey);
 
-            //System.out.println("레디스 리프레시 토큰  : " + redisToken);
+            System.out.println("레디스 리프레시 토큰  : " + redisToken);
             String realRefreshToken = jwt.getToken();
+            System.out.println("리프레시 토큰1  : " + refreshToken);
+            System.out.println("리얼 리프레시 토큰  : " + realRefreshToken);
             // Redis 토큰과 입력받은 토큰이 일치하면 새로운 토큰 생성
             if(realRefreshToken.equals(redisToken)) {
                 return createToken(role, Long.parseLong(id));

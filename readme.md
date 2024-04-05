@@ -13,8 +13,8 @@ SSAFY 10기 2학기 특화 프로젝트 - 내돈내산 :house:
 
 ## :cherry_blossom: 내돈내산 기획 배경
 :bulb: 지방 거주자가 서울에 자취방을 구할 때 정보 부족으로 인한 어려움을 해결
-
-## :fish_cake: 내돈내산 기능
+:heavy_check_mark: 집을 구할 때 인프라를 기준으로 동네를 정할 수 있도록 **인프라 기반 선호도** 조사
+:heavy_check_mark: 인프라 기반으로 동을 군집화하여 적절한 동네를 사용자에게 추천해준다!
 
 ## :hammer: 개발 환경 및 기술 스택
 ### FE
@@ -419,6 +419,24 @@ Back
 
 
 ## :sparkler: 내돈내산 주요 기능
+### 0. 입장 페이지
+![EntryPage](./exec/entrypage.gif)
+
+### 1. 동네 추천 페이지
+![동네 추천 페이지](./exec/searchdong.gif)
+![동네 추천 페이지2](./exec/searchdong_polygon.gif)
+
+### 2. 매물 페이지
+![매물 페이지](./exec/houses.gif)
+
+### 3. 동네 비교 페이지
+![동네 비교 페이지](./exec/compare.gif)
+
+### 4. 동네 정보 페이지
+![동네 정보 페이지](./exec/info.gif)
+
+### 5. 마이페이지
+![마이 페이지](./exec/mypage.gif)
 
 ## :memo: 프로젝트 산출물
 - [프로토타입](https://www.figma.com/file/bBPcUcmCZg5fgGhJ1OfW6r/%EB%82%B4%EB%8F%88%EB%82%B4%EC%82%B0?type=design&node-id=0-1&mode=design&t=Usom68rZGy5AMPmq-0)

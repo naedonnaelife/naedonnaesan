@@ -11,7 +11,7 @@ const UseAxios = (): AxiosInstance => {
   axiosInstance.interceptors.request.use(
     (config) => {
       config.headers['authorization'] = localStorage.getItem('accessToken');
-      // config.headers['authorization'] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIxMTU5OTgsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.qneo1G5T1MtTRc02XkXqrQJGxqO8mG2NQ24AlFUXDH0"
+      console.log('요청 보냄 : ', config)
       return config;
     },
     async (error) => {
@@ -21,9 +21,11 @@ const UseAxios = (): AxiosInstance => {
 
   axiosInstance.interceptors.response.use(
     (response) => {
+      console.log('응답 : ', response)
       return response;
     },
     async (error) => {
+      console.log('에러 응답 : ', error)
       const originalRequest = error.config;
 
       if (error.response.status === 401 && !originalRequest._retry) {

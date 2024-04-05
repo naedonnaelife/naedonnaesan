@@ -1,6 +1,5 @@
 import tw, { styled } from 'twin.macro';
 import { keyframes } from '@emotion/react';
-// import UserStore from '../stores/UserStore';
 import Card from '../components/entry/reuse/Card';
 import Carousel from '../components/entry/reuse/Carousel';
 import KakaoLogin from '../components/entry/KakaoLogin';
@@ -38,6 +37,7 @@ const P = styled.p`
   max-sm:text-lg`}
   animation : ${fadeIn} 1s ease-in-out
 `;
+
 
 const EntryPage:React.FC = () => {
 

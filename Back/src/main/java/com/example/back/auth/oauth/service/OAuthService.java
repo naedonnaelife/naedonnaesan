@@ -70,7 +70,7 @@ public class OAuthService {
         });
         if( realUser.getAge() == 0) oAuthDto.setIsFirst("True");
 
-        JwtToken tokenInfo = tokenService.createToken("USER", realUser.getUserId());
+        JwtToken tokenInfo = tokenService.createToken("ROLE_USER", realUser.getUserId());
         oAuthDto.setTokenInfo(tokenInfo);
         return oAuthDto;
 

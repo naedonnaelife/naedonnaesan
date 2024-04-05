@@ -42,7 +42,14 @@ public class TokenService {
 
     }
 
-    public DecodedJWT verifyToken(String token) throws TokenExpiredException {
+    public DecodedJWT validateToken(String token) throws TokenExpiredException {
+        String realToken = token.substring(7);
+        Algorithm algorithm = Algorithm.HMAC256(JwtProperties.SECRET);
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        return verifier.verify(realToken);
+    }
+
+    public DecodedJWT validateRefershToken(String token) throws TokenExpiredException {
         Algorithm algorithm = Algorithm.HMAC256(JwtProperties.SECRET);
         JWTVerifier verifier = JWT.require(algorithm).build();
         return verifier.verify(token);
@@ -53,7 +60,7 @@ public class TokenService {
     /**
      * 현재 return -> accessToken 값만 리턴함
      * 아이디어
-     *  - accessToken과 refreshToken을 함께 리턴하도록 함 (JWT)
+     *  - accessToken과 refreshToken을 함께 리턴하도록 함 (RTR)
      *  - 만약에 refreshToken이 기존과 다르다면 exception을 처리해서 다른 값을 리턴하도록 해야함
      *      -> exception을 만들어서 해당 문제 발생시 throw 시키기
      */
@@ -61,7 +68,7 @@ public class TokenService {
     public JwtToken verifyRefreshToken(String refreshToken) {
         try {
             // JWT 서명 검증
-            DecodedJWT jwt = verifyToken(refreshToken);
+            DecodedJWT jwt = validateRefershToken(refreshToken);
 
             // 토큰에서 role과 id 추출
             String role = jwt.getClaim("role").asString();
@@ -119,7 +126,7 @@ public class TokenService {
 
     // 로그아웃시 redis의 리프레시 토큰 날려버리기
     public Long deleteRefreshToken(String accessToken){
-        DecodedJWT jwt = verifyToken(accessToken);
+        DecodedJWT jwt = validateToken(accessToken);
 
         String role = jwt.getClaim("role").asString();
         String id = jwt.getClaim("id").toString();

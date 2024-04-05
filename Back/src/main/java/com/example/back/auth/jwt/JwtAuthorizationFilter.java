@@ -90,7 +90,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private Authentication authenticateToken(String token) {
         // 토큰 검증 (이게 인증이기 때문에 AuthenticationManager도 필요 없음)
-        DecodedJWT decodedJWT = tokenService.verifyToken(token);
+        DecodedJWT decodedJWT = tokenService.validateToken(token);
         // 토큰에서 role, id 추출
         String role = decodedJWT.getClaim("role").asString();
         String id = decodedJWT.getClaim("id").toString();

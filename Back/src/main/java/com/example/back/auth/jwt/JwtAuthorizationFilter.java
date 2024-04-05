@@ -53,7 +53,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         // refreshToken으로 수행하는데 AccessToken 재발급하는 요청이면 해당필터 안타게하자.
-        if ("/api/refreshToken".equals(path)) {
+        if ("/api/token".equals(path)) {
             chain.doFilter(request, response);
             return;
         }

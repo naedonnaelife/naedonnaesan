@@ -1,5 +1,5 @@
 # :house_with_garden: 내돈내산 - 인프라 기반 동네 추천 웹 사이트
-
+![icon](./exec/icon.png)
 
 ## :link: 내돈내산 링크(웹 화면): [내돈내산 :house: 으로 이동](https://j10e204.p.ssafy.io/)
 ## :cinema: 소개 영상 보기: [UCC](https://youtu.be/SHvd28duZ0A)

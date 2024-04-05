@@ -20,6 +20,7 @@ public class UserSimple {
 
     public List<String> getRoleList(){
         if(this.roles.length() > 0){
+            System.out.println(roles);
             return Arrays.asList(this.roles.split(","));
         }
         return new ArrayList<>();

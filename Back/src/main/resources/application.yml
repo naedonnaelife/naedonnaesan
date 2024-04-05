@@ -23,6 +23,11 @@ spring:
     host: j10e204.p.ssafy.io
     port: 6379
     password: 'ssafy'
+logging:
+  level:
+    org:
+      springframework:
+        security=DEBUG:
 #logging.level:
 #  org.hibernate.SQL: debug
 #  org.hibernate.type.descriptor.sql: trace

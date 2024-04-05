@@ -67,7 +67,7 @@ public class TokenService {
             // 토큰에서 role과 id 추출
             String role = jwt.getClaim("role").asString();
             String id = jwt.getClaim("id").toString();
-
+            System.out.println("id : " + id);
             // id가 null일때 -> 유효하지 않은 refreshToken
             if(id == null)
                 throw new RefreshTokenIncorrectException("유효하지 않은 refreshToken입니다.");

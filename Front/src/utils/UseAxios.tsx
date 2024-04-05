@@ -41,6 +41,8 @@ const UseAxios = (): AxiosInstance => {
           localStorage.setItem('accessToken', newAccessToken);
           localStorage.setItem('refreshToken', newRefreshToken);
 
+          originalRequest.headers['authorization'] = newAccessToken;
+
           return axiosInstance(originalRequest);
         } catch (error) {
           console.error('Error refreshing token:', error);

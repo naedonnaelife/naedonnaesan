@@ -60,10 +60,10 @@ public class ReportService {
             // 사용자와 동에 해당하는 찜(Zzim) 조회
             Optional<Zzim> existingZzim = zzimRepository.findByUserAndDong(user, dong);
 
-            boolean isZzim = false;
+            boolean zzim = false;
             // 이미 존재하는 경우 처리. 근데 뭘 하는게 좋을지 모르겠음
             if (existingZzim.isPresent()) {
-                isZzim = true;
+                zzim = true;
             }
 
             Double dongX = new Double(dong.getDongX());
@@ -73,7 +73,7 @@ public class ReportService {
 
             Double distance = distance(dongX, dongY, userX, userY);
 
-            ResponseDto responseDto = new ResponseDto(dongId, dong.getGu().getGuName(), isZzim, distance);
+            ResponseDto responseDto = new ResponseDto(dongId, dong.getGu().getGuName(),zzim, distance);
             responseDtos.add(responseDto);
         }
 

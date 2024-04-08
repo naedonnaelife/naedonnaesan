@@ -6,11 +6,10 @@ const UseAxios = (): AxiosInstance => {
   const axiosInstance = axios.create({
     baseURL: API_URL,
   });
-
+  
   axiosInstance.interceptors.request.use(
     (config) => {
       config.headers['authorization'] = localStorage.getItem('accessToken');
-      // config.headers['authorization'] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3MiLCJleHAiOjE3MTIyNTk3NDIsInJvbGUiOiJVU0VSIiwiaWQiOjJ9.u4xBQPm7t9NPYF2IhhQf9vexWMMu6BRaGjqrRQ7k0Hw"
       return config;
     },
     async (error) => {
@@ -29,7 +28,7 @@ const UseAxios = (): AxiosInstance => {
         originalRequest._retry = true;
 
         try {
-          const response = await axios.get(`${API_URL}/token`, {
+          const response = await axios.get(`${API_URL}/api/token`, {
             headers: { authorization: localStorage.getItem('refreshToken') },
           });
 
@@ -38,6 +37,8 @@ const UseAxios = (): AxiosInstance => {
 
           localStorage.setItem('accessToken', newAccessToken);
           localStorage.setItem('refreshToken', newRefreshToken);
+
+          originalRequest.headers['authorization'] = newAccessToken;
 
           return axiosInstance(originalRequest);
         } catch (error) {

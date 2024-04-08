@@ -40,6 +40,7 @@ const P = styled.p`
   animation : ${fadeIn} 1s ease-in-out
 `;
 
+
 const EntryPage:React.FC = () => {
   const setIsLogin = UserStore(state => state.setIsLogin)
   useEffect(()=>{

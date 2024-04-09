@@ -52,7 +52,6 @@ public class UserService {
         Gender gender = formDto.getGender();
         Coordinate coordinate = formDto.getCoordinate();
         String dongName = formDto.getDongName();
-        System.out.println(dongName+"을 넣어주니");
 
         User user = getUser();
         user.setAge(age);

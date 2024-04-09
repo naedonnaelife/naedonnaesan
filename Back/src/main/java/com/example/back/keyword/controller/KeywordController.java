@@ -22,7 +22,6 @@ public class KeywordController {
     @GetMapping
     public ResponseEntity<Message> getTodayKeywords(){
         LocalDate today = LocalDate.now();
-        System.out.println("오늘의 날짜: " + today);
         KeywordDto keywordDto = keywordService.getKeyword(today.toString());
         Message message = new Message(HttpStatusEnum.OK, "오늘의 뉴스 키워드 조회 완료", keywordDto);
         return new ResponseEntity<>(message, HttpStatus.OK);

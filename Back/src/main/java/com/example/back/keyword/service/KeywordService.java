@@ -13,7 +13,6 @@ public class KeywordService {
 
     public KeywordDto getKeyword(String date){
         Keyword keyword = keywordRepository.findByDate(date);
-        System.out.println(keyword);
         return new KeywordDto(keyword.getId(), keyword.getDate(), keyword.getKeywords());
     }
 }

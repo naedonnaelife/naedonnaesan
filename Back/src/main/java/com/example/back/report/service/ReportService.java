@@ -37,7 +37,6 @@ public class ReportService {
         User user = userService.getUser();
 
         ReportDto reportDto = request2Dto.getUserInfo();
-        System.out.println("선호도: " + reportDto);
         List<RecommendationDto> recommendationDtos = request2Dto.getRecommend();
 
         // report 값 저장하기
@@ -89,7 +88,6 @@ public class ReportService {
         if (count != 0){
             // 가장 최근에 한 값을 return 해줌
             Report report = reportList.get(count-1);
-            System.out.println(report.getReportId());
 
             ReportDto reportDto = new ReportDto(report.getConvReport(), report.getSafetyReport(), report.getHealthReport(), report.getFoodReport(), report.getTranspReport(), report.getLeisureReport(), report.getCafeReport(), report.getPubReport());
 

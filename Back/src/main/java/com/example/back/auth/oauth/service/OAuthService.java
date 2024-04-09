@@ -124,7 +124,6 @@ public class OAuthService {
 
         ObjectMapper objectMapper = new ObjectMapper();
         KakaoProfile kakaoProfile = null;
-        //System.out.println(kakaoProfileResponse.getBody());
         try {
             kakaoProfile = objectMapper.readValue(kakaoProfileResponse.getBody(), KakaoProfile.class);
         } catch (JsonProcessingException e) {

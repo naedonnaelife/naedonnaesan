@@ -50,8 +50,6 @@ public class BuildingController {
     public ResponseEntity<Message> getDongBuilding(@RequestParam(value = "dongname") String dongName ){
 
         List<BuildingXYDto> buildingList = buildingService.getDongBuildings(dongName);
-        System.out.println(buildingList.size());
-
         Message message = new Message(HttpStatusEnum.OK, "해당 동의 빌딩 좌표 조회 완료", buildingList);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

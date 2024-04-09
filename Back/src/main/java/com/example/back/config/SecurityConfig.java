@@ -1,6 +1,6 @@
 package com.example.back.config;
 
-import com.example.back.auth.jwt.JwtAuthorizationFilter;
+import com.example.back.auth.jwt.JwtAuthenticationFilter;
 import com.example.back.auth.jwt.service.TokenService;
 import com.example.back.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +58,7 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity http) {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
-            http.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository, tokenService));
+            http.addFilter(new JwtAuthenticationFilter(authenticationManager, userRepository, tokenService));
         }
     }
 }

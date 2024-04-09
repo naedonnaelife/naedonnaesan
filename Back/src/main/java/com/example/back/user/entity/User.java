@@ -66,7 +66,5 @@ public class User {
         this.x = addressDto.getX();
         this.y = addressDto.getY();
         this.dongName = addressDto.getDongName();
-
-        System.out.println(this.userId+"의 주소를 "+this.getBAddress()+"로 변경, x: "+this.x +" y: "+this.y);
     }
 }

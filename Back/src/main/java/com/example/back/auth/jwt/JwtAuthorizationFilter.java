@@ -52,15 +52,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        // refreshToken으로 수행하는데 AccessToken 재발급하는 요청이면 해당필터 안타게하자.
+        // refreshToken으로 수행하는데 AccessToken 재발급하는 요청이면 해당필터 pass
         if ("/api/token".equals(path)) {
             chain.doFilter(request, response);
             return;
         }
-
-        // 아래 주석 풀고 현재 시큐리티 세션의 Authentication에 뭐가 저장되어있는지 보기.
-//        Authentication authenticationBefore = SecurityContextHolder.getContext().getAuthentication();
-//        log.info("Before processing request: Authentication is {}", authenticationBefore);
 
         // 요청 헤더에 Authorization 값이 없거나 Bearer로 시작하지 않으면
         // 즉 정상적인 사용자가 아니면 다음 필터로 넘기자
@@ -72,20 +68,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         try {
             Authentication authentication = authenticateToken(accessToken);
-            // 강제로 시큐리티의 세션에 authentication 객체를 저장 왜? 요청 URL에 승인되는 Role을 가진 사람인지 검증하기 위해!
+            // 강제로 시큐리티의 세션에 authentication 객체를 저장
+            // 왜? 요청 URL에 승인되는 Role을 가진 사람인지 검증하기 위해!
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception e) {
+            // 예외 발생하면 더 이상 필터 안타고 클라이언트로 response 날려주기
             handleException(response, e);
-            // 예외 발생하면 더이상 필터 안타고 클라이언트로 response 날려주기
             return;
         }
 
         // 이상 없으므로 다음 필터로 넘겨주자.
         chain.doFilter(request, response);
-
-        // 아래 주석 풀고 현재 시큐리티 세션의 Authentication에 뭐가 저장되어있는지 보기.
-//        Authentication authenticationAfter = SecurityContextHolder.getContext().getAuthentication();
-//        log.info("After processing request: Authentication is {}", authenticationAfter);
     }
 
     private Authentication authenticateToken(String token) {

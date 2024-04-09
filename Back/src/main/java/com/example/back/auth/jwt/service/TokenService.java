@@ -73,19 +73,13 @@ public class TokenService {
             // 토큰에서 role과 id 추출
             String role = jwt.getClaim("role").asString();
             String id = jwt.getClaim("id").toString();
-            System.out.println("id : " + id);
             // id가 null일때 -> 유효하지 않은 refreshToken
-            if(id == null)
-                throw new RefreshTokenIncorrectException("유효하지 않은 refreshToken입니다.");
-
+            if(id == null) throw new RefreshTokenIncorrectException("유효하지 않은 refreshToken입니다.");
             // 레디스에서 refreshToken 가져오기
             String redisTokenKey = JwtProperties.REDIS_REFRESH_PREFIX + role + "_" + id;
             String redisToken = redisService.getValues(redisTokenKey);
 
-            System.out.println("레디스 리프레시 토큰  : " + redisToken);
             String realRefreshToken = jwt.getToken();
-            System.out.println("리프레시 토큰1  : " + refreshToken);
-            System.out.println("리얼 리프레시 토큰  : " + realRefreshToken);
             // Redis 토큰과 입력받은 토큰이 일치하면 새로운 토큰 생성
             if(realRefreshToken.equals(redisToken)) {
                 return createToken(role, Long.parseLong(id));

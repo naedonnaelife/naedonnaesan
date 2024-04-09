@@ -51,7 +51,7 @@ public class User {
     // 카카오 로그인용 생성자
     public User(Long kakaoid){
         this.kakaoId = kakaoid;
-        this.roles = "USER";
+        this.roles = "ROLE_USER";
     }
     public List<String> getRoleList(){
         if(this.roles.length() > 0){

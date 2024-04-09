@@ -52,7 +52,7 @@ public class OAuthService {
         // 카카오 에서 발급받은 Token으로 카카오 회원 정보 가져오기
         KakaoProfile profile = findProfile(token);
 
-//        // 이메일이 없으면 null 리턴
+        // 이메일이 없으면 null 리턴
         if (profile.getKakao_account().getEmail() == null){
             return null;
         }
@@ -70,7 +70,7 @@ public class OAuthService {
         });
         if( realUser.getAge() == 0) oAuthDto.setIsFirst("True");
 
-        JwtToken tokenInfo = tokenService.createToken("ROLE_USER", realUser.getUserId());
+        JwtToken tokenInfo = tokenService.createToken(realUser.getRoles(), realUser.getUserId());
         oAuthDto.setTokenInfo(tokenInfo);
         return oAuthDto;
 

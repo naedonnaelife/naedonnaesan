@@ -450,12 +450,12 @@ Back
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/jo-dv"><img src="./readme_files/윤태호.png" width="100px;" alt=""/><br /><sub><b>BE 팀장 : 조우재</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/MunsooKang"><img src="./readme_files/강문수.png" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 강문수</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/jjm6604"><img src="./readme_files/장지민.png" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 장지민</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/subin22643"><img src="./readme_files/박수빈.png" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 박수빈</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/makie082"><img src="./readme_files/우미경.png" width="100px;" alt=""/><br /><sub><b>BE 팀원 : 우미경</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/ttaho"><img src="./readme_files/윤태호.png" width="100px;" alt=""/><br /><sub><b>BE 팀원 : 윤태호</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/jo-dv"><img src="https://avatars.githubusercontent.com/u/63555689?v=4" width="100px;" alt=""/><br /><sub><b>BE 팀장 : 조우재</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/MunsooKang"><img src="https://avatars.githubusercontent.com/u/139415941?v=4" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 강문수</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/jjm6604"><img src="https://avatars.githubusercontent.com/u/81950388?v=4" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 장지민</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/subin22643"><img src="https://avatars.githubusercontent.com/u/139415947?v=4" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 박수빈</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/makie082"><img src="https://avatars.githubusercontent.com/u/75782242?v=4" width="100px;" alt=""/><br /><sub><b>BE 팀원 : 우미경</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/ttaho"><img src="https://avatars.githubusercontent.com/u/109134365?v=4" width="100px;" alt=""/><br /><sub><b>BE 팀원 : 윤태호</b></sub></a><br /></td>
     </tr>
   </tbody>
 </table>

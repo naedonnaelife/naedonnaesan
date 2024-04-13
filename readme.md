@@ -54,6 +54,9 @@ SSAFY 10기 2학기 특화 프로젝트 - 내돈내산 :house:
 <img src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white">
 <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white">
 
+## ERD
+![image](https://github.com/naedonnaelife/naedonnaesan/assets/109134365/c0c2cddb-007f-49f6-8e7d-31060bd712a5)
+
 
 ## :bar_chart: 아키텍처 구조
 ![아키텍처구조](./exec/아키텍처구조.png)
